@@ -11,6 +11,8 @@ import { FormlyFieldCaptch } from './formly-components/formly-field-captch';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormlyFieldSelect } from './formly-components/formly-field-select';
+import { FormlyFieldSlider } from './formly-components/formly-field-slider';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 
 export function formlyValidationConfig(translate: TranslateService) {
@@ -32,11 +34,11 @@ export function formlyValidationConfig(translate: TranslateService) {
     FormlyFieldInput,
     FormlyFieldRadio,
     FormlyFieldCaptch,
-    FormlyFieldSelect
+    FormlyFieldSelect,
+    FormlyFieldSlider
   ],
   imports: [
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     FormlyBootstrapModule,
     FormlyModule.forChild({
@@ -45,18 +47,19 @@ export function formlyValidationConfig(translate: TranslateService) {
           { name: 'radio', component: FormlyFieldRadio },
           { name: 'captch', component: FormlyFieldCaptch },
           { name: 'select', component: FormlyFieldSelect },
-
+          { name: 'slider', component: FormlyFieldSlider },
         ]
     }),
     InlineSVGModule,
     NgxCaptchaModule,
-    NgSelectModule
+    NgSelectModule,
+    NgxSliderModule
   ],
   exports:[
-    FormsModule,
     ReactiveFormsModule,
     FormlyModule,
-    InlineSVGModule
+    InlineSVGModule,
+    NgxSliderModule
   ],
   providers: [
     { provide: FORMLY_CONFIG, multi: true, useFactory: formlyValidationConfig, deps: [TranslateService] },

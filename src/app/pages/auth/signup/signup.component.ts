@@ -10,7 +10,6 @@ export class SignupComponent extends AppBaseComponent implements OnInit {
 
 
 
-
   constructor(
     injector: Injector,
    ) {

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PagesComponent } from './pages.component';
 import { Route, RouterModule } from '@angular/router';
 import { LayoutModule } from '../layout/layout.module';
-import { AboutAuComponent } from './about-au/about-au.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const route: Route[] = [
   {
@@ -12,14 +12,18 @@ const route: Route[] = [
   },
   {
     path: 'about-us',
-    component:AboutAuComponent
-  }
+    component:AboutUsComponent
+  },
+  {
+    path: 'products',
+    loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
+  },
 ]
 
 @NgModule({
   declarations: [
     PagesComponent,
-    AboutAuComponent
+    AboutUsComponent
   ],
   imports: [
     CommonModule,

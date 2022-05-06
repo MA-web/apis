@@ -5,9 +5,9 @@ import { FieldType } from '@ngx-formly/core';
   selector: 'formly-field-input',
   template: `
 
-<div class="select-apis select-apis-1 position-relative">
+<div class="select-apis select-apis-1 position-relative" [ngClass]="{'with-icon':  to.icon}">
 <span><img [src]="'assets/icons/' + to.icon" *ngIf="to.icon"></span>
-  <ng-select [formControl]="formControl" [formlyAttributes]="field">
+  <ng-select [formControl]="formControl" [formlyAttributes]="field" [multiple]="to?.multiple">
    <ng-option *ngFor="let option of to.option" [value]="option.id">{{option.name}}</ng-option>
 </ng-select>
 </div>

@@ -1,0 +1,73 @@
+   <!-- start products -->
+   <div class="section-apis">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="filter-by">
+                    <h4>Filter by</h4>
+
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                      <formly-form class="row" [form]="form" [model]="model" [fields]="fields"> </formly-form>
+
+                      <div class="d-flex flex-wrap gap-2">
+                        <button type="submit" class="apis-button btn-danger px-3">
+                          <span [inlineSVG]="'assets/icons/delete.svg'"></span>
+                          {{'reset' | translate}}</button>
+
+                          <button type="submit" class="apis-button btn-success px-5">
+                            <span [inlineSVG]="'assets/icons/search2.svg'"></span>
+                            {{'search' | translate}}</button>
+                      </div>
+
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="the-title">
+                            <h2>Products<span class="number-items">50 Product</span></h2>
+                        </div>
+                    </div>
+                    <div class="col-md-4 view">
+                        <div class="filter-grid">
+                            <button type="button" class="grid-12" (click)="onTogglingView('list')"><img src="assets/img/view_list_black_24dp.svg"></button>
+                            <span><img src="assets/img/Line%2011.svg"></span>
+                            <button type="button" class="grid-6" (click)="onTogglingView('grid')"><img src="assets/img/grid_view_black_24dp.svg"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row filter-grid-row">
+                    <div class="col-sm-6">
+                        <app-product-card></app-product-card>
+                    </div>
+                    <div class="col-sm-6">
+                      <app-product-card></app-product-card>
+                    </div>
+                    <div class="col-sm-6">
+                      <app-product-card></app-product-card>
+                    </div>
+                    <div class="col-sm-6">
+                      <app-product-card></app-product-card>
+                    </div>
+                    <div class="col-sm-6">
+                      <app-product-card></app-product-card>
+                    </div>
+                    <div class="col-sm-6">
+                      <app-product-card></app-product-card>
+                    </div>
+                </div>
+                <div style="margin-top: 20px">
+                    <div class="d-flex justify-content-center">
+                      <pagination [boundaryLinks]="true" [totalItems]="77"
+                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+
+                    </pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end products -->

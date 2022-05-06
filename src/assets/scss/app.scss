@@ -7,9 +7,7 @@ body {
 @import './variables';
 
 
-.main-bg {
-  background-color: $mainColor;
-}
+
 
 .wrapper {
   width: 100%;
@@ -317,9 +315,6 @@ body {
   top: 40%
 }
 
-.products {
-  margin: 60px 0
-}
 
 .view {
   text-align: right
@@ -342,7 +337,7 @@ body {
 }
 
 .link {
-  color: #1AAFD1;
+  color: $active-link2;
   font-size: 18px;
   font-weight: 600
 }
@@ -618,10 +613,10 @@ body {
 }
 
 .subscribe .btn {
-  background: #1AAFD1;
+  background: $active-link2;
   border-radius: 20px 20px 20px 0 !important;
   transition: all .2s ease-in-out;
-  border-color: #1AAFD1;
+  border-color: $active-link2;
   color: #fff;
   position: absolute;
   right: -15px;
@@ -674,54 +669,15 @@ body {
 
 .number-items {
   font-size: 14px;
-  color: #1AAFD1;
+  color: $active-link2;
   font-weight: 700;
   padding: 6px 20px;
   margin-left: 20px;
   background: rgb(26 175 209 / 10%);
   border-radius: 20px;
-  border: 1px solid #1AAFD1
+  border: 1px solid $active-link2
 }
 
-.pagination-apis .page-item:first-of-type .page-link,
-.pagination .page-item:last-of-type .page-link {
-  background: #1AAFD1;
-  width: 44px;
-  height: 38px;
-  line-height: 35px;
-  padding: 0;
-  text-align: center;
-}
-
-.pagination-apis .page-item:first-of-type .page-link {
-  margin-right: 70px
-}
-
-.pagination-apis .page-item:last-of-type .page-link {
-  margin-left: 70px
-}
-
-.pagination-apis .page-item.disabled .page-link {
-  background: rgb(94 199 222 / 32%)
-}
-
-.pagination-apis .page-link {
-  border-radius: 10px 4px 10px 8px;
-  margin: 0 10px;
-  color: #fff;
-  transition: all .2s ease-in-out;
-  background: rgb(94 199 222 / 32%);
-  border: 1px solid rgb(94 199 222 / 32%)
-}
-
-.pagination-apis .page-link:hover {
-  background-color: #1AAFD1
-}
-
-.pagination-apis .page-item.active .page-link {
-  background-color: #1AAFD1;
-  border-color: #1AAFD1
-}
 
 .product {
   position: relative;
@@ -777,93 +733,8 @@ body {
   margin-bottom: 20px
 }
 
-.select-apis select.form-control {
-  padding: 0.2rem 0.75rem 0.375rem 1.1rem;
-  border-radius: 25px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: transparent;
-  background-image: url(../img/select.svg);
-  background-repeat: no-repeat;
-  background-position-x: 97%;
-  background-position-y: 9px;
-  background-color: #fff;
-  color: #756F86
-}
-
-.select-apis>label {
-  color: #756F86;
-  font-size: 18px;
-  font-weight: 600
-}
 
 
-.apis-button {
-  background-color: #FCB813;
-  border: 0;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 25px;
-  padding: .9rem 0.75rem;
-  transition: all .2s ease-in-out;
-  text-transform: uppercase;
-}
-
-.apis-button:hover {
-  opacity: .85;
-  text-decoration: none;
-  color: #fff
-}
-
-.apis-button2 {
-  background: rgb(3 115 164 / 10%);
-  border: 1px solid $mainColor;
-  color: $mainColor
-}
-
-.apis-button2:hover {
-  color: $mainColor
-}
-
-
-
-.form-group>label {
-  color: #756F86;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.input-apis input[type="text"],
-.input-apis input[type="password"] {
-  border-radius: 25px
-}
-
-
-
-.link-1 {
-  color: #1AAFD1;
-  font-size: 14px;
-  font-weight: 700
-}
-
-.link-1:hover {
-  text-decoration: none;
-  color: #1AAFD1;
-  opacity: .85;
-  transition: all .2s ease-in-out
-}
-
-.link-2 {
-  color: #24B6F7;
-  text-decoration: underline
-}
-
-.link-2:hover {
-  color: #24B6F7;
-  opacity: .85;
-  transition: all .2s ease-in-out
-}
 
 .sign-q {
   color: #BBBBBB;
@@ -956,7 +827,7 @@ body {
 .breadcrumb-apis .breadcrumb-item.active {
   font-size: 16px;
   font-weight: 700;
-  color: #1AAFD1
+  color: $active-link2
 }
 
 .breadcrumb-apis {
@@ -996,7 +867,7 @@ body {
 }
 
 .supplier-details p span {
-  color: #1AAFD1
+  color: $active-link2
 }
 
 .col-sm-6 .supplier>.row>div {
@@ -1039,9 +910,6 @@ body {
   color: #8d8d8d
 }
 
-.about-apis {
-  padding: 60px 0
-}
 
 .about-text h3 {
   font-weight: 700;
@@ -1069,7 +937,7 @@ body {
 }
 
 .about-play {
-  background-color: #1AAFD1;
+  background-color: $active-link2;
   right: auto;
   left: -30px;
   top: 100px
@@ -1093,7 +961,7 @@ body {
 }
 
 .product-details-2 p span {
-  color: #1AAFD1;
+  color: $active-link2;
   font-weight: 800
 }
 
@@ -1128,7 +996,7 @@ body {
 }
 
 .basic-info h4 {
-  color: #1AAFD1;
+  color: $active-link2;
   font-size: 24px;
   font-weight: 800
 }
@@ -1165,7 +1033,7 @@ body {
 }
 
 .slick-arrow {
-  background: #1AAFD1;
+  background: $active-link2;
   border-radius: 10px 4px 10px 8px;
   width: 40px;
   height: 40px
@@ -1503,29 +1371,18 @@ select.form-control option[value=""][disabled] {
     margin-bottom: 15px
   }
 
-  .pagination-apis .page-link {
-    margin: 0 3px
-  }
 
-  .pagination-apis .page-item:first-of-type .page-link {
-    margin-right: 3px
-  }
-
-  .pagination-apis .page-item:last-of-type .page-link {
-    margin-left: 3px
-  }
 
   .about-apis {
     padding: 30px 0 0
   }
 }
 
-@media screen and (max-width:576px) {
+@media screen and (max-width:633px) {
   .navbar-menu {
     position: absolute;
     top: 20px;
-    right: 15px;
-    width: 130px;
+    right: 0;
     flex-direction: initial;
     padding-right: 0;
     padding-left: revert;
@@ -1717,25 +1574,122 @@ select.form-control option[value=""][disabled] {
 
 
 /***************general*****************/
-.text-success{
-  color: $greenColor !important;
+.text-success {
+  color: $greenColor  !important;
 }
+
 .font-weight-600 {
   font-weight: 600;
 }
+.main-bg {
+  background-color: $mainColor;
+}
+
+.apis-button {
+  background-color: #FCB813;
+  border: 0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 25px;
+  padding: .9rem 0.75rem;
+  transition: all .2s ease-in-out;
+  text-transform: uppercase;
+}
+.btn-warning{
+  background-color: #FCB813;
+}
+.apis-button:hover {
+  opacity: .85;
+  text-decoration: none;
+  color: #fff
+}
+
+.apis-button2 {
+  background: rgb(3 115 164 / 10%);
+  border: 1px solid $mainColor;
+  color: $mainColor
+}
+
+.apis-button2:hover {
+  color: $mainColor
+}
+
+.btn-success{
+  background-color: $greenColor;
+}
+.form-group>label {
+  color: #756F86;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.input-apis input[type="text"],
+.input-apis input[type="password"] {
+  border-radius: 25px
+}
+
+.link-1 {
+  color: $active-link2;
+  font-size: 14px;
+  font-weight: 700
+}
+
+.link-1:hover {
+  text-decoration: none;
+  color: $active-link2;
+  opacity: .85;
+  transition: all .2s ease-in-out
+}
+
+.link-2 {
+  color: #24B6F7;
+  text-decoration: underline
+}
+
+.link-2:hover {
+  color: #24B6F7;
+  opacity: .85;
+  transition: all .2s ease-in-out
+}
+.gap-2 {
+  gap: .5rem!important;
+}
+
+.btn-danger{
+  background-color: rgb(200 35 51 / 10%);
+  border-color: #bd2130;
+  color:#bd2130;
+  &:hover{
+    color: white;
+  }
+}
+.btn-danger:hover svg #Path_457 {
+  fill: #fff!important;
+}
+
+.section-apis {
+  padding: 30px 0
+}
+
 /***************forms*****************/
 .input-apis {
   .form-control {
     padding: 1.375rem 0.75rem;
     border-radius: 25px;
-    padding-left: 55px
   }
 
 }
 
-.ng-select.ng-select-single .ng-select-container {
-  height: 46px;
-  line-height: 46px;
+.input-apis.with-icon {
+  .form-control {
+    padding-left: 55px
+  }
+}
+
+.ng-select .ng-select-container {
+  height: 46px!important;
+  line-height: 46px!important;
 }
 
 .ng-select .ng-select-container {
@@ -1744,6 +1698,83 @@ select.form-control option[value=""][disabled] {
 
 
 
-.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+.with-icon .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
   padding-left: 55px;
+}
+
+
+.ngx-slider .ngx-slider-pointer.ngx-slider-active:after {
+  background-color: white !important;
+
+}
+.ngx-slider .ngx-slider-pointer:after {
+  width: 19px!important;
+  height: 19px!important;
+  top: 3px!important;
+  left: 3px!important;
+  border-radius: 50%!important;
+}
+.ngx-slider .ngx-slider-pointer {
+  width: 25px !important;
+  height: 25px !important;
+  top: -10px !important;
+}
+
+.custom-control-label::before,
+.custom-control-label::after {
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.custom-control-label {
+  padding-left: 11px;
+  font-size: 16px;
+  font-weight: 700;
+  color: $greenColor2;
+  line-height: 2rem;
+  cursor: pointer;
+}
+.custom-control-input{
+  width: 1.5rem;
+
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+  border-color: $greenColor2;
+  background-color: $greenColor2;
+
+}
+
+
+
+/******************pagination*********************/
+.pagination-prev{
+  margin-right: 20px;
+}
+.pagination-next{
+  margin-left: 20px;
+}
+.page-link {
+  border-radius: 10px 4px 10px 8px!important;
+  margin: 0 5px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.page-item.active .page-link,
+.page-item .page-link:hover {
+  background-color: $active-link2;
+  border-color: $active-link2;
+  color: white;
+}
+.page-item.disabled .page-link{
+  background-color: $active-link2;
+  color: white;
+  opacity: .5;
+}
+.page-link{
+  color:  $active-link2;
+}
+
+.pagination-next .page-link,
+.pagination-last .page-link{
+  border-radius: 4px 10px 8px 10px!important;
 }

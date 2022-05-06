@@ -11,14 +11,17 @@ import { NewPasswordComponent } from './new-password/new-password.component';
 import { ActivationEmailComponent } from './activation-email/activation-email.component';
 
 const route: Route[] = [
-  { path: '', component: AuthComponent , children:[
-    { path: 'login', component: LoginComponent },
-    { path: 'signup', component: SignupComponent },
-    { path: 'forget-password', component: ForgetPasswordComponent },
-    { path: 'new-password', component: NewPasswordComponent },
-    { path: 'email-confirm', component: ActivationEmailComponent }
+  {
+    path: '', component: AuthComponent, children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
+      { path: 'signup', component: SignupComponent },
+      { path: 'forget-password', component: ForgetPasswordComponent },
+      { path: 'new-password', component: NewPasswordComponent },
+      { path: 'email-confirm', component: ActivationEmailComponent }
 
-  ]},
+    ]
+  },
 
 ]
 
