@@ -1,0 +1,45 @@
+{
+  "Category": "Category",
+  "Login": "Login",
+  "Signup": "Signup",
+  "Back": "Back",
+  "Home": "Home",
+  "AboutUs": "About Us",
+  "Products": "Products",
+  "News": "News",
+  "Events": "Events",
+  "ContactUs": "Contact Us",
+  "email": "Email",
+  "emailPlaceHolder":"email@email.coms",
+  "password": "Password",
+  "Submit": "Submit",
+  "forgetPassword": "Forget Password?",
+  "areYouNew": "Are You New?",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "accountType": "Account Type",
+  "companyName": "Company Name",
+  "companyLocation": "Company Location",
+  "jobTitle": "Job Title",
+  "rePassword": "Re-Password",
+  "captchaCode": "Captcha Code",
+  "pleaseTypeCodeHere": "Please type code here",
+  "Already_have_an_account":"Already have an account?",
+
+
+  "resetPassword":"RESET PASSWORD",
+  "forgetParagraph":"Enter the email address associated with your account. We will email you a link to reset your password.",
+  "BackToLogin":"Back to Login",
+  "CreateNewPassword":"Create New Password",
+  "NewPasswordParagraph":"Your new password must be different from your previous password",
+  "thankYou":"Thank you!",
+  "confirmationParagraph":"We will send you a confirmation email",
+  "confirmationParagraph2":"with an activation link to get start with APIS.",
+  "Did_not_see_it":"Didn't see it?",
+  "sendAgain":"Send again",
+
+  "validations": {
+    "required": "This field is required!",
+    "PasswordNotMatching":"Password Not Matching!"
+  }
+}

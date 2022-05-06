@@ -1,0 +1,12 @@
+<svg id="grid_view_black_24dp" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Group_195" data-name="Group 195">
+    <rect id="Rectangle_83" data-name="Rectangle 83" width="24" height="24" fill="none"/>
+  </g>
+  <g id="Group_198" data-name="Group 198">
+    <g id="Group_197" data-name="Group 197">
+      <g id="Group_196" data-name="Group 196">
+        <path id="Path_208" data-name="Path 208" d="M3,3v8h8V3ZM9,9H5V5H9ZM3,13v8h8V13Zm6,6H5V15H9ZM13,3v8h8V3Zm6,6H15V5h4Zm-6,4v8h8V13Zm6,6H15V15h4Z" fill="#bbb"/>
+      </g>
+    </g>
+  </g>
+</svg>

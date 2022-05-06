@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Base" width="20" height="20" transform="translate(4093 3751)" fill="#777"/>
+    </clipPath>
+  </defs>
+  <g id="p2" transform="translate(-4088 -3746)">
+    <rect id="Base-2" data-name="Base" width="30" height="30" transform="translate(4088 3746)" fill="none"/>
+    <g id="Mask_Group_24" data-name="Mask Group 24" clip-path="url(#clip-path)">
+      <g id="shopping_cart_checkout_black_24dp" transform="translate(4093 3751)">
+        <g id="Group_224" data-name="Group 224">
+          <rect id="Rectangle_113" data-name="Rectangle 113" width="20" height="20" fill="none"/>
+        </g>
+        <g id="Group_225" data-name="Group 225">
+          <path id="Path_256" data-name="Path 256" d="M5.833,15A1.667,1.667,0,1,0,7.5,16.667,1.664,1.664,0,0,0,5.833,15Zm8.333,0a1.667,1.667,0,1,0,1.667,1.667A1.664,1.664,0,0,0,14.167,15ZM6.75,10.833h6.208a1.659,1.659,0,0,0,1.458-.858L17.5,4.133l-1.458-.8L12.958,9.167H7.108l-3.55-7.5H.833V3.333H2.5l3,6.325L4.375,11.692a1.67,1.67,0,0,0,1.458,2.475h10V12.5h-10ZM10,1.667,13.333,5,10,8.333,8.825,7.158l1.317-1.325H6.667V4.167h3.475L8.817,2.842Z" fill="#777"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

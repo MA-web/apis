@@ -1,0 +1,13 @@
+<h4>{{'Signup' | translate}}</h4>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <formly-form class="row" [form]="form" [model]="model" [fields]="fields"> </formly-form>
+
+
+  <div class="form-group btn-margin">
+    <button type="submit" class="apis-button btn-block">{{'Submit' | translate}}</button>
+  </div>
+  <div class="form-group text-center">
+    <p class="sign-q">{{'Already_have_an_account' | translate}} <a routerLink="/auth/login" class="link-2">{{'Login' | translate}}</a></p>
+  </div>
+</form>

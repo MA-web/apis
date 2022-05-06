@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_97" data-name="Rectangle 97" width="24" height="24" transform="translate(465 317)" fill="#1aafd1"/>
+    </clipPath>
+  </defs>
+  <g id="gram" transform="translate(-465 -317)" clip-path="url(#clip-path)">
+    <g id="balance_black_24dp_1_" data-name="balance_black_24dp (1)" transform="translate(465 317)">
+      <g id="Group_205" data-name="Group 205">
+        <rect id="Rectangle_98" data-name="Rectangle 98" width="24" height="24" fill="none"/>
+      </g>
+      <g id="Group_206" data-name="Group 206">
+        <path id="Path_234" data-name="Path 234" d="M13,7.83A3.016,3.016,0,0,0,14.83,6H18l-3,7a3.279,3.279,0,0,0,3.5,3A3.279,3.279,0,0,0,22,13L19,6h2V4H14.83A3,3,0,0,0,9.17,4H3V6H5L2,13a3.279,3.279,0,0,0,3.5,3A3.279,3.279,0,0,0,9,13L6,6H9.17A3.016,3.016,0,0,0,11,7.83V19H2v2H22V19H13ZM20.37,13H16.63L18.5,8.64Zm-13,0H3.63L5.5,8.64ZM12,6a1,1,0,1,1,1-1A1,1,0,0,1,12,6Z" fill="#1aafd1"/>
+      </g>
+    </g>
+  </g>
+</svg>

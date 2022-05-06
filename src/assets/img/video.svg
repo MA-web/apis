@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="83" height="83" viewBox="0 0 83 83">
+  <defs>
+    <clipPath id="clip-path">
+      <circle id="Ellipse_2" data-name="Ellipse 2" cx="41.5" cy="41.5" r="41.5" transform="translate(0.424 0.065)" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <g id="video" transform="translate(-0.424 -0.065)" clip-path="url(#clip-path)">
+    <g id="play_circle_outline_black_24dp" transform="translate(-0.322 -0.322)">
+      <path id="Path_242" data-name="Path 242" d="M0,0H84.134V84.134H0Z" fill="none"/>
+      <path id="Path_243" data-name="Path 243" d="M39.628,62.414,60.661,46.639,39.628,30.864Zm7.011-50.831A35.056,35.056,0,1,0,81.695,46.639,35.069,35.069,0,0,0,46.639,11.583Zm0,63.1A28.045,28.045,0,1,1,74.684,46.639,28.082,28.082,0,0,1,46.639,74.684Z" transform="translate(-4.572 -4.572)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

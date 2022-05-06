@@ -1,0 +1,30 @@
+@import 'src/assets/scss/variables';
+
+.product {
+  border: 2px solid $mainColor;
+  border-radius: 35px 35px 0 35px;
+  margin-bottom: 25px;
+  .product-img {
+    text-align: center
+  }
+  .product-details {
+    padding: 15px 20px;
+    h4 a {
+      color: #0272A3;
+      font-size: 24px;
+      font-weight: 800;
+      transition: all .2s ease-in-out;
+      &:hover {
+        text-decoration: none;
+        color: #FCB813
+      }
+    }
+    p {
+      color: #BBBBBB;
+      font-size: 16px;
+      font-weight: 400
+    }
+  }
+
+
+}
