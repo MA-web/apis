@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { Options, LabelType } from "@angular-slider/ngx-slider";
+import { response } from 'express';
 
 @Component({
   selector: 'app-products-list',
@@ -11,6 +12,7 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit {
 
 
   async ngOnInit(){
+
     await this._translateService.get('dummyTranslation').toPromise().then();
     this.fields = [
       {
@@ -27,7 +29,9 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit {
         type: 'select',
         templateOptions: {
           label: this._translateService.instant('category'),
-          options:[]
+          options:[
+            {label:'nn', value:'dd'}
+          ]
         }
       },
       {
@@ -150,6 +154,8 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit {
         }
       },
     ]
+
+
   }
 
   onTogglingView(type:string){
@@ -171,5 +177,6 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit {
   onSubmit() {
     console.log(this.form)
     console.log(this.model);
+
   }
 }

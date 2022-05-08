@@ -1,4 +1,4 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component,  Injector,  OnInit } from '@angular/core';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
 @Component({
@@ -7,6 +7,7 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent extends AppBaseComponent implements OnInit {
+
 
   async ngOnInit(){
     await this._translateService.get('dummyTranslation').toPromise().then();
@@ -31,6 +32,7 @@ export class LoginComponent extends AppBaseComponent implements OnInit {
           label: this._translateService.instant('password'),
           icon: 'password.svg',
           required: true,
+          minLength:3,
           autoComplete:true
         }
       }

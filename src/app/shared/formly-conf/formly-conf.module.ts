@@ -23,7 +23,7 @@ export function formlyValidationConfig(translate: TranslateService) {
               message() {
                   return translate.stream('validations.required');
               },
-          }
+          },
       ],
   };
 }

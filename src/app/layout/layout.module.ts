@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { NavComponent } from './nav/nav.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 
 
 
@@ -17,7 +18,8 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     RouterModule,
-    TranslateModule
+    TranslateModule,
+    InlineSVGModule
 
   ],
   exports:[
