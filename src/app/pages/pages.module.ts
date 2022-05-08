@@ -18,6 +18,10 @@ const route: Route[] = [
     path: 'products',
     loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
   },
+  {
+    path: 'suppliers',
+    loadChildren: () => import('./our-suppliers/our-suppliers.module').then(m => m.OurSuppliersModule)
+  },
 ]
 
 @NgModule({
