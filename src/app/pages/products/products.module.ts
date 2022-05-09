@@ -7,6 +7,10 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormlyConfModule } from 'src/app/shared/formly-conf/formly-conf.module';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { SwiperModule } from 'swiper/angular';
+import { CertificateComponent } from './product-details/certificate/certificate.component';
+import { LightboxModule } from 'ngx-lightbox';
+import { FileSaverModule } from 'ngx-filesaver';
 
 
 const route: Route[] = [
@@ -20,7 +24,8 @@ const route: Route[] = [
 @NgModule({
   declarations: [
     ProductsListComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    CertificateComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +33,10 @@ const route: Route[] = [
     TranslateModule,
     SharedModule,
     FormlyConfModule,
-    PaginationModule
+    PaginationModule,
+    SwiperModule,
+    LightboxModule,
+    FileSaverModule
   ]
 })
 export class ProductsModule { }

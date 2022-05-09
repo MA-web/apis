@@ -179,7 +179,6 @@ body {
 }
 
 .about {
-  margin: 60px 0;
   background-image: url(../img/about-bg.png);
   background-repeat: no-repeat;
   background-size: 100% auto;
@@ -230,7 +229,7 @@ body {
 
 .about-text p {
   font-size: 24px;
-  color: #BBBBBB;
+  color: $grayColor;
   margin-top: 25px
 }
 
@@ -246,7 +245,7 @@ body {
 
 .about-list p {
   font-size: 16px;
-  color: #888888;
+  color: $taupeGrayColor;
   font-weight: 700;
   padding-left: 63px
 }
@@ -320,21 +319,6 @@ body {
   text-align: right
 }
 
-.the-title {
-  margin-bottom: 30px
-}
-
-.the-title p {
-  font-size: 18px;
-  color: #BBBBBB;
-  font-weight: 400
-}
-
-.the-title h2 {
-  color: $mainColor;
-  font-size: 32px;
-  font-weight: 700
-}
 
 .link {
   color: $active-link2;
@@ -356,7 +340,7 @@ body {
 
 
 .gram {
-  color: #888888;
+  color: $taupeGrayColor;
   font-size: 14px;
   font-weight: 800
 }
@@ -387,7 +371,6 @@ body {
 .latest-bg {
   background-image: url(../img/latest-bg.png);
   background-size: cover;
-  padding: 50px 0
 }
 
 .event-details {
@@ -530,9 +513,6 @@ body {
   color: #fff
 }
 
-.partners {
-  margin: 60px 0
-}
 
 .partner {
   background-color: #F8F8F8;
@@ -737,7 +717,7 @@ body {
 
 
 .sign-q {
-  color: #BBBBBB;
+  color: $grayColor;
   font-size: 18px;
   font-weight: 700
 }
@@ -747,9 +727,6 @@ body {
   margin-bottom: 20px
 }
 
-.page-content {
-  padding: 60px 0
-}
 
 .grey-bg {
   background: #EEEEEE
@@ -811,28 +788,7 @@ body {
 .event-lg.event .event-details p {
   margin-top: 15px;
   font-size: 18px;
-  color: #888888;
-}
-
-.breadcrumb-apis .breadcrumb-item img {
-  margin-right: 7px
-}
-
-.breadcrumb-apis .breadcrumb-item a {
-  font-size: 16px;
-  font-weight: 700;
-  color: #888888
-}
-
-.breadcrumb-apis .breadcrumb-item.active {
-  font-size: 16px;
-  font-weight: 700;
-  color: $active-link2
-}
-
-.breadcrumb-apis {
-  background: rgb(255 255 255 / 0%);
-  padding: .75rem 0
+  color: $taupeGrayColor;
 }
 
 .filter-grid button {
@@ -861,7 +817,7 @@ body {
 
 .supplier-details p {
   font-size: 20px;
-  color: #888888;
+  color: $taupeGrayColor;
   font-weight: 600;
   margin-bottom: 5px
 }
@@ -947,119 +903,6 @@ body {
   border-radius: 0
 }
 
-.product-details-2 h2 {
-  color: #FCB813;
-  font-size: 30px;
-  font-weight: 800;
-  margin-bottom: 30px
-}
-
-.product-details-2 p {
-  font-size: 20px;
-  color: #888888;
-  font-weight: 600
-}
-
-.product-details-2 p span {
-  color: $active-link2;
-  font-weight: 800
-}
-
-.product-details-2 p img {
-  margin-right: 5px
-}
-
-.product-btns {
-  margin-top: 25px
-}
-
-.apis-button img {
-  margin-right: 5px
-}
-
-.product-btns .apis-button {
-  font-weight: 700;
-  margin-right: 15px;
-  padding: 8px 65px
-}
-
-.product-btns .apis-button:last-of-type {
-  margin-right: 0
-}
-
-.product-btns .apis-button2 {
-  padding: 8px 25px
-}
-
-.basic-info {
-  margin-top: 20px
-}
-
-.basic-info h4 {
-  color: $active-link2;
-  font-size: 24px;
-  font-weight: 800
-}
-
-.basic-info h4 img {
-  margin-right: 5px
-}
-
-.basic-info p {
-  font-size: 20px;
-  color: #BBBBBB;
-  font-weight: 600
-}
-
-.basic-info span {
-  color: #888888;
-  font-size: 20px;
-  font-weight: 800
-}
-
-.similar-products {
-  margin-top: 10px;
-  padding: 35px 0 50px
-}
-
-.slick-prev,
-.slick-next {
-  top: -70px
-}
-
-.slick-prev {
-  right: 30px;
-  left: auto
-}
-
-.slick-arrow {
-  background: $active-link2;
-  border-radius: 10px 4px 10px 8px;
-  width: 40px;
-  height: 40px
-}
-
-.slick-prev:before,
-.slick-next:before {
-  display: none
-}
-
-.slick-prev:hover,
-.slick-prev:focus,
-.slick-next:hover,
-.slick-next:focus {
-  background: #0498ba
-}
-
-.slick-slide img {
-  display: initial
-}
-
-.slick-slide .product {
-  background: #fff;
-  margin: 0 10px
-}
-
 .news-data .event-img img {
   border-radius: 35px 35px 0 35px
 }
@@ -1077,7 +920,7 @@ body {
 }
 
 .news-data .event-details p {
-  color: #BBBBBB;
+  color: $grayColor;
   font-size: 16px;
   margin-bottom: 20px
 }
@@ -1514,36 +1357,12 @@ select.form-control option[value=""][disabled] {
     margin-top: 10px
   }
 
-  .basic-info {
-    margin-top: 25px
-  }
 
-  .basic-info h4 {
-    font-size: 20px
-  }
-
-  .basic-info p,
-  .basic-info p span {
-    font-size: 15px;
-    margin-bottom: 10px
-  }
 
   .slider-products {
     margin-top: 40px
   }
 
-  .slick-prev,
-  .slick-next {
-    top: -45px
-  }
-
-  .slick-next {
-    right: 10px
-  }
-
-  .slick-prev {
-    right: 60px
-  }
 
   .news-data .event-details h4 {
     font-size: 20px
@@ -1669,9 +1488,59 @@ select.form-control option[value=""][disabled] {
 }
 
 .section-apis {
-  padding: 30px 0
+  padding: 60px 0;
 }
 
+.the-title ,
+.sub-title{
+  margin-bottom: 30px;
+  p {
+    font-size: 18px;
+    color: $grayColor;
+    font-weight: 400
+  }
+  h2 {
+    color: $mainColor;
+    font-size: 32px;
+    font-weight: 700
+  }
+}
+
+
+.sub-title h2{
+  font-size: 24px;
+}
+
+
+
+.basic-info {
+  margin-top: 25px;
+  margin-top: 20px;
+  h4 {
+    color: $active-link2;
+    font-size: 24px;
+    font-weight: 800;
+
+    img {
+      margin-right: 5px
+    }
+  }
+
+  p {
+    font-size: 20px;
+    color: $grayColor;
+    font-weight: 600
+  }
+
+  span {
+    color: $taupeGrayColor;
+    font-size: 20px;
+    font-weight: 800
+  }
+}
+.font-size-16{
+  font-size: 16px;
+}
 /***************forms*****************/
 .input-apis {
   .form-control {

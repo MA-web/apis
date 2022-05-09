@@ -1,0 +1,17 @@
+<ul class="breadcrumb breadcrumb-apis my-4">
+  <li class="breadcrumb-item" ><a href="/home"><img src="assets/img/home.svg">Home</a></li>
+
+  <ng-container *ngFor="let item of items">
+
+    <ng-container *ngIf="item?.active; else elseTemplate">
+      <li class="breadcrumb-item active">{{item?.label}}</li>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <li class="breadcrumb-item" >
+        <a [routerLink]="item?.path">{{item?.label}}</a>
+      </li>
+    </ng-template>
+
+  </ng-container>
+
+</ul>

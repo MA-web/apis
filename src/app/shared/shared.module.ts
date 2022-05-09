@@ -3,19 +3,24 @@ import { CommonModule } from '@angular/common';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppBaseComponent } from './components/app-base/app-base.component';
+import { RouterModule } from '@angular/router';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 
 
 @NgModule({
   declarations: [
     ProductCardComponent,
-    AppBaseComponent
+    AppBaseComponent,
+    BreadcrumbComponent
   ],
   imports: [
     CommonModule,
+    RouterModule
   ],
   exports:[
     ProductCardComponent,
+    BreadcrumbComponent
   ]
 })
 export class SharedModule { }

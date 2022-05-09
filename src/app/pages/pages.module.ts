@@ -6,6 +6,7 @@ import { LayoutModule } from '../layout/layout.module';
 import { AboutUsComponent } from './about-us/about-us.component';
 
 const route: Route[] = [
+ {path:'', component:PagesComponent,children:[
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
@@ -22,6 +23,11 @@ const route: Route[] = [
     path: 'suppliers',
     loadChildren: () => import('./our-suppliers/our-suppliers.module').then(m => m.OurSuppliersModule)
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+  },
+ ]}
 ]
 
 @NgModule({

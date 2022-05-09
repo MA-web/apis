@@ -12,7 +12,6 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit {
 
 
   async ngOnInit(){
-
     await this._translateService.get('dummyTranslation').toPromise().then();
     this.fields = [
       {
@@ -66,7 +65,7 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit {
         key: 'Origin',
         type: 'select',
         templateOptions: {
-          label: this._translateService.instant('Origin'),
+          label: this._translateService.instant('origin'),
           options:[]
         }
       },
@@ -117,7 +116,7 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit {
         type: 'slider',
         defaultValue:[100,900],
         templateOptions: {
-          label: this._translateService.instant('Particle size D90'),
+          label: this._translateService.instant('ParticleSizeD90'),
           sliderOptions : {
             floor: 0,
             ceil: 1000,
