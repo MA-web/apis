@@ -1,23 +1,39 @@
-<div class="section-apis">
+<div class="section-apis grey-bg3">
   <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <div class="profile-list">
-                <a href="#"><img src="assets/img/p1.svg">Profile</a>
-                <a href="#" data-toggle="collapse" data-target="#order-collapse"><img src="assets/img/p2.svg">Orders<span>99</span></a>
-                <div id="order-collapse" class="collapse">
-                    <a href="#">Message<span>99</span></a>
-                    <a href="#">Message<span>99</span></a>
-                    <a href="#">Message<span>99</span></a>
-                </div>
-                <a href="#"><img src="assets/img/p3.svg">Message<span>99</span></a>
-                <a href="#"><img src="assets/img/p4.svg">Catch it<span>99</span></a>
-                <a href="#"><img src="assets/img/p5.svg">Invoice<span>99</span></a>
-                <a href="#" class="active"><img src="assets/img/p6.svg">My products<span>99</span></a>
-            </div>
+      <div class="col-md-3">
+        <div class="profile-list">
+          <a routerLink="./dashboard" [routerLinkActive]="['active']"><img
+              src="assets/icons/dashboard.svg">{{'Dashboard' | translate}}</a>
+          <a routerLink="./info" [routerLinkActive]="['active']"><img src="assets/img/p1.svg">{{'Profile' |
+            translate}}</a>
+
+          <!-- <div id="order-collapse" class="collapse">
+
+                </div> -->
+
+
+          <accordion [closeOthers]="true">
+            <accordion-group>
+              <a href="javascript:void(0)" accordion-heading><img src="assets/img/p2.svg">Orders<span>99</span></a>
+
+              <a href="#">Message<span>99</span></a>
+              <a href="#">Message<span>99</span></a>
+              <a href="#">Message<span>99</span></a>
+            </accordion-group>
+
+          </accordion>
+          <a href="#"><img src="assets/img/p3.svg">Message<span>99</span></a>
+          <a href="#"><img src="assets/img/p4.svg">Catch it<span>99</span></a>
+          <a href="#"><img src="assets/img/p5.svg">Invoice<span>99</span></a>
+          <a href="#"><img src="assets/img/p6.svg">My products<span>99</span></a>
         </div>
-        <div class="col-md-9">
-            <div class="block-1">
+      </div>
+      <div class="col-md-9">
+
+        <router-outlet></router-outlet>
+
+        <!-- <div class="block-1">
                 <form class="form-inline">
                     <div class="col-sm-12 input-apis">
                         <div class="row">
@@ -67,8 +83,8 @@
                       </select>
                     </div>
                 </form>
-            </div>
-        </div>
+            </div> -->
+      </div>
     </div>
   </div>
 </div>

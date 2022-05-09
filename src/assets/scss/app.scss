@@ -401,7 +401,7 @@ body {
 }
 
 .profile {
-  color: #777777;
+  color: $SonicSilver;
   font-size: 20px;
   font-weight: 700
 }
@@ -728,17 +728,7 @@ body {
 }
 
 
-.grey-bg {
-  background: #EEEEEE
-}
 
-.grey-bg2 {
-  background: #F7F8F9
-}
-
-.grey-bg3 {
-  background: #FAFAFA
-}
 
 .event-sm .date {
   font-size: 11px;
@@ -940,7 +930,7 @@ body {
 }
 
 .similar-events .profile {
-  color: #777777;
+  color: $SonicSilver;
   font-size: 14px;
   font-weight: 600
 }
@@ -968,62 +958,6 @@ body {
   padding-left: 0
 }
 
-.profile-list {
-  background: #eee;
-  border-radius: 0px 64px 0px 64px;
-  padding: 30px 0 50px
-}
-
-.profile-list a {
-  display: block;
-  color: #777777;
-  font-size: 16px;
-  font-weight: 700;
-  overflow: hidden;
-  padding: 10px 15px;
-  margin-bottom: 1px
-}
-
-.profile-list a span {
-  color: #fff;
-  font-size: 10px;
-  background-color: #FFCC66;
-  text-align: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  float: right;
-  line-height: 30px
-}
-
-.profile-list a img {
-  margin-right: 5px
-}
-
-.profile-list a:hover {
-  background: rgb(255 255 255 / 30%);
-  text-decoration: none;
-  transition: all .2s ease-in-out
-}
-
-.profile-list .active {
-  color: $mainColor;
-  background: rgb(255 255 255 / 30%);
-  border-left: 3px solid $mainColor
-}
-
-#order-collapse a {
-  background: rgb(255 255 255 / 30%);
-  padding: 7px 15px 7px 50px
-}
-
-.profile-list a[aria-expanded="true"] {
-  background: rgb(255 255 255 / 30%)
-}
-
-#order-collapse a:hover {
-  background: rgb(255 255 255 / 50%)
-}
 
 .block-1 {
   background-color: #fff;
@@ -1393,6 +1327,38 @@ select.form-control option[value=""][disabled] {
 
 
 /***************general*****************/
+
+.white-card{
+  background: white;
+  box-shadow: 0px 2px 6px #0000000F;
+  border-radius: 0px 44px;
+  border: none;
+}
+accordion-group{
+  .card{
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+  }
+  .card-header{
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    &:hover{
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+  .card-body{
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+}
+
+
 .text-success {
   color: $greenColor  !important;
 }
@@ -1418,6 +1384,42 @@ select.form-control option[value=""][disabled] {
 .btn-warning{
   background-color: #FCB813;
 }
+
+.btn-info{
+  background-color: #24B6F71A;
+  color: #24B6F7;
+
+  border: 1px solid #24B6F7;
+  &:hover,
+  &:focus,
+  .active{
+    background-color: #24B6F7;
+    color: #fff;
+    border-color: #24B6F71A;
+  }
+}
+
+.btn-info:hover,
+.btn-info:focus {
+  svg #Path_455 {
+    fill: #fff!important;
+  }
+}
+.btn-danger{
+  background-color: rgb(200 35 51 / 10%);
+  border: 1px solid #bd2130;
+  color:#bd2130;
+  &:hover{
+    color: white;
+  }
+}
+.btn-danger:hover,
+.btn-danger:focus {
+  svg #Path_457 {
+    fill: #fff!important;
+  }
+}
+
 .apis-button:hover {
   opacity: .85;
   text-decoration: none;
@@ -1475,17 +1477,6 @@ select.form-control option[value=""][disabled] {
   gap: .5rem!important;
 }
 
-.btn-danger{
-  background-color: rgb(200 35 51 / 10%);
-  border-color: #bd2130;
-  color:#bd2130;
-  &:hover{
-    color: white;
-  }
-}
-.btn-danger:hover svg #Path_457 {
-  fill: #fff!important;
-}
 
 .section-apis {
   padding: 60px 0;
@@ -1541,6 +1532,18 @@ select.form-control option[value=""][disabled] {
 .font-size-16{
   font-size: 16px;
 }
+
+.grey-bg {
+  background: #EEEEEE
+}
+
+.grey-bg2 {
+  background: #F7F8F9
+}
+
+.grey-bg3 {
+  background: #FAFAFA
+}
 /***************forms*****************/
 .input-apis {
   .form-control {
@@ -1565,6 +1568,9 @@ select.form-control option[value=""][disabled] {
   border-radius: 25px;
 }
 
+.ng-select.ng-select-disabled>.ng-select-container {
+  background-color: #e9ecef;
+}
 
 
 .with-icon .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
@@ -1612,7 +1618,13 @@ select.form-control option[value=""][disabled] {
   background-color: $greenColor2;
 
 }
+.iti {
+  display: block;
 
+  .iti__country {
+      display: block;
+  }
+}
 
 
 /******************pagination*********************/

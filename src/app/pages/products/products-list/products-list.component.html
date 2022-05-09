@@ -4,8 +4,7 @@
     <div class="row">
       <div class="col-lg-4">
         <div class="filter-by">
-          <h4>Filter by</h4>
-
+          <h4>{{'Filter_by' | translate}}</h4>
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <formly-form class="row" [form]="form" [model]="model" [fields]="fields"> </formly-form>
 
@@ -27,7 +26,7 @@
         <div class="row">
           <div class="col-md-8">
             <div class="the-title">
-              <h2>Products<span class="number-items">50 Product</span></h2>
+              <h2>{{'Products' | translate}}<span class="number-items">50 {{'Product' | translate}}</span></h2>
             </div>
           </div>
           <div class="col-md-4 view">

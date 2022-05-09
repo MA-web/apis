@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormlyModule, FORMLY_CONFIG } from '@ngx-formly/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormlyBootstrapModule} from '@ngx-formly/bootstrap';
 import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormlyFieldInput } from './formly-components/formly-field-input';
@@ -13,6 +13,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormlyFieldSelect } from './formly-components/formly-field-select';
 import { FormlyFieldSlider } from './formly-components/formly-field-slider';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { FormlyFieldPhone } from './formly-components/formly-filed-phone';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 
 export function formlyValidationConfig(translate: TranslateService) {
@@ -35,7 +37,8 @@ export function formlyValidationConfig(translate: TranslateService) {
     FormlyFieldRadio,
     FormlyFieldCaptch,
     FormlyFieldSelect,
-    FormlyFieldSlider
+    FormlyFieldSlider,
+    FormlyFieldPhone
   ],
   imports: [
     CommonModule,
@@ -48,12 +51,15 @@ export function formlyValidationConfig(translate: TranslateService) {
           { name: 'captch', component: FormlyFieldCaptch },
           { name: 'select', component: FormlyFieldSelect },
           { name: 'slider', component: FormlyFieldSlider },
+          { name: 'phone', component: FormlyFieldPhone },
         ]
     }),
     InlineSVGModule,
     NgxCaptchaModule,
     NgSelectModule,
-    NgxSliderModule
+    NgxSliderModule,
+    NgxIntlTelInputModule,
+    TranslateModule
   ],
   exports:[
     ReactiveFormsModule,

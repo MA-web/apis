@@ -1,0 +1,39 @@
+<div class="the-title">
+  <h2>{{'Complete_your_profile' | translate}}</h2>
+</div>
+
+
+<div class="row">
+  <div class="col-12">
+    <div class="card white-card">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="avatar">
+            <img src="https://via.placeholder.com/218x218" alt="" class="rounded-circle img-fluid">
+          </div>
+          <div class="mx-4 d-flex flex-column">
+            <button type="button" class="apis-button btn btn-info px-3 mb-3">
+              <span [inlineSVG]="'assets/icons/edit.svg'"></span>
+              {{'uploadNewPicture' | translate}}</button>
+            <button type="button" class="apis-button btn btn-danger px-3">
+              <span [inlineSVG]="'assets/icons/delete.svg'"></span>
+              {{'Delete' | translate}}</button>
+          </div>
+        </div>
+
+        <formly-form class="row mt-5" [form]="form" [model]="model" [fields]="fields"> </formly-form>
+
+        <ngx-dropzone (change)="onSelect($event)" [accept]="'.png,.jpg,.jpeg'" [multiple]='false'
+        [disableClick]="files?.length?true:false">
+        <ngx-dropzone-label>{{ 'UploadFiles' | translate}}</ngx-dropzone-label>
+        <ng-container *ngFor="let f of files;let i = index">
+            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" [file]="f" [removable]="true"
+                (removed)="onRemove(f,i)">
+                <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+            </ngx-dropzone-image-preview>
+        </ng-container>
+    </ngx-dropzone>
+      </div>
+    </div>
+  </div>
+</div>

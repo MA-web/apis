@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 
 @Component({
-  selector: 'formly-field-input',
+  selector: 'formly-field-select',
   template: `
 
 <div class="select-apis select-apis-1 position-relative" [ngClass]="{'with-icon':  to.icon}">
