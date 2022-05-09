@@ -1,1 +1,54 @@
-<p>our-suppliers-list works!</p>
+<!-- start Suppliers -->
+<div class="section-apis">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="filter-by">
+          <h4>Filter by</h4>
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <formly-form
+              class="row"
+              [form]="form"
+              [model]="model"
+              [fields]="fields"
+            >
+            </formly-form>
+
+            <div class="form-group">
+              <button class="apis-button btn-block">search</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="the-title">
+              <h2>Our Suppliers<span class="number-items">50 Product</span></h2>
+            </div>
+          </div>
+        </div>
+        <div class="row filter-grid-row">
+          <div class="col-sm-12">
+            <app-supplier-card></app-supplier-card>
+          </div>
+        </div>
+        <div style="margin-top: 20px">
+          <div class="d-flex justify-content-center">
+            <pagination
+              [boundaryLinks]="true"
+              [totalItems]="77"
+              previousText="&lsaquo;"
+              nextText="&rsaquo;"
+              firstText="&laquo;"
+              lastText="&raquo;"
+            >
+            </pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end suppliers list -->

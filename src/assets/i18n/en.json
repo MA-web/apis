@@ -26,7 +26,7 @@
   "pleaseTypeCodeHere": "Please type code here",
   "Already_have_an_account":"Already have an account?",
   "ourSuppliers":"Our Suppliers",
-
+  "orgin":"Orgin",
   "resetPassword":"RESET PASSWORD",
   "forgetParagraph":"Enter the email address associated with your account. We will email you a link to reset your password.",
   "BackToLogin":"Back to Login",
@@ -50,7 +50,9 @@
   "pellets":"Pellets",
   "ParticleSizeD90":"Particle size D90",
   "certificates":"Certificates",
+  "certificate01330":"certificate01330",
   "sampleType":"Sample Type",
+  "sample":"Sample",
   "Supplier":"Supplier",
   "BasicInfo":"Basic Info",
   "Application":"Application",

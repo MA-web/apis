@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppBaseComponent } from './components/app-base/app-base.component';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { SupplierCardComponent } from './components/supplier-card/supplier-card.component';
 
 
 
@@ -12,7 +13,8 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
   declarations: [
     ProductCardComponent,
     AppBaseComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    SupplierCardComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
   ],
   exports:[
     ProductCardComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    SupplierCardComponent
   ]
 })
 export class SharedModule { }

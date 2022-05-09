@@ -52,7 +52,7 @@ export class LeftMenuComponent implements OnInit {
         path: '/products', title: this.translateService.instant('Products'), type: 'link', icon: 'fa fa-filter'
       },
       {
-        path: '/suppliers', title: this.translateService.instant('ourSuppliers'), type: 'link', icon: 'fa fa-filter'
+        path: '/suppliers', title: this.translateService.instant('ourSuppliers'), type: 'link', icon: 'fa fa-american-sign-language-interpreting'
       },
       {
         path: '/news', title: this.translateService.instant('News'), type: 'link', icon: 'fa fa-file-text-o'
