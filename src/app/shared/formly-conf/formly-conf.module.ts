@@ -15,6 +15,9 @@ import { FormlyFieldSlider } from './formly-components/formly-field-slider';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { FormlyFieldPhone } from './formly-components/formly-filed-phone';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { FormlyFieldUpload } from './formly-components/formly-filed-upload';
+import { FormlyFieldText } from './formly-components/formly-text';
 
 
 export function formlyValidationConfig(translate: TranslateService) {
@@ -38,7 +41,9 @@ export function formlyValidationConfig(translate: TranslateService) {
     FormlyFieldCaptch,
     FormlyFieldSelect,
     FormlyFieldSlider,
-    FormlyFieldPhone
+    FormlyFieldPhone,
+    FormlyFieldUpload,
+    FormlyFieldText
   ],
   imports: [
     CommonModule,
@@ -52,6 +57,8 @@ export function formlyValidationConfig(translate: TranslateService) {
           { name: 'select', component: FormlyFieldSelect },
           { name: 'slider', component: FormlyFieldSlider },
           { name: 'phone', component: FormlyFieldPhone },
+          { name: 'upload', component: FormlyFieldUpload },
+          { name: 'text', component: FormlyFieldText },
         ]
     }),
     InlineSVGModule,
@@ -59,7 +66,9 @@ export function formlyValidationConfig(translate: TranslateService) {
     NgSelectModule,
     NgxSliderModule,
     NgxIntlTelInputModule,
-    TranslateModule
+    TranslateModule,
+    NgxDropzoneModule
+
   ],
   exports:[
     ReactiveFormsModule,

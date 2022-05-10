@@ -168,10 +168,71 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit {
       },
       {
         className:'col-12',
+        key: 'BusinessLicensee',
+        type: 'upload',
+        templateOptions: {
+          label: this._translateService.instant('BusinessLicensee'),
+        }
+      },
+      {
+        className:'col-12',
         key: 'AboutMe',
         type: 'input',
         templateOptions: {
           label: this._translateService.instant('AboutMe'),
+        }
+      },
+      {
+        className:'col-sm-6 col-12',
+        key: 'WorkingIn',
+        type: 'input',
+        templateOptions: {
+          label: this._translateService.instant('WorkingIn'),
+        }
+      },
+      {
+        className:'col-sm-6 col-12',
+        key: 'interestedIn',
+        type: 'select',
+        templateOptions: {
+          label: this._translateService.instant('interestedIn'),
+          options:[]
+        }
+      },
+      {
+        className:'col-sm-6 col-12',
+        key: 'Total_annual_sales_volume',
+        type: 'select',
+        templateOptions: {
+          label: this._translateService.instant('Total_annual_sales_volume'),
+          options:[]
+        }
+      },
+      {
+        className:'col-sm-6 col-12',
+        key: 'Export_Percentage',
+        type: 'select',
+        templateOptions: {
+          label: this._translateService.instant('Export_Percentage'),
+          options:[]
+        }
+      },
+      {
+        className:'col-sm-6 col-12',
+        key: 'Main_Markets',
+        type: 'select',
+        templateOptions: {
+          label: this._translateService.instant('Main_Markets'),
+          options:[]
+        }
+      },
+      {
+        className:'col-sm-6 col-12',
+        key: 'Main_Customer',
+        type: 'select',
+        templateOptions: {
+          label: this._translateService.instant('Main_Customer'),
+          options:[]
         }
       },
     ]
@@ -179,17 +240,6 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit {
 
   }
 
-  files: File[] = [];
-
-	onSelect(event:any) {
-		console.log(event);
-		this.files.push(...event.addedFiles);
-	}
-
-	onRemove(event:any,i:any) {
-		console.log(event);
-		this.files.splice(this.files.indexOf(event), 1);
-	}
 
 
 

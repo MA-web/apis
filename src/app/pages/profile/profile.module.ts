@@ -7,17 +7,23 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { FormlyConfModule } from 'src/app/shared/formly-conf/formly-conf.module';
-import { NgxDropzoneModule } from 'ngx-dropzone';
+import { SupplierProductsComponent } from './supplier-products/supplier-products.component';
+import { SupplierProductComponent } from './supplier-products/supplier-product/supplier-product.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 const route: Route[] = [
   {path:'', component:ProfileComponent,children:[
-    {path:'info', component:ProfileInfoComponent}
+    {path:'info', component:ProfileInfoComponent},
+    {path:'products', component:SupplierProductsComponent}
+    // {path:':id', component:SupplierProductsComponent}
   ]}
  ]
 @NgModule({
   declarations: [
     ProfileComponent,
-    ProfileInfoComponent
+    ProfileInfoComponent,
+    SupplierProductsComponent,
+    SupplierProductComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +32,7 @@ const route: Route[] = [
     AccordionModule,
     InlineSVGModule,
     FormlyConfModule,
-    NgxDropzoneModule
+    PaginationModule
   ]
 })
 export class ProfileModule { }

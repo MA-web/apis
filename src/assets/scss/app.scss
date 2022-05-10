@@ -107,9 +107,6 @@ body {
   display: none;
 }
 
-.search-header select.form-control option {
-  /* color: black;*/
-}
 
 /***/
 .the-menu .dropdown-toggle::after {
@@ -1271,16 +1268,7 @@ select.form-control option[value=""][disabled] {
     margin-bottom: 0
   }
 
-  .product-btns .apis-button {
-    display: block;
-    text-align: center;
-    margin-bottom: 10px
-  }
 
-  .product-details-2 h2 {
-    font-size: 20px;
-    margin-bottom: 10px
-  }
 
   .product-details-2 p {
     font-size: 15px;
@@ -1327,7 +1315,18 @@ select.form-control option[value=""][disabled] {
 
 
 /***************general*****************/
+@media (min-width:991px) {
+  .pull-md-right{
+    float: right;
+  }
+}
+.product-btns .apis-button {
+  margin-bottom: 10px
+}
 
+.main-color{
+  color: $mainColor;
+}
 .white-card{
   background: white;
   box-shadow: 0px 2px 6px #0000000F;
@@ -1401,25 +1400,35 @@ accordion-group{
 
 .btn-info:hover,
 .btn-info:focus {
-  svg #Path_455 {
+  svg path {
     fill: #fff!important;
   }
 }
 .btn-danger{
   background-color: rgb(200 35 51 / 10%);
-  border: 1px solid #bd2130;
-  color:#bd2130;
+  border: 1px solid #EE4444;
+  color:#EE4444;
   &:hover{
     color: white;
   }
 }
 .btn-danger:hover,
 .btn-danger:focus {
-  svg #Path_457 {
+  svg path:last-child {
     fill: #fff!important;
   }
 }
-
+.btn-outline-success{
+  background-color: rgb(75 158 144 / 10%);
+  border: 1px solid #4B9E90;
+  color:#4B9E90;
+}
+.btn-outline-success:hover,
+.btn-outline-success:focus {
+  svg path {
+    fill: #fff!important;
+  }
+}
 .apis-button:hover {
   opacity: .85;
   text-decoration: none;
@@ -1625,8 +1634,12 @@ accordion-group{
       display: block;
   }
 }
-
-
+.form-control::placeholder {
+  color: $grayColor;
+}
+.ng-select .ng-select-container .ng-value-container .ng-placeholder {
+  color:  $grayColor;
+}
 /******************pagination*********************/
 .pagination-prev{
   margin-right: 20px;

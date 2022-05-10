@@ -19,20 +19,23 @@
       text-decoration: none;
       transition: all .2s ease-in-out
     }
-
-    span {
+    .bi{
       color: #fff;
       font-size: 10px;
-      background-color: #FFCC66;
+      background-color: #0DAACE;
       text-align: center;
       width: 30px;
       height: 30px;
       border-radius: 50%;
+      line-height: 30px;
+      display: inline-block;
+      margin-left: 5px;
+    }
+    .arrow-d {
       float: right;
-      line-height: 30px
     }
 
-    img {
+    i,img {
       margin-right: 5px
     }
   }

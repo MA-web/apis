@@ -87,10 +87,31 @@
    "Type":"Type",
    "AboutMe":"About me",
    "UploadFiles":"Upload Files",
+   "BusinessLicensee":"Business Licensee",
+   "WorkingIn":"Working In",
+   "interestedIn":"interested In",
+   "Total_annual_sales_volume":"Total annual sales volume",
+   "Export_Percentage":"Export Percentage",
+   "Main_Markets":"Main Markets",
+   "Main_Customer":"Main Customer",
+   "DeleteAccount":"Delete Account",
+   "ChangePassword":"Change Password",
+   "saveChanges":"Save Changes",
+   "MyProducts":"My Products",
+   "Search_product_profile":"Search for product in your profile …",
+   "status":"Status",
+   "FilterBy":"Filter by",
+   "addProduct":"Add Product",
    "":"",
    "":"",
    "":"",
    "":"",
+   "":"",
+   "":"",
+   "":"",
+
+
+
 
 
   "validations": {

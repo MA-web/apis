@@ -1,8 +1,6 @@
-<div class="the-title">
+<div class="the-title mt-lg-0">
   <h2>{{'Complete_your_profile' | translate}}</h2>
 </div>
-
-
 <div class="row">
   <div class="col-12">
     <div class="card white-card">
@@ -21,18 +19,23 @@
           </div>
         </div>
 
-        <formly-form class="row mt-5" [form]="form" [model]="model" [fields]="fields"> </formly-form>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <formly-form class="row mt-5" [form]="form" [model]="model" [fields]="fields"> </formly-form>
 
-        <ngx-dropzone (change)="onSelect($event)" [accept]="'.png,.jpg,.jpeg'" [multiple]='false'
-        [disableClick]="files?.length?true:false">
-        <ngx-dropzone-label>{{ 'UploadFiles' | translate}}</ngx-dropzone-label>
-        <ng-container *ngFor="let f of files;let i = index">
-            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" [file]="f" [removable]="true"
-                (removed)="onRemove(f,i)">
-                <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
-            </ngx-dropzone-image-preview>
-        </ng-container>
-    </ngx-dropzone>
+          <div class="d-lg-flex justify-content-between mt-3">
+            <div class="d-lg-flex flex-wrap gap-2 flex-lg-row flex-column d-inline-block">
+              <button type="button" class="apis-button btn-danger px-4 mr-2 mb-2">
+                <span [inlineSVG]="'assets/icons/delete.svg'"></span>
+                {{'DeleteAccount' | translate}}</button>
+                <button type="button" class="apis-button btn-warning px-4 mr-2  mb-2">
+                  {{'ChangePassword' | translate}}</button>
+            </div>
+            <div class="d-inline-block">
+              <button type="submit" class="apis-button btn-success px-4">
+                {{'saveChanges' | translate}}</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>

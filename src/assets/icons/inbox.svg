@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Base" width="17" height="17" fill="#777"/>
+    </clipPath>
+  </defs>
+  <g id="ic_account_circle" transform="translate(-4088 -3746)">
+    <rect id="Base-2" data-name="Base" width="24" height="24" transform="translate(4088 3746)" fill="none"/>
+    <g id="Mask_Group_19" data-name="Mask Group 19" transform="translate(4091.5 3749.5)" clip-path="url(#clip-path)">
+      <g id="email_black_24dp_1_" data-name="email_black_24dp (1)" transform="translate(0.326 0.326)">
+        <path id="Path_244" data-name="Path 244" d="M0,0H16.348V16.348H0Z" fill="none"/>
+        <path id="Path_245" data-name="Path 245" d="M15.623,5.362A1.366,1.366,0,0,0,14.261,4H3.362A1.366,1.366,0,0,0,2,5.362v8.174A1.366,1.366,0,0,0,3.362,14.9h10.9a1.366,1.366,0,0,0,1.362-1.362Zm-1.362,0L8.811,8.768,3.362,5.362Zm0,8.174H3.362V6.725L8.811,10.13l5.449-3.406Z" transform="translate(-0.638 -1.275)" fill="#777"/>
+      </g>
+    </g>
+  </g>
+</svg>
