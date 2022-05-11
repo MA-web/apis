@@ -1315,46 +1315,114 @@ select.form-control option[value=""][disabled] {
 
 
 /***************general*****************/
+
+.form-group label span {
+  color: $red;
+}
+
 @media (min-width:991px) {
-  .pull-md-right{
+  .pull-md-right {
     float: right;
   }
 }
+
 .product-btns .apis-button {
   margin-bottom: 10px
 }
 
-.main-color{
+.main-color {
   color: $mainColor;
 }
-.white-card{
+
+.white-card {
   background: white;
   box-shadow: 0px 2px 6px #0000000F;
   border-radius: 0px 44px;
   border: none;
 }
-accordion-group{
-  .card{
-    border: none;
-    border-radius: 0;
-    background-color: transparent;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-  }
-  .card-header{
-    background-color: transparent;
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    &:hover{
+
+.profile-list {
+  accordion-group {
+    .card {
+      border: none;
+      border-radius: 0;
+      background-color: transparent;
+      text-decoration: none;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .card-header {
+      background-color: transparent;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    .card-body {
+      padding: 5px;
       background: rgba(255, 255, 255, 0.3);
     }
-  }
-  .card-body{
-    padding: 5px;
-    background: rgba(255, 255, 255, 0.3);
-  }
 
+  }
+}
+
+.formly-accordion {
+  accordion-group {
+    .card-header {
+      background-color: #FAFAFA;
+
+    }
+
+    .accordion-toggle {
+      .btn {
+        color: $mainColor;
+        font-size: 20px;
+        font-weight: 800;
+        text-decoration: none;
+        outline: unset;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      &:before {
+        content: " ";
+        content: " ";
+        display: inline-block;
+        position: absolute;
+        width: 5px;
+        background: $mainColor;
+        left: 0;
+        top: 0;
+        bottom: 0;
+      }
+
+
+    }
+
+    .accordion-toggle[aria-expanded="true"]:after,
+    .accordion-toggle[aria-expanded="false"]:after {
+      content: " ";
+      width: 35px;
+      height: 35px;
+      float: right;
+    }
+
+    [aria-expanded="false"]:after {
+      background-image: url(/assets/icons/plus.svg);
+    }
+
+    [aria-expanded="true"]:after {
+      content: "";
+      background-image: url(/assets/icons/minus.svg);
+    }
+
+  }
 }
 
 
@@ -1365,6 +1433,7 @@ accordion-group{
 .font-weight-600 {
   font-weight: 600;
 }
+
 .main-bg {
   background-color: $mainColor;
 }
@@ -1380,18 +1449,20 @@ accordion-group{
   transition: all .2s ease-in-out;
   text-transform: uppercase;
 }
-.btn-warning{
+
+.btn-warning {
   background-color: #FCB813;
 }
 
-.btn-info{
+.btn-info {
   background-color: #24B6F71A;
   color: #24B6F7;
 
   border: 1px solid #24B6F7;
+
   &:hover,
   &:focus,
-  .active{
+  .active {
     background-color: #24B6F7;
     color: #fff;
     border-color: #24B6F71A;
@@ -1401,34 +1472,40 @@ accordion-group{
 .btn-info:hover,
 .btn-info:focus {
   svg path {
-    fill: #fff!important;
+    fill: #fff !important;
   }
 }
-.btn-danger{
+
+.btn-danger {
   background-color: rgb(200 35 51 / 10%);
   border: 1px solid #EE4444;
-  color:#EE4444;
-  &:hover{
+  color: #EE4444;
+
+  &:hover {
     color: white;
   }
 }
+
 .btn-danger:hover,
 .btn-danger:focus {
   svg path:last-child {
-    fill: #fff!important;
+    fill: #fff !important;
   }
 }
-.btn-outline-success{
+
+.btn-outline-success {
   background-color: rgb(75 158 144 / 10%);
   border: 1px solid #4B9E90;
-  color:#4B9E90;
+  color: #4B9E90;
 }
+
 .btn-outline-success:hover,
 .btn-outline-success:focus {
   svg path {
-    fill: #fff!important;
+    fill: #fff !important;
   }
 }
+
 .apis-button:hover {
   opacity: .85;
   text-decoration: none;
@@ -1445,13 +1522,14 @@ accordion-group{
   color: $mainColor
 }
 
-.btn-success{
+.btn-success {
   background-color: $greenColor;
 }
+
 .form-group>label {
   color: #756F86;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .input-apis input[type="text"],
@@ -1482,8 +1560,9 @@ accordion-group{
   opacity: .85;
   transition: all .2s ease-in-out
 }
+
 .gap-2 {
-  gap: .5rem!important;
+  gap: .5rem !important;
 }
 
 
@@ -1491,14 +1570,16 @@ accordion-group{
   padding: 60px 0;
 }
 
-.the-title ,
-.sub-title{
+.the-title,
+.sub-title {
   margin-bottom: 30px;
+
   p {
     font-size: 18px;
     color: $grayColor;
     font-weight: 400
   }
+
   h2 {
     color: $mainColor;
     font-size: 32px;
@@ -1507,7 +1588,7 @@ accordion-group{
 }
 
 
-.sub-title h2{
+.sub-title h2 {
   font-size: 24px;
 }
 
@@ -1516,6 +1597,7 @@ accordion-group{
 .basic-info {
   margin-top: 25px;
   margin-top: 20px;
+
   h4 {
     color: $active-link2;
     font-size: 24px;
@@ -1538,7 +1620,8 @@ accordion-group{
     font-weight: 800
   }
 }
-.font-size-16{
+
+.font-size-16 {
   font-size: 16px;
 }
 
@@ -1553,13 +1636,45 @@ accordion-group{
 .grey-bg3 {
   background: #FAFAFA
 }
+
 /***************forms*****************/
+textarea.form-control{
+  border-color: #DBE2EA;
+  border-radius: 25px;
+  box-shadow: 0px 4px 8px #2C27380A;
+  padding: 0.5rem 0.75rem;
+  &:focus{
+    border: 1px solid $mainColor;
+  }
+}
 .input-apis {
-  .form-control {
+  .form-control,
+  .ng2-tag-input {
     padding: 1.375rem 0.75rem;
     border-radius: 25px;
-  }
+    box-shadow: 0px 4px 8px #2C27380A;
+    border-color: #DBE2EA;
+    &:focus{
+      border: 1px solid $mainColor;
+    }
 
+  }
+  .ng2-tag-input{
+    padding: 0;
+    border-bottom: none;
+    border: 1px solid #DBE2EA;
+
+  }
+   .ng2-tags-container{
+    padding: 1rem 0.75rem;
+    tag{
+      margin: .5rem;
+    }
+   }
+}
+.ng2-tag-input.ng2-tag-input--focused{
+  border-bottom: none!important;
+  border: 1px solid $mainColor!important;
 }
 
 .input-apis.with-icon {
@@ -1569,12 +1684,14 @@ accordion-group{
 }
 
 .ng-select .ng-select-container {
-  height: 46px!important;
-  line-height: 46px!important;
-}
-
-.ng-select .ng-select-container {
+  height: 46px !important;
+  line-height: 46px !important;
   border-radius: 25px;
+  box-shadow: 0px 4px 8px #2C27380A;
+  border-color: #DBE2EA;
+}
+.ng-select.ng-select-opened>.ng-select-container{
+  border-color: $mainColor;
 }
 
 .ng-select.ng-select-disabled>.ng-select-container {
@@ -1591,13 +1708,15 @@ accordion-group{
   background-color: white !important;
 
 }
+
 .ngx-slider .ngx-slider-pointer:after {
-  width: 19px!important;
-  height: 19px!important;
-  top: 3px!important;
-  left: 3px!important;
-  border-radius: 50%!important;
+  width: 19px !important;
+  height: 19px !important;
+  top: 3px !important;
+  left: 3px !important;
+  border-radius: 50% !important;
 }
+
 .ngx-slider .ngx-slider-pointer {
   width: 25px !important;
   height: 25px !important;
@@ -1610,6 +1729,7 @@ accordion-group{
   width: 1.5rem;
   height: 1.5rem;
 }
+
 .custom-control-label {
   padding-left: 11px;
   font-size: 16px;
@@ -1618,57 +1738,68 @@ accordion-group{
   line-height: 2rem;
   cursor: pointer;
 }
-.custom-control-input{
+
+.custom-control-input {
   width: 1.5rem;
 
 }
-.custom-control-input:checked ~ .custom-control-label::before {
+
+.custom-control-input:checked~.custom-control-label::before {
   border-color: $greenColor2;
   background-color: $greenColor2;
 
 }
+
 .iti {
   display: block;
 
   .iti__country {
-      display: block;
+    display: block;
   }
 }
+
 .form-control::placeholder {
   color: $grayColor;
 }
+
 .ng-select .ng-select-container .ng-value-container .ng-placeholder {
-  color:  $grayColor;
+  color: $grayColor;
 }
+
 /******************pagination*********************/
-.pagination-prev{
+.pagination-prev {
   margin-right: 20px;
 }
-.pagination-next{
+
+.pagination-next {
   margin-left: 20px;
 }
+
 .page-link {
-  border-radius: 10px 4px 10px 8px!important;
+  border-radius: 10px 4px 10px 8px !important;
   margin: 0 5px;
   font-size: 16px;
   font-weight: 700;
 }
+
 .page-item.active .page-link,
 .page-item .page-link:hover {
   background-color: $active-link2;
   border-color: $active-link2;
   color: white;
 }
-.page-item.disabled .page-link{
+
+.page-item.disabled .page-link {
   background-color: $active-link2;
   color: white;
   opacity: .5;
 }
-.page-link{
-  color:  $active-link2;
+
+.page-link {
+  color: $active-link2;
 }
 
 .pagination-next .page-link,
-.pagination-last .page-link{
-  border-radius: 4px 10px 8px 10px!important;
+.pagination-last .page-link {
+  border-radius: 4px 10px 8px 10px !important;
 }

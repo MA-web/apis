@@ -18,6 +18,10 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { FormlyFieldUpload } from './formly-components/formly-filed-upload';
 import { FormlyFieldText } from './formly-components/formly-text';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { FormlyAccordion } from './formly-components/formly-accordion';
+import { TagInputModule } from 'ngx-chips';
+import { FormlyFieldChips } from './formly-components/formly-filed-chips';
 
 
 export function formlyValidationConfig(translate: TranslateService) {
@@ -43,7 +47,9 @@ export function formlyValidationConfig(translate: TranslateService) {
     FormlyFieldSlider,
     FormlyFieldPhone,
     FormlyFieldUpload,
-    FormlyFieldText
+    FormlyFieldText,
+    FormlyAccordion,
+    FormlyFieldChips
   ],
   imports: [
     CommonModule,
@@ -59,6 +65,9 @@ export function formlyValidationConfig(translate: TranslateService) {
           { name: 'phone', component: FormlyFieldPhone },
           { name: 'upload', component: FormlyFieldUpload },
           { name: 'text', component: FormlyFieldText },
+          { name: 'accordion', component: FormlyAccordion },
+          { name: 'chips', component: FormlyFieldChips },
+
         ]
     }),
     InlineSVGModule,
@@ -67,14 +76,17 @@ export function formlyValidationConfig(translate: TranslateService) {
     NgxSliderModule,
     NgxIntlTelInputModule,
     TranslateModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    AccordionModule,
+    TagInputModule
 
   ],
   exports:[
     ReactiveFormsModule,
     FormlyModule,
     InlineSVGModule,
-    NgxSliderModule
+    NgxSliderModule,
+    TagInputModule
   ],
   providers: [
     { provide: FORMLY_CONFIG, multi: true, useFactory: formlyValidationConfig, deps: [TranslateService] },

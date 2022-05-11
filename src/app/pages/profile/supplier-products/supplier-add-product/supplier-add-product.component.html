@@ -1,0 +1,6 @@
+<app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+</form>

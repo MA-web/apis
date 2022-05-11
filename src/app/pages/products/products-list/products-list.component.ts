@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { Options, LabelType } from "@angular-slider/ngx-slider";
 import { response } from 'express';
+import { appRouts } from 'src/environments/environment';
 
 @Component({
   selector: 'app-products-list',
@@ -12,6 +13,10 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit {
 
 
   async ngOnInit(){
+    this.breadcrumbItems = [
+      { label: this._translateService.instant('Products'), path: appRouts.productsList,active: true  }
+    ]
+
     await this._translateService.get('dummyTranslation').toPromise().then();
     this.fields = [
       {

@@ -16,18 +16,17 @@ SwiperCore.use([Pagination, Navigation]);
 })
 export class ProductDetailsComponent extends AppBaseComponent implements OnInit {
 
-  breadcrumbItems:breadcrumb[] =[]
 
-  async ngOnInit(){
+  async ngOnInit() {
     await this._translateService.get('dummyTranslation').toPromise().then();
 
-    this.breadcrumbItems =  [
-      {label: this._translateService.instant('Products'),path:appRouts.productsList},
-      {label:'Natural Extracts',active:true}
+    this.breadcrumbItems = [
+      { label: this._translateService.instant('Products'), path: appRouts.productsList },
+      { label: 'Natural Extracts', active: true }
     ]
 
   }
-  innerWidth:number = window.innerWidth;
+  innerWidth: number = window.innerWidth;
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.innerWidth = window.innerWidth;

@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card white-card mb-4" style="border-radius: 0px 0px 40px 0px;">
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-lg-8">
+              <formly-form class="row" [form]="form" [model]="model" [fields]="fields"> </formly-form>
+            </div>
+            <div class="col-lg-4">
+              <button type="submit" class="apis-button btn-warning  px-5">
+                <span [inlineSVG]="'assets/icons/search2.svg'"></span>
+                {{'search' | translate}}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card white-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div class="the-title">
+            <h2>{{'MyProducts' | translate}}<span class="number-items">50 {{'Product' | translate}}</span></h2>
+          </div>
+          <div>
+            <a routerLink="../add" class="apis-button btn-success px-4">
+              <span [inlineSVG]="'assets/icons/add.svg'"></span>
+              {{'addProduct' | translate}}</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <app-supplier-product></app-supplier-product>
+          </div>
+          <div class="col-12">
+            <app-supplier-product></app-supplier-product>
+          </div>
+        </div>
+        <div class="mt-4">
+          <div class="d-flex justify-content-center">
+            <pagination [boundaryLinks]="true" [totalItems]="77" previousText="&lsaquo;" nextText="&rsaquo;"
+              firstText="&laquo;" lastText="&raquo;">
+            </pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

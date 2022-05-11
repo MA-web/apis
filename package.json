@@ -39,6 +39,7 @@
     "ng-inline-svg-2": "^14.0.1",
     "ngx-bootstrap": "^8.0.0",
     "ngx-captcha": "^11.0.0",
+    "ngx-chips": "^3.0.0",
     "ngx-dropzone": "^3.1.0",
     "ngx-filesaver": "^13.0.0",
     "ngx-intl-tel-input": "^3.2.0",
