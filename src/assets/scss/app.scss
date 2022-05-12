@@ -1315,7 +1315,9 @@ select.form-control option[value=""][disabled] {
 
 
 /***************general*****************/
-
+.border-radius-13{
+  border-radius: 13px!important;
+}
 .form-group label span {
   color: $red;
 }
@@ -1371,10 +1373,12 @@ select.form-control option[value=""][disabled] {
 }
 
 .formly-accordion {
+
+
   accordion-group {
     .card-header {
       background-color: #FAFAFA;
-
+      position: relative;
     }
 
     .accordion-toggle {
@@ -1445,7 +1449,7 @@ select.form-control option[value=""][disabled] {
   font-size: 16px;
   font-weight: 600;
   border-radius: 25px;
-  padding: .9rem 0.75rem;
+  padding: 0.8rem 0.4rem;
   transition: all .2s ease-in-out;
   text-transform: uppercase;
 }
@@ -1507,7 +1511,6 @@ select.form-control option[value=""][disabled] {
 }
 
 .apis-button:hover {
-  opacity: .85;
   text-decoration: none;
   color: #fff
 }
@@ -1685,7 +1688,7 @@ textarea.form-control{
 
 .ng-select .ng-select-container {
   height: 46px !important;
-  line-height: 46px !important;
+  line-height: 30px !important;
   border-radius: 25px;
   box-shadow: 0px 4px 8px #2C27380A;
   border-color: #DBE2EA;

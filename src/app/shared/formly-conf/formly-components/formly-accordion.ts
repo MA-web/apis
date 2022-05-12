@@ -18,9 +18,7 @@ import { FieldType, FormlyFieldConfig } from '@ngx-formly/core';
 </accordion>
 
 `,
-styles:[`
 
-`]
 })
 export class FormlyAccordion extends FieldType {
 

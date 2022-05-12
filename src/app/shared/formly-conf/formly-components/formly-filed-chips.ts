@@ -9,11 +9,11 @@ import { Observable, of } from 'rxjs';
   <div class="form-group input-apis ">
   <label for="addressType"> {{to.label}}</label>
   <tag-input
-  [formControl]="formControl"
-  [formlyAttributes]="field"
-  [editable]="true"
-  [identifyBy]="'id'"
-  [displayBy]="'name'">
+    [formControl]="formControl"
+    [formlyAttributes]="field"
+    [editable]="true"
+    [identifyBy]="'id'"
+    [displayBy]="'name'">
   </tag-input>
   </div>
 

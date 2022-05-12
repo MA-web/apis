@@ -22,6 +22,10 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { FormlyAccordion } from './formly-components/formly-accordion';
 import { TagInputModule } from 'ngx-chips';
 import { FormlyFieldChips } from './formly-components/formly-filed-chips';
+import { FormlyFieldFile } from './formly-components/formly-filed-file';
+import { FormlyFieldButton } from './formly-components/button-type.component';
+import { FormlyUploadArea } from './formly-components/formly-upload-area';
+import { LightboxModule } from 'ngx-lightbox';
 
 
 export function formlyValidationConfig(translate: TranslateService) {
@@ -49,7 +53,10 @@ export function formlyValidationConfig(translate: TranslateService) {
     FormlyFieldUpload,
     FormlyFieldText,
     FormlyAccordion,
-    FormlyFieldChips
+    FormlyFieldChips,
+    FormlyFieldFile,
+    FormlyFieldButton,
+    FormlyUploadArea
   ],
   imports: [
     CommonModule,
@@ -67,7 +74,19 @@ export function formlyValidationConfig(translate: TranslateService) {
           { name: 'text', component: FormlyFieldText },
           { name: 'accordion', component: FormlyAccordion },
           { name: 'chips', component: FormlyFieldChips },
-
+          { name: 'file', component: FormlyFieldFile },
+          { name: 'uploadArea', component: FormlyUploadArea },
+          {
+            name: 'button',
+            component: FormlyFieldButton,
+            wrappers: ['form-field'],
+            defaultOptions: {
+              templateOptions: {
+                btnType: 'default',
+                type: 'button',
+              },
+            },
+          },
         ]
     }),
     InlineSVGModule,
@@ -78,7 +97,8 @@ export function formlyValidationConfig(translate: TranslateService) {
     TranslateModule,
     NgxDropzoneModule,
     AccordionModule,
-    TagInputModule
+    TagInputModule,
+    LightboxModule
 
   ],
   exports:[

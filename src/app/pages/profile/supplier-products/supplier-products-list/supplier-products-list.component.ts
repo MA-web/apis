@@ -8,8 +8,9 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
 })
 export class SupplierProductsListComponent extends AppBaseComponent implements OnInit {
 
-
   async ngOnInit(){
+    console.log('dsd')
+
     await this._translateService.get('dummyTranslation').toPromise().then();
     this.fields = [
       {
