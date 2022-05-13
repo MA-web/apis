@@ -161,12 +161,12 @@
   "Incoterms":"Incoterms",
   "Transportation":"Transportation",
   "Attribute":"Attribute",
-  "BACK":"BACK",
+  "back":"BACK",
   "Save_as_Draft":"Save as Draft",
   "PublishProduct":"Publish product",
-  "":"",
-  "":"",
-
+  "add_attribute":"In case you want to add new attribute/item name/ specification…etc",
+  "InsertSupplementMessage":"“In case you want to add new attribute/item name/ specification…etc. not mentioned by the portal system and to be measured, you can mention that in the field of “Attribute” and include the results/limits/ quantity/…etc. in the “Value” field”",
+  "Insert":"Insert",
 
   "validations": {
     "required": "This field is required!",

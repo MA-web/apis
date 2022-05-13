@@ -7,12 +7,12 @@ import { FieldType } from '@ngx-formly/core';
   <div class="file-input">
       <input
         type="file"
-        id="file-input"
+        [id]="field.key"
         class="file-input__input"
         [formControl]="formControl" [formlyAttributes]="field"
 
       />
-      <label class="file-input__label apis-button btn-info " for="file-input">
+      <label class="file-input__label apis-button btn-info " [for]="field.key">
         <span [inlineSVG]="'./assets/icons/download.svg'" forceEvalStyles="true"></span>
         <span>{{to.label}}</span></label
       >

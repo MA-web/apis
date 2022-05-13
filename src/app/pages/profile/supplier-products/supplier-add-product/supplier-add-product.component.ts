@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { appRouts } from 'src/environments/environment';
 @Component({
@@ -7,8 +8,9 @@ import { appRouts } from 'src/environments/environment';
   styleUrls: ['./supplier-add-product.component.scss']
 })
 export class SupplierAddProductComponent extends AppBaseComponent implements OnInit {
+  productCertificates:any[] = []
 
-  productCertificates: any = []
+  ShippingCertificate:any[] = []
 
   async ngOnInit() {
     await this._translateService.get('dummyTranslation').toPromise().then();
@@ -164,7 +166,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'Storage',
+                key: 'ProductAttributeStorage',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('Storage'),
@@ -447,8 +449,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   btnType: 'success px-3 mt-md-4',
                   onClick: ($event: any) => {
                     this.productCertificates.push({ CertificateName: this.model?.CertificateName, file: this.model.UploadProductCertificate })
-                    console.log('  this.productCertificates: ', this.productCertificates);
-
+                    this.model.uploadAreaProducts = this.productCertificates
                     this.form.get('CertificateName')?.setValue(undefined)
                     this.form.get('CertificateName')?.reset()
                     this.form.get('UploadProductCertificate')?.setValue(undefined)
@@ -465,7 +466,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 key: 'uploadAreaProducts',
                 type: 'uploadArea',
                 templateOptions: {
-                  items: this.productCertificates
+                  items:  this.productCertificates
                 },
               },
             ],
@@ -474,7 +475,6 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
           {
             templateOptions: {
               label: this._translateService.instant('InsertTradeInformation'),
-              required: true,
               open: true
             },
             fieldGroupClassName: 'row',
@@ -498,7 +498,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'Storage',
+                key: 'InsertTradeInformationStorage',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('Storage'),
@@ -509,7 +509,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 key: 'ValidPeriod',
                 type: 'input',
                 templateOptions: {
-                  type:'date',
+                  type: 'date',
                   label: this._translateService.instant('ValidPeriod'),
                 },
               },
@@ -525,33 +525,316 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
             fieldGroupClassName: 'row',
             fieldGroup: [
               {
-                className: 'col-md-3 col-12',
-                key: 'from',
-                type: 'input',
+                className: 'col-12',
+                type: 'repeat',
+                key: 'productPrices',
                 templateOptions: {
-                  type:'number',
-                  label: this._translateService.instant('From'),
+                  columns: ['from', 'to', 'price'],
+                  columnLevel:true,
+                  textAdd: this._translateService.instant('Price'),
+                },
+                fieldArray: {
+                  fieldGroupClassName: 'row mr-2',
+                  fieldGroup: [
+                    {
+                      className: 'col-md-3 col-12  px-2',
+                      key: 'from',
+                      templateOptions: {   label: this._translateService.instant('From'),},
+                      wrappers: ['panel'],
+                      fieldGroup: [
+                         {
+
+                        key: 'value',
+                        type: 'input',
+                        templateOptions: {
+                          type: 'number',
+                          required: true,
+                        },
+                      },
+                      {
+
+                        key: 'type',
+                        type: 'select',
+                        templateOptions: {
+                          required: true,
+                          options: [
+                            { label: "gram", value: "gram" },
+                            { label: "k", value: "k" }
+                          ]
+                        }
+                      },
+                    ],
+                    },
+                    {
+                      className: 'col-md-3 col-12 p-0 pr-2',
+                      key: 'to',
+                      templateOptions: {   label: this._translateService.instant('To'),},
+                      wrappers: ['panel'],
+                      fieldGroup: [
+                         {
+
+                        key: 'value',
+                        type: 'input',
+                        templateOptions: {
+                          type: 'number',
+                          required: true,
+                        },
+                      },
+                      {
+                        key: 'type',
+                        type: 'select',
+                        templateOptions: {
+                          required: true,
+                          options: [
+                            { label: "gram", value: "gram" },
+                            { label: "k", value: "k" }
+                          ]
+                        },
+                      },
+                    ],
+                    },
+                    {
+                      className: 'col-md-3 col-12 p-0 pr-2',
+                      key: 'price',
+                      templateOptions: {   label: this._translateService.instant('Price'),},
+                      wrappers: ['panel'],
+                      fieldGroup: [
+                         {
+
+                        key: 'value',
+                        type: 'input',
+                        templateOptions: {
+                          type: 'number',
+                          required: true,
+                        },
+                      },
+                      {
+
+                        key: 'type',
+                        type: 'select',
+                        templateOptions: {
+                          required: true,
+                          options: [
+                            { label: "USD", value: "USD" },
+                            { label: "EGP", value: "EGP" }
+                          ]
+                        },
+                      },
+                    ],
+                    },
+
+                  ]
+                }
+              },
+              {
+                className: 'col-12',
+                key: 'PaymentTerms',
+                type: 'select',
+                templateOptions: {
                   required: true,
+                  label: this._translateService.instant('PaymentTerms'),
+                  options: [ ]
+                },
+              },
+            ],
+          },
+          /*****************************AllowedSample************************************* */
+          {
+            templateOptions: {
+              label: this._translateService.instant('AllowedSample'),
+              required: true,
+              open: true
+            },
+            fieldGroupClassName: 'row',
+            fieldGroup: [
+              {
+                className: 'col-12',
+                key: 'AllowedSample',
+                type: 'checkbox',
+                defaultValue:false,
+                templateOptions: {
+                  label: this._translateService.instant('AllowedSample'),
                 },
               },
               {
-                className: 'col-md-3 col-12',
-                key: 'to',
-                type: 'input',
+                className:'col-12 mb-3',
+                template: `<img src="./assets/icons/info.svg" class="m-1"> <span class="mb-0 hint">${this._translateService.instant('add_attribute')}:</span>`,
+              },
+              {
+                className: 'col-12',
+                key: 'sampleType',
+                type: 'select',
                 templateOptions: {
-                  type:'number',
-                  label: this._translateService.instant('To'),
-                  required: true,
+                  label: this._translateService.instant('sampleType'),
+                  required:true,
+                  options: []
                 },
               },
               {
-                className: 'col-md-3 col-12',
-                key: 'price',
+                className: 'col-md-6 col-12',
+                key: 'SampleSize',
+                type: 'select',
+                templateOptions: {
+                  label: this._translateService.instant('SampleSize'),
+                  required:true,
+                  options: []
+                },
+              },
+              {
+                className: 'col-md-6 col-12',
+                key: 'SampleUnit',
+                type: 'select',
+                templateOptions: {
+                  label: this._translateService.instant('SampleUnit'),
+                  required:true,
+                  options: []
+                },
+              },
+            ],
+          },
+
+          /*****************************ProductShipping************************************* */
+          {
+            templateOptions: {
+              label: this._translateService.instant('ProductShipping'),
+              required: true,
+              open: true
+            },
+            fieldGroupClassName: 'row',
+            fieldGroup: [
+              {
+                className: 'col-12',
+                key: 'Port_of_Discharge',
                 type: 'input',
                 templateOptions: {
-                  type:'number',
-                  label: this._translateService.instant('Price'),
+                  label: this._translateService.instant('Port_of_Discharge')
+                },
+              },
+            ],
+          },
+           /*****************************ProductionCapacity************************************* */
+           {
+            templateOptions: {
+              label: this._translateService.instant('ProductionCapacity'),
+              required: true,
+              open: true
+            },
+            fieldGroupClassName: 'row',
+            fieldGroup: [
+              {
+                className: 'col-12',
+                key: 'Value',
+                type: 'input',
+                templateOptions: {
+                  label: this._translateService.instant('Value')
+                },
+              },
+              {
+                className: 'col-md-6 col-12',
+                key: 'Unit',
+                type: 'select',
+                templateOptions: {
+                  label: this._translateService.instant('Unit'),
+                  options: []
+                },
+              },
+              {
+                className: 'col-md-6 col-12',
+                key: 'Period',
+                type: 'select',
+                templateOptions: {
+                  label: this._translateService.instant('Period'),
+                  options: []
+                },
+              },
+              {
+                className: 'col-md-6 col-12',
+                key: 'EstimatedLeadTime',
+                type: 'input',
+                templateOptions: {
+                  label: this._translateService.instant('EstimatedLeadTime')
+                },
+              },
+              {
+                className: 'col-md-6 col-12',
+                key: 'Package',
+                type: 'input',
+                templateOptions: {
+                  label: this._translateService.instant('Package')
+                },
+              },
+              {
+                className:'col-12',
+                key: 'Shipping',
+                type: 'radio',
+                templateOptions: {
+                  type: 'radio',
+                  label: this._translateService.instant('Shipping'),
+                  name: 'Shipping',
+                  options: [{ value: 'CustomerEnd', key: 'CustomerEnd'}, { value: 'SupplierEnd', key: 'SupplierEnd' }]
+                }
+              },
+              {
+                className: 'col-md-6 col-12',
+                key: 'Incoterms',
+                type: 'select',
+                templateOptions: {
+                  label: this._translateService.instant('Incoterms'),
+                  options: []
+                },
+              },
+              {
+                className: 'col-md-6 col-12',
+                key: 'Transportation',
+                type: 'select',
+                templateOptions: {
+                  label: this._translateService.instant('Transportation'),
+                  options: []
+                },
+              },
+            ],
+          },
+
+          /*****************************ShippingCertificate************************************* */
+          {
+            templateOptions: {
+              label: this._translateService.instant('ShippingCertificate'),
+              required: true,
+              open: true
+            },
+            fieldGroupClassName: 'row align-items-center',
+            fieldGroup: [
+              {
+                className: 'col-md-6 col-12',
+                key: 'ShippingCertificateName',
+                type: 'select',
+                templateOptions: {
+                  label: this._translateService.instant('CertificateName'),
                   required: true,
+                  options: [
+                    { label: "c1", value: "c1" },
+                    { label: "c2", value: "c2" }
+                  ]
+                },
+              },
+              {
+                className: 'col-md-3 col-12 p-0 mt-md-3',
+                key: 'UploadShippingCertificate',
+                type: 'file',
+                templateOptions: {
+                  label: this._translateService.instant('UploadCertificate'),
+                  required: true,
+                  change: (filed, $event) => {
+
+                    let file = $event.target.files
+                    let fileToUpload: any;
+                    fileToUpload = file.item(0);
+                    let reader = new FileReader();
+                    reader.onload = (event: any) => {
+                      this.model.UploadShippingCertificate = { src: event.target.result, fileToUpload: fileToUpload }
+                    }
+                    reader.readAsDataURL(fileToUpload);
+                  }
                 },
               },
               {
@@ -561,30 +844,77 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   icon: 'add.svg',
                   btnType: 'success px-3 mt-md-4',
                   onClick: ($event: any) => {
-                    this.productCertificates.push({ CertificateName: this.model?.CertificateName, file: this.model.UploadProductCertificate })
-                    console.log('  this.productCertificates: ', this.productCertificates);
+                    this.ShippingCertificate.push({ CertificateName: this.model?.ShippingCertificateName, file: this.model.UploadShippingCertificate })
 
-                    this.form.get('CertificateName')?.setValue(undefined)
-                    this.form.get('CertificateName')?.reset()
-                    this.form.get('UploadProductCertificate')?.setValue(undefined)
+                    this.model.uploadAreaShipping =  this.ShippingCertificate
+
+                    this.form.get('ShippingCertificateName')?.setValue(undefined)
+                    this.form.get('ShippingCertificateName')?.reset()
+                    this.form.get('UploadShippingCertificate')?.setValue(undefined)
 
                   },
                 },
                 expressionProperties: {
-                  'templateOptions.disabled': () => !this.model.CertificateName || !this.model.UploadProductCertificate,
+                  'templateOptions.disabled': () => !this.model.ShippingCertificateName || !this.model.UploadShippingCertificate,
+                },
+              },
+
+              {
+                className: 'col-12',
+                key: 'uploadAreaShipping',
+                type: 'uploadArea',
+                templateOptions: {
+                  items:  this.ShippingCertificate
                 },
               },
             ],
           },
-          /*****************************AllowedSample************************************* */
-
-
-          /*****************************ProductShipping************************************* */
-
-          /*****************************ShippingCertificate************************************* */
-
           /*****************************InsertSupplement************************************* */
+          {
+            templateOptions: {
+              label: this._translateService.instant('InsertSupplement'),
+              open: true
+            },
+            fieldGroupClassName: 'row',
+            fieldGroup: [
+              {
+                className:'col-12 mb-3',
+                template: `<span class="mb-0 hint font-italic">${this._translateService.instant('InsertSupplementMessage')}</span>`,
+              },
+              {
+                className: 'col-12',
+                type: 'repeat',
+                key: 'InsertSupplement',
+                templateOptions: {
+                  columns: ['Attribute', 'Value'],
+                  columnLevel:false,
+                  textAdd: this._translateService.instant('Insert'),
+                },
+                fieldArray: {
+                  fieldGroupClassName: 'row',
+                  fieldGroup: [
+                    {
+                      className: 'col-md-4 col-12',
+                      key: 'Attribute',
+                      type: 'input',
+                      templateOptions: {
+                        label: this._translateService.instant('Attribute'),
+                      },
+                    },
+                    {
+                      className: 'col-md-4 col-12',
+                      key: 'Value',
+                      type: 'input',
+                      templateOptions: {
+                        label: this._translateService.instant('Value'),
+                      },
+                    },
+                  ]
+                }
+              },
 
+            ],
+          },
 
         ],
       }
@@ -592,6 +922,6 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
   }
   onSubmit() {
 
-
+    console.log(this.form);
   }
 }

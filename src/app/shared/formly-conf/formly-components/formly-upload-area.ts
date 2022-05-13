@@ -15,13 +15,13 @@ import { Lightbox } from 'ngx-lightbox';
             <span class="d-inline-block mr-3">{{item?.CertificateName}},</span> <span class="d-inline-block">{{item?.file?.fileToUpload?.name}}</span> <span></span>
             </h5>
 
-            <div class="d-flex flex-wrap gap-2">
-              <button type="button" class="apis-button btn-outline-success border-radius-13" (click)="onView(item,i)">
+            <div class="button-items">
+              <button type="button" class="apis-button btn btn-outline-success border-radius-13" (click)="onView(item,i)">
               <span [inlineSVG]="'assets/icons/eye.svg'"></span>
             </button>
-            <button type="button" class="apis-button btn-danger border-radius-13" (click)="onDelete(i)">
-              <span [inlineSVG]="'assets/icons/delete.svg'"></span>
-            </button>
+              <button type="button" class="apis-button btn btn-danger border-radius-13" (click)="onDelete(i)">
+                <span [inlineSVG]="'assets/icons/delete.svg'"></span>
+              </button>
             </div>
             </div>
           </div>
@@ -43,13 +43,7 @@ import { Lightbox } from 'ngx-lightbox';
       color:#756F86;
     }
 
-      :host ::ng-deep .btn-outline-success svg {
-        zoom:1.3;
-        path{
-          fill: #27BEC6;
 
-        }
-    }
     `
   ]
 })

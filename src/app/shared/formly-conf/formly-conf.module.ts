@@ -26,6 +26,8 @@ import { FormlyFieldFile } from './formly-components/formly-filed-file';
 import { FormlyFieldButton } from './formly-components/button-type.component';
 import { FormlyUploadArea } from './formly-components/formly-upload-area';
 import { LightboxModule } from 'ngx-lightbox';
+import { FormlyRepeatType } from './formly-components/formly-repeat-type';
+import { PanelWrapperComponent } from './formly-components/panel-wrapper.component';
 
 
 export function formlyValidationConfig(translate: TranslateService) {
@@ -56,13 +58,18 @@ export function formlyValidationConfig(translate: TranslateService) {
     FormlyFieldChips,
     FormlyFieldFile,
     FormlyFieldButton,
-    FormlyUploadArea
+    FormlyUploadArea,
+    FormlyRepeatType,
+    PanelWrapperComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormlyBootstrapModule,
     FormlyModule.forChild({
+      wrappers: [
+        { name: 'panel', component: PanelWrapperComponent },
+      ],
         types: [
           { name: 'input', component: FormlyFieldInput },
           { name: 'radio', component: FormlyFieldRadio },
@@ -76,6 +83,7 @@ export function formlyValidationConfig(translate: TranslateService) {
           { name: 'chips', component: FormlyFieldChips },
           { name: 'file', component: FormlyFieldFile },
           { name: 'uploadArea', component: FormlyUploadArea },
+          { name: 'repeat', component: FormlyRepeatType },
           {
             name: 'button',
             component: FormlyFieldButton,
