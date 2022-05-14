@@ -30,25 +30,14 @@ import { FieldArrayType, FormlyFormBuilder } from '@ngx-formly/core';
     </form>
 </div>
 
-
-
+  <div class="table-responsive">
   <table class="table" *ngIf="model.length > 0">
-    <!-- <thead>
-      <tr>
-        <th>#</th>
-        <th>#</th>
-      <ng-container *ngFor="let field of field.fieldArray.fieldGroup">
-        <th >{{ field?.templateOptions?.label }}</th>
-    </ng-container>
-    <th >Actions</th>
-      </tr>
-    </thead> -->
     <tbody>
       <tr *ngFor="let item of formControl.value; let i =index">
       <td class="px-2 py-0 align-middle"> <span class="index ">{{i+1}}</span></td>
         <td class="px-2 py-0 align-middle" *ngIf="to.columnLevel">{{'Quantity #0'+i+1}}</td>
         <td class="px-2 py-0 align-middle" *ngFor="let field of field.fieldArray.fieldGroup">
-          <span class="main2-color">{{field?.templateOptions?.label | translate}} * : </span>
+          <span class="main2-color">{{field?.templateOptions?.label | translate}} * &nbsp;: </span>
       {{columnLevel}}
         <ng-container *ngIf="to.columnLevel; else elseTemplate">
         {{item[field.key]?.value }} {{item[field.key]?.type }}
@@ -60,10 +49,10 @@ import { FieldArrayType, FormlyFormBuilder } from '@ngx-formly/core';
       </td>
            <td class="px-2 py-0 align-middle">
             <div class="button-items">
-              <button type="button" class="apis-button btn btn-info border-radius-13" (click)="editForm(i)">
-              <span [inlineSVG]="'assets/icons/edit.svg'"></span>
+              <button type="button" class="apis-button btn btn-info border-radius-13 py-2" (click)="editForm(i)">
+              <span [inlineSVG]="'assets/icons/edit.svg'" ></span>
             </button>
-              <button type="button" class="apis-button btn btn-danger border-radius-13" (click)="remove(i);hideForm()">
+              <button type="button" class="apis-button btn btn-danger border-radius-13 py-2" (click)="remove(i);hideForm()">
                 <span [inlineSVG]="'assets/icons/delete.svg'"></span>
               </button>
             </div>
@@ -72,6 +61,9 @@ import { FieldArrayType, FormlyFormBuilder } from '@ngx-formly/core';
 
     </tbody>
   </table>
+
+  </div>
+
 
 
   `,
@@ -88,23 +80,7 @@ styles: [
   }
 }
 
-.index {
-  background: #EEEEEE;
-  box-shadow: 0px 4px 8px #2c27380a;
-  color: #24B6F7;
-  font-size: 16px;
-  font-weight: 900;
-  display: inline-block;
-  margin: 10px;
-  border-radius: 15px;
-  width: 45px;
-  height: 45px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 45px;
-  padding:2px;
-  text-align:center
-}
+
 .table th, .table td{
   color:#756F86;
   font-weight:bold;

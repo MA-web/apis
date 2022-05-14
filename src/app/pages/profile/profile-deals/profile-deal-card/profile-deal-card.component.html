@@ -1,0 +1,44 @@
+<a routerLink="./1">
+  <div
+    class="deal"
+    [ngClass]="{
+      danger: status === 'danger',
+      primary: status === 'primary',
+      warning: status === 'warning'
+    }"
+  >
+    <div class="dealId mb-3">#Invoice - 12666532</div>
+    <div class="row">
+      <div class="col-lg-6 col-sm-8 col-12">
+        <h4 class="product-title text-truncate mb-3">1266 gm Extract</h4>
+      </div>
+      <div class="col-lg-3 col-sm-4 col-12">
+        <div
+          class="status mb-3 pull-right"
+          [ngClass]="{
+            success: status === 'success',
+            danger: status === 'danger',
+            primary: status === 'primary',
+            warning: status === 'warning'
+          }"
+        >
+          In progress
+        </div>
+      </div>
+      <div class="col-lg-3 col-12">
+        <h4 class="date font-size-16 text-truncate mb-3">
+          08:03 . 20-Dec-2021
+        </h4>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-sm-6">
+        <div class="info mb-3">Natural Extracts > Plant Extracts</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="user mb-3">Name: Name</div>
+      </div>
+    </div>
+  </div>
+</a>

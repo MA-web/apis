@@ -1,0 +1,113 @@
+@import 'src/assets/scss/variables';
+
+a{
+
+  text-decoration: none;
+
+
+}
+.deal{
+  padding: 1.25rem;
+  position: relative;
+  background: #F8F8F8 0% 0% no-repeat padding-box;
+  box-shadow: 0px 2px 6px #0000000F;
+  &:before{
+    content: "";
+    width: 5px;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+  .dealId{
+    font-size: 16px;
+    font-weight: 800;
+    color: $active-link2;
+  }
+
+  .product-title{
+    color: $mainColor;
+    font-size: 24px;
+    font-weight: 800;
+
+  }
+  .status{
+    border: 1px solid ;
+    color:$active-link2 ;
+    background: #24B6F721 0% 0% no-repeat padding-box;
+    border-radius: 16px;
+    display: inline-block;
+    height: 32px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 32px;
+    width: 110px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  .status.success{
+    border-color:#4B9E90 ;
+    color:#4B9E90 ;
+    background: #4B9E901C 0% 0% no-repeat padding-box;
+  }
+  .status.primary{
+    border-color: $active-link2;
+    color:$active-link2 ;
+  }
+  .status.danger{
+    border-color: $red;
+    color:$red ;
+    background-color: rgb(238 68 68 / 10%);
+  }
+  .status.warning{
+    border-color:#FCBA1A ;
+    color:#FCBA1A ;
+    background: #FCBA1A19 0% 0% no-repeat padding-box;
+  }
+  .date{
+    font-size: 16px;
+  }
+
+  .info,
+  .user{
+    font-size: 16px;
+    font-weight: 800;
+  }
+  .info{
+    color: #888888;
+  }
+  .user{
+    color: #777777;
+    @media (min-width:768px) {
+      text-align: right;
+    }
+  }
+}
+
+.deal.success{
+  background: #4B9E901C 0% 0% no-repeat padding-box;
+  &:before{
+    background-color: #8DD6F7;
+  }
+}
+
+.deal.primary{
+  background: rgb(141 214 247 / 5%) 0% 0% no-repeat padding-box;
+  &:before{
+    background-color: #8DD6F7;
+  }
+}
+.deal.danger{
+  background:  rgb(241 194 194 / 5%) 0% 0% no-repeat padding-box;
+  &:before{
+    background-color: #F1C2C2;
+  }
+}
+
+.deal.warning{
+  background:  rgb(255 204 102 / 5%) 0% 0% no-repeat padding-box;
+  &:before{
+    background-color: $active-link;
+  }
+}

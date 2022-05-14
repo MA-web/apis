@@ -1,11 +1,5 @@
 @import 'src/assets/scss/variables';
 
-
-
-a {
-  &:hover {
-    text-decoration: none;
-  }
   .supplier-product{
     margin-bottom: 20px;
     background-color: #F9F9F9;
@@ -34,7 +28,6 @@ a {
       font-weight: 800
     }
   }
-}
 
 
 .apis-button img {

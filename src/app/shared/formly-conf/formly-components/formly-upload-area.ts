@@ -16,10 +16,10 @@ import { Lightbox } from 'ngx-lightbox';
             </h5>
 
             <div class="button-items">
-              <button type="button" class="apis-button btn btn-outline-success border-radius-13" (click)="onView(item,i)">
+              <button type="button" class="apis-button btn btn-outline-success border-radius-13 py-2" (click)="onView(item,i)">
               <span [inlineSVG]="'assets/icons/eye.svg'"></span>
             </button>
-              <button type="button" class="apis-button btn btn-danger border-radius-13" (click)="onDelete(i)">
+              <button type="button" class="apis-button btn btn-danger border-radius-13 py-2" (click)="onDelete(i)">
                 <span [inlineSVG]="'assets/icons/delete.svg'"></span>
               </button>
             </div>

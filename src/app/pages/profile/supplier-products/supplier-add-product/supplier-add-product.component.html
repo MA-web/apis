@@ -1,36 +1,25 @@
 <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
-
-
-
-
-
-    <div class="card white-card">
-      <div class="card-body p-0">
-
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="button-items p-4">
-                <button type="button" class="apis-button btn btn-outline-secondary px-4">
-                  <span [inlineSVG]="'assets/icons/back.svg'" class="mx-1"></span>
-                  {{'back' |translate}}
-                </button>
-
-
-
-                <button type="button" class="apis-button btn btn-warning pull-md-right px-4">
-                  {{'PublishProduct' |translate}}
-                </button>
-
-                <button type="button" class="apis-button btn btn-info pull-md-right px-4">
-                  <span [inlineSVG]="'assets/icons/edit.svg'"></span>
-                  {{'Save_as_Draft' |translate}}
-                </button>
-              </div>
-            </div>
+<div class="card white-card">
+  <div class="card-body p-0">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="button-items p-4">
+            <a class="apis-button btn btn-outline-secondary px-4" routerLink="../">
+              <span [inlineSVG]="'assets/icons/back.svg'" class="mx-1"></span>
+              {{'back' |translate}}
+            </a>
+            <button type="button" class="apis-button btn btn-warning pull-md-right px-4">
+              {{'PublishProduct' |translate}}
+            </button>
+            <button type="button" class="apis-button btn btn-info pull-md-right px-4">
+              <span [inlineSVG]="'assets/icons/edit.svg'"></span>
+              {{'Save_as_Draft' |translate}}
+            </button>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
+    </form>
+  </div>
+</div>

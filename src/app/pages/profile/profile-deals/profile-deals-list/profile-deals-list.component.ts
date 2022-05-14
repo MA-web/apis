@@ -1,19 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
 @Component({
-  selector: 'app-supplier-products-list',
-  templateUrl: './supplier-products-list.component.html',
-  styleUrls: ['./supplier-products-list.component.scss']
+  selector: 'app-profile-deals-list',
+  templateUrl: './profile-deals-list.component.html',
+  styleUrls: ['./profile-deals-list.component.scss']
 })
-export class SupplierProductsListComponent extends AppBaseComponent implements OnInit {
+export class ProfileDealsListComponent extends AppBaseComponent implements OnInit {
+
+
+
+  constructor(
+    injector: Injector,
+    private route:ActivatedRoute
+   ) {
+    super(injector);
+
+
+
+  }
 
   async ngOnInit(){
     await this._translateService.get('dummyTranslation').toPromise().then();
 
-    this.breadcrumbItems = [
-      { label: this._translateService.instant('MyProducts'), active: true },
-    ]
+    this.route.url.subscribe((url:any) =>{
+      this.breadcrumbItems = [
+        { label: this._translateService.instant('Deals')},
+        { label: this._translateService.instant(url[0]?.path), active: true },
+      ]
+  })
+
     this.fields = [
       {
         className:'col-12',
@@ -33,15 +50,6 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
         type: 'select',
         templateOptions: {
           placeholder: this._translateService.instant('category'),
-          options:[]
-        }
-      },
-      {
-        className:'col-md-4 col-12',
-        key: 'SubCategory',
-        type: 'select',
-        templateOptions: {
-          placeholder: this._translateService.instant('SubCategory'),
           options:[]
         }
       },

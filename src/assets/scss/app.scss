@@ -124,7 +124,7 @@ body {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #FCB813
+  background-color: $orange
 }
 
 .main-menu .nav-badge {
@@ -161,7 +161,7 @@ body {
 }
 
 .icon span {
-  color: #FCB813;
+  color: $orange;
   text-transform: uppercase;
   font-size: 36px;
   font-weight: 800;
@@ -192,7 +192,7 @@ body {
 
 .about-num {
   position: absolute;
-  background-color: #FCB813;
+  background-color: $orange;
   border-radius: 52px 52px 52px 0;
   right: 0;
   top: 80px;
@@ -221,7 +221,7 @@ body {
 }
 
 .about-text span {
-  color: #FCB813
+  color: $orange
 }
 
 .about-text p {
@@ -347,7 +347,7 @@ body {
 }
 
 .price {
-  color: #FCB813;
+  color: $orange;
   font-size: 14px;
   font-weight: 800;
   text-align: right
@@ -388,7 +388,7 @@ body {
 
 .event-details h4 a:hover {
   text-decoration: none;
-  color: #FCB813
+  color: $orange
 }
 
 .event-details p {
@@ -413,14 +413,14 @@ body {
 
 .date {
   font-size: 18px;
-  color: #FCB813;
+  color: $orange;
   font-weight: 600;
   text-align: right;
   margin-top: 4px
 }
 
 .latest h3 {
-  color: #FCB813;
+  color: $orange;
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 20px
@@ -477,8 +477,8 @@ body {
   background: #fff;
   text-align: center;
   padding: 8px;
-  border-top: 5px solid #FCB813;
-  color: #FCB813;
+  border-top: 5px solid $orange;
+  color: $orange;
   font-weight: 800;
   font-size: 16px
 }
@@ -501,7 +501,7 @@ body {
 }
 
 .news-details h4 a:hover {
-  color: #FCB813;
+  color: $orange;
   text-decoration: none;
   opacity: .85
 }
@@ -535,7 +535,7 @@ body {
 }
 
 .footer h4 {
-  color: #FCB813;
+  color: $orange;
   font-size: 19px;
   font-weight: 800;
   margin-bottom: 20px
@@ -868,7 +868,7 @@ body {
 
 .about-text h3 span,
 .about-text h4 span {
-  color: #FCB813
+  color: $orange
 }
 
 .statistics2 {
@@ -1315,6 +1315,29 @@ select.form-control option[value=""][disabled] {
 
 
 /***************general*****************/
+.green-color{
+  color: $greenColor!important;
+}
+.orange-color{
+  color: $orange!important;
+}
+.index {
+  background: #EEEEEE;
+  box-shadow: 0px 4px 8px #2c27380a;
+  color: #24B6F7!important;
+  font-size: 16px;
+  font-weight: 900;
+  display: inline-block;
+  margin: 10px;
+  border-radius: 15px;
+  width: 45px;
+  height: 45px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 45px;
+  padding:2px;
+  text-align:center
+}
 .hint {
   color: $grayColor;
   font-size: 16px;
@@ -1369,11 +1392,11 @@ select.form-control option[value=""][disabled] {
 }
 
 .main-color {
-  color: $mainColor;
+  color: $mainColor!important;
 }
 
 .main2-color {
-  color: $active-link2;
+  color: $active-link2!important;
 }
 
 .white-card {
@@ -1425,7 +1448,7 @@ select.form-control option[value=""][disabled] {
       .btn {
         color: $mainColor;
         font-size: 20px;
-        font-weight: 800;
+        font-weight: 700;
         text-decoration: none;
         outline: unset;
 
@@ -1444,6 +1467,7 @@ select.form-control option[value=""][disabled] {
         left: 0;
         top: 0;
         bottom: 0;
+        z-index: 1;
       }
 
 
@@ -1471,11 +1495,11 @@ select.form-control option[value=""][disabled] {
 
 
 .text-success {
-  color: $greenColor  !important;
+  color: $greenColor!important;
 }
 
 .font-weight-600 {
-  font-weight: 600;
+  font-weight: 600!important;
 }
 
 .main-bg {
@@ -1483,7 +1507,7 @@ select.form-control option[value=""][disabled] {
 }
 
 .apis-button {
-  background-color: #FCB813;
+  background-color: $orange;
   border: 0;
   color: #fff;
   font-size: 16px;
@@ -1495,7 +1519,7 @@ select.form-control option[value=""][disabled] {
 }
 
 .btn-warning {
-  background-color: #FCB813;
+  background-color: $orange;
 }
 
 .btn-info {
@@ -1540,7 +1564,7 @@ select.form-control option[value=""][disabled] {
 .btn {
   &:hover,
   &:focus {
-    svg path {
+    svg path:last-child {
       fill: #fff !important;
     }
   }
@@ -1662,8 +1686,8 @@ select.form-control option[value=""][disabled] {
 
   h4 {
     color: $active-link2;
-    font-size: 24px;
-    font-weight: 800;
+    font-size: 22px;
+    font-weight: 700;
 
     img {
       margin-right: 5px
@@ -1671,20 +1695,20 @@ select.form-control option[value=""][disabled] {
   }
 
   p {
-    font-size: 20px;
+    font-size: 18px;
     color: $grayColor;
     font-weight: 600
   }
 
   span {
     color: $taupeGrayColor;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800
   }
 }
 
 .font-size-16 {
-  font-size: 16px;
+  font-size: 16px!important;
 }
 
 .grey-bg {

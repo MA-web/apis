@@ -399,10 +399,10 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
               },
             ],
           },
-          /*****************************InsertProductCertificates************************************* */
+          /*****************************ProductCertificates************************************* */
           {
             templateOptions: {
-              label: this._translateService.instant('InsertProductCertificates'),
+              label: this._translateService.instant('ProductCertificates'),
               required: true,
               open: true
             },
@@ -471,10 +471,10 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
               },
             ],
           },
-          /*****************************InsertTradeInformation************************************* */
+          /*****************************TradeInformation************************************* */
           {
             templateOptions: {
-              label: this._translateService.instant('InsertTradeInformation'),
+              label: this._translateService.instant('TradeInformation'),
               open: true
             },
             fieldGroupClassName: 'row',
@@ -515,10 +515,10 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
               },
             ],
           },
-          /*****************************InsertProductPrice************************************* */
+          /*****************************ProductPrice************************************* */
           {
             templateOptions: {
-              label: this._translateService.instant('InsertProductPrice'),
+              label: this._translateService.instant('ProductPrice'),
               required: true,
               open: true
             },
@@ -731,7 +731,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'Unit',
+                key: 'ProductionCapacityUnit',
                 type: 'select',
                 templateOptions: {
                   label: this._translateService.instant('Unit'),
@@ -869,10 +869,10 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
               },
             ],
           },
-          /*****************************InsertSupplement************************************* */
+          /*****************************Supplement************************************* */
           {
             templateOptions: {
-              label: this._translateService.instant('InsertSupplement'),
+              label: this._translateService.instant('Supplement'),
               open: true
             },
             fieldGroupClassName: 'row',

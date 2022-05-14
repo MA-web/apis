@@ -22,24 +22,17 @@
 </div>
 <div class="row">
   <div class="col-12">
-    <div class="card white-card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between">
-          <div class="the-title">
-            <h2>{{'MyProducts' | translate}}<span class="number-items">50 {{'Product' | translate}}</span></h2>
-          </div>
-          <div>
-            <a routerLink="../add" class="apis-button btn-success px-4">
-              <span [inlineSVG]="'assets/icons/add.svg'"></span>
-              {{'addProduct' | translate}}</a>
-          </div>
-        </div>
+    <div class="card white-card" style="border-radius: 0px">
+      <div >
         <div class="row">
           <div class="col-12">
-            <app-supplier-product></app-supplier-product>
+          <app-profile-deal-card status="danger"></app-profile-deal-card>
           </div>
           <div class="col-12">
-            <app-supplier-product></app-supplier-product>
+            <app-profile-deal-card status="primary"></app-profile-deal-card>
+          </div>
+          <div class="col-12">
+            <app-profile-deal-card status="warning"></app-profile-deal-card>
           </div>
         </div>
         <div class="mt-4">

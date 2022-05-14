@@ -21,18 +21,20 @@
           </a>
 
            <accordion [closeOthers]="true">
-            <accordion-group>
-              <a href="javascript:void(0)" accordion-heading>
+            <accordion-group [isOpen]="router.isActive('/profile/deals', false)">
+              <a href="javascript:void(0)" accordion-heading  [class.active]="router.isActive('/profile/deals', false)">
                 <i inlineSVG="assets/icons/cart.svg"></i>
-                Deals
+                {{'Deals' | translate}}
                 <span class="arrow-d">
                   <i inlineSVG="assets/icons/arrow-down.svg"></i>
                 </span>
               </a>
 
-              <a href="#">Message</a>
-              <a href="#">Message</a>
-              <a href="#">Message</a>
+              <a routerLink="./deals/inquiry" [routerLinkActive]="['active']"> {{'Inquiry' | translate}}</a>
+              <a routerLink="./deals/quotation" [routerLinkActive]="['active']"> {{'Quotation' | translate}}</a>
+              <a routerLink="./deals/order" [routerLinkActive]="['active']"> {{'Order' | translate}}</a>
+              <a routerLink="./deals/invoice" [routerLinkActive]="['active']"> {{'Invoice' | translate}}</a>
+              <a routerLink="./deals/drafts" [routerLinkActive]="['active']"> {{'Drafts' | translate}}</a>
             </accordion-group>
 
           </accordion>
