@@ -13,6 +13,10 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormlyConfModule } from 'src/app/shared/formly-conf/formly-conf.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ProfileDealInquiryComponent } from './profile-deal-inquiries/profile-deal-inquiry/profile-deal-inquiry.component';
+import { ProfileDealInquiriesComponent } from './profile-deal-inquiries/profile-deal-inquiries.component';
+import { InquiryFillingComponent } from './profile-deal-inquiries/inquiry-filling/inquiry-filling.component';
+import { ProfileDealsQuotationsComponent } from './profile-deals-quotations/profile-deals-quotations.component';
 
 const route: Route[] = [
   {
@@ -20,6 +24,7 @@ const route: Route[] = [
       { path: '', redirectTo: 'inquiry', pathMatch: 'full' },
       { path: ':type', component: ProfileDealsListComponent },
       { path: ':type/:id', component: ProfileDealDetailsComponent },
+      { path: ':type/:id/filling', component: InquiryFillingComponent },
     ]
   },
 ]
@@ -29,7 +34,11 @@ const route: Route[] = [
   ProfileDealsComponent,
   ProfileDealsListComponent,
   ProfileDealCardComponent,
-  ProfileDealDetailsComponent
+  ProfileDealDetailsComponent,
+  ProfileDealInquiryComponent,
+  ProfileDealInquiriesComponent,
+  InquiryFillingComponent,
+  ProfileDealsQuotationsComponent
  ],
  imports: [
    CommonModule,

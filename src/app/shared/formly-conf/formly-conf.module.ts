@@ -28,6 +28,8 @@ import { FormlyUploadArea } from './formly-components/formly-upload-area';
 import { LightboxModule } from 'ngx-lightbox';
 import { FormlyRepeatType } from './formly-components/formly-repeat-type';
 import { PanelWrapperComponent } from './formly-components/panel-wrapper.component';
+import { FileValueAccessor } from './formly-components/file-value-accessor';
+import { ImagePreview } from './formly-components/image-preview.directive';
 
 
 export function formlyValidationConfig(translate: TranslateService) {
@@ -60,7 +62,9 @@ export function formlyValidationConfig(translate: TranslateService) {
     FormlyFieldButton,
     FormlyUploadArea,
     FormlyRepeatType,
-    PanelWrapperComponent
+    PanelWrapperComponent,
+    FileValueAccessor,
+    ImagePreview
   ],
   imports: [
     CommonModule,
@@ -81,7 +85,7 @@ export function formlyValidationConfig(translate: TranslateService) {
           { name: 'text', component: FormlyFieldText },
           { name: 'accordion', component: FormlyAccordion },
           { name: 'chips', component: FormlyFieldChips },
-          { name: 'file', component: FormlyFieldFile },
+          { name: 'file', component: FormlyFieldFile, wrappers: ['form-field'] },
           { name: 'uploadArea', component: FormlyUploadArea },
           { name: 'repeat', component: FormlyRepeatType },
           {

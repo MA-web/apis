@@ -9,10 +9,13 @@ export class SharedService {
   constructor(private http:HttpClient) { }
 
 
-  getBlobIcon(src:any) {
+  getBlob(src:any) {
     let headers = new HttpHeaders({
       'Access-Control-Allow-Origin': '*'
     });
     return this.http.get(src, { headers: headers, responseType: 'blob' });
   }
+
+
+
 }

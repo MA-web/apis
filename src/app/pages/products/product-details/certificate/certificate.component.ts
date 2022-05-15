@@ -32,7 +32,7 @@ export class CertificateComponent implements OnInit {
   }
 
   onDownload() {
-    this.SharedService.getBlobIcon('assets/img/certificate.svg').subscribe(res =>{
+    this.SharedService.getBlob('assets/img/certificate.svg').subscribe(res =>{
       if(res){
         this._FileSaverService.save(res, 'dd');
       }

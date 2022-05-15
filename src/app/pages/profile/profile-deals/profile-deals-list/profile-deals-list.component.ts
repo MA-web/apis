@@ -13,27 +13,24 @@ export class ProfileDealsListComponent extends AppBaseComponent implements OnIni
 
   constructor(
     injector: Injector,
-    private route:ActivatedRoute
-   ) {
+    private route: ActivatedRoute
+  ) {
     super(injector);
-
-
-
   }
 
-  async ngOnInit(){
+  async ngOnInit() {
     await this._translateService.get('dummyTranslation').toPromise().then();
 
-    this.route.url.subscribe((url:any) =>{
+    this.route.url.subscribe((url: any) => {
       this.breadcrumbItems = [
-        { label: this._translateService.instant('Deals')},
+        { label: this._translateService.instant('Deals') },
         { label: this._translateService.instant(url[0]?.path), active: true },
       ]
-  })
+    })
 
     this.fields = [
       {
-        className:'col-12',
+        className: 'col-12',
         key: 'firstName',
         type: 'input',
         templateOptions: {
@@ -41,25 +38,25 @@ export class ProfileDealsListComponent extends AppBaseComponent implements OnIni
         }
       },
       {
-        className:'col-12 mb-2',
+        className: 'col-12 mb-2',
         template: `<span class="mb-0 font-weight-bold main-color">${this._translateService.instant('FilterBy')}:</span>`,
       },
       {
-        className:'col-md-4 col-12',
+        className: 'col-md-4 col-12',
         key: 'category',
         type: 'select',
         templateOptions: {
           placeholder: this._translateService.instant('category'),
-          options:[]
+          options: []
         }
       },
       {
-        className:'col-md-4 col-12',
+        className: 'col-md-4 col-12',
         key: 'status',
         type: 'select',
         templateOptions: {
           placeholder: this._translateService.instant('status'),
-          options:[]
+          options: []
         }
       },
     ]

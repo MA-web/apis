@@ -1377,7 +1377,7 @@ select.form-control option[value=""][disabled] {
   border-radius: 13px !important;
 }
 
-.form-group label span {
+.form-group label span.ng-star-inserted {
   color: $red;
 }
 
@@ -1770,7 +1770,9 @@ textarea.form-control {
   border-bottom: none !important;
   border: 1px solid $mainColor  !important;
 }
-
+.ng2-tag-input.ng2-tag-input--disabled {
+  background: #d6dde3;
+}
 .input-apis.with-icon {
   .form-control {
     padding-left: 55px

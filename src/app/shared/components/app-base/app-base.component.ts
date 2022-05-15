@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { TranslateService } from '@ngx-translate/core';
 import { breadcrumb } from '../../models/breadcrumb.model';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-app-base',
@@ -18,9 +19,11 @@ export class AppBaseComponent  {
   options: FormlyFormOptions = {};
 
   _translateService: TranslateService;
+  _sharedService: SharedService;
 
   constructor(injector: Injector) {
     this._translateService = injector.get(TranslateService);
+    this._sharedService = injector.get(SharedService);
   }
 
 

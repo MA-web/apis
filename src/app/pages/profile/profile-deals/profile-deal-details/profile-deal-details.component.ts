@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
 @Component({
@@ -7,23 +8,24 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
   styleUrls: ['./profile-deal-details.component.scss']
 })
 export class ProfileDealDetailsComponent extends AppBaseComponent implements OnInit {
-  prices = [
-    {
-      from: { value: 120, type: 'gram',fromUser:true },
-      to: { value: 220, type: 'gram' ,fromUser:true  },
-      price: { value: 220, type: 'USD' ,fromUser:true }
-    },
-    {
-      from: { value: 120, type: 'gram' ,fromUser:false},
-      to: { value: 220, type: 'gram' ,fromUser:false},
-      price: { value: 220, type: 'USD' ,fromUser:false}
-    }
-  ]
+
+  dealType:string = 'inquiry';
+
+  constructor(
+    injector: Injector,
+    private route:ActivatedRoute
+   ) {
+    super(injector);
+  }
+
   async ngOnInit() {
+    this.route.url.subscribe((url: any) => {
+      this.dealType = url[0]?.path
+    })
     await this._translateService.get('dummyTranslation').toPromise().then();
     this.breadcrumbItems = [
       { label: this._translateService.instant('Deals')},
-      { label: '#Invoice - 12666532', active: true },
+      { label: `#${this.dealType} - 12666532`, active: true },
     ]
   }
 

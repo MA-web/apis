@@ -13,10 +13,12 @@ import { Observable, of } from 'rxjs';
     [formlyAttributes]="field"
     [editable]="true"
     [identifyBy]="'id'"
-    [displayBy]="'name'">
+    [displayBy]="'name'"
+    [disable]="to.disable"
+    >
+
   </tag-input>
   </div>
-
  `
 })
 export class FormlyFieldChips extends FieldType {

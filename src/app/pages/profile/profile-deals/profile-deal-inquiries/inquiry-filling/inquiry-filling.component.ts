@@ -1,21 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { forkJoin, take } from 'rxjs';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
-import { appRouts } from 'src/environments/environment';
-@Component({
-  selector: 'app-supplier-add-product',
-  templateUrl: './supplier-add-product.component.html',
-  styleUrls: ['./supplier-add-product.component.scss']
-})
-export class SupplierAddProductComponent extends AppBaseComponent implements OnInit {
-  productCertificates:any[] = []
 
-  ShippingCertificate:any[] = []
+@Component({
+  selector: 'app-inquiry-filling',
+  templateUrl: './inquiry-filling.component.html',
+  styleUrls: ['./inquiry-filling.component.scss']
+})
+export class InquiryFillingComponent extends AppBaseComponent implements OnInit {
+
+  productCertificates: any[] = [
+    { CertificateName: 'Certificate Name 01', file: 'https://via.placeholder.com/600' },
+    { CertificateName: 'Certificate Name 02', file: 'https://via.placeholder.com/600' }
+  ]
+
+  ShippingCertificate: any[] = [
+    { CertificateName: 'Certificate Name 01', file: 'https://via.placeholder.com/600' },
+    { CertificateName: 'Certificate Name 02', file: 'https://via.placeholder.com/600' }
+  ]
 
   async ngOnInit() {
     await this._translateService.get('dummyTranslation').toPromise().then();
     this.breadcrumbItems = [
-      { label: this._translateService.instant('ProductsAddition'), active: true },
+      { label: this._translateService.instant('Deals') },
+      { label: '#Inquiry - 12666532' },
+      { label: this._translateService.instant('InquiryFilling'), active: true },
+
     ]
     this.fields = [
       {
@@ -37,7 +47,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 templateOptions: {
                   label: this._translateService.instant('category'),
                   required: true,
-                  options: []
+                  options: [],
+                  disabled: true
                 },
               },
               {
@@ -47,7 +58,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 templateOptions: {
                   label: this._translateService.instant('SubCategory'),
                   required: true,
-                  options: []
+                  options: [],
+                  disabled: true
                 },
               },
             ],
@@ -68,6 +80,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 templateOptions: {
                   label: this._translateService.instant('ProductName'),
                   required: true,
+                  disabled: true
                 },
               },
               {
@@ -77,6 +90,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 templateOptions: {
                   label: this._translateService.instant('casNo'),
                   required: true,
+                  disabled: true
                 },
               },
               {
@@ -104,7 +118,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 templateOptions: {
                   label: this._translateService.instant('SupplierType'),
                   required: true,
-                  options: []
+                  options: [],
+                  disabled: true
                 },
               },
               {
@@ -114,24 +129,26 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 defaultValue: ['Javascript', 'Typescript'],
                 templateOptions: {
                   label: this._translateService.instant('keywords'),
-                  requestAutocompleteItemsFake: ['item1', 'item2', 'item3']
+                  requestAutocompleteItemsFake: ['item1', 'item2', 'item3'],
+                  disable: true
                 },
               },
-              {
-                className: 'col-12',
-                key: 'ProductPicture',
-                type: 'upload',
-                templateOptions: {
-                  label: this._translateService.instant('ProductPicture'),
-                }
-              },
+              // {
+              //   className: 'col-12',
+              //   key: 'ProductPicture',
+              //   type: 'upload',
+              //   templateOptions: {
+              //     label: this._translateService.instant('ProductPicture'),
+              //   }
+              // },
               {
                 className: 'col-12',
                 key: 'ProductDetails',
                 type: 'textarea',
                 templateOptions: {
                   label: this._translateService.instant('ProductDetails'),
-                  rows: 5
+                  rows: 5,
+                  disabled: true
                 },
               },
             ],
@@ -198,7 +215,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 type: 'textarea',
                 templateOptions: {
                   label: this._translateService.instant('Advantage'),
-                  rows: 5
+                  rows: 5,
+                  disabled: true
                 },
               },
             ],
@@ -408,66 +426,66 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
             },
             fieldGroupClassName: 'row align-items-center',
             fieldGroup: [
-              {
-                className: 'col-md-6 col-12',
-                key: 'CertificateName',
-                type: 'select',
-                templateOptions: {
-                  label: this._translateService.instant('CertificateName'),
-                  required: true,
-                  options: [
-                    { label: "c1", value: "c1" },
-                    { label: "c2", value: "c2" }
-                  ]
-                },
-              },
-              {
-                className: 'col-md-3 col-12 p-0 mt-md-3',
-                key: 'UploadProductCertificate',
-                type: 'file',
-                templateOptions: {
-                  text: this._translateService.instant('UploadCertificate'),
-                  required: true,
-                  change: (filed, $event) => {
-                    console.log('$event: ', $event);
-                    console.log(this.model.UploadProductCertificate);
-                    let file = $event.target.files
-                    let fileToUpload: any;
-                    fileToUpload = file.item(0);
-                    let reader = new FileReader();
-                    reader.onload = (event: any) => {
-                      this.model.UploadProductCertificate = { src: event.target.result, fileToUpload: fileToUpload }
-                    }
-                    reader.readAsDataURL(fileToUpload);
-                  }
-                },
-              },
-              {
-                className: 'col-md-2 col-12',
-                type: 'button',
-                templateOptions: {
-                  icon: 'add.svg',
-                  btnType: 'success px-3 mt-md-4',
-                  onClick: ($event: any) => {
-                    this.productCertificates.push({ CertificateName: this.model?.CertificateName, file: this.model.UploadProductCertificate })
-                    this.model.uploadAreaProducts = this.productCertificates
-                    this.form.get('CertificateName')?.setValue(undefined)
-                    this.form.get('CertificateName')?.reset()
-                    this.form.get('UploadProductCertificate')?.setValue(undefined)
+              // {
+              //   className: 'col-md-6 col-12',
+              //   key: 'CertificateName',
+              //   type: 'select',
+              //   templateOptions: {
+              //     label: this._translateService.instant('CertificateName'),
+              //     required: true,
+              //     options: [
+              //       { label: "c1", value: "c1" },
+              //       { label: "c2", value: "c2" }
+              //     ]
+              //   },
+              // },
+              // {
+              //   className: 'col-md-3 col-12 p-0 mt-md-3',
+              //   key: 'UploadProductCertificate',
+              //   type: 'file',
+              //   templateOptions: {
+              //     label: this._translateService.instant('UploadCertificate'),
+              //     required: true,
+              //     change: (filed, $event) => {
 
-                  },
-                },
-                expressionProperties: {
-                  'templateOptions.disabled': () => !this.model.CertificateName || !this.model.UploadProductCertificate,
-                },
-              },
+              //       let file = $event.target.files
+              //       let fileToUpload: any;
+              //       fileToUpload = file.item(0);
+              //       let reader = new FileReader();
+              //       reader.onload = (event: any) => {
+              //         this.model.UploadProductCertificate = { src: event.target.result, fileToUpload: fileToUpload }
+              //       }
+              //       reader.readAsDataURL(fileToUpload);
+              //     }
+              //   },
+              // },
+              // {
+              //   className: 'col-md-2 col-12',
+              //   type: 'button',
+              //   templateOptions: {
+              //     icon: 'add.svg',
+              //     btnType: 'success px-3 mt-md-4',
+              //     onClick: ($event: any) => {
+              //       this.productCertificates.push({ CertificateName: this.model?.CertificateName, file: this.model.UploadProductCertificate })
+              //       this.model.uploadAreaProducts = this.productCertificates
+              //       this.form.get('CertificateName')?.setValue(undefined)
+              //       this.form.get('CertificateName')?.reset()
+              //       this.form.get('UploadProductCertificate')?.setValue(undefined)
+
+              //     },
+              //   },
+              //   expressionProperties: {
+              //     'templateOptions.disabled': () => !this.model.CertificateName || !this.model.UploadProductCertificate,
+              //   },
+              // },
 
               {
                 className: 'col-12',
                 key: 'uploadAreaProducts',
                 type: 'uploadArea',
                 templateOptions: {
-                  items:  this.productCertificates
+                  items: this.productCertificates,
+                  fileLoad: true
                 },
               },
             ],
@@ -486,6 +504,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('MinimumOrderQuantity'),
+                  disabled: true
                 },
               },
               {
@@ -494,7 +513,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 type: 'select',
                 templateOptions: {
                   label: this._translateService.instant('Unit'),
-                  options: []
+                  options: [],
+                  disabled: true
                 },
               },
               {
@@ -503,6 +523,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('Storage'),
+                  disabled: true
                 },
               },
               {
@@ -512,6 +533,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 templateOptions: {
                   type: 'date',
                   label: this._translateService.instant('ValidPeriod'),
+                  disabled: true
                 },
               },
             ],
@@ -529,9 +551,25 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 className: 'col-12',
                 type: 'repeat',
                 key: 'productPrices',
+                defaultValue: [
+                  {
+                    "from": {
+                      "value": "2",
+                      "type": "gram"
+                    },
+                    "to": {
+                      "value": "2",
+                      "type": "k"
+                    },
+                    "price": {
+                      "value": "2",
+                      "type": "USD"
+                    }
+                  }
+                ],
                 templateOptions: {
                   columns: ['from', 'to', 'price'],
-                  columnLevel:true,
+                  columnLevel: true,
                   textAdd: this._translateService.instant('Price'),
                 },
                 fieldArray: {
@@ -540,103 +578,103 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                     {
                       className: 'col-md-3 col-12  px-2',
                       key: 'from',
-                      templateOptions: {   label: this._translateService.instant('From'),},
+                      templateOptions: { label: this._translateService.instant('From'), },
                       wrappers: ['panel'],
                       fieldGroup: [
-                         {
+                        {
 
-                        key: 'value',
-                        type: 'input',
-                        templateOptions: {
-                          type: 'number',
-                          required: true,
+                          key: 'value',
+                          type: 'input',
+                          templateOptions: {
+                            type: 'number',
+                            required: true,
+                          },
                         },
-                      },
-                      {
+                        {
 
-                        key: 'type',
-                        type: 'select',
-                        templateOptions: {
-                          required: true,
-                          options: [
-                            { label: "gram", value: "gram" },
-                            { label: "k", value: "k" }
-                          ]
-                        }
-                      },
-                    ],
+                          key: 'type',
+                          type: 'select',
+                          templateOptions: {
+                            required: true,
+                            options: [
+                              { label: "gram", value: "gram" },
+                              { label: "k", value: "k" }
+                            ]
+                          }
+                        },
+                      ],
                     },
                     {
                       className: 'col-md-3 col-12 p-0 pr-2',
                       key: 'to',
-                      templateOptions: {   label: this._translateService.instant('To'),},
+                      templateOptions: { label: this._translateService.instant('To'), },
                       wrappers: ['panel'],
                       fieldGroup: [
-                         {
+                        {
 
-                        key: 'value',
-                        type: 'input',
-                        templateOptions: {
-                          type: 'number',
-                          required: true,
+                          key: 'value',
+                          type: 'input',
+                          templateOptions: {
+                            type: 'number',
+                            required: true,
+                          },
                         },
-                      },
-                      {
-                        key: 'type',
-                        type: 'select',
-                        templateOptions: {
-                          required: true,
-                          options: [
-                            { label: "gram", value: "gram" },
-                            { label: "k", value: "k" }
-                          ]
+                        {
+                          key: 'type',
+                          type: 'select',
+                          templateOptions: {
+                            required: true,
+                            options: [
+                              { label: "gram", value: "gram" },
+                              { label: "k", value: "k" }
+                            ]
+                          },
                         },
-                      },
-                    ],
+                      ],
                     },
                     {
                       className: 'col-md-3 col-12 p-0 pr-2',
                       key: 'price',
-                      templateOptions: {   label: this._translateService.instant('Price'),},
+                      templateOptions: { label: this._translateService.instant('Price'), },
                       wrappers: ['panel'],
                       fieldGroup: [
-                         {
+                        {
 
-                        key: 'value',
-                        type: 'input',
-                        templateOptions: {
-                          type: 'number',
-                          required: true,
+                          key: 'value',
+                          type: 'input',
+                          templateOptions: {
+                            type: 'number',
+                            required: true,
+                          },
                         },
-                      },
-                      {
+                        {
 
-                        key: 'type',
-                        type: 'select',
-                        templateOptions: {
-                          required: true,
-                          options: [
-                            { label: "USD", value: "USD" },
-                            { label: "EGP", value: "EGP" }
-                          ]
+                          key: 'type',
+                          type: 'select',
+                          templateOptions: {
+                            required: true,
+                            options: [
+                              { label: "USD", value: "USD" },
+                              { label: "EGP", value: "EGP" }
+                            ]
+                          },
                         },
-                      },
-                    ],
+                      ],
                     },
 
                   ]
                 }
               },
-              {
-                className: 'col-12',
-                key: 'PaymentTerms',
-                type: 'select',
-                templateOptions: {
-                  required: true,
-                  label: this._translateService.instant('PaymentTerms'),
-                  options: [ ]
-                },
-              },
+              // {
+              //   className: 'col-12',
+              //   key: 'PaymentTerms',
+              //   type: 'select',
+              //   templateOptions: {
+              //     required: true,
+              //     label: this._translateService.instant('PaymentTerms'),
+              //     options: [ ]
+              //   },
+              // },
             ],
           },
           /*****************************AllowedSample************************************* */
@@ -650,24 +688,11 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
             fieldGroup: [
               {
                 className: 'col-12',
-                key: 'AllowedSample',
-                type: 'checkbox',
-                defaultValue:false,
-                templateOptions: {
-                  label: this._translateService.instant('AllowedSample'),
-                },
-              },
-              {
-                className:'col-12 mb-3',
-                template: `<img src="./assets/icons/info.svg" class="m-1"> <span class="mb-0 hint">${this._translateService.instant('add_attribute')}:</span>`,
-              },
-              {
-                className: 'col-12',
                 key: 'sampleType',
                 type: 'select',
                 templateOptions: {
                   label: this._translateService.instant('sampleType'),
-                  required:true,
+                  required: true,
                   options: []
                 },
               },
@@ -677,7 +702,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 type: 'select',
                 templateOptions: {
                   label: this._translateService.instant('SampleSize'),
-                  required:true,
+                  required: true,
                   options: []
                 },
               },
@@ -687,7 +712,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 type: 'select',
                 templateOptions: {
                   label: this._translateService.instant('SampleUnit'),
-                  required:true,
+                  required: true,
                   options: []
                 },
               },
@@ -713,8 +738,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
               },
             ],
           },
-           /*****************************ProductionCapacity************************************* */
-           {
+          /*****************************ProductionCapacity************************************* */
+          {
             templateOptions: {
               label: this._translateService.instant('ProductionCapacity'),
               required: true,
@@ -727,7 +752,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 key: 'Value',
                 type: 'input',
                 templateOptions: {
-                  label: this._translateService.instant('Value')
+                  label: this._translateService.instant('Value'),
+                  disabled: true
                 },
               },
               {
@@ -736,7 +762,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 type: 'select',
                 templateOptions: {
                   label: this._translateService.instant('Unit'),
-                  options: []
+                  options: [],
+                  disabled: true
                 },
               },
               {
@@ -745,7 +772,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 type: 'select',
                 templateOptions: {
                   label: this._translateService.instant('Period'),
-                  options: []
+                  options: [],
+                  disabled: true
                 },
               },
               {
@@ -753,7 +781,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 key: 'EstimatedLeadTime',
                 type: 'input',
                 templateOptions: {
-                  label: this._translateService.instant('EstimatedLeadTime')
+                  label: this._translateService.instant('EstimatedLeadTime'),
+                  disabled: true
                 },
               },
               {
@@ -765,14 +794,14 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 },
               },
               {
-                className:'col-12',
+                className: 'col-12',
                 key: 'Shipping',
                 type: 'radio',
                 templateOptions: {
                   type: 'radio',
                   label: this._translateService.instant('Shipping'),
                   name: 'Shipping',
-                  options: [{ value: 'CustomerEnd', key: 'CustomerEnd'}, { value: 'SupplierEnd', key: 'SupplierEnd' }]
+                  options: [{ value: 'CustomerEnd', key: 'CustomerEnd' }, { value: 'SupplierEnd', key: 'SupplierEnd' }]
                 }
               },
               {
@@ -805,67 +834,68 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
             },
             fieldGroupClassName: 'row align-items-center',
             fieldGroup: [
-              {
-                className: 'col-md-6 col-12',
-                key: 'ShippingCertificateName',
-                type: 'select',
-                templateOptions: {
-                  label: this._translateService.instant('CertificateName'),
-                  required: true,
-                  options: [
-                    { label: "c1", value: "c1" },
-                    { label: "c2", value: "c2" }
-                  ]
-                },
-              },
-              {
-                className: 'col-md-3 col-12 p-0 mt-md-3',
-                key: 'UploadShippingCertificate',
-                type: 'file',
-                templateOptions: {
-                  text: this._translateService.instant('UploadCertificate'),
-                  required: true,
-                  change: (filed, $event) => {
+              // {
+              //   className: 'col-md-6 col-12',
+              //   key: 'ShippingCertificateName',
+              //   type: 'select',
+              //   templateOptions: {
+              //     label: this._translateService.instant('CertificateName'),
+              //     required: true,
+              //     options: [
+              //       { label: "c1", value: "c1" },
+              //       { label: "c2", value: "c2" }
+              //     ]
+              //   },
+              // },
+              // {
+              //   className: 'col-md-3 col-12 p-0 mt-md-3',
+              //   key: 'UploadShippingCertificate',
+              //   type: 'file',
+              //   templateOptions: {
+              //     label: this._translateService.instant('UploadCertificate'),
+              //     required: true,
+              //     change: (filed, $event) => {
 
-                    let file = $event.target.files
-                    let fileToUpload: any;
-                    fileToUpload = file.item(0);
-                    let reader = new FileReader();
-                    reader.onload = (event: any) => {
-                      this.model.UploadShippingCertificate = { src: event.target.result, fileToUpload: fileToUpload }
-                    }
-                    reader.readAsDataURL(fileToUpload);
-                  }
-                },
-              },
-              {
-                className: 'col-md-2 col-12',
-                type: 'button',
-                templateOptions: {
-                  icon: 'add.svg',
-                  btnType: 'success px-3 mt-md-4',
-                  onClick: ($event: any) => {
-                    this.ShippingCertificate.push({ CertificateName: this.model?.ShippingCertificateName, file: this.model.UploadShippingCertificate })
+              //       let file = $event.target.files
+              //       let fileToUpload: any;
+              //       fileToUpload = file.item(0);
+              //       let reader = new FileReader();
+              //       reader.onload = (event: any) => {
+              //         this.model.UploadShippingCertificate = { src: event.target.result, fileToUpload: fileToUpload }
+              //       }
+              //       reader.readAsDataURL(fileToUpload);
+              //     }
+              //   },
+              // },
+              // {
+              //   className: 'col-md-2 col-12',
+              //   type: 'button',
+              //   templateOptions: {
+              //     icon: 'add.svg',
+              //     btnType: 'success px-3 mt-md-4',
+              //     onClick: ($event: any) => {
+              //       this.ShippingCertificate.push({ CertificateName: this.model?.ShippingCertificateName, file: this.model.UploadShippingCertificate })
 
-                    this.model.uploadAreaShipping =  this.ShippingCertificate
+              //       this.model.uploadAreaShipping =  this.ShippingCertificate
 
-                    this.form.get('ShippingCertificateName')?.setValue(undefined)
-                    this.form.get('ShippingCertificateName')?.reset()
-                    this.form.get('UploadShippingCertificate')?.setValue(undefined)
+              //       this.form.get('ShippingCertificateName')?.setValue(undefined)
+              //       this.form.get('ShippingCertificateName')?.reset()
+              //       this.form.get('UploadShippingCertificate')?.setValue(undefined)
 
-                  },
-                },
-                expressionProperties: {
-                  'templateOptions.disabled': () => !this.model.ShippingCertificateName || !this.model.UploadShippingCertificate,
-                },
-              },
+              //     },
+              //   },
+              //   expressionProperties: {
+              //     'templateOptions.disabled': () => !this.model.ShippingCertificateName || !this.model.UploadShippingCertificate,
+              //   },
+              // },
 
               {
                 className: 'col-12',
                 key: 'uploadAreaShipping',
                 type: 'uploadArea',
                 templateOptions: {
-                  items:  this.ShippingCertificate
+                  items: this.ShippingCertificate,
+                  fileLoad: true
                 },
               },
             ],
@@ -879,7 +909,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
             fieldGroupClassName: 'row',
             fieldGroup: [
               {
-                className:'col-12 mb-3',
+                className: 'col-12 mb-3',
                 template: `<span class="mb-0 hint font-italic">${this._translateService.instant('InsertSupplementMessage')}</span>`,
               },
               {
@@ -887,42 +917,79 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 type: 'repeat',
                 key: 'InsertSupplement',
                 templateOptions: {
-                  columns: ['Attribute', 'Value'],
-                  columnLevel:false,
+                  columnLevel: false,
                   textAdd: this._translateService.instant('Insert'),
                 },
                 fieldArray: {
                   fieldGroupClassName: 'row',
                   fieldGroup: [
                     {
-                      className: 'col-md-4 col-12',
+                      className: 'col-md-3 col-12',
                       key: 'Attribute',
                       type: 'input',
                       templateOptions: {
                         label: this._translateService.instant('Attribute'),
+                        required: true
                       },
                     },
                     {
-                      className: 'col-md-4 col-12',
+                      className: 'col-md-3 col-12',
                       key: 'Value',
                       type: 'input',
                       templateOptions: {
                         label: this._translateService.instant('Value'),
+                        required: true
+                      },
+                    },
+                    {
+                      className: 'col-md-3 col-12 mt-md-4',
+                      key: 'UploadFile',
+                      type: 'file',
+                      templateOptions: {
+                        text: this._translateService.instant('UploadFile'),
                       },
                     },
                   ]
                 }
               },
-
+              {
+                className: 'col-12',
+                key: 'Extra_point_discussion',
+                type: 'textarea',
+                templateOptions: {
+                  label: this._translateService.instant('Extra_point_discussion'),
+                  rows: 5,
+                  placeholder: this._translateService.instant('Extra_point_discussionMessage'),
+                },
+              },
             ],
           },
 
         ],
       }
     ]
+
+
+    // let productCertificates = [
+    //   {CertificateName:'Certificate Name 01' , file:'assets/img/molecular-structure.png'},
+    //   {CertificateName:'Certificate Name 02' , file:'assets/img/molecular-structure.png'}
+    // ]
+
+    // let observables:any = []
+    // productCertificates.forEach(element => {
+    //     observables.push(this._sharedService.getBlob(element.file))
+    // });
+    // forkJoin(observables).pipe(take(1)).subscribe((res: any) => {
+    //   console.log('res: ', res);
+
+    // })
+
+    // this.productCertificates = [{ CertificateName:'Certificate Name 01', file: ''}]
   }
   onSubmit() {
 
     console.log(this.form);
+    console.log(this.model);
   }
 }
+
