@@ -1,6 +1,7 @@
 <accordion-group [isOpen]="false" class="mt-4" [ngClass]="{supplierDeal : userType === 'supplier'}">
   <div class="btn" accordion-heading>
-    Mohamed User : Inquiry 01
+
+    {{title?title:'Mohamed User : Inquiry 01'}}
   </div>
   <div class="card white-card">
     <div class="card-body">

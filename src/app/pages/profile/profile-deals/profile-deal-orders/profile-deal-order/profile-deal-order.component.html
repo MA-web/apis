@@ -1,0 +1,20 @@
+<accordion-group [isOpen]="isOpen" class="mt-4" [ngClass]="{supplierDeal : userType === 'supplier'}">
+  <div class="btn" accordion-heading>
+    {{title}}
+  </div>
+  <div class="card white-card">
+    <div class="card-body">
+      <div class="row basic-info">
+        <!------------------------------BankAccount------------------------------------>
+        <h4 class="col-12 my-3">{{'BankAccount' | translate}}:</h4>
+        <p class="col-md-6"><span>{{'BeneficiaryName' | translate}} * : </span>casNo</p>
+        <p class="col-md-6"><span>{{'Phone' | translate}} : </span>MolecularFormula</p>
+        <p class="col-md-6"><span>{{'BankName' | translate}} * : </span>origin</p>
+        <p class="col-md-6"><span>{{'AccountNumber' | translate}} * : </span>SupplierType</p>
+        <p class="col-md-6"><span>{{'SWIFTCode' | translate}} * : </span>SupplierType</p>
+        <p class="col-md-6"><span>{{'IBAN' | translate}} * : </span>SupplierType</p>
+        <p class="col-12"><span>{{'IntermediateBankAndData' | translate}} * : </span>SupplierType</p>
+      </div>
+    </div>
+  </div>
+</accordion-group>

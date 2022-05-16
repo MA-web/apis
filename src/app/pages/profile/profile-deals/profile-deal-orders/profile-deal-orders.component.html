@@ -1,0 +1,41 @@
+<accordion class="formly-accordion mb-3">
+  <app-profile-deal-inquiry title="Final Approved Inquiry"></app-profile-deal-inquiry>
+
+  <app-profile-deal-quotation userType="supplier" title="Final Approved Quotation"></app-profile-deal-quotation>
+
+  <app-profile-deal-order userType="user" isOpen="true" title="Bank Account"></app-profile-deal-order>
+
+</accordion>
+
+<app-deal-waiting-reply></app-deal-waiting-reply>
+
+<router-outlet></router-outlet>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="button-items py-4">
+      <!-- <a class="apis-button btn btn-info px-4" routerLink="../1/filling">
+        <span [inlineSVG]="'assets/icons/edit.svg'" class="mx-1"></span>
+        {{'REPLY' |translate}}
+      </a> -->
+      <button type="button" class="apis-button btn btn-outline-success  px-4">
+        <span [inlineSVG]="'assets/icons/download.svg'" class="mx-1"></span>
+        {{'download' |translate}}
+      </button>
+
+
+      <button type="button" class="apis-button btn btn-success pull-md-right px-5" style="line-height: 12px;"
+      routerLink="/profile/deals/orders/1/filling">
+      <div>{{'Send' |translate}}</div>
+      <div style="font-size: 12px;margin-top: 4px;">{{'needFinalInvoice' |translate}}</div>
+    </button>
+
+    <button type="button" class="apis-button btn btn-danger  px-4 pull-md-right">
+      <span [inlineSVG]="'assets/icons/delete.svg'" class="mx-1"></span>
+      {{'Cancel' |translate}}
+    </button>
+
+    </div>
+  </div>
+</div>

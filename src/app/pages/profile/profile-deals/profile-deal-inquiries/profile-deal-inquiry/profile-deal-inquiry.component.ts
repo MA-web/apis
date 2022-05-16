@@ -7,6 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProfileDealInquiryComponent implements OnInit {
   @Input() userType :string = ''
+  @Input() title :string = ''
+
+
   prices = [
     {
       from: { value: 120, type: 'gram',fromUser:true },

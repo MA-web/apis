@@ -20,6 +20,12 @@ import { ProfileDealsQuotationsComponent } from './profile-deals-quotations/prof
 import { SendQuotationComponent } from './profile-deals-quotations/send-quotation/send-quotation.component';
 import { DealWaitingReplyComponent } from './shared-deal/deal-waiting-reply/deal-waiting-reply.component';
 import { ProfileDealQuotationComponent } from './profile-deals-quotations/profile-deal-quotation/profile-deal-quotation.component';
+import { ProfileDealOrdersComponent } from './profile-deal-orders/profile-deal-orders.component';
+import { ProfileDealOrderComponent } from './profile-deal-orders/profile-deal-order/profile-deal-order.component';
+import { ProfileDealInvoicesComponent } from './profile-deal-invoices/profile-deal-invoices.component';
+import { ProfileDealInvoiceComponent } from './profile-deal-invoices/profile-deal-invoice/profile-deal-invoice.component';
+import { ProfileDealsViewQuotationComponent } from './profile-deals-quotations/profile-deals-view-quotation/profile-deals-view-quotation.component';
+import { ProfileDealCompletedComponent } from './profile-deal-invoices/profile-deal-completed/profile-deal-completed.component';
 
 const route: Route[] = [
   {
@@ -28,19 +34,42 @@ const route: Route[] = [
       { path: ':type', component: ProfileDealsListComponent },
 
       {
-        path: 'inquiry/:id', component: ProfileDealDetailsComponent, children: [
+        path: 'inquiries/:id', component: ProfileDealDetailsComponent, children: [
           { path: '', component: ProfileDealInquiriesComponent },
 
         ]
       },
 
-      { path: 'inquiry/:id/filling', component: InquiryFillingComponent },
+      { path: 'inquiries/:id/filling', component: InquiryFillingComponent },
       {
-        path: 'quotation/:id', component: ProfileDealDetailsComponent, children: [
+        path: 'quotations/:id', component: ProfileDealDetailsComponent, children: [
           {
             path: '', component: ProfileDealsQuotationsComponent, children: [
+              { path: '', component: ProfileDealsViewQuotationComponent },
               { path: 'send-quotation', component: SendQuotationComponent },
-              // { path: 'details', component: QuotationDetailsComponent },
+
+            ]
+          },
+
+        ]
+      },
+      {
+        path: 'orders/:id', component: ProfileDealDetailsComponent, children: [
+          {
+            path: '', component: ProfileDealOrdersComponent, children: [
+              { path: 'send-quotation', component: ProfileDealInvoiceComponent },
+
+            ]
+          },
+
+        ]
+      },
+      {
+        path: 'invoices/:id', component: ProfileDealDetailsComponent, children: [
+          {
+            path: '', component: ProfileDealInvoicesComponent, children: [
+              // { path: 'send-quotation', component: SendQuotationComponent },
+
             ]
           },
 
@@ -63,6 +92,12 @@ const route: Route[] = [
     SendQuotationComponent,
     DealWaitingReplyComponent,
     ProfileDealQuotationComponent,
+    ProfileDealOrdersComponent,
+    ProfileDealOrderComponent,
+    ProfileDealInvoicesComponent,
+    ProfileDealInvoiceComponent,
+    ProfileDealsViewQuotationComponent,
+    ProfileDealCompletedComponent,
   ],
   imports: [
     CommonModule,

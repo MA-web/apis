@@ -4,7 +4,7 @@
 <div class="deal-details">
   <tabset [justified]="true">
 
-    <tab [active]="dealType ==='inquiry'?true:false">
+    <tab [active]="dealType ==='inquiries'?true:false">
       <ng-template tabHeading>
         <div class="d-flex align-items-center justify-content-center" (click)="tabSelected('/profile/deals/inquiry/1')">
           <div inlineSVG="assets/icons/cir-check.svg"></div>
@@ -17,10 +17,10 @@
     </tab>
 
 
-    <tab [disabled]="dealType ==='inquiry'?true:false" [active]="dealType ==='quotation'?true:false">
+    <tab [disabled]="dealType ==='inquiries'?true:false" [active]="dealType ==='quotations'?true:false" >
 
       <ng-template tabHeading>
-        <div class="d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center" (click)="tabSelected('/profile/deals/quotations/1')">
           <div inlineSVG="assets/icons/cir-check.svg"></div>
           <div class="ml-3">
             <div class="tab-step">Step 02</div>
@@ -31,10 +31,10 @@
     </tab>
 
 
-    <tab [disabled]="dealType ==='inquiry' || dealType ==='quotation'?true:false"
+    <tab [disabled]="dealType ==='inquiries' || dealType ==='quotations'?true:false"
       [active]="dealType ==='order'?true:false">
       <ng-template tabHeading>
-        <div class="d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center" (click)="tabSelected('/profile/deals/orders/1')">
           <div inlineSVG="assets/icons/cir-check.svg"></div>
           <div class="ml-3">
             <div class="tab-step">Step 03</div>
@@ -42,9 +42,8 @@
           </div>
         </div>
       </ng-template>
-      order
     </tab>
-    <tab [disabled]="dealType !=='invoice'?true:false" [active]="dealType ==='invoice'?true:false">
+    <tab [disabled]="dealType !=='invoices'?true:false" [active]="dealType ==='invoice'?true:false">
       <ng-template tabHeading>
         <div class="d-flex align-items-center justify-content-center">
           <div inlineSVG="assets/icons/cir-check.svg"></div>
@@ -54,7 +53,6 @@
           </div>
         </div>
       </ng-template>
-      invoice
     </tab>
   </tabset>
   <div class="tab-content">
