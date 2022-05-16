@@ -3,13 +3,36 @@
 
 <div class="deal-details">
   <tabset [justified]="true">
-    <tab  [active]="dealType ==='inquiry'?true:false">
-      <app-profile-deal-inquiries ></app-profile-deal-inquiries>
+
+    <tab [active]="dealType ==='inquiry'?true:false">
+      <ng-template tabHeading>
+        <div class="d-flex align-items-center justify-content-center" (click)="tabSelected('/profile/deals/inquiry/1')">
+          <div inlineSVG="assets/icons/cir-check.svg"></div>
+          <div class="ml-3">
+            <div class="tab-step">Step 01</div>
+            <div class="tab-type">{{'inquiry' | translate}}</div>
+          </div>
+        </div>
+      </ng-template>
     </tab>
-    <tab [disabled]="dealType ==='inquiry'?true:false"   [active]="dealType ==='quotation'?true:false">
-    <app-profile-deals-quotations></app-profile-deals-quotations>
+
+
+    <tab [disabled]="dealType ==='inquiry'?true:false" [active]="dealType ==='quotation'?true:false">
+
+      <ng-template tabHeading>
+        <div class="d-flex align-items-center justify-content-center">
+          <div inlineSVG="assets/icons/cir-check.svg"></div>
+          <div class="ml-3">
+            <div class="tab-step">Step 02</div>
+            <div class="tab-type">{{'quotation' | translate}}</div>
+          </div>
+        </div>
+      </ng-template>
     </tab>
-    <tab [disabled]="dealType ==='inquiry' || dealType ==='quotation'?true:false" [active]="dealType ==='order'?true:false">
+
+
+    <tab [disabled]="dealType ==='inquiry' || dealType ==='quotation'?true:false"
+      [active]="dealType ==='order'?true:false">
       <ng-template tabHeading>
         <div class="d-flex align-items-center justify-content-center">
           <div inlineSVG="assets/icons/cir-check.svg"></div>
@@ -34,5 +57,9 @@
       invoice
     </tab>
   </tabset>
-
+  <div class="tab-content">
+    <div class="tab-pane active">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

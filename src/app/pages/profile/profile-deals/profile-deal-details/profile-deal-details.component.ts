@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
 @Component({
@@ -13,7 +13,8 @@ export class ProfileDealDetailsComponent extends AppBaseComponent implements OnI
 
   constructor(
     injector: Injector,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+
    ) {
     super(injector);
   }
@@ -28,5 +29,7 @@ export class ProfileDealDetailsComponent extends AppBaseComponent implements OnI
       { label: `#${this.dealType} - 12666532`, active: true },
     ]
   }
+
+
 
 }
