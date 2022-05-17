@@ -48,7 +48,7 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
       </td>
            <td class="px-2 py-0 align-middle">
             <div class="button-items">
-              <button type="button" class="apis-button btn btn-info border-radius-13 py-2" (click)="editForm(i)">
+              <button type="button" class="apis-button btn btn-outline-info border-radius-13 py-2" (click)="editForm(i)">
               <span [inlineSVG]="'assets/icons/edit.svg'" ></span>
             </button>
               <button type="button" class="apis-button btn btn-danger border-radius-13 py-2" (click)="remove(i);hideForm()">

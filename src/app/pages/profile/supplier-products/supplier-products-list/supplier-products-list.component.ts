@@ -58,10 +58,6 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
 
 
   }
-
-
-
-
   onSubmit() {
     console.log(this.form)
     console.log(this.model);

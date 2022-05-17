@@ -1,0 +1,107 @@
+@import 'src/assets/scss/variables';
+
+.the-title {
+  h2 span {
+    color: $orange;
+  }
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: $active-link2;
+  position: relative;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    background-color: $active-link2;
+    position: absolute;
+    left: -20px;
+    top: 0;
+    bottom: 0;
+    border-radius: 0px 3px 3px 0px;
+  }
+}
+
+.table .thead-primary th {
+  color: #fff;
+  background-color: $mainColor
+}
+
+.table-bordered td {
+  color: #888888;
+  font-weight: bold;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+
+.total {
+  background: #EFEFEF 0% 0% no-repeat padding-box;
+  font-weight: bold;
+  height: 51px;
+  line-height: 51px;
+
+  .price-label {
+    font-size: 16px;
+    padding: 0 15px;
+    color: $mainColor;
+  }
+
+  .priceV {
+    padding: 0 30px;
+    font-size: 24px;
+    background-color: $mainColor;
+    color: white;
+  }
+}
+
+
+:host ::ng-deep {
+  .fc-toolbar-title {
+    color: $active-link2;
+    font-weight: bold;
+    font-size: 17px;
+  }
+
+  .fc-daygrid {
+
+    .fc-col-header-cell-cushion{
+      color: $active-link2;
+    }
+    .table-bordered th,
+    .table-bordered td {
+
+      text-align: center !important;
+    }
+
+    // .fc-daygrid-day-top {
+    //   flex-direction: column;
+    // }
+    .fc-daygrid-day.fc-day-today{
+      background-color: transparent;
+    }
+    .fc-daygrid-event-dot{
+      border-color: $active-link;
+      // position: absolute;
+      // left: 0;
+      // top: 40%;
+    }
+    // .fc-daygrid-event{
+    //   display: flex;
+    //   flex-direction: column;
+    //   text-align: left;
+    // }
+
+    .bg-primary{
+      background-color: $active-link2!important;
+    }
+
+  }
+  .btn-primary{
+    background-color: $active-link2;
+    border-color:  $active-link2;
+  }
+}

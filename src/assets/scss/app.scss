@@ -1378,7 +1378,9 @@ select.form-control option[value=""][disabled] {
 .border-radius-13 {
   border-radius: 13px !important;
 }
-
+.border-radius-18 {
+  border-radius: 18px !important;
+}
 .form-group label span.ng-star-inserted {
   color: $red;
 }
@@ -1524,7 +1526,7 @@ select.form-control option[value=""][disabled] {
   background-color: $orange;
 }
 
-.btn-info {
+.btn-outline-info {
   background-color: #24B6F71A;
   color: #24B6F7;
 
@@ -1539,8 +1541,8 @@ select.form-control option[value=""][disabled] {
   }
 }
 
-.btn-info:hover,
-.btn-info:focus {
+.btn-outline-info:hover,
+.btn-outline-info:focus {
   svg path {
     fill: #fff !important;
   }
@@ -1708,7 +1710,9 @@ select.form-control option[value=""][disabled] {
     font-weight: 800
   }
 }
-
+.font-size-14 {
+  font-size: 14px!important;
+}
 .font-size-16 {
   font-size: 16px!important;
 }

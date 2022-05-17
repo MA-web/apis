@@ -33,6 +33,15 @@ export class ProfileDealInvoiceComponent extends AppBaseComponent implements OnI
                   placeholder: this._translateService.instant('Comments'),
                   rows: 5
                 },
+
+              },
+              {
+                className: 'col-12',
+                key: 'Commentsread',
+                type: 'text',
+                templateOptions: {
+                  text:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s,when an unknown printer took a galley of type and scrambled it to make a type specimen book Ipsum has been the industry’s standard dummy text ever since the 1500s,when an Ipsum has been the industry’s standard dummy'
+                },
               },
             ],
           },

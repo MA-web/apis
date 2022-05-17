@@ -528,7 +528,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'ValidPeriod',
+                key: 'TradeInformationValidPeriod',
                 type: 'input',
                 templateOptions: {
                   type: 'date',

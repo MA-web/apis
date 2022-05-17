@@ -1,1 +1,153 @@
-<p>profile-dashboard works!</p>
+<div class="the-title mt-lg-0">
+  <h2>{{'Hello' | translate}}, <span>Ahmad Supplier</span></h2>
+</div>
+
+<div class="row">
+  <div class="col-lg-8 col-12">
+    <div class="card white-card mb-4 h-100 border-radius-18">
+      <div class="card-body">
+        <div class="card-title">
+          {{'YourProgressWeekAPIS' | translate}}
+        </div>
+
+        <div class="row m-0">
+          <div class="col-lg-4 px-0">
+            <app-radial-bar-chart label="Search Results" [value]="76" [color]="'#F07777'"></app-radial-bar-chart>
+          </div>
+          <div class="col-lg-4 px-0">
+            <app-radial-bar-chart label="Target Revenue" [value]="76" [color]="'#6049BF'"></app-radial-bar-chart>
+          </div>
+          <div class="col-lg-4 px-0">
+            <app-radial-bar-chart label="Sales Products" [value]="76" [color]="'#4B9BE5'"></app-radial-bar-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-12">
+    <div class="card white-card mb-4 h-100 border-radius-18">
+      <div class="card-body">
+        <div class="card-title">
+          {{'updateYourProfile' | translate}}
+        </div>
+        <app-radial-bar-chart [value]="76" [color]="'#53CBDB'" strokeType="true"></app-radial-bar-chart>
+        <div class="font-weight-bold font-size-14" style="color: #454545;">Add More information to achieve
+          the best sales <a href="#" style="color: #1AAFD1;">Update your profile</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card white-card my-4 border-radius-18">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-8">
+            <formly-form class="row" [form]="form" [model]="model" [fields]="fields"> </formly-form>
+          </div>
+          <div class="col-lg-4">
+            <button type="submit" class="apis-button btn-warning px-5 font-size-14">
+              <span [inlineSVG]="'assets/icons/search2.svg'"></span>
+              {{'search' | translate}}</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered text-center">
+            <thead class="thead-primary">
+              <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Product Name</th>
+                <th>Supplier</th>
+                <th>QTY</th>
+                <th>Price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12345678</td>
+                <td>20-Dec-2021</td>
+                <td>12344 gm Grape Skin Extract ..</td>
+                <td>Ahmad Supplier</td>
+                <td>120 gm</td>
+                <td>200 USD</td>
+                <td>
+                  <div class="d-flex button-items">
+                    <button type="button" class="btn  btn-warning">
+                      <img src="assets/icons/eye.svg" alt="">
+                    </button>
+                    <button type="button" class="btn  btn-info">
+                      <img src="assets/icons/download.svg" alt="">
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>12345678</td>
+                <td>20-Dec-2021</td>
+                <td>12344 gm Grape Skin Extract ..</td>
+                <td>Ahmad Supplier</td>
+                <td>120 gm</td>
+                <td>200 USD</td>
+                <td>
+                  <div class="d-flex button-items">
+                    <button type="button" class="btn  btn-warning">
+                      <img src="assets/icons/eye.svg" alt="">
+                    </button>
+                    <button type="button" class="btn  btn-info">
+                      <img src="assets/icons/download.svg" alt="">
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>12345678</td>
+                <td>20-Dec-2021</td>
+                <td>12344 gm Grape Skin Extract ..</td>
+                <td>Ahmad Supplier</td>
+                <td>120 gm</td>
+                <td>200 USD</td>
+                <td>
+                  <div class="d-flex button-items">
+                    <button type="button" class="btn  btn-warning">
+                      <img src="assets/icons/eye.svg" alt="">
+                    </button>
+                    <button type="button" class="btn  btn-info">
+                      <img src="assets/icons/download.svg" alt="">
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-end total">
+          <div class="price-label">Total Price:</div>
+          <div class="priceV">6,800 USD</div>
+        </div>
+        <div class="mt-4">
+          <div class="d-flex justify-content-center">
+            <pagination [boundaryLinks]="true" [totalItems]="77" previousText="&lsaquo;" nextText="&rsaquo;"
+              firstText="&laquo;" lastText="&raquo;">
+            </pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-4">
+  </div>
+  <div class="col-lg-4">
+  </div>
+  <div class="col-lg-6">
+    <div class="card white-card my-4 border-radius-18">
+      <div class="card-body">
+        <full-calendar [options]="calendarOptions"></full-calendar>
+      </div>
+    </div>
+  </div>

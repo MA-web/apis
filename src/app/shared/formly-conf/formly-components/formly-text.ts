@@ -8,6 +8,13 @@ import { FieldType } from '@ngx-formly/core';
     {{to.text}}
     </p>
  `,
+ styles:[`
+  p{
+    color:#bbb;
+    font-size:19px;
+    font-weight:bold
+  }
+ `]
 
 })
 export class FormlyFieldText extends FieldType { }

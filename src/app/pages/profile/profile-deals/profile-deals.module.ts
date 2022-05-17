@@ -26,6 +26,7 @@ import { ProfileDealInvoicesComponent } from './profile-deal-invoices/profile-de
 import { ProfileDealInvoiceComponent } from './profile-deal-invoices/profile-deal-invoice/profile-deal-invoice.component';
 import { ProfileDealsViewQuotationComponent } from './profile-deals-quotations/profile-deals-view-quotation/profile-deals-view-quotation.component';
 import { ProfileDealCompletedComponent } from './profile-deal-invoices/profile-deal-completed/profile-deal-completed.component';
+import { OrderFillingComponent } from './profile-deal-orders/order-filling/order-filling.component';
 
 const route: Route[] = [
   {
@@ -57,7 +58,7 @@ const route: Route[] = [
         path: 'orders/:id', component: ProfileDealDetailsComponent, children: [
           {
             path: '', component: ProfileDealOrdersComponent, children: [
-              { path: 'send-quotation', component: ProfileDealInvoiceComponent },
+              { path: 'filling', component: OrderFillingComponent },
 
             ]
           },
@@ -98,6 +99,7 @@ const route: Route[] = [
     ProfileDealInvoiceComponent,
     ProfileDealsViewQuotationComponent,
     ProfileDealCompletedComponent,
+    OrderFillingComponent
   ],
   imports: [
     CommonModule,
