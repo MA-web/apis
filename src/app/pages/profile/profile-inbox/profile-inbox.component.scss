@@ -1,0 +1,35 @@
+
+@import 'src/assets/scss/variables';
+:host ::ng-deep{
+  .form-group{
+    margin: 0;
+  }
+  .input-apis .form-control{
+    border: 0;
+    border-radius: 0;
+  }
+}
+.message-card {
+  margin: 0 1.25rem;
+}
+.deal-card {
+  background: white;
+  padding: 15px;
+  position: relative;
+
+
+  .deal-title {
+    color: $mainColor;
+    font-size: 24px;
+    font-weight: 900;
+  }
+
+  .user {
+    color: $SonicSilver;
+  }
+
+  .date,.user {
+    font-weight: 800;
+    font-size: 14px;
+  }
+}

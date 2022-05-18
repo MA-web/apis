@@ -12,6 +12,8 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin
 import bootstrapPlugin from "@fullcalendar/bootstrap";
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { DashboardDealComponent } from './dashboard-deal/dashboard-deal.component';
+import { SharedProfileModule } from '../shared-profile/shared-profile.module';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -28,6 +30,7 @@ const route: Route[] = [
  declarations: [
   ProfileDashboardComponent,
   RadialBarChartComponent,
+  DashboardDealComponent,
 
  ],
  imports: [
@@ -37,7 +40,8 @@ const route: Route[] = [
    NgApexchartsModule,
    FormlyConfModule,
    PaginationModule,
-   FullCalendarModule
+   FullCalendarModule,
+   SharedProfileModule
  ]
 })
 export class ProfileDashboardModule { }

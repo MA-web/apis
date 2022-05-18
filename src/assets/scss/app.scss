@@ -1872,10 +1872,16 @@ textarea.form-control {
 /******************pagination*********************/
 .pagination-prev {
   margin-right: 20px;
+  .page-link{
+    margin: 0;
+  }
 }
 
-.pagination-next {
+.pagination-next  {
   margin-left: 20px;
+  .page-link{
+    margin: 0;
+  }
 }
 
 .page-link {

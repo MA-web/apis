@@ -11,7 +11,9 @@
   font-weight: 800;
   color: $active-link2;
   position: relative;
-
+  svg{
+    zoom: 1.2;
+  }
   &:before {
     content: '';
     display: inline-block;
@@ -27,7 +29,8 @@
 
 .table .thead-primary th {
   color: #fff;
-  background-color: $mainColor
+  background-color: $mainColor;
+  white-space: nowrap;
 }
 
 .table-bordered td {
@@ -35,6 +38,7 @@
   font-weight: bold;
   font-size: 14px;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 
@@ -60,48 +64,80 @@
 
 
 :host ::ng-deep {
+  .fc-scroller-harness > .fc-scroller{
+    overflow: auto!important;
+  }
   .fc-toolbar-title {
     color: $active-link2;
     font-weight: bold;
     font-size: 17px;
   }
 
+  .fc {
+    .fc-toolbar.fc-header-toolbar {
+      margin-bottom: 1rem;
+    }
+   .fc-toolbar-title{
+     font-size: 18px;
+     font-weight: 800;
+     position: relative;
+     padding-left: 45px;
+     &::after {
+      content: '';
+      zoom: 1.2;
+      background-image: url(/assets/icons/calendar.svg);
+      background-repeat: no-repeat;
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      left: 0px;
+      top: -5px;
+      bottom: 0;
+      border-radius: 0px 3px 3px 0px;
+    }
+     &:before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      background-color: $active-link2;
+      position: absolute;
+      left: -20px;
+      top: 0;
+      bottom: 0;
+      border-radius: 0px 3px 3px 0px;
+    }
+   }
+  }
+
   .fc-daygrid {
 
-    .fc-col-header-cell-cushion{
+    .fc-col-header-cell-cushion {
       color: $active-link2;
     }
+
     .table-bordered th,
     .table-bordered td {
 
       text-align: center !important;
     }
 
-    // .fc-daygrid-day-top {
-    //   flex-direction: column;
-    // }
-    .fc-daygrid-day.fc-day-today{
+    .fc-daygrid-day.fc-day-today {
       background-color: transparent;
     }
-    .fc-daygrid-event-dot{
-      border-color: $active-link;
-      // position: absolute;
-      // left: 0;
-      // top: 40%;
-    }
-    // .fc-daygrid-event{
-    //   display: flex;
-    //   flex-direction: column;
-    //   text-align: left;
-    // }
 
-    .bg-primary{
-      background-color: $active-link2!important;
+    .fc-daygrid-event-dot {
+      border-color: $active-link;
+    }
+
+    .bg-primary {
+      background-color: $active-link2 !important;
     }
 
   }
-  .btn-primary{
+
+  .btn-primary {
     background-color: $active-link2;
-    border-color:  $active-link2;
+    border-color: $active-link2;
   }
 }

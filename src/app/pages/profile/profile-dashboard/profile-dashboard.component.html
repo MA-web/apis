@@ -43,11 +43,11 @@
     <div class="card white-card my-4 border-radius-18">
       <div class="card-body">
         <div class="row">
-          <div class="col-lg-8">
+          <div class="col-md-8">
             <formly-form class="row" [form]="form" [model]="model" [fields]="fields"> </formly-form>
           </div>
-          <div class="col-lg-4">
-            <button type="submit" class="apis-button btn-warning px-5 font-size-14">
+          <div class="col-md-4 mb-3 mb-md-0">
+            <button type="submit" class="apis-button btn-warning px-5 font-size-14 pull-right">
               <span [inlineSVG]="'assets/icons/search2.svg'"></span>
               {{'search' | translate}}</button>
           </div>
@@ -140,14 +140,53 @@
 </div>
 
 <div class="row">
-  <div class="col-lg-4">
+  <div class="col-lg-6 mb-3">
+    <div class="card white-card mb-3 border-radius-18">
+      <div class="card-body">
+        <div class="card-title">
+          <span class="mr-2" inlineSVG="assets/icons/deal.svg"></span>
+          21 {{'DealNeedAction' | translate}}
+        </div>
+
+        <div class="mb-2">
+          <app-dashboard-deal></app-dashboard-deal>
+        </div>
+        <div class="mb-2">
+          <app-dashboard-deal></app-dashboard-deal>
+        </div>
+        <div>
+          <app-dashboard-deal></app-dashboard-deal>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-lg-4">
+  <div class="col-lg-6 mb-3">
+    <div class="card white-card border-radius-18">
+      <div class="card-body">
+        <div class="card-title">
+          <span class="mr-2" inlineSVG="assets/icons/message.svg"></span>
+          21 {{'newMessage' | translate}}
+        </div>
+
+        <div class="mb-2">
+          <app-message-card></app-message-card>
+        </div>
+        <div class="mb-2">
+          <app-message-card></app-message-card>
+        </div>
+        <div>
+          <app-message-card></app-message-card>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <div class="col-lg-6">
-    <div class="card white-card my-4 border-radius-18">
+
+  <div class="col-12">
+    <div class="card white-card border-radius-18">
       <div class="card-body">
         <full-calendar [options]="calendarOptions"></full-calendar>
       </div>
     </div>
   </div>
+</div>

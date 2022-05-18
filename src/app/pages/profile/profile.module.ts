@@ -29,7 +29,9 @@ const route: Route[] = [
       {
         path: 'deals',loadChildren: () => import('./profile-deals/profile-deals.module').then(m => m.ProfileDealsModule)
       },
-
+      {
+        path: 'inbox',loadChildren: () => import('./profile-inbox/profile-inbox.module').then(m => m.ProfileInboxModule)
+      },
 
     ]
   }

@@ -1,4 +1,4 @@
-import { Component,} from "@angular/core";
+import { Component, OnInit,} from "@angular/core";
 import { CalendarOptions, EventInput } from "@fullcalendar/core";
 import { AppBaseComponent } from "src/app/shared/components/app-base/app-base.component";
 
@@ -8,7 +8,7 @@ import { AppBaseComponent } from "src/app/shared/components/app-base/app-base.co
   templateUrl: './profile-dashboard.component.html',
   styleUrls: ['./profile-dashboard.component.scss']
 })
-export class ProfileDashboardComponent extends AppBaseComponent {
+export class ProfileDashboardComponent extends AppBaseComponent implements OnInit {
 
   async ngOnInit(){
     await this._translateService.get('dummyTranslation').toPromise().then();
@@ -26,16 +26,12 @@ export class ProfileDashboardComponent extends AppBaseComponent {
         }
       },
     ]
+    let myElement:any = document.querySelector("#fc-dom-1");
+    myElement.textContent = myElement.textContent+ ' Events'
 
 
   }
   calendarEvents: EventInput[] = [
-    // {
-    //     id: '1',
-    //     title: 'Meeting',
-    //     start: new Date().setDate(new Date().getDate() + 1),
-    //     end: new Date().setDate(new Date().getDate() + 2),
-    // },
     {
         id: '2',
         title: '',
@@ -46,10 +42,11 @@ export class ProfileDashboardComponent extends AppBaseComponent {
 ];
 
   calendarOptions: CalendarOptions = {
+    height:300,
     headerToolbar: {
-      left: '',
+      left: 'title',
       center: '',
-      right: 'title'
+      right: ''
     },
     initialView: "dayGridMonth",
     themeSystem: "bootstrap",

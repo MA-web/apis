@@ -5,8 +5,8 @@ import { FieldType } from '@ngx-formly/core';
   selector: 'formly-field-upload',
   template: `
   <div class="form-group">
-          <label >{{to.label}}</label>
-          <ngx-dropzone (change)="onSelect($event)" [accept]="'.png,.jpg,.jpeg'" [multiple]='to.multiple'  [formlyAttributes]="field"
+          <label >{{to?.label}}</label>
+          <ngx-dropzone (change)="onSelect($event)" [accept]="to.accept?to.accept:'.png,.jpg,.jpeg'" [multiple]='to.multiple'  [formlyAttributes]="field"
             [disableClick]="files?.length?true:false">
             <ngx-dropzone-label>{{  (to.multiple? 'UploadFiles':'UploadFile') | translate}}</ngx-dropzone-label>
             <ng-container *ngFor="let f of files;let i = index">

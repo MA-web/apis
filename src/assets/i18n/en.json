@@ -201,8 +201,10 @@
   "Hello":"Hello",
   "YourProgressWeekAPIS":"Your Progress This Week on APIS",
   "updateYourProfile":"Update Your Profile",
-  "":"",
-  "":"",
+  "DealNeedAction":"Deal Need Action",
+  "newMessage":"New Message",
+
+  "SearchMail":"Search Mail",
 
 
   "validations": {
