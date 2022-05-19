@@ -12,7 +12,6 @@ SwiperCore.use([Pagination, Navigation]);
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class ProductDetailsComponent extends AppBaseComponent implements OnInit {
 

@@ -1512,7 +1512,6 @@ select.form-control option[value=""][disabled] {
 
 .apis-button {
   background-color: $orange;
-  border: 0;
   color: #fff;
   font-size: 16px;
   font-weight: 600;
@@ -1520,6 +1519,7 @@ select.form-control option[value=""][disabled] {
   padding: 0.8rem 0.4rem;
   transition: all .2s ease-in-out;
   text-transform: uppercase;
+  line-height: 27px;
 }
 
 .btn-warning {
@@ -1784,7 +1784,9 @@ textarea.form-control {
     padding-left: 55px
   }
 }
-
+.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value{
+  padding-left: 45px;
+}
 .ng-select .ng-select-container {
   height: 46px !important;
   line-height: 30px !important;
@@ -1803,7 +1805,7 @@ textarea.form-control {
 
 
 .with-icon .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
-  padding-left: 55px;
+  padding-left: 52px;
 }
 
 
@@ -1912,3 +1914,5 @@ textarea.form-control {
 .pagination-last .page-link {
   border-radius: 4px 10px 8px 10px !important;
 }
+
+

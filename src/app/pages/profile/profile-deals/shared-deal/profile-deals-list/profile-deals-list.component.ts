@@ -9,8 +9,6 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
 })
 export class ProfileDealsListComponent extends AppBaseComponent implements OnInit {
 
-
-
   constructor(
     injector: Injector,
     private route: ActivatedRoute

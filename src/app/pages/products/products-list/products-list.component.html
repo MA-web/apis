@@ -8,13 +8,12 @@
           <h4>{{'Filter_by' | translate}}</h4>
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <formly-form class="row" [form]="form" [model]="model" [fields]="fields"> </formly-form>
-
-            <div class="d-flex flex-wrap gap-2">
-              <button type="submit" class="apis-button btn-danger px-3">
-                <span [inlineSVG]="'assets/icons/delete.svg'"></span>
+            <div class="button-items">
+              <button type="button" class="apis-button btn btn-danger px-3">
+                <span [inlineSVG]="'assets/icons/delete.svg'" style="zoom: .8"></span>
                 {{'reset' | translate}}</button>
 
-              <button type="submit" class="apis-button btn-success px-5">
+              <button type="submit" class="apis-button btn btn-warning px-5">
                 <span [inlineSVG]="'assets/icons/search2.svg'"></span>
                 {{'search' | translate}}</button>
             </div>

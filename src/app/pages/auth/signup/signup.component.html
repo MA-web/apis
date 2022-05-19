@@ -1,12 +1,38 @@
 <h4>{{'Signup' | translate}}</h4>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <formly-form class="row" [form]="form" [model]="model" [fields]="fields"> </formly-form>
 
-  <div class="form-group btn-margin">
-    <button type="submit" class="apis-button btn-block btn-warning">{{'Submit' | translate}}</button>
-  </div>
-  <div class="form-group text-center">
-    <p class="sign-q">{{'Already_have_an_account' | translate}} <a routerLink="/auth/login" class="link-2">{{'Login' | translate}}</a></p>
-  </div>
-</form>
+<ng-container *ngIf="isLoading; else elseTemplate">
+  <ngx-skeleton-loader
+  count="10"
+  [theme]="{
+    'border-radius': '90px',
+     height: '50px',
+    'background-color': '#e1e1e140',
+    border: '1px solid white',
+    margin:'10px 0'
+  }"
+></ngx-skeleton-loader>
+
+</ng-container>
+<ng-template #elseTemplate>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <formly-form class="row" [form]="form" [model]="model" [fields]="fields"> </formly-form>
+
+    <div class="form-group btn-margin">
+      <button type="submit" class="apis-button btn-block btn btn-warning" [disabled]="form.invalid">
+        <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Loading...
+        </ng-container>
+        <ng-template #elseTemplate_isSubmit>
+          {{'Submit' | translate}}
+        </ng-template>
+
+      </button>
+    </div>
+    <div class="form-group text-center">
+      <p class="sign-q">{{'Already_have_an_account' | translate}} <a routerLink="/auth/login" class="link-2">{{'Login' | translate}}</a></p>
+    </div>
+  </form>
+
+</ng-template>

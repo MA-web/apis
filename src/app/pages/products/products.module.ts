@@ -8,7 +8,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormlyConfModule } from 'src/app/shared/formly-conf/formly-conf.module';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { SwiperModule } from 'swiper/angular';
-import { CertificateComponent } from './product-details/certificate/certificate.component';
 import { LightboxModule } from 'ngx-lightbox';
 import { FileSaverModule } from 'ngx-filesaver';
 
@@ -25,7 +24,6 @@ const route: Route[] = [
   declarations: [
     ProductsListComponent,
     ProductDetailsComponent,
-    CertificateComponent
   ],
   imports: [
     CommonModule,

@@ -52,22 +52,21 @@ export class OurSuppliersListComponent
         },
       },
       {
-        template: '<span class="col-lg-12 col-sm-6 col-12 text-secondary">Certificates</span>',
-      },
-
-      {
-        className: 'text-secondary col-lg-12 col-sm-6 col-12 ',
-        key: 'certificate01330',
-        type: 'checkbox',
-        defaultValue: false,
+        className:'col-lg-12 col-sm-6 col-12',
+        key: 'certificates',
+        type: 'select',
         templateOptions: {
-          label: this._translateService.instant('certificate01330'),
-        },
+          multiple:true,
+          label: this._translateService.instant('certificates'),
+          options:[]
+        }
       },
 
 
     ];
   }
+
+
   onSubmit() {
     console.log(this.form);
     console.log(this.model);

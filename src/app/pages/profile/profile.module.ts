@@ -27,12 +27,14 @@ const route: Route[] = [
         path: 'products', loadChildren: () => import('./supplier-products/supplier-products.module').then(m => m.SupplierProductsModule)
       },
       {
-        path: 'deals',loadChildren: () => import('./profile-deals/profile-deals.module').then(m => m.ProfileDealsModule)
+        path: 'deals', loadChildren: () => import('./profile-deals/profile-deals.module').then(m => m.ProfileDealsModule)
       },
       {
-        path: 'inbox',loadChildren: () => import('./profile-inbox/profile-inbox.module').then(m => m.ProfileInboxModule)
+        path: 'inbox', loadChildren: () => import('./profile-inbox/profile-inbox.module').then(m => m.ProfileInboxModule)
       },
-
+      {
+        path:'favorite-products', loadChildren: () => import('./profile-favorite-products/profile-favorite-products.module').then(m => m.ProfileFavoriteProductsModule)
+      }
     ]
   }
 ]

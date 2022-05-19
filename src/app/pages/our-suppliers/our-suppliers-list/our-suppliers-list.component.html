@@ -4,8 +4,7 @@
     <div class="row">
       <div class="col-lg-4">
         <div class="filter-by">
-          <h4>Filter by</h4>
-
+          <h4>{{'Filter_by' | translate}}</h4>
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <formly-form
               class="row"
@@ -15,21 +14,38 @@
             >
             </formly-form>
 
-            <div class="form-group">
-              <button class="apis-button btn-block">search</button>
+            <div class="button-items">
+              <button type="button" class="apis-button btn btn-danger px-3">
+                <span [inlineSVG]="'assets/icons/delete.svg'" style="zoom: .8"></span>
+                {{'reset' | translate}}</button>
+
+              <button type="submit" class="apis-button btn btn-warning px-5">
+                <span [inlineSVG]="'assets/icons/search2.svg'"></span>
+                {{'search' | translate}}</button>
             </div>
           </form>
         </div>
       </div>
       <div class="col-lg-8">
+
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-12">
             <div class="the-title">
-              <h2>Our Suppliers<span class="number-items">50 Product</span></h2>
+              <h2>{{'ourSuppliers' | translate}}<span class="number-items">50 {{'Product' | translate}}</span></h2>
             </div>
           </div>
+
         </div>
         <div class="row filter-grid-row">
+          <div class="col-sm-12">
+            <app-supplier-card></app-supplier-card>
+          </div>
+          <div class="col-sm-12">
+            <app-supplier-card></app-supplier-card>
+          </div>
+          <div class="col-sm-12">
+            <app-supplier-card></app-supplier-card>
+          </div>
           <div class="col-sm-12">
             <app-supplier-card></app-supplier-card>
           </div>
