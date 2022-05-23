@@ -17,7 +17,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
   constructor(
     injector: Injector,
     private _itemControllerService: ItemControllerService,
-    ) {
+  ) {
     super(injector)
     this.isLoadingForm = true
   }
@@ -92,7 +92,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   key: 'itemName',
                   type: 'input',
-                  defaultValue:'',
+                  defaultValue: '',
                   templateOptions: {
                     label: this._translateService.instant('ProductName'),
                     required: true,
@@ -122,7 +122,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   templateOptions: {
                     label: this._translateService.instant('origin'),
                     required: true,
-                    options:res[1]?.map(v => ({ label: v?.originName, value: v?.originId })),
+                    options: res[1]?.map(v => ({ label: v?.originName, value: v?.originId })),
                   },
                 },
                 {
@@ -132,7 +132,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   templateOptions: {
                     label: this._translateService.instant('SupplierType'),
                     required: true,
-                    options:res[2]?.map(v => ({ label: v?.categoryDescription, value: v?.categoryId })),
+                    options: res[2]?.map(v => ({ label: v?.categoryDescription, value: v?.categoryId })),
                   },
                 },
                 {
@@ -584,7 +584,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                             type: 'ng-select',
                             templateOptions: {
                               required: true,
-                              options:res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
+                              options: res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
                             }
                           },
                         ],
@@ -609,7 +609,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                             type: 'ng-select',
                             templateOptions: {
                               required: true,
-                              options:res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
+                              options: res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
                             },
                           },
                         ],
@@ -635,7 +635,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                             type: 'ng-select',
                             templateOptions: {
                               required: true,
-                              options:res[4]?.map(v => ({ label: v?.currencyCode, value: v?.currencyId })),
+                              options: res[4]?.map(v => ({ label: v?.currencyCode, value: v?.currencyId })),
                             },
                           },
                         ],
@@ -685,10 +685,10 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   templateOptions: {
                     label: this._translateService.instant('sampleType'),
                     required: true,
-                    options:res[5]?.map(v => ({ label: v?.itemSampleTypesName, value: v?.itemSampleTypesId})),
+                    options: res[5]?.map(v => ({ label: v?.itemSampleTypesName, value: v?.itemSampleTypesId })),
                   },
                   expressionProperties: {
-                    'templateOptions.disabled': () => !this.model.AllowedSample ,
+                    'templateOptions.disabled': () => !this.model.AllowedSample,
                   },
                 },
                 {
@@ -701,7 +701,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                     options: []
                   },
                   expressionProperties: {
-                    'templateOptions.disabled': () => !this.model.AllowedSample ,
+                    'templateOptions.disabled': () => !this.model.AllowedSample,
                   },
                 },
                 {
@@ -714,7 +714,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                     options: []
                   },
                   expressionProperties: {
-                    'templateOptions.disabled': () => !this.model.AllowedSample ,
+                    'templateOptions.disabled': () => !this.model.AllowedSample,
                   },
                 },
               ],
@@ -807,7 +807,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   type: 'ng-select',
                   templateOptions: {
                     label: this._translateService.instant('Incoterms'),
-                    options:res[6]?.map(v => ({ label: v?.incotermShortName, value: v?.incotermId })),
+                    options: res[6]?.map(v => ({ label: v?.incotermShortName, value: v?.incotermId })),
                   },
                 },
                 {
@@ -816,7 +816,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   type: 'ng-select',
                   templateOptions: {
                     label: this._translateService.instant('Transportation'),
-                    options:res[7]?.map(v => ({ label: v?.transportationName, value: v?.transportationId })),
+                    options: res[7]?.map(v => ({ label: v?.transportationName, value: v?.transportationId })),
                   },
                 },
               ],
@@ -1000,7 +1000,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 className: 'col-12',
                 key: 'itemName',
                 type: 'input',
-                defaultValue:'',
+                defaultValue: '',
                 templateOptions: {
                   label: this._translateService.instant('ProductName'),
                   required: true,
@@ -1492,7 +1492,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                           type: 'ng-select',
                           templateOptions: {
                             required: true,
-                           // options:res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
+                            // options:res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
                           }
                         },
                       ],
@@ -1517,7 +1517,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                           type: 'ng-select',
                           templateOptions: {
                             required: true,
-                           // options:res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
+                            // options:res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
                           },
                         },
                       ],
@@ -1596,7 +1596,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   //options:res[5]?.map(v => ({ label: v?.itemSampleTypesName, value: v?.itemSampleTypesId})),
                 },
                 expressionProperties: {
-                  'templateOptions.disabled': () => !this.model.AllowedSample ,
+                  'templateOptions.disabled': () => !this.model.AllowedSample,
                 },
               },
               {
@@ -1609,7 +1609,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   options: []
                 },
                 expressionProperties: {
-                  'templateOptions.disabled': () => !this.model.AllowedSample ,
+                  'templateOptions.disabled': () => !this.model.AllowedSample,
                 },
               },
               {
@@ -1622,7 +1622,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   options: []
                 },
                 expressionProperties: {
-                  'templateOptions.disabled': () => !this.model.AllowedSample ,
+                  'templateOptions.disabled': () => !this.model.AllowedSample,
                 },
               },
             ],
@@ -1715,7 +1715,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('Incoterms'),
-                 // options:res[6]?.map(v => ({ label: v?.incotermShortName, value: v?.incotermId })),
+                  // options:res[6]?.map(v => ({ label: v?.incotermShortName, value: v?.incotermId })),
                 },
               },
               {
@@ -1876,31 +1876,45 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
 
 
   onSubmit() {
-    let file =  this.model.attachment[0]
+    let file = this.model.attachment[0]
     console.log('file: ', file);
-    const contentType =file.type;
+    const contentType = file.type;
     const bucket = new S3(
-    {
-    accessKeyId: 'BA6EM5E6W3S2W3HBZSAY',
-    secretAccessKey: 'GifnJOJ+jpc1u+6bBLEmk2jNZdgSkH3jKB6LVsS56aM',
-    region: 'eu-central-1',
-    }
+      {
+        endpoint: "https://devspace-marksphinx.fra1.digitaloceanspaces.com",
+        accessKeyId: 'BA6EM5E6W3S2W3HBZSAY',
+        secretAccessKey: 'GifnJOJ+jpc1u+6bBLEmk2jNZdgSkH3jKB6LVsS56aM',
+        region: 'af-south-1',
+      }
     );
     const params = {
-    Bucket: 'gajstore',
-    Key: file.name,
-    Body: file,
-    ACL: 'public-read',
-    ContentType: contentType
+      Bucket: 'gajstore',
+      Key: file.name,
+      Body: file,
+      ACL: 'public-read',
+      ContentType: contentType,
     };
     bucket.upload(params, function (err, data) {
-    if (err) {
-    console.log('EROOR: ',JSON.stringify( err));
-    return false;
-    }
-    console.log('File Uploaded.', data);
-    return true;
+      if (err) {
+        console.log('EROOR: ', JSON.stringify(err));
+        return false;
+      }
+      console.log('File Uploaded.', data);
+      return true;
     });
 
+    // bucket.putObject(params)
+		// .on("build", request => {
+		// 	request.httpRequest.headers.Host="https://runbook.sgp1.digitaloceanspaces.com";
+		// 	request.httpRequest.headers["Content-Length"] = file.size;
+		// 	request.httpRequest.headers["Content-Type"] = "application/octet-stream";
+		// 	request.httpRequest.headers["x-amz-acl"] = "public-read";
+		// 	request.httpRequest.headers["Access-Control-Allow-Origin"] = "*";
+		// })
+		// .send((err) => {
+		// 	if (err) {
+		// 		console.log("Failed to upload file", `${err}`);
+		// 	}
+		// });
   }
 }
