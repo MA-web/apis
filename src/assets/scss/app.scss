@@ -39,10 +39,6 @@ body {
   min-height: 670px
 }
 
-.search-header .btn {
-  background: #fff;
-  border-radius: 25px
-}
 
 .the-navbar {
   padding: 0
@@ -52,62 +48,14 @@ body {
   padding-top: 0
 }
 
-.search-header {
-  margin: 10px auto 0
-}
 
-.search-header input.form-control {
-  height: 54px;
-  border: 0;
-  width: 400px;
-  background-image: url(../img/Line.svg);
-  background-repeat: no-repeat;
-  background-position: left center
-}
 
-.search-header select.form-control {
-  border: 0;
-  height: 54px;
-  /*min-width: 170px*/
-  width: auto;
-  color: $mainColor;
-  font-size: 16px;
-  font-weight: 700;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  max-width: 120px
-}
 
-.search-header .input-group {
-  background-repeat: no-repeat;
-  background-image: url(../img/widgets_black_24dp.svg);
-  background-position: 12px center;
-  padding-left: 30px;
-  border-radius: 25px;
-  background-color: #fff;
-}
 
-.search-header ::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #DDDDDD;
-  opacity: 1;
-  /* Firefox */
-}
 
-.search-header :-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: #DDDDDD;
-}
 
-.search-header ::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: #DDDDDD;
-}
 
 /***/
-.search-header select.form-control option[value=""][disabled] {
-  display: none;
-}
 
 
 /***/
@@ -1317,6 +1265,12 @@ select.form-control option[value=""][disabled] {
 
 
 /***************general*****************/
+.radius-0{
+  border-radius: 0!important;
+}
+.noFormGroup .form-group{
+  margin-bottom: 0;
+}
 .green-color{
   color: $greenColor!important;
 }
@@ -1363,7 +1317,7 @@ select.form-control option[value=""][disabled] {
 
 .btn.disabled,
 .btn:disabled {
-  opacity: .4;
+  opacity: .6;
 }
 
 .btn-outline-success svg {
@@ -1784,7 +1738,7 @@ textarea.form-control {
     padding-left: 55px
   }
 }
-.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value{
+.with-icon .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value{
   padding-left: 45px;
 }
 .ng-select .ng-select-container {
@@ -1916,3 +1870,7 @@ textarea.form-control {
 }
 
 
+/**************sweetAlert*****************/
+.swal2-icon.swal2-error.swal2-icon-show{
+  zoom: .7;
+}

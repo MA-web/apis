@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { finalize } from 'rxjs';
-import { OriginDto, RegisterControllerService, UserRequestDto, UserResponseDto } from 'src/app/@api';
+import { OriginDto, RegisterControllerService, SupplierEmployeeDto, SupplierEmployeeResponseDto, UserRequestDto, UserResponseDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { generalValidations } from 'src/environments/environment';
 
@@ -87,7 +87,7 @@ export class SignupComponent extends AppBaseComponent implements OnInit {
         {
           className: 'col-12',
           key: 'origin',
-          type: 'select',
+          type: 'ng-select',
           templateOptions: {
             label: this._translateService.instant('companyLocation'),
             options: res_origin?.map(v => ({ label: v.originName, value: v.originId })),
@@ -146,7 +146,7 @@ export class SignupComponent extends AppBaseComponent implements OnInit {
           key: 'rcaptch',
           type: 'captch',
           templateOptions: {
-           // required: true
+            // required: true
           }
         },
       ]
@@ -162,10 +162,6 @@ export class SignupComponent extends AppBaseComponent implements OnInit {
 
   onSubmit() {
     this.isSubmit = true;
-    console.log(this.form)
-    console.log(this.model);
-
-
     if (this.model?.accountType === "user") {
       let UserRequestDto: UserRequestDto = {
         companyName: this.model?.companyName,
@@ -182,11 +178,46 @@ export class SignupComponent extends AppBaseComponent implements OnInit {
       }
 
       const addCustomerUsingPOSTSub = this.RegisterControllerService.addCustomerUsingPOST(UserRequestDto).pipe(
-        finalize(() =>{
+        finalize(() => {
           this.isSubmit = false;
         })
       ).subscribe((res: UserResponseDto) => {
-        if(res) this.router.navigate(['/auth/email-confirm'])
+        window.localStorage.setItem('emailToAPIs', this.model?.email)
+        this._sharedService.sendEmail.next(this.model?.email);
+        if (res) this.router.navigate(['/auth/confirm-signup'])
+      })
+      this.unSubscription.push(addCustomerUsingPOSTSub)
+    } else {
+      let supplierEmployeeDto: SupplierEmployeeDto = {
+        "supplier": {
+          "supplierEmail":  this.model?.email,
+          "supplierName": `${this.model?.firstName} ${this.model?.lastName}`
+        },
+        "user": {
+          companyName: this.model?.companyName,
+          email: this.model?.email,
+          firstName: this.model?.firstName,
+          jobTitle: this.model?.jobTitle,
+          lastName: this.model?.lastName,
+          origin: {
+            originId: this.model?.origin
+          },
+          password: this.model?.password,
+          userProfile: {},
+          username: this.model?.email,
+        }
+
+
+      }
+
+      const addCustomerUsingPOSTSub = this.RegisterControllerService.addSupplierUsingPOST(supplierEmployeeDto).pipe(
+        finalize(() => {
+          this.isSubmit = false;
+        })
+      ).subscribe((res: SupplierEmployeeResponseDto) => {
+        window.localStorage.setItem('emailToAPIs', this.model?.email)
+        this._sharedService.sendEmail.next(this.model?.email);
+        if (res) this.router.navigate(['/auth/confirm-signup'])
       })
       this.unSubscription.push(addCustomerUsingPOSTSub)
     }

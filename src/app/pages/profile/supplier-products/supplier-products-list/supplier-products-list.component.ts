@@ -30,7 +30,7 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
       {
         className:'col-md-4 col-12',
         key: 'category',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           placeholder: this._translateService.instant('category'),
           options:[]
@@ -39,7 +39,7 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
       {
         className:'col-md-4 col-12',
         key: 'SubCategory',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           placeholder: this._translateService.instant('SubCategory'),
           options:[]
@@ -48,7 +48,7 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
       {
         className:'col-md-4 col-12',
         key: 'status',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           placeholder: this._translateService.instant('status'),
           options:[]

@@ -8,32 +8,39 @@
       <div class="row">
         <div class="col-lg-5">
           <div class="product p-3">
-            <div class="product-img"><img src="assets/img/image2.jpg" class="img-fluid" alt=""></div>
+            <div class="product-img">
+              <img
+              [defaultImage]="productDetails?.attachment?.attachmentSource?.attachmentSourceName ? productDetails?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
+              [lazyLoad]="productDetails?.attachment?.attachmentSource?.attachmentSourceName ? productDetails?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
+              onerror="this.src='assets/img/image2.jpg';"
+              class="img-fluid lazy-loading"
+              alt="{{ productDetails?.itemName ? productDetails.itemName : '' }}" />
+            </div>
           </div>
         </div>
         <div class="col-lg-7">
           <div class="product-details-2">
             <div class="row">
               <div class="col-md-12">
-                <h2>Pomegranate Extract Pomegranate Extract</h2>
+                <h2>{{productDetails?.itemName}}</h2>
               </div>
               <div class="col-md-6">
-                <p><img src="assets/img/gram.svg" alt=""><span>{{'Weight' | translate}}: </span>13 {{'Gram' | translate}}</p>
+                <p><img src="assets/img/gram.svg" alt=""><span>{{'Weight' | translate}}: </span>?? {{'Gram' | translate}}</p>
               </div>
               <div class="col-md-6">
-                <p><img src="assets/img/price.svg" alt=""><span>{{'Price' | translate}}: </span>150 USD</p>
+                <p><img src="assets/img/price.svg" alt=""><span>{{'Price' | translate}}: </span>{{productDetails?.itemPricings?.price}} {{productDetails?.itemPricings?.currency}}</p>
               </div>
               <div class="col-md-12">
-                <p><span>{{'category' | translate}}: </span>Natural Extracts, Plant Extracts</p>
+                <p><span>{{'category' | translate}}: </span>??</p>
               </div>
               <div class="col-md-6">
-                <p><span>{{'casNo' | translate}}: </span>2323</p>
+                <p><span>{{'casNo' | translate}}: </span>{{productDetails?.caseNumber}}</p>
               </div>
               <div class="col-md-6">
-                <p><span>{{'origin' | translate}}: </span>origin</p>
+                <p><span>{{'origin' | translate}}: </span>??</p>
               </div>
               <div class="col-md-6">
-                <p><span>{{'Supplier' | translate}}: </span>Supplier</p>
+                <p><span>{{'Supplier' | translate}}: </span>{{productDetails?.supplier?.supplierName}}</p>
               </div>
 
             </div>
@@ -53,24 +60,18 @@
       </div>
       <div class="row basic-info">
         <h4 class="col-md-12 mb-4"><img src="assets/img/info.svg" alt="">{{'BasicInfo' | translate}}:</h4>
-        <p class="col-md-6"><span>- {{'SubCategory' | translate}}: </span>SubCategory</p>
-        <p class="col-md-6"><span>- {{'SupplierType' | translate}}: </span>SupplierType</p>
-        <p class="col-md-6"><span>- {{'Application' | translate}}: </span>Application</p>
-        <p class="col-md-6"><span>- {{'Purity' | translate}}: </span>Purity</p>
-        <p class="col-md-6"><span>- {{'ParticleSizeD90' | translate}}: </span>ParticleSizeD90</p>
-        <p class="col-md-6"><span>- {{'endotoxinTest' | translate}}: </span>endotoxinTest</p>
-        <p class="col-md-6"><span>- {{'sampleType' | translate}}: </span>SampleSize</p>
-        <p class="col-md-6"><span>- {{'SampleSize' | translate}}: </span>SampleSize</p>
+        <p class="col-md-6"><span>- {{'SubCategory' | translate}}: </span>??</p>
+        <!-- <p class="col-md-6"><span>- {{'SupplierType' | translate}}: </span>SupplierType</p> -->
+        <p class="col-md-6"><span>- {{'Application' | translate}}: </span>{{productDetails?.application}}</p>
+        <p class="col-md-6"><span>- {{'Purity' | translate}}: </span>{{productDetails?.purity}}</p>
+        <p class="col-md-6"><span>- {{'ParticleSizeD90' | translate}}: </span>{{productDetails?.particleSize}}</p>
+        <p class="col-md-6"><span>- {{'endotoxinTest' | translate}}: </span>{{productDetails?.indotoxinTest}}</p>
+        <p class="col-md-6"><span>- {{'sampleType' | translate}}: </span>{{productDetails?.itemSampleType?.itemSampleTypesName}}</p>
+        <p class="col-md-6"><span>- {{'SampleSize' | translate}}: </span>{{productDetails?.sampleSize}}</p>
 
         <p class="col-12 mb-1"><span>- {{'ProductDetails' | translate}}: </span></p>
-        <p class="col-md-12 font-size-16">SourcePomegranate Extract is extracted from skin of pomegranate(Punica
-          granatum L.) with the main ingredients ellagic acid and punicalagin.Quality and specificationa. Ellagic Acid:
-          10%-40% HPLCb. Polyphenol: 10%-40% UVc. Punicalagin: 10%-40% HPLCProduct characteristicsa. Select from100%
-          natural
-          pomegranate. The whole process complies with GMP requirements strictly.b. We have gained ISO, HACCP, KOSHER and
-          GMP certificate.c. Low ash, impurity, heavy metal, solvent residue and no pesticide residue.d. Water and ethanol
-          as solvent, ensures the safety of the product.e. Has outstanding water-solubility and can be widely used in
-          beverage.f. Complete product tracing system and technical service.
+        <p class="col-md-12 font-size-16">
+          {{productDetails?.details}}
         </p>
       </div>
 
@@ -84,18 +85,12 @@
         <div class="col-sm-12">
           <swiper [slidesPerView]="innerWidth>991 ? 4:2" [spaceBetween]="30" [slidesPerGroup]="1" [loop]="true"
             [loopFillGroupWithBlank]="true" [navigation]="true" class="mySwiper">
-            <ng-template swiperSlide>
-              <app-certificate></app-certificate>
-            </ng-template>
-            <ng-template swiperSlide>
-              <app-certificate></app-certificate>
-            </ng-template>
-            <ng-template swiperSlide>
-              <app-certificate></app-certificate>
-            </ng-template>
-            <ng-template swiperSlide>
-              <app-certificate></app-certificate>
-            </ng-template>
+            <ng-container *ngFor="let certificate of productDetails?.itemCertificates">
+              <ng-template swiperSlide>
+                <app-certificate [certificate]="certificate"></app-certificate>
+              </ng-template>
+            </ng-container>
+
           </swiper>
         </div>
       </div>
@@ -116,18 +111,11 @@
       <div class="col-sm-12">
         <swiper [slidesPerView]="innerWidth>991 ? 3:1" [spaceBetween]="30" [slidesPerGroup]="1" [loop]="true"
           [loopFillGroupWithBlank]="true" [navigation]="true" class="mySwiper">
-          <ng-template swiperSlide>
-            <app-product-card></app-product-card>
-          </ng-template>
-          <ng-template swiperSlide>
-            <app-product-card></app-product-card>
-          </ng-template>
-          <ng-template swiperSlide>
-            <app-product-card></app-product-card>
-          </ng-template>
-          <ng-template swiperSlide>
-            <app-product-card></app-product-card>
-          </ng-template>
+          <ng-container *ngFor="let item of  this.similarProducts">
+            <ng-template swiperSlide>
+              <app-product-card [product]="item" bgWhite="bg-white"></app-product-card>
+            </ng-template>
+          </ng-container>
         </swiper>
       </div>
     </div>

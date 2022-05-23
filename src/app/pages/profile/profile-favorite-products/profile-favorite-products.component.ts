@@ -33,7 +33,7 @@ export class ProfileFavoriteProductsComponent extends AppBaseComponent implement
         {
           className: 'col-md-4 col-12',
           key: 'category',
-          type: 'select',
+          type: 'ng-select',
           templateOptions: {
             placeholder: this._translateService.instant('category'),
             options: []
@@ -42,7 +42,7 @@ export class ProfileFavoriteProductsComponent extends AppBaseComponent implement
         {
           className: 'col-md-4 col-12',
           key: 'SubCategory',
-          type: 'select',
+          type: 'ng-select',
           templateOptions: {
             placeholder: this._translateService.instant('SubCategory'),
             options: []
@@ -51,7 +51,7 @@ export class ProfileFavoriteProductsComponent extends AppBaseComponent implement
         {
           className: 'col-md-4 col-12',
           key: 'origin',
-          type: 'select',
+          type: 'ng-select',
           templateOptions: {
             placeholder: this._translateService.instant('origin'),
             options: []

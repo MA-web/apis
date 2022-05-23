@@ -6,6 +6,9 @@ import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { NavComponent } from './nav/nav.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { InlineSVGModule } from 'ng-inline-svg-2';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import {  ReactiveFormsModule } from '@angular/forms';
+import { FormlyConfModule } from '../shared/formly-conf/formly-conf.module';
 
 
 
@@ -19,7 +22,10 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
     CommonModule,
     RouterModule,
     TranslateModule,
-    InlineSVGModule
+    InlineSVGModule,
+    BsDropdownModule,
+    ReactiveFormsModule,
+    FormlyConfModule,
 
   ],
   exports:[

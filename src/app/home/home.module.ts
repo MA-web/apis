@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { Route, RouterModule } from '@angular/router';
 import { LayoutModule } from '../layout/layout.module';
 import { SharedModule } from '../shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const route: Route[] = [
   { path: '', component: HomeComponent },
@@ -17,7 +18,8 @@ const route: Route[] = [
     CommonModule,
     RouterModule.forChild(route),
     LayoutModule,
-    SharedModule
+    SharedModule,
+    TranslateModule
   ]
 })
 export class HomeModule { }

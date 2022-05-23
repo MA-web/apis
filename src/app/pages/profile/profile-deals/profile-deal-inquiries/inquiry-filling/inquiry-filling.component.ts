@@ -43,7 +43,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'category',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('category'),
                   required: true,
@@ -54,7 +54,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'SubCategory',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('SubCategory'),
                   required: true,
@@ -104,7 +104,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'origin',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('origin'),
                   required: true,
@@ -114,7 +114,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'SupplierType',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('SupplierType'),
                   required: true,
@@ -319,7 +319,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'ParticleSizeD90',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   type: 'number',
                   label: this._translateService.instant('ParticleSizeD90'),
@@ -429,7 +429,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               // {
               //   className: 'col-md-6 col-12',
               //   key: 'CertificateName',
-              //   type: 'select',
+              //   type: 'ng-select',
               //   templateOptions: {
               //     label: this._translateService.instant('CertificateName'),
               //     required: true,
@@ -510,7 +510,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'Unit',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('Unit'),
                   options: [],
@@ -593,7 +593,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
                         {
 
                           key: 'type',
-                          type: 'select',
+                          type: 'ng-select',
                           templateOptions: {
                             required: true,
                             options: [
@@ -621,7 +621,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
                         },
                         {
                           key: 'type',
-                          type: 'select',
+                          type: 'ng-select',
                           templateOptions: {
                             required: true,
                             options: [
@@ -650,7 +650,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
                         {
 
                           key: 'type',
-                          type: 'select',
+                          type: 'ng-select',
                           templateOptions: {
                             required: true,
                             options: [
@@ -668,7 +668,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               // {
               //   className: 'col-12',
               //   key: 'PaymentTerms',
-              //   type: 'select',
+              //   type: 'ng-select',
               //   templateOptions: {
               //     required: true,
               //     label: this._translateService.instant('PaymentTerms'),
@@ -689,7 +689,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-12',
                 key: 'sampleType',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('sampleType'),
                   required: true,
@@ -699,7 +699,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'SampleSize',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('SampleSize'),
                   required: true,
@@ -709,7 +709,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'SampleUnit',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('SampleUnit'),
                   required: true,
@@ -759,7 +759,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'ProductionCapacityUnit',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('Unit'),
                   options: [],
@@ -769,7 +769,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'Period',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('Period'),
                   options: [],
@@ -807,7 +807,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'Incoterms',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('Incoterms'),
                   options: []
@@ -816,7 +816,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'Transportation',
-                type: 'select',
+                type: 'ng-select',
                 templateOptions: {
                   label: this._translateService.instant('Transportation'),
                   options: []
@@ -837,7 +837,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               // {
               //   className: 'col-md-6 col-12',
               //   key: 'ShippingCertificateName',
-              //   type: 'select',
+              //   type: 'ng-select',
               //   templateOptions: {
               //     label: this._translateService.instant('CertificateName'),
               //     required: true,

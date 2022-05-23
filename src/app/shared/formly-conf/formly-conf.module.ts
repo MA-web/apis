@@ -78,7 +78,7 @@ export function formlyValidationConfig(translate: TranslateService) {
           { name: 'input', component: FormlyFieldInput },
           { name: 'radio', component: FormlyFieldRadio },
           { name: 'captch', component: FormlyFieldCaptch },
-          { name: 'select', component: FormlyFieldSelect },
+          { name: 'ng-select', component: FormlyFieldSelect },
           { name: 'slider', component: FormlyFieldSlider },
           { name: 'phone', component: FormlyFieldPhone },
           { name: 'upload', component: FormlyFieldUpload },

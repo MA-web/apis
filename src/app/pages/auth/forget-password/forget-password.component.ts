@@ -1,5 +1,8 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component,  Injector,  OnInit } from '@angular/core';
+import { finalize } from 'rxjs';
+import { RegisterControllerService, ResponseDto, UserEmailDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-forget-password',
@@ -8,6 +11,12 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
 })
 export class ForgetPasswordComponent extends AppBaseComponent implements OnInit {
 
+  constructor(
+    injector: Injector,
+    private RegisterControllerService: RegisterControllerService
+  ) {
+    super(injector);
+  }
   async ngOnInit(){
     await this._translateService.get('dummyTranslation').toPromise().then();
     this.fields = [
@@ -27,7 +36,21 @@ export class ForgetPasswordComponent extends AppBaseComponent implements OnInit 
 
 
   onSubmit() {
-    console.log(this.form)
-    console.log(this.model);
+    this.isSubmit = true
+    let body:UserEmailDto= {
+      email: this.model?.email
+    }
+    this.RegisterControllerService.sendPasswordTokenUsingPUT(body).pipe(
+      finalize(() =>{
+        this.isSubmit = false;
+      })
+    ).subscribe((res:ResponseDto) =>{
+      if(res){
+        window.localStorage.setItem('emailToAPIs_forgetPassword',this.model?.email)
+        this._sharedService.sendEmail.next(this.model?.email);
+        if(res) this.router.navigate(['/auth/confirm-rest-password'])
+
+      }
+    })
   }
 }

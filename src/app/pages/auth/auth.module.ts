@@ -19,8 +19,8 @@ const route: Route[] = [
       { path: 'signup', component: SignupComponent },
       { path: 'forget-password', component: ForgetPasswordComponent },
       { path: 'new-password', component: NewPasswordComponent },
-      { path: 'email-confirm', component: ActivationEmailComponent }
-
+      { path: 'confirm-signup', component: ActivationEmailComponent },
+      { path: 'confirm-rest-password', component: ActivationEmailComponent }
     ]
   },
 
@@ -33,7 +33,7 @@ const route: Route[] = [
     SignupComponent,
     ForgetPasswordComponent,
     NewPasswordComponent,
-    ActivationEmailComponent
+    ActivationEmailComponent,
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Lightbox } from 'ngx-lightbox';
 import { FileSaverService } from 'ngx-filesaver';
 import { SharedService } from 'src/app/shared/services/shared.service';
+import { ItemCertificateDto } from 'src/app/@api';
 
 @Component({
   selector: 'app-certificate',
@@ -9,22 +10,23 @@ import { SharedService } from 'src/app/shared/services/shared.service';
   styleUrls: ['./certificate.component.scss']
 })
 export class CertificateComponent implements OnInit {
-  images:any = [];
+
+  @Input() certificate:ItemCertificateDto = {}
   constructor(
     private lightbox: Lightbox,
     private _FileSaverService: FileSaverService,
     private SharedService:SharedService
     ) { }
 
-  ngOnInit(): void {
-
-    this.images.push({'src':'assets/img/certificate.svg','caption':'Imag1','thumb':'assets/img/certificate.svg'});
-  }
+  ngOnInit(): void { }
 
 
   open(index: number): void {
     // open lightbox
-    this.lightbox.open(this.images, index,{
+    let imgs :any= [
+      {'src':this.certificate?.attachment?.attachmentSource?.attachmentSourceName,'caption':this.certificate?.itemCertificateName}
+    ]
+    this.lightbox.open(imgs, index,{
       showZoom: true,
       enableTransition: true,
       showDownloadButton: true,

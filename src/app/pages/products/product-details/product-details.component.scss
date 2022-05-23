@@ -6,22 +6,22 @@
   margin-bottom: 25px;
 }
 
-.product-details-2 {
+.product-details-2{
   h2 {
     color: #FCB813;
     font-size: 30px;
     font-weight: 800;
     margin-bottom: 30px;
-    p {
-      font-size: 20px;
-      color: #888888;
-      font-weight: 600;
-      span {
-        color: $active-link2;
-        font-weight: 800;
-        img {
-          margin-right: 5px
-        }
+  }
+  p {
+    font-size: 20px;
+    color: #888888;
+    font-weight: 600;
+    span {
+      color: $active-link2;
+      font-weight: 800;
+      img {
+        margin-right: 5px
       }
     }
   }

@@ -33,7 +33,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit {
       {
         className:'col-12',
         key: 'gender',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           label: this._translateService.instant('gender'),
           options:[]
@@ -95,7 +95,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit {
       {
         className:'col-sm-6 col-12',
         key: 'companyLocation',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           label: this._translateService.instant('companyLocation'),
           options:[],
@@ -106,7 +106,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit {
       {
         className:'col-sm-6 col-12',
         key: 'city',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           multiple:true,
           label: this._translateService.instant('city'),
@@ -144,7 +144,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit {
       {
         className:'col-sm-6 col-12',
         key: 'numEmployees',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           label: this._translateService.instant('numEmployees'),
           options:[]
@@ -193,7 +193,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit {
       {
         className:'col-sm-6 col-12',
         key: 'interestedIn',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           label: this._translateService.instant('interestedIn'),
           options:[]
@@ -202,7 +202,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit {
       {
         className:'col-sm-6 col-12',
         key: 'Total_annual_sales_volume',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           label: this._translateService.instant('Total_annual_sales_volume'),
           options:[]
@@ -211,7 +211,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit {
       {
         className:'col-sm-6 col-12',
         key: 'Export_Percentage',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           label: this._translateService.instant('Export_Percentage'),
           options:[]
@@ -220,7 +220,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit {
       {
         className:'col-sm-6 col-12',
         key: 'Main_Markets',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           label: this._translateService.instant('Main_Markets'),
           options:[]
@@ -229,7 +229,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit {
       {
         className:'col-sm-6 col-12',
         key: 'Main_Customer',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           label: this._translateService.instant('Main_Customer'),
           options:[]

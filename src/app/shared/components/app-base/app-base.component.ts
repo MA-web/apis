@@ -1,8 +1,10 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormlyFieldConfig, FormlyForm, FormlyFormOptions } from '@ngx-formly/core';
 import { TranslateService } from '@ngx-translate/core';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { LookupControllerService } from 'src/app/@api';
 import { breadcrumb } from '../../models/breadcrumb.model';
@@ -14,9 +16,13 @@ import { SharedService } from '../../services/shared.service';
   styleUrls: ['./app-base.component.scss']
 })
 export class AppBaseComponent implements OnDestroy {
+
+  pageNumber:number = 0;
+  pageSize:number = 6
+  totalElements:number = 0
   isLoading:boolean = false;
   isSubmit:boolean = false;
-
+  isLoadingForm:boolean = false;
   breadcrumbItems: breadcrumb[] = []
 
   form = new FormGroup({});
@@ -24,17 +30,23 @@ export class AppBaseComponent implements OnDestroy {
   fields: FormlyFieldConfig[] = []
   options: FormlyFormOptions = {};
 
+  searchResult:{category?:any,searchKey?:string} = {category:{}}
+
   unSubscription:Subscription[] = []
 
   _translateService: TranslateService;
   _sharedService: SharedService;
   router:Router;
   LookupControllerService:LookupControllerService
+  toaster: ToastrService;
+  route: ActivatedRoute;
   constructor(injector: Injector) {
     this._translateService = injector.get(TranslateService);
     this._sharedService = injector.get(SharedService);
     this.router = injector.get(Router);
     this.LookupControllerService = injector.get(LookupControllerService);
+    this.toaster = injector.get(ToastrService);
+    this.route = injector.get(ActivatedRoute);
   }
 
 
@@ -42,7 +54,11 @@ export class AppBaseComponent implements OnDestroy {
       this.router.navigateByUrl(url)
   }
 
+
   ngOnDestroy(): void {
-    this.unSubscription.forEach(sub => sub.unsubscribe())
+    this.unSubscription.forEach(sub =>{
+      console.log('sub: ', sub);
+      sub.unsubscribe()
+    })
   }
 }

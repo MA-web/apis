@@ -1,0 +1,60 @@
+:host ::ng-deep{
+  @import 'src/assets/scss/variables';
+
+.search-header {
+  margin: 10px auto 0;
+  .btn {
+    background: #fff;
+    border-radius: 25px
+  }
+  input.form-control {
+    height: 54px;
+    border: 0;
+    width: 400px;
+    background-image: url(/assets/img/Line.svg);
+    background-repeat: no-repeat;
+    background-position: left center;
+    border-radius: 0;
+  }
+
+  select.form-control {
+    border: 0;
+    height: 54px;
+    /*min-width: 170px*/
+    width: auto;
+    color: $mainColor;
+    font-size: 16px;
+    font-weight: 700;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    max-width: 120px
+  }
+  .input-group {
+    background-repeat: no-repeat;
+    background-image: url(/assets/img/widgets_black_24dp.svg);
+    background-position: 12px center;
+    padding-left: 30px;
+    border-radius: 25px;
+    background-color: #fff;
+  }
+  &:placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #DDDDDD;
+    opacity: 1;
+    /* Firefox */
+  }
+  &:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #DDDDDD;
+  }
+  &:-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #DDDDDD;
+  }
+  select.form-control option[value=""][disabled] {
+    display: none;
+  }
+
+}
+
+}

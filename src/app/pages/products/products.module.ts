@@ -10,12 +10,15 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { SwiperModule } from 'swiper/angular';
 import { LightboxModule } from 'ngx-lightbox';
 import { FileSaverModule } from 'ngx-filesaver';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { NoDataModule } from 'src/app/shared/no-data/no-data.module';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 const route: Route[] = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
   { path: 'list', component: ProductsListComponent },
-  { path: 'details', component: ProductDetailsComponent },
+  { path: 'details/:id', component: ProductDetailsComponent },
 
 ]
 
@@ -34,7 +37,11 @@ const route: Route[] = [
     PaginationModule,
     SwiperModule,
     LightboxModule,
-    FileSaverModule
+    FileSaverModule,
+    NgxSkeletonLoaderModule,
+    NoDataModule,
+    LazyLoadImageModule,
+
   ]
 })
 export class ProductsModule { }

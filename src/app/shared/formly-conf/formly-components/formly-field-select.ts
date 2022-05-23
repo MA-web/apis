@@ -5,12 +5,15 @@ import { FieldType } from '@ngx-formly/core';
   selector: 'formly-field-select',
   template: `
 
-<div class="select-apis select-apis-1 position-relative" [ngClass]="{'with-icon':  to.icon}">
-<span><img [src]="'assets/icons/' + to.icon" *ngIf="to.icon"></span>
-  <ng-select [formControl]="formControl" [formlyAttributes]="field" [multiple]="to?.multiple" [placeholder]="to.placeholder" [ngClass]="{'border-red': formControl?.invalid && formControl?.touched}">
-   <ng-option *ngFor="let option of to.options" [value]="option.value">{{option.label}}</ng-option>
-</ng-select>
-</div>
+  <div class="form-group">
+    <label *ngIf="to.label">{{to.label}}</label>
+    <div class="select-apis select-apis-1 position-relative" [ngClass]="{'with-icon':  to.icon}">
+    <span><img [src]="'assets/icons/' + to.icon" *ngIf="to.icon"></span>
+      <ng-select  [formControl]="formControl" [formlyAttributes]="field" [multiple]="to?.multiple" [placeholder]="to.placeholder" [ngClass]="{'border-red': formControl?.invalid && formControl?.touched}">
+      <ng-option *ngFor="let option of to.options" [value]="option.value">{{option.label}}</ng-option>
+    </ng-select>
+    </div>
+  </div>
 `,
   styles: [`
  span {

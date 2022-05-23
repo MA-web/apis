@@ -27,7 +27,7 @@ export class OurSuppliersListComponent
       {
         className: 'col-lg-12 col-sm-6 col-12',
         key: 'sample',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           label: this._translateService.instant('sample'),
           options: [],
@@ -36,7 +36,7 @@ export class OurSuppliersListComponent
       {
         className: 'col-lg-12 col-sm-6 col-12',
         key: 'supplierType',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           label: this._translateService.instant('supplierType'),
           options: [],
@@ -45,7 +45,7 @@ export class OurSuppliersListComponent
       {
         className: 'col-lg-12 col-sm-6 col-12',
         key: 'orgin',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           label: this._translateService.instant('orgin'),
           options: [],
@@ -54,7 +54,7 @@ export class OurSuppliersListComponent
       {
         className:'col-lg-12 col-sm-6 col-12',
         key: 'certificates',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           multiple:true,
           label: this._translateService.instant('certificates'),

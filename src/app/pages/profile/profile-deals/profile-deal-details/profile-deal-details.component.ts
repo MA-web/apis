@@ -13,7 +13,6 @@ export class ProfileDealDetailsComponent extends AppBaseComponent implements OnI
 
   constructor(
     injector: Injector,
-    private route:ActivatedRoute,
 
    ) {
     super(injector);

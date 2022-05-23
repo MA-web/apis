@@ -11,7 +11,6 @@ export class ProfileDealsListComponent extends AppBaseComponent implements OnIni
 
   constructor(
     injector: Injector,
-    private route: ActivatedRoute
   ) {
     super(injector);
   }
@@ -42,7 +41,7 @@ export class ProfileDealsListComponent extends AppBaseComponent implements OnIni
       {
         className: 'col-md-4 col-12',
         key: 'category',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           placeholder: this._translateService.instant('category'),
           options: []
@@ -51,7 +50,7 @@ export class ProfileDealsListComponent extends AppBaseComponent implements OnIni
       {
         className: 'col-md-4 col-12',
         key: 'status',
-        type: 'select',
+        type: 'ng-select',
         templateOptions: {
           placeholder: this._translateService.instant('status'),
           options: []

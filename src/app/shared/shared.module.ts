@@ -6,6 +6,9 @@ import { RouterModule } from '@angular/router';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { SupplierCardComponent } from './components/supplier-card/supplier-card.component';
 import { CertificateComponent } from './components/certificate/certificate.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { SkeletonCardBoxComponent } from './components/skeleton-card-box/skeleton-card-box.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 
@@ -15,17 +18,21 @@ import { CertificateComponent } from './components/certificate/certificate.compo
     AppBaseComponent,
     BreadcrumbComponent,
     SupplierCardComponent,
-    CertificateComponent
+    CertificateComponent,
+    SkeletonCardBoxComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    NgxSkeletonLoaderModule,
+    LazyLoadImageModule
   ],
   exports:[
     ProductCardComponent,
     BreadcrumbComponent,
     SupplierCardComponent,
-    CertificateComponent
+    CertificateComponent,
+    SkeletonCardBoxComponent
   ]
 })
 export class SharedModule { }
