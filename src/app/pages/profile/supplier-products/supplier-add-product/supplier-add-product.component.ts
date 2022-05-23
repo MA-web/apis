@@ -4,6 +4,7 @@ import { ItemCategoryDto, ItemControllerService, ItemDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import * as AWS from 'aws-sdk/global';
 import * as S3 from 'aws-sdk/clients/s3';
+import { UploadFileService } from 'src/app/shared/services/file-upload.service';
 @Component({
   selector: 'app-supplier-add-product',
   templateUrl: './supplier-add-product.component.html',
@@ -17,6 +18,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
   constructor(
     injector: Injector,
     private _itemControllerService: ItemControllerService,
+    private UploadFileService:UploadFileService
   ) {
     super(injector)
     this.isLoadingForm = true
@@ -1016,99 +1018,100 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
     // 	}
     // });
 
-    this.isSubmit = true;
-    let itemDto: ItemDto = {
-      advantage: this.model?.advantage,
-      appearence: this.model?.appearence,
-      application: this.model?.application,
-      attachment: {
-        attachmentSource: {
-          // attachmentSourceId?: number;
-          attachmentSourceName: ''
-        },
-        reference: ''
-      },
-      caseNumber: this.model?.caseNumber,
-      coa: '',
-      // commercialQuantity:'',
-      // creationDate?: Date;
-      details: this.model?.details,
-      dissolutionRate: this.model?.dissolutionRate,
-      // dmf:'',
-      escherichiaColi: this.model?.escherichiaColi,
-      estimatedDeliveryLeadTime: this.model?.estimatedDeliveryLeadTime,
-      expiryDate: this.model?.expiryDate,
-      form: this.model?.form,
-      // freeSamplePaidShippingQuantity:'',
-      // freeSampleShippingQuantity:'',
-      // gmpCertificate:'',
-      // halal:'',
-      heavyMetal: this.model?.heavyMetal,
-      incoterms: this.model?.incoterms,
-      indotoxinTest: this.model?.indotoxinTest,
-      injection: this.model?.injection,
-      // iso:'',
-      itemCategory: this.model?.itemCategory,
-      // itemCertificates?: Array<ItemCertificateDto>;
-      itemKeywords: this.model?.itemKeywords?.map(v => ({ keyword: v?.name, itemKeywordId: +v?.id })),
-      itemName: this.model?.itemName,
-      itemPricings: this.model?.productPrices.map(v => ({
-        fromQuantity: +v?.from?.value,
-        fromUom: { uomId: v?.from?.type },
-        toQuantity: +v?.to?.value,
-        toUom: { uomId: v?.from?.type },
-        price: +v?.price?.value,
-        currency: { currencyId: v?.currency?.type }
-      })),
-      itemSampleType: this.model?.itemSampleType,
-      itemSubcategory: this.model?.itemSubcategory,
-      itemSuppliments: this.model?.itemSuppliments?.map(v => ({
-        attributeName: v?.attributeName,
-        attributeValue: v?.attributeValue,
-      })),
-      lossOnDrying: this.model?.lossOnDrying,
-      meltingRange: this.model?.meltingRange,
-      micronization: this.model?.micronization,
-      minOrderQuantity: this.model?.minOrderQuantity,
-      molFormula: this.model?.molFormula,
-      opticalRotation: this.model?.particleSize,
-      origin: this.model?.origin,
-      packaging: this.model?.packaging,
-      // paidSampleQuantity:'',
-      particleSize: this.model?.particleSize,
-      paymentTerms: this.model?.paymentTerms,
-      ph: this.model?.ph,
-      portOfDispatching: this.model?.portOfDispatching,
-      productionCapacity: this.model?.productionCapacity,
-      purity: this.model?.purity,
-      relatedSubstance: this.model?.relatedSubstance,
-      residualSolvents: this.model?.residualSolvents,
-      residueIgnition: this.model?.residueIgnition,
-      salmonelaSpecies: this.model?.salmonelaSpecies,
-      sampleSize: this.model?.sampleSize,
-      sampleUnit: this.model?.sampleUnit,
-      status: 0,
-      storage: this.model?.storage,
-      // supplier?: SupplierIdDto;
-      supplierCategory: this.model?.supplierCategory,
-      totalVac: this.model?.totalVac,
-      totalYamc: this.model?.totalYamc,
-      transportation: this.model?.transportation,
-      uom: {
-        uomId: this.model?.uomId,
-      }
-    }
-    const addItemUsingPOSTSub = this._itemControllerService.addItemUsingPOST(itemDto).pipe(
-      finalize(()=>{
-        this.isSubmit = false;
-      })
-    ).subscribe((res:ItemDto) => {
-      if(res){
-        this.toaster.success(this._translateService.instant('addedSuccessfully'))
-        this.options.resetModel()
-      }
+    // this.isSubmit = true;
+    // let itemDto: ItemDto = {
+    //   advantage: this.model?.advantage,
+    //   appearence: this.model?.appearence,
+    //   application: this.model?.application,
+    //   attachment: {
+    //     attachmentSource: {
+    //       // attachmentSourceId?: number;
+    //       attachmentSourceName: ''
+    //     },
+    //     reference: ''
+    //   },
+    //   caseNumber: this.model?.caseNumber,
+    //   coa: '',
+    //   // commercialQuantity:'',
+    //   // creationDate?: Date;
+    //   details: this.model?.details,
+    //   dissolutionRate: this.model?.dissolutionRate,
+    //   // dmf:'',
+    //   escherichiaColi: this.model?.escherichiaColi,
+    //   estimatedDeliveryLeadTime: this.model?.estimatedDeliveryLeadTime,
+    //   expiryDate: this.model?.expiryDate,
+    //   form: this.model?.form,
+    //   // freeSamplePaidShippingQuantity:'',
+    //   // freeSampleShippingQuantity:'',
+    //   // gmpCertificate:'',
+    //   // halal:'',
+    //   heavyMetal: this.model?.heavyMetal,
+    //   incoterms: this.model?.incoterms,
+    //   indotoxinTest: this.model?.indotoxinTest,
+    //   injection: this.model?.injection,
+    //   // iso:'',
+    //   itemCategory: this.model?.itemCategory,
+    //   // itemCertificates?: Array<ItemCertificateDto>;
+    //   itemKeywords: this.model?.itemKeywords?.map(v => ({ keyword: v?.name, itemKeywordId: +v?.id })),
+    //   itemName: this.model?.itemName,
+    //   itemPricings: this.model?.productPrices.map(v => ({
+    //     fromQuantity: +v?.from?.value,
+    //     fromUom: { uomId: v?.from?.type },
+    //     toQuantity: +v?.to?.value,
+    //     toUom: { uomId: v?.from?.type },
+    //     price: +v?.price?.value,
+    //     currency: { currencyId: v?.currency?.type }
+    //   })),
+    //   itemSampleType: this.model?.itemSampleType,
+    //   itemSubcategory: this.model?.itemSubcategory,
+    //   itemSuppliments: this.model?.itemSuppliments?.map(v => ({
+    //     attributeName: v?.attributeName,
+    //     attributeValue: v?.attributeValue,
+    //   })),
+    //   lossOnDrying: this.model?.lossOnDrying,
+    //   meltingRange: this.model?.meltingRange,
+    //   micronization: this.model?.micronization,
+    //   minOrderQuantity: this.model?.minOrderQuantity,
+    //   molFormula: this.model?.molFormula,
+    //   opticalRotation: this.model?.particleSize,
+    //   origin: this.model?.origin,
+    //   packaging: this.model?.packaging,
+    //   // paidSampleQuantity:'',
+    //   particleSize: this.model?.particleSize,
+    //   paymentTerms: this.model?.paymentTerms,
+    //   ph: this.model?.ph,
+    //   portOfDispatching: this.model?.portOfDispatching,
+    //   productionCapacity: this.model?.productionCapacity,
+    //   purity: this.model?.purity,
+    //   relatedSubstance: this.model?.relatedSubstance,
+    //   residualSolvents: this.model?.residualSolvents,
+    //   residueIgnition: this.model?.residueIgnition,
+    //   salmonelaSpecies: this.model?.salmonelaSpecies,
+    //   sampleSize: this.model?.sampleSize,
+    //   sampleUnit: this.model?.sampleUnit,
+    //   status: 0,
+    //   storage: this.model?.storage,
+    //   // supplier?: SupplierIdDto;
+    //   supplierCategory: this.model?.supplierCategory,
+    //   totalVac: this.model?.totalVac,
+    //   totalYamc: this.model?.totalYamc,
+    //   transportation: this.model?.transportation,
+    //   uom: {
+    //     uomId: this.model?.uomId,
+    //   }
+    // }
+    // const addItemUsingPOSTSub = this._itemControllerService.addItemUsingPOST(itemDto).pipe(
+    //   finalize(()=>{
+    //     this.isSubmit = false;
+    //   })
+    // ).subscribe((res:ItemDto) => {
+    //   if(res){
+    //     this.toaster.success(this._translateService.instant('addedSuccessfully'))
+    //     this.options.resetModel()
+    //   }
 
-    })
-    this.unSubscription.push(addItemUsingPOSTSub)
+    // })
+    // this.unSubscription.push(addItemUsingPOSTSub)
+    this.UploadFileService.uploadfile(this.model.attachment[0])
   }
 }

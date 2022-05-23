@@ -23,7 +23,7 @@
                 <span [inlineSVG]="'assets/icons/back.svg'" class="mx-1"></span>
                 {{'back' |translate}}
               </a>
-              <button type="submit" class="apis-button btn btn-warning pull-md-right px-4" [disabled]="form.invalid || isSubmit">
+              <button type="submit" class="apis-button btn btn-warning pull-md-right px-4" >
                 <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
                   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                   Loading...
