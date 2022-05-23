@@ -17,9 +17,10 @@ export class HandleErrorService {
   // Handling HTTP Errors using Toaster
   public handleError(error: HttpErrorResponse) {
     if (error.error) {
+      let errMessage = ""
       this._sharedService.sendError.next(error)
       if (error.error.error || error.error.message) {
-        let errMessage = error.error.content || error.error.error || error.error.message
+         errMessage = error.error.content || error.error.error || error.error.message
         this.toaster.error(errMessage,)
       } else if (error.error.content) {
         Swal.fire({
@@ -28,6 +29,9 @@ export class HandleErrorService {
           showConfirmButton: true,
           timer: 2500
         })
+      }else{
+         errMessage = error.error.description
+         this.toaster.error(errMessage,)
       }
     }
 

@@ -6,6 +6,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormlyConfModule } from 'src/app/shared/formly-conf/formly-conf.module';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { NoDataModule } from 'src/app/shared/no-data/no-data.module';
 
 const route: Route[] = [
   { path: '', component: ProfileFavoriteProductsComponent },
@@ -21,7 +23,9 @@ const route: Route[] = [
     TranslateModule,
     FormlyConfModule,
     PaginationModule,
-    SharedModule
+    SharedModule,
+    NgxSkeletonLoaderModule,
+    NoDataModule
   ]
 })
 export class ProfileFavoriteProductsModule { }

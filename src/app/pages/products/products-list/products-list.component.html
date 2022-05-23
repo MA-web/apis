@@ -6,59 +6,58 @@
       <div class="col-lg-4">
         <div class="filter-by">
           <h4>{{'Filter_by' | translate}}</h4>
-         <ng-container *ngIf="isLoadingForm; else elseTemplateForm">
-          <ngx-skeleton-loader
-          count="10"
-          [theme]="{
+          <ng-container *ngIf="isLoadingForm; else elseTemplateForm">
+            <ngx-skeleton-loader count="10" [theme]="{
             'border-radius': '90px',
              height: '50px',
             'background-color': '#e1e1e140',
             border: '1px solid white',
             margin:'10px 0'
-          }"
-        ></ngx-skeleton-loader>
-         </ng-container>
-         <ng-template #elseTemplateForm>
-          <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <formly-form class="row" [form]="form" [model]="model" [fields]="fields" [options]="options"> </formly-form>
-            <div class="button-items">
-              <button type="button" class="apis-button btn btn-danger px-3">
-                <span [inlineSVG]="'assets/icons/delete.svg'" style="zoom: .8"></span>
-                {{'reset' | translate}}</button>
+          }" `></ngx-skeleton-loader>
+          </ng-container>
+          <ng-template #elseTemplateForm>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <formly-form class="row" [form]="form" [model]="model" [fields]="fields" [options]="options">
+              </formly-form>
+              <div class="button-items">
+                <button type="button" class="apis-button btn btn-danger px-3">
+                  <span [inlineSVG]="'assets/icons/delete.svg'" style="zoom: .8"></span>
+                  {{'reset' | translate}}</button>
 
-              <button type="submit" class="apis-button btn btn-warning px-5">
-                <span [inlineSVG]="'assets/icons/search2.svg'"></span>
-                {{'search' | translate}}</button>
-            </div>
+                <button type="submit" class="apis-button btn btn-warning px-5">
+                  <span [inlineSVG]="'assets/icons/search2.svg'"></span>
+                  {{'search' | translate}}</button>
+              </div>
 
-          </form>
-         </ng-template>
+            </form>
+          </ng-template>
 
 
         </div>
       </div>
       <div class="col-lg-8">
-          <ng-container *ngIf="isLoading; else elseTemplate">
-            <div class="row">
-              <div class="col-sm-6" *ngFor="let item of [].constructor(6)">
-                <app-skeleton-card-box></app-skeleton-card-box>
+        <ng-container *ngIf="isLoading; else elseTemplate">
+          <div class="row">
+            <div class="col-sm-6" *ngFor="let item of [].constructor(6)">
+              <app-skeleton-card-box></app-skeleton-card-box>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <ng-container *ngIf="products?.length <= 0; else elseTemplateNoData">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-12">
+                <app-no-data></app-no-data>
               </div>
             </div>
           </ng-container>
-          <ng-template #elseTemplate>
-            <ng-container *ngIf="products?.length <= 0; else elseTemplateNoData">
-             <div class="row justify-content-center">
-               <div class="col-md-10 col-12">
-                <app-no-data></app-no-data>
-               </div>
-             </div>
-            </ng-container>
-            <ng-template #elseTemplateNoData>
+          <ng-template #elseTemplateNoData>
 
             <div class="row">
               <div class="col-md-8">
                 <div class="the-title">
-                  <h2>{{'Products' | translate}}<span class="number-items">{{totalElements}} {{'Product' | translate}}</span></h2>
+                  <h2>{{'Products' | translate}}<span class="number-items">{{totalElements}} {{'Product' |
+                      translate}}</span></h2>
                 </div>
               </div>
               <div class="col-md-4 view">
@@ -74,22 +73,23 @@
             <div class="row filter-grid-row">
               <ng-container *ngFor="let product of products">
                 <div class="col-sm-6">
-                <app-product-card [product]="product"></app-product-card>
+                  <app-product-card [product]="product"></app-product-card>
                 </div>
               </ng-container>
 
             </div>
-            </ng-template>
-
-
           </ng-template>
-          <div class="mt-4" >
-            <div class="d-flex justify-content-center">
-              <pagination [boundaryLinks]="true"   [totalItems]="totalElements" previousText="&lsaquo;" nextText="&rsaquo;" (pageChanged)="pageChanged($event)"
-                firstText="&laquo;" lastText="&raquo;"   [itemsPerPage]="pageSize" [maxSize]="3">
-              </pagination>
-            </div>
+
+
+        </ng-template>
+        <div class="mt-4">
+          <div class="d-flex justify-content-center">
+            <pagination [boundaryLinks]="true" [totalItems]="totalElements" previousText="&lsaquo;" nextText="&rsaquo;"
+              (pageChanged)="pageChanged($event)" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="pageSize"
+              [maxSize]="3">
+            </pagination>
           </div>
+        </div>
       </div>
     </div>
   </div>

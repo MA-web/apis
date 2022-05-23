@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable} from '@angular/core';
-import { BehaviorSubject,  Subject, Subscription } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import { ItemCategoryDto } from 'src/app/@api';
 
@@ -21,6 +21,10 @@ export class SharedService {
 
   //send error
   sendError: Subject<any> = new Subject<any>();
+
+
+  //send refresh
+  sendRefresh: Subject<any> = new Subject<any>();
 
   constructor(private http: HttpClient) { }
 
@@ -62,8 +66,8 @@ export class SharedService {
     return window.localStorage.getItem(TOKEN_KEY);
   }
 
-  checkToken():boolean{
-    if(window.localStorage.getItem(TOKEN_KEY)){
+  checkToken(): boolean {
+    if (window.localStorage.getItem(TOKEN_KEY)) {
       return true
     }
     return false

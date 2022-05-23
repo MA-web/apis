@@ -1,25 +1,48 @@
 <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
 <div class="card white-card">
   <div class="card-body p-0">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="button-items p-4">
-            <a class="apis-button btn btn-outline-secondary px-4" routerLink="../">
-              <span [inlineSVG]="'assets/icons/back.svg'" class="mx-1"></span>
-              {{'back' |translate}}
-            </a>
-            <button type="submit" class="apis-button btn btn-warning pull-md-right px-4">
-              {{'PublishProduct' |translate}}
-            </button>
-            <button type="button" class="apis-button btn btn-outline-info pull-md-right px-4">
-              <span [inlineSVG]="'assets/icons/edit.svg'"></span>
-              {{'Save_as_Draft' |translate}}
-            </button>
+    <ng-container *ngIf="isLoadingForm; else elseTemplate">
+      <ngx-skeleton-loader
+      count="10"
+      [theme]="{
+        'border-radius': '90px',
+         height: '50px',
+        'background-color': '#e1e1e140',
+        border: '1px solid white',
+        margin:'10px 0'
+      }"
+    ></ngx-skeleton-loader>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="button-items p-4">
+              <a class="apis-button btn btn-outline-secondary px-4" routerLink="../">
+                <span [inlineSVG]="'assets/icons/back.svg'" class="mx-1"></span>
+                {{'back' |translate}}
+              </a>
+              <button type="submit" class="apis-button btn btn-warning pull-md-right px-4" [disabled]="form.invalid || isSubmit">
+                <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Loading...
+                </ng-container>
+                <ng-template #elseTemplate_isSubmit>
+                  {{'PublishProduct' | translate}}
+                </ng-template>
+
+              </button>
+
+              <button type="button" class="apis-button btn btn-outline-info pull-md-right px-4">
+                <span [inlineSVG]="'assets/icons/edit.svg'"></span>
+                {{'Save_as_Draft' |translate}}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </ng-template>
+
   </div>
 </div>

@@ -13,6 +13,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LightboxModule } from 'ngx-lightbox';
 import { SharedProfileModule } from '../shared-profile/shared-profile.module';
 import { InlineSVGModule } from 'ng-inline-svg-2';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 const route: Route[] = [
   {
@@ -43,7 +44,8 @@ const route: Route[] = [
    SharedModule,
    LightboxModule,
    SharedProfileModule,
-   InlineSVGModule
+   InlineSVGModule,
+   NgxSkeletonLoaderModule
  ]
 })
 export class SupplierProductsModule { }

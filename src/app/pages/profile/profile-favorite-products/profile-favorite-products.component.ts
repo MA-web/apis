@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { forkJoin } from 'rxjs';
+import { FavoriteItemDto, ItemCategoryDto, UserControllerService } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { appRouts } from 'src/environments/environment';
 
@@ -8,19 +11,37 @@ import { appRouts } from 'src/environments/environment';
   styleUrls: ['./profile-favorite-products.component.scss']
 })
 export class ProfileFavoriteProductsComponent extends AppBaseComponent implements OnInit {
+  favProducts: Array<FavoriteItemDto> = [];
+  ItemCategory: Array<ItemCategoryDto> = []
+  constructor(
+    injector: Injector,
+    private _userControllerService: UserControllerService,
+  ) {
+    super(injector)
+    this.isLoading = true;
+    this.isLoadingForm = true;
+  }
 
-
-  async ngOnInit(){
+  async ngOnInit() {
     await this._translateService.get('dummyTranslation').toPromise().then();
 
     this.breadcrumbItems = [
-      { label: this._translateService.instant('Products'), path: appRouts.productsList,active: true  }
+      { label: this._translateService.instant('Products'), path: appRouts.productsList, active: true }
     ]
 
+    this.getList()
+
+    let observables = [
+      this.LookupControllerService.getItemsCategoryUsingGET(),
+      this.LookupControllerService.getOriginsUsingGET(),
+    ]
+    const forkSub = forkJoin(observables).subscribe((res: any) => {
+      this.ItemCategory = res[0];
+      this.isLoadingForm = false;
       this.fields = [
         {
           className: 'col-12',
-          key: 'firstName',
+          key: 'searchValue',
           type: 'input',
           templateOptions: {
             placeholder: this._translateService.instant('Search_product_profile')
@@ -36,12 +57,15 @@ export class ProfileFavoriteProductsComponent extends AppBaseComponent implement
           type: 'ng-select',
           templateOptions: {
             placeholder: this._translateService.instant('category'),
-            options: []
+            options: res[0]?.map(v => ({ label: v?.categoryName, value: v?.categoryId })),
+            change: (filed, $event) => {
+              this.fields[3].templateOptions.options = this.ItemCategory?.find(v => $event === v?.categoryId)?.itemSubcategories?.map(v => ({ label: v?.subcategoryName, value: v?.itemSubcategoryId }))
+            },
           }
         },
         {
           className: 'col-md-4 col-12',
-          key: 'SubCategory',
+          key: 'subCategory',
           type: 'ng-select',
           templateOptions: {
             placeholder: this._translateService.instant('SubCategory'),
@@ -54,27 +78,45 @@ export class ProfileFavoriteProductsComponent extends AppBaseComponent implement
           type: 'ng-select',
           templateOptions: {
             placeholder: this._translateService.instant('origin'),
-            options: []
+            options: res[1]?.map(v => ({ label: v?.originName, value: v?.originId })),
           }
         },
 
       ]
+    })
 
 
 
+
+    const sendRefreshSub = this._sharedService.sendRefresh.subscribe(res => {
+      if (res) this.getList()
+    })
+    this.unSubscription.push(sendRefreshSub)
 
 
   }
 
-  onTogglingView(type:string){
+  getList() {
+    this.isLoading = true
+    const getFavSub = this._userControllerService.getFavouriteItemsUsingGET(this.pageNumber,this.model?.searchValue,this.pageSize).pipe(
+
+    ).subscribe((res: Array<FavoriteItemDto>) => {
+     if(res){
+      this.favProducts = res
+      this.isLoading = false
+     }
+    })
+    this.unSubscription.push(getFavSub)
+  }
+  onTogglingView(type: string) {
     const filterGridRows = document.querySelectorAll('.filter-grid-row>div'); // all
 
-    if(type === 'list'){
+    if (type === 'list') {
       filterGridRows.forEach(element => {
         element.classList.remove('col-sm-6')
         element.classList.add('col-12');
       });
-    }else{
+    } else {
       filterGridRows.forEach(element => {
         element.classList.remove('col-12');
         element.classList.add('col-sm-6')
@@ -82,9 +124,14 @@ export class ProfileFavoriteProductsComponent extends AppBaseComponent implement
     }
   }
 
-  onSubmit() {
-    console.log(this.form)
-    console.log(this.model);
 
+  pageChanged(event: PageChangedEvent): void {
+    this.pageNumber = event.page - 1;
+    this.getList()
+  }
+
+
+  onSubmit() {
+    this.getList()
   }
 }

@@ -9,6 +9,7 @@ import { CertificateComponent } from './components/certificate/certificate.compo
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SkeletonCardBoxComponent } from './components/skeleton-card-box/skeleton-card-box.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 
 
 
@@ -25,7 +26,8 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     CommonModule,
     RouterModule,
     NgxSkeletonLoaderModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    InlineSVGModule
   ],
   exports:[
     ProductCardComponent,

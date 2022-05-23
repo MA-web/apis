@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
+import { UserControllerService } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
 @Component({
@@ -8,9 +9,18 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
 })
 export class ProfileInfoComponent extends AppBaseComponent implements OnInit {
 
+  constructor(
+    injector: Injector,
+    private _userControllerService: UserControllerService,
+  ) {
+    super(injector)
+    this.isLoadingForm = true
+  }
 
   async ngOnInit(){
     await this._translateService.get('dummyTranslation').toPromise().then();
+
+
     this.fields = [
       {
         className:'col-sm-6 col-12',

@@ -6,7 +6,7 @@ import { FieldType } from '@ngx-formly/core';
   template: `
 
   <div class="form-group">
-    <label *ngIf="to.label">{{to.label}}</label>
+    <label *ngIf="to.label">{{to.label}} <span class="ng-star-inserted" *ngIf="to.required">*</span></label>
     <div class="select-apis select-apis-1 position-relative" [ngClass]="{'with-icon':  to.icon}">
     <span><img [src]="'assets/icons/' + to.icon" *ngIf="to.icon"></span>
       <ng-select  [formControl]="formControl" [formlyAttributes]="field" [multiple]="to?.multiple" [placeholder]="to.placeholder" [ngClass]="{'border-red': formControl?.invalid && formControl?.touched}">
@@ -16,7 +16,7 @@ import { FieldType } from '@ngx-formly/core';
   </div>
 `,
   styles: [`
- span {
+ /* span {
     position: absolute;
     left:8px;
     z-index: 1002;
@@ -26,7 +26,7 @@ import { FieldType } from '@ngx-formly/core';
     line-height: 2.7em;
     text-align: center;
     pointer-events: none;
-}
+} */
  `]
 })
 export class FormlyFieldSelect extends FieldType { }

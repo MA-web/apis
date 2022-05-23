@@ -1,21 +1,25 @@
-
-<a href="javascript:void(0)" (click)="onView(product)">
+<a href="javascript:void(0)" (click)="onView()">
   <div class="product" [ngClass]="{'bg-white': bgWhite}">
+    <div class="fav" [ngClass]="{'d-block': fav}">
+      <a href="javascript:void(0)" title="add to favorite" (click)="onAddToFav($event)" >
+        <img src="assets/icons/fav.svg" alt="fav">
+      </a>
+
+    </div>
     <div class="product-img">
       <img
-      [defaultImage]="product?.attachment?.attachmentSource?.attachmentSourceName ? product?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
-      [lazyLoad]="product?.attachment?.attachmentSource?.attachmentSourceName ? product?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
-      onerror="this.src='assets/img/image2.jpg';"
-      class="img-fluid lazy-loading"
-      alt="{{ product?.itemName ? product.itemName : '' }}" />
+        [defaultImage]="product?.attachment?.attachmentSource?.attachmentSourceName ? product?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
+        [lazyLoad]="product?.attachment?.attachmentSource?.attachmentSourceName ? product?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
+        onerror="this.src='assets/img/image2.jpg';" class="img-fluid lazy-loading"
+        alt="{{ product?.itemName ? product.itemName : '' }}" />
     </div>
     <div class="product-details">
-        <h4>{{product?.itemName}}</h4>
-        <p class="text-truncate">{{product?.details?product?.details:'&nbsp;'}}</p>
-        <div class="row">
-            <div class="col-6 gram"><img src="assets/img/balance_black_24dp.png" >?? Gram</div>
-            <div class="col-6 price"><img src="assets/img/payments_black_24dp%20(1).png">?? $</div>
-        </div>
+      <h4>{{product?.itemName}}</h4>
+      <p class="text-truncate">{{product?.details?product?.details:'&nbsp;'}}</p>
+      <div class="row">
+        <div class="col-6 gram"><img src="assets/img/balance_black_24dp.png">?? Gram</div>
+        <div class="col-6 price"><img src="assets/img/payments_black_24dp%20(1).png">?? $</div>
+      </div>
     </div>
   </div>
 </a>

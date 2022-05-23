@@ -32,6 +32,7 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
       <td class="px-2 py-0 align-middle"> <span class="index ">{{i+1}}</span></td>
         <td class="px-2 py-0 align-middle" *ngIf="to.columnLevel">{{'Quantity #0'+i+1}}</td>
         <td class="px-2 py-0 align-middle" *ngFor="let field of field.fieldArray.fieldGroup">
+
           <span class="main2-color" *ngIf="field?.templateOptions?.label">{{field?.templateOptions?.label  | translate}} * &nbsp;: </span>
           <span class="main2-color" *ngIf="field?.templateOptions?.text">{{field?.templateOptions?.text  | translate}}  &nbsp; </span>
               <ng-container *ngIf="to.columnLevel; else elseTemplate">
@@ -42,7 +43,7 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
               <img src="" imgPreview [image]="item?.field?.key[0]" class="media-object" width="45" (click)="onView(item?.field?.key[0])" />
               </ng-container>
               <ng-template #elseTemplateValue>
-              {{item?.field?.key}}
+              {{item[field?.key] }}
               </ng-template>
               </ng-template>
       </td>
@@ -60,6 +61,7 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
     </tbody>
   </table>
   </div>
+
   `,
   styles: [
     `
