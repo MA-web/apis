@@ -1883,7 +1883,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
     {
     accessKeyId: 'BA6EM5E6W3S2W3HBZSAY',
     secretAccessKey: 'GifnJOJ+jpc1u+6bBLEmk2jNZdgSkH3jKB6LVsS56aM',
-    region: 'fra1',
+    region: 'eu-central-1',
     }
     );
     const params = {
