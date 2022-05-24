@@ -72,8 +72,7 @@ export class UploadFileService {
         Bucket: 'devspace-marksphinx',
         Key: file.name,
         Body: file,
-        ACL: 'public-read'
-
+        ACL: 'public-read',
       };
       var that = this;
 

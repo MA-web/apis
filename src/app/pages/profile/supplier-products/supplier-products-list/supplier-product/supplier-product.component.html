@@ -1,19 +1,25 @@
 <div class="supplier-product">
   <div class=" d-flex flex-md-row flex-column">
-    <div class="product-img"><img src="assets/img/image.png" class="img-fluid" alt=""></div>
+    <div class="product-img">
+      <img
+      [defaultImage]="product?.attachment?.attachmentSource?.attachmentSourceName ? product?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
+      [lazyLoad]="product?.attachment?.attachmentSource?.attachmentSourceName ? product?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
+      onerror="this.src='assets/img/image2.jpg';" class="img-fluid lazy-loading"
+      alt="{{ product?.itemName ? product.itemName : '' }}" />
+    </div>
     <div class="product-details ml-3">
-      <h4>Grape Skin Extract</h4>
+      <h4>{{product?.itemName}}</h4>
 
       <div class="product-details-2 mt-4">
         <div class="row">
           <div class="col-12">
-            <p><span>{{'category' | translate}}: </span>category</p>
+            <p><span>{{'category' | translate}}: </span>??</p>
           </div>
           <div class="col-md-6">
-            <p><span>{{'origin' | translate}}: </span>origin</p>
+            <p><span>{{'origin' | translate}}: </span>??</p>
           </div>
           <div class="col-md-6">
-            <p><span>{{'status' | translate}}: </span>status</p>
+            <p><span>{{'status' | translate}}: </span>??</p>
           </div>
 
         </div>

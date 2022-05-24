@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PublicItemDto } from 'src/app/@api';
 
 @Component({
   selector: 'app-supplier-product',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./supplier-product.component.scss']
 })
 export class SupplierProductComponent implements OnInit {
+  @Input() product: PublicItemDto;
 
   constructor() { }
 

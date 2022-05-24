@@ -17,12 +17,12 @@ import { SharedService } from '../../services/shared.service';
 })
 export class AppBaseComponent implements OnDestroy {
 
-  pageNumber:number = 0;
-  pageSize:number = 6
-  totalElements:number = 0
-  isLoading:boolean = false;
-  isSubmit:boolean = false;
-  isLoadingForm:boolean = false;
+  pageNumber: number = 0;
+  pageSize: number = 6
+  totalElements: number = 0
+  isLoading: boolean = false;
+  isSubmit: boolean = false;
+  isLoadingForm: boolean = false;
   breadcrumbItems: breadcrumb[] = []
 
   form = new FormGroup({});
@@ -30,14 +30,16 @@ export class AppBaseComponent implements OnDestroy {
   fields: FormlyFieldConfig[] = []
   options: FormlyFormOptions = {};
 
-  searchResult:{category?:any,searchKey?:string} = {category:{}}
+  searchResult: { category?: any, searchKey?: string } = { category: {} }
 
-  unSubscription:Subscription[] = []
+  userData: any = {}
+
+  unSubscription: Subscription[] = []
 
   _translateService: TranslateService;
   _sharedService: SharedService;
-  router:Router;
-  LookupControllerService:LookupControllerService
+  router: Router;
+  LookupControllerService: LookupControllerService
   toaster: ToastrService;
   route: ActivatedRoute;
   constructor(injector: Injector) {
@@ -47,16 +49,18 @@ export class AppBaseComponent implements OnDestroy {
     this.LookupControllerService = injector.get(LookupControllerService);
     this.toaster = injector.get(ToastrService);
     this.route = injector.get(ActivatedRoute);
+
+    this.userData = this._sharedService?.getUser()
   }
 
 
-  tabSelected(url:string){
-      this.router.navigateByUrl(url)
+  tabSelected(url: string) {
+    this.router.navigateByUrl(url)
   }
 
 
   ngOnDestroy(): void {
-    this.unSubscription.forEach(sub =>{
+    this.unSubscription.forEach(sub => {
       console.log('sub: ', sub);
       sub.unsubscribe()
     })

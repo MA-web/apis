@@ -20,7 +20,7 @@
         </div>
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <formly-form class="row mt-5" [form]="form" [model]="model" [fields]="fields"> </formly-form>
+          <formly-form class="row mt-5" [form]="form" [model]="model" [fields]="fields" [options]="options"> </formly-form>
 
           <div class="d-lg-flex justify-content-between mt-3">
             <div class="d-lg-flex flex-wrap gap-2 flex-lg-row flex-column d-inline-block">
@@ -31,8 +31,15 @@
                   {{'ChangePassword' | translate}}</button>
             </div>
             <div class="d-inline-block">
-              <button type="submit" class="apis-button btn-success px-4">
-                {{'saveChanges' | translate}}</button>
+              <button type="submit" class="apis-button btn btn-success px-4" [disabled]="form.invalid || isSubmit">
+                <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Loading...
+                </ng-container>
+                <ng-template #elseTemplate_isSubmit>
+                  {{'saveChanges' | translate}}
+                </ng-template>
+                </button>
             </div>
           </div>
         </form>

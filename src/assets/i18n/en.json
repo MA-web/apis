@@ -88,7 +88,7 @@
   "UploadFile": "Upload File",
   "BusinessLicensee": "Business Licensee",
   "WorkingIn": "Working In",
-  "interestedIn": "interested In",
+  "interestedIn": "Interested In",
   "Total_annual_sales_volume": "Total annual sales volume",
   "Export_Percentage": "Export Percentage",
   "Main_Markets": "Main Markets",
@@ -222,6 +222,7 @@
   "ViewAllProducts":"  View All Products",
   "addedSuccessfully":"Added Successfully",
   "removedSuccessfully":"Removed Successfully",
+  "updatedSuccessfully":"Updated Successfully",
   "":"",
   "":"",
   "":"",
@@ -235,7 +236,8 @@
     "PasswordNotMatching": "Password Not Matching!",
     "phone": "Please enter valid phone",
      "email": "Please enter valid email!",
-     "password": "Password should contain at least one lower character, one upper character, one digit character and length from 8-16 characters"
+     "password": "Password should contain at least one lower character, one upper character, one digit character and length from 8-16 characters",
+     "url":"Please enter valid website!"
   }
 
 

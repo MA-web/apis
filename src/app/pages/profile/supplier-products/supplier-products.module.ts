@@ -14,6 +14,8 @@ import { LightboxModule } from 'ngx-lightbox';
 import { SharedProfileModule } from '../shared-profile/shared-profile.module';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { NoDataModule } from 'src/app/shared/no-data/no-data.module';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 const route: Route[] = [
   {
@@ -45,7 +47,10 @@ const route: Route[] = [
    LightboxModule,
    SharedProfileModule,
    InlineSVGModule,
-   NgxSkeletonLoaderModule
+   NgxSkeletonLoaderModule,
+   NoDataModule,
+   LazyLoadImageModule,
+
  ]
 })
 export class SupplierProductsModule { }

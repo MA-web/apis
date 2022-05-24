@@ -13,7 +13,6 @@ export const appRouts = {
 export const generalValidations = {
   email: '^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$',
   password: '^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,16}$',
-  googleUrl: '^https?\\:\\/\\/((www|maps)\\.)?google\\.[a-z]+\\/maps\/?\\?+q=+([0-9.-]+).+?([0-9.-]+).+',
-  googleUrl2: '^https?\\:\\/\\/(www\\.)?google\\.(com|fr|de)\\/maps\\b.*'
-
+  url:`(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})`,
+  zip:`^\d{5}(?:[-\s]\d{4})?$`
 }

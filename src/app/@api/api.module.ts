@@ -4,15 +4,12 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { InboxControllerService } from './api/inboxController.service';
-import { InquiryControllerService } from './api/inquiryController.service';
 import { ItemCategoryControllerService } from './api/itemCategoryController.service';
 import { ItemControllerService } from './api/itemController.service';
-import { ItemOrderControllerService } from './api/itemOrderController.service';
 import { JwtAuthenticationControllerService } from './api/jwtAuthenticationController.service';
 import { LookupControllerService } from './api/lookupController.service';
 import { OriginControllerService } from './api/originController.service';
 import { PublicDataControllerService } from './api/publicDataController.service';
-import { QuotationControllerService } from './api/quotationController.service';
 import { RegisterControllerService } from './api/registerController.service';
 import { SupplierControllerService } from './api/supplierController.service';
 import { UserControllerService } from './api/userController.service';
@@ -23,21 +20,18 @@ import { UserControllerService } from './api/userController.service';
   exports:      [],
   providers: [
     InboxControllerService,
-    InquiryControllerService,
     ItemCategoryControllerService,
     ItemControllerService,
-    ItemOrderControllerService,
     JwtAuthenticationControllerService,
     LookupControllerService,
     OriginControllerService,
     PublicDataControllerService,
-    QuotationControllerService,
     RegisterControllerService,
     SupplierControllerService,
     UserControllerService ]
 })
 export class ApiModule {
-    public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<any> {
+    public static forRoot(configurationFactory: () => Configuration): any {
         return {
             ngModule: ApiModule,
             providers: [ { provide: Configuration, useFactory: configurationFactory } ]

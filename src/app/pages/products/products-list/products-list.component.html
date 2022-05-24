@@ -82,7 +82,7 @@
 
 
         </ng-template>
-        <div class="mt-4">
+        <div class="mt-4" *ngIf="totalElements > 0">
           <div class="d-flex justify-content-center">
             <pagination [boundaryLinks]="true" [totalItems]="totalElements" previousText="&lsaquo;" nextText="&rsaquo;"
               (pageChanged)="pageChanged($event)" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="pageSize"

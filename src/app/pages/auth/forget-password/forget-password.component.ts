@@ -1,7 +1,9 @@
 import { Component,  Injector,  OnInit } from '@angular/core';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 import { finalize } from 'rxjs';
 import { RegisterControllerService, ResponseDto, UserEmailDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
+import { generalValidations } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -28,8 +30,14 @@ export class ForgetPasswordComponent extends AppBaseComponent implements OnInit 
           placeholder: this._translateService.instant('emailPlaceHolder'),
           icon: 'mail.svg',
           required: true,
-          autoComplete:true
-        }
+          autoComplete:true,
+          pattern: generalValidations.email
+        },
+        validation: {
+          messages: {
+            pattern: (error, field: FormlyFieldConfig) => `${this._translateService.instant('validations.email')}`,
+          },
+        },
       },
     ]
   }

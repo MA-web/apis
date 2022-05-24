@@ -4,13 +4,13 @@
     <div class="card white-card mb-4" style="border-radius: 0px 0px 40px 0px;">
       <div class="card-body">
         <ng-container *ngIf="isLoadingForm; else elseTemplateForm">
-          <ngx-skeleton-loader count="10" [theme]="{
+          <ngx-skeleton-loader count="2" [theme]="{
           'border-radius': '90px',
-           height: '50px',
+           'height': '50px',
           'background-color': '#e1e1e140',
-          border: '1px solid white',
-          margin:'10px 0'
-        }" `></ngx-skeleton-loader>
+          'border': '1px solid white',
+          'margin':'10px 0'
+        }"></ngx-skeleton-loader>
         </ng-container>
         <ng-template #elseTemplateForm>
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -54,7 +54,8 @@
         <div class="row">
           <div class="col-md-8">
             <div class="the-title">
-              <h2>{{'FavoriteProducts' | translate}}<span class="number-items">{{favProducts?.length}} {{'Product' | translate}}</span></h2>
+              <h2>{{'FavoriteProducts' | translate}}<span class="number-items">{{favProducts?.length}} {{'Product' |
+                  translate}}</span></h2>
             </div>
           </div>
           <div class="col-md-4 view">
@@ -80,7 +81,7 @@
       </ng-template>
     </ng-template>
 
-    <div class="mt-4">
+    <div class="mt-4" *ngIf="totalElements > 0">
       <div class="d-flex justify-content-center">
         <pagination [boundaryLinks]="true" [totalItems]="totalElements" previousText="&lsaquo;" nextText="&rsaquo;"
           (pageChanged)="pageChanged($event)" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="pageSize"

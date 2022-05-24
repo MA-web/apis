@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { forkJoin } from 'rxjs';
+import { ItemCategoryDto, ItemControllerService, ItemDto, PageItemDto, PublicDataControllerService } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
 @Component({
@@ -7,56 +10,100 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
   styleUrls: ['./supplier-products-list.component.scss']
 })
 export class SupplierProductsListComponent extends AppBaseComponent implements OnInit {
+  ItemCategory: Array<ItemCategoryDto> = []
+  products: Array<ItemDto> = [];
+  constructor(
+    injector: Injector,
+    private _itemControllerService: ItemControllerService,
+    private _publicDataControllerService: PublicDataControllerService,
+  ) {
+    super(injector)
+    this.isLoadingForm = true
+  }
 
-  async ngOnInit(){
+  async ngOnInit() {
     await this._translateService.get('dummyTranslation').toPromise().then();
 
     this.breadcrumbItems = [
       { label: this._translateService.instant('MyProducts'), active: true },
     ]
-    this.fields = [
-      {
-        className:'col-12',
-        key: 'firstName',
-        type: 'input',
-        templateOptions: {
-          placeholder: this._translateService.instant('Search_product_profile')
-        }
-      },
-      {
-        className:'col-12 mb-2',
-        template: `<span class="mb-0 font-weight-bold main-color">${this._translateService.instant('FilterBy')}:</span>`,
-      },
-      {
-        className:'col-md-4 col-12',
-        key: 'category',
-        type: 'ng-select',
-        templateOptions: {
-          placeholder: this._translateService.instant('category'),
-          options:[]
-        }
-      },
-      {
-        className:'col-md-4 col-12',
-        key: 'SubCategory',
-        type: 'ng-select',
-        templateOptions: {
-          placeholder: this._translateService.instant('SubCategory'),
-          options:[]
-        }
-      },
-      {
-        className:'col-md-4 col-12',
-        key: 'status',
-        type: 'ng-select',
-        templateOptions: {
-          placeholder: this._translateService.instant('status'),
-          options:[]
-        }
-      },
+
+
+    let observables = [
+      this.LookupControllerService.getItemsCategoryUsingGET(),
+
     ]
+    const forkSub = forkJoin(observables).subscribe((res: any) => {
+      this.ItemCategory = res[0];
+      this.isLoadingForm = false;
+
+      this.fields = [
+        {
+          className: 'col-12',
+          key: 'searchValue',
+          type: 'input',
+          templateOptions: {
+            placeholder: this._translateService.instant('Search_product_profile')
+          }
+        },
+        {
+          className: 'col-12 mb-2',
+          template: `<span class="mb-0 font-weight-bold main-color">${this._translateService.instant('FilterBy')}:</span>`,
+        },
+        {
+          className: 'col-md-4 col-12',
+          key: 'category',
+          type: 'ng-select',
+          templateOptions: {
+            placeholder: this._translateService.instant('category'),
+            options: res[0]?.map(v => ({ label: v?.categoryName, value: v?.categoryId })),
+            change: (filed, $event) => {
+              this.fields[3].templateOptions.options = this.ItemCategory?.find(v => $event === v?.categoryId)?.itemSubcategories?.map(v => ({ label: v?.subcategoryName, value: v?.itemSubcategoryId }))
+            },
+          }
+        },
+        {
+          className: 'col-md-4 col-12',
+          key: 'SubCategory',
+          type: 'ng-select',
+          templateOptions: {
+            placeholder: this._translateService.instant('SubCategory'),
+            options: []
+          }
+        },
+        {
+          className: 'col-md-4 col-12',
+          key: 'status',
+          type: 'ng-select',
+          templateOptions: {
+            placeholder: this._translateService.instant('status'),
+            options: []
+          }
+        },
+      ]
+
+    })
 
 
+    this.getList()
+  }
+
+  getList() {
+    this.isLoading = true
+    const getFavSub = this._itemControllerService.getItemsForSupplierUsingGET(this.userData?.id, this.pageNumber, this.pageSize).pipe(
+
+    ).subscribe((res: PageItemDto) => {
+      if (res) {
+        this.isLoading = false
+        this.products = res.content;
+        this.totalElements = res.totalElements
+      }
+    })
+    this.unSubscription.push(getFavSub)
+  }
+  pageChanged(event: PageChangedEvent): void {
+    this.pageNumber = event.page - 1;
+    this.getList()
   }
   onSubmit() {
     console.log(this.form)

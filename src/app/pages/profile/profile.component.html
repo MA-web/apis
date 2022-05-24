@@ -32,7 +32,7 @@
               <a routerLink="./deals/drafts" [routerLinkActive]="['active']"> {{'Drafts' | translate}}</a>
             </accordion-group>
           </accordion>
-          <a routerLink="./products" [routerLinkActive]="['active']">
+          <a routerLink="./products" [routerLinkActive]="['active']" *ngIf="userData?.role === 'SUPPLIER'">
             <img src="assets/icons/prod.svg" alt="">
             {{'MyProducts' | translate}}
           </a>

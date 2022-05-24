@@ -26,7 +26,7 @@ export class ProfileDashboardComponent extends AppBaseComponent implements OnIni
         }
       },
     ]
-    let myElement:any = document.querySelector("#fc-dom-1");
+    let myElement:any = document.querySelector(".fc-toolbar-title");
     myElement.textContent = myElement.textContent+ ' Events'
 
 

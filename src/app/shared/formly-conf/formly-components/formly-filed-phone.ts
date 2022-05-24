@@ -6,7 +6,7 @@ import { CountryISO, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-
   selector: 'formly-field-phone',
   template: `
  <div class="form-group w-100 input-apis" style="direction: ltr;">
-  <label for="addressType"> {{to.label}}</label>
+  <label for="addressType"> {{to.label}} <span class="ng-star-inserted" *ngIf="to.required">*</span></label>
     <ngx-intl-tel-input
   	[cssClass]="{ 'form-control' : 1, 'is-invalid': !formControl.valid && formControl.touched }"
 		[preferredCountries]="preferredCountries"

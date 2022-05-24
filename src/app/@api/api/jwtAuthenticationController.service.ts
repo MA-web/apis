@@ -28,7 +28,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class JwtAuthenticationControllerService {
 
-    protected basePath = 'https://apis.marksphinx.com:8060';
+    protected basePath = 'https://164.92.242.241:8060';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -74,6 +74,11 @@ export class JwtAuthenticationControllerService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

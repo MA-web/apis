@@ -18,7 +18,10 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { ProfileDto } from '../model/profileDto';
 import { SupplierDto } from '../model/supplierDto';
+import { SupplierEmployeeDto } from '../model/supplierEmployeeDto';
+import { UpdateSupplierProfileDto } from '../model/updateSupplierProfileDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -27,7 +30,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class SupplierControllerService {
 
-    protected basePath = 'https://apis.marksphinx.com:8060';
+    protected basePath = 'https://164.92.242.241:8060';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -57,6 +60,47 @@ export class SupplierControllerService {
 
 
     /**
+     * Get profile completion percentage
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getProfilePercentageUsingGET(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: number; }>;
+    public getProfilePercentageUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: number; }>>;
+    public getProfilePercentageUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: number; }>>;
+    public getProfilePercentageUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<{ [key: string]: number; }>(`${this.basePath}/api/suppliers/dashboard/profilePercentage`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Get supplier details for specific supplier in the system
      *
      * @param supplierId supplierId
@@ -74,6 +118,11 @@ export class SupplierControllerService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -88,6 +137,99 @@ export class SupplierControllerService {
         ];
 
         return this.httpClient.get<SupplierDto>(`${this.basePath}/api/suppliers/${encodeURIComponent(String(supplierId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get logged in supplier profile
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getSupplierProfileUsingGET(observe?: 'body', reportProgress?: boolean): Observable<ProfileDto>;
+    public getSupplierProfileUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProfileDto>>;
+    public getSupplierProfileUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProfileDto>>;
+    public getSupplierProfileUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<ProfileDto>(`${this.basePath}/api/suppliers/profile`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Update supplier profile
+     *
+     * @param updateSupplierProfileDto updateSupplierProfileDto
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateSupplierProfileUsingPUT(updateSupplierProfileDto: UpdateSupplierProfileDto, observe?: 'body', reportProgress?: boolean): Observable<SupplierEmployeeDto>;
+    public updateSupplierProfileUsingPUT(updateSupplierProfileDto: UpdateSupplierProfileDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SupplierEmployeeDto>>;
+    public updateSupplierProfileUsingPUT(updateSupplierProfileDto: UpdateSupplierProfileDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SupplierEmployeeDto>>;
+    public updateSupplierProfileUsingPUT(updateSupplierProfileDto: UpdateSupplierProfileDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (updateSupplierProfileDto === null || updateSupplierProfileDto === undefined) {
+            throw new Error('Required parameter updateSupplierProfileDto was null or undefined when calling updateSupplierProfileUsingPUT.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<SupplierEmployeeDto>(`${this.basePath}/api/suppliers/profile`,
+            updateSupplierProfileDto,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

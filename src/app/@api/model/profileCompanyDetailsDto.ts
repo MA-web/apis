@@ -12,14 +12,15 @@
 import { AttachmentDto } from './attachmentDto';
 
 
-export interface CustomerDto { 
+export interface ProfileCompanyDetailsDto { 
     businessLicense?: AttachmentDto;
     companyType?: string;
     establishmentDate?: string;
     exportPercentage?: string;
+    id?: number;
     mainCustomer?: string;
     mainMarkets?: string;
-    numberOfEmployees?: number;
-    totalAnnualSalesVolume?: string;
+    numberEmployees?: number;
+    totalAnnualSales?: string;
     website?: string;
 }
