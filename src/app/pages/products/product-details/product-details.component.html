@@ -1,124 +1,139 @@
-
-<div class="section-apis pb-0">
+<ng-container *ngIf="isLoading; else elseTemplate">
   <div class="container">
+    <ngx-skeleton-loader count="10" [theme]="{
+      'border-radius': '90px',
+       height: '50px',
+      'background-color': '#e1e1e140',
+      border: '1px solid white',
+      margin:'10px 0'
+    }"></ngx-skeleton-loader>
+  </div>
+</ng-container>
+<ng-template #elseTemplate>
 
-    <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+  <div class="section-apis pb-0">
+    <div class="container">
 
-    <div class="section-apis pt-0">
-      <div class="row">
-        <div class="col-lg-5">
-          <div class="product p-3">
-            <div class="product-img">
-              <img
-              [defaultImage]="productDetails?.attachment?.attachmentSource?.attachmentSourceName ? productDetails?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
-              [lazyLoad]="productDetails?.attachment?.attachmentSource?.attachmentSourceName ? productDetails?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
-              onerror="this.src='assets/img/image2.jpg';"
-              class="img-fluid lazy-loading"
-              alt="{{ productDetails?.itemName ? productDetails.itemName : '' }}" />
+      <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+
+      <div class="section-apis pt-0">
+        <div class="row">
+          <div class="col-lg-5">
+            <div class="product p-3">
+              <div class="product-img">
+                <img
+                  [defaultImage]="productDetails?.attachment?.reference? productDetails?.attachment?.reference : 'assets/img/image2.jpg'"
+                  [lazyLoad]="productDetails?.attachment?.reference ? productDetails?.attachment?.reference : 'assets/img/image2.jpg'"
+                  onerror="this.src='assets/img/image2.jpg';" class="img-fluid lazy-loading"
+                  alt="{{ productDetails?.itemName ? productDetails.itemName : '' }}" />
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-7">
-          <div class="product-details-2">
-            <div class="row">
-              <div class="col-md-12">
-                <h2>{{productDetails?.itemName}}</h2>
-              </div>
-              <div class="col-md-6">
-                <p><img src="assets/img/gram.svg" alt=""><span>{{'Weight' | translate}}: </span>?? {{'Gram' | translate}}</p>
-              </div>
-              <div class="col-md-6">
-                <p><img src="assets/img/price.svg" alt=""><span>{{'Price' | translate}}: </span>{{productDetails?.itemPricings?.price}} {{productDetails?.itemPricings?.currency}}</p>
-              </div>
-              <div class="col-md-12">
-                <p><span>{{'category' | translate}}: </span>??</p>
-              </div>
-              <div class="col-md-6">
-                <p><span>{{'casNo' | translate}}: </span>{{productDetails?.caseNumber}}</p>
-              </div>
-              <div class="col-md-6">
-                <p><span>{{'origin' | translate}}: </span>??</p>
-              </div>
-              <div class="col-md-6">
-                <p><span>{{'Supplier' | translate}}: </span>{{productDetails?.supplier?.supplierName}}</p>
-              </div>
+          <div class="col-lg-7">
+            <div class="product-details-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <h2>{{productDetails?.itemName}}</h2>
+                </div>
+                <div class="col-md-6">
+                  <p><img src="assets/img/gram.svg" alt=""><span>{{'Weight' | translate}}: </span>?? {{'Gram' |
+                    translate}}</p>
+                </div>
+                <div class="col-md-6">
+                  <p><img src="assets/img/price.svg" alt=""><span>{{'Price' | translate}}:
+                    </span>{{productDetails?.itemPricings?.price}} {{productDetails?.itemPricings?.currency}}</p>
+                </div>
+                <div class="col-md-12">
+                  <p><span>{{'category' | translate}}: </span>??</p>
+                </div>
+                <div class="col-md-6">
+                  <p><span>{{'casNo' | translate}}: </span>{{productDetails?.caseNumber}}</p>
+                </div>
+                <div class="col-md-6">
+                  <p><span>{{'origin' | translate}}: </span>??</p>
+                </div>
+                <div class="col-md-6">
+                  <p><span>{{'Supplier' | translate}}: </span>{{productDetails?.supplier?.supplierName}}</p>
+                </div>
 
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="product-btns">
-                  <a href="#" class="apis-button apis-button2"><img src="assets/img/compare.svg" alt="">{{'Compare' |
-                    translate}}</a>
-                  <a href="#" class="apis-button apis-button2"><img src="assets/img/fav.svg" alt="">{{'Favorites' |
-                    translate}}</a>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="product-btns">
+                    <a href="#" class="apis-button apis-button2"><img src="assets/img/compare.svg" alt="">{{'Compare' |
+                      translate}}</a>
+                    <a href="#" class="apis-button apis-button2"><img src="assets/img/fav.svg" alt="">{{'Favorites' |
+                      translate}}</a>
                     <a href="#" class="apis-button  btn btn-warning">{{'SendInquiry' | translate}}</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row basic-info">
-        <h4 class="col-md-12 mb-4"><img src="assets/img/info.svg" alt="">{{'BasicInfo' | translate}}:</h4>
-        <p class="col-md-6"><span>- {{'SubCategory' | translate}}: </span>??</p>
-        <p class="col-md-6"><span>- {{'SupplierType' | translate}}: </span>??</p>
-        <p class="col-md-6"><span>- {{'Application' | translate}}: </span>{{productDetails?.application}}</p>
-        <p class="col-md-6"><span>- {{'Purity' | translate}}: </span>{{productDetails?.purity}}</p>
-        <p class="col-md-6"><span>- {{'ParticleSizeD90' | translate}}: </span>{{productDetails?.particleSize}}</p>
-        <p class="col-md-6"><span>- {{'endotoxinTest' | translate}}: </span>{{productDetails?.indotoxinTest}}</p>
-        <p class="col-md-6"><span>- {{'sampleType' | translate}}: </span>{{productDetails?.itemSampleType?.itemSampleTypesName}}</p>
-        <p class="col-md-6"><span>- {{'SampleSize' | translate}}: </span>{{productDetails?.sampleSize}}</p>
+        <div class="row basic-info">
+          <h4 class="col-md-12 mb-4"><img src="assets/img/info.svg" alt="">{{'BasicInfo' | translate}}:</h4>
+          <p class="col-md-6"><span>- {{'SubCategory' | translate}}: </span>??</p>
+          <p class="col-md-6"><span>- {{'SupplierType' | translate}}: </span>??</p>
+          <p class="col-md-6"><span>- {{'Application' | translate}}: </span>{{productDetails?.application}}</p>
+          <p class="col-md-6"><span>- {{'Purity' | translate}}: </span>{{productDetails?.purity}}</p>
+          <p class="col-md-6"><span>- {{'ParticleSizeD90' | translate}}: </span>{{productDetails?.particleSize}}</p>
+          <p class="col-md-6"><span>- {{'endotoxinTest' | translate}}: </span>{{productDetails?.indotoxinTest}}</p>
+          <p class="col-md-6"><span>- {{'sampleType' | translate}}:
+            </span>{{productDetails?.itemSampleType?.itemSampleTypesName}}</p>
+          <p class="col-md-6"><span>- {{'SampleSize' | translate}}: </span>{{productDetails?.sampleSize}}</p>
 
-        <p class="col-12 mb-1"><span>- {{'ProductDetails' | translate}}: </span></p>
-        <p class="col-md-12 font-size-16">
-          {{productDetails?.details}}
-        </p>
+          <p class="col-12 mb-1"><span>- {{'ProductDetails' | translate}}: </span></p>
+          <p class="col-md-12 font-size-16">
+            {{productDetails?.details}}
+          </p>
+        </div>
+
+        <div class="row mt-5">
+          <div class="col-12">
+            <div class="sub-title">
+              <h2>{{'CertificatesStandards' | translate}}</h2>
+              <p>Everything you need to know when you're looking</p>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <swiper [slidesPerView]="innerWidth>991 ? 4:2" [spaceBetween]="30" [slidesPerGroup]="1" [loop]="true"
+              [loopFillGroupWithBlank]="true" [navigation]="true" class="mySwiper">
+              <ng-container *ngFor="let certificate of productDetails?.itemCertificates">
+                <ng-template swiperSlide>
+                  <app-certificate [certificate]="certificate"></app-certificate>
+                </ng-template>
+              </ng-container>
+
+            </swiper>
+          </div>
+        </div>
       </div>
 
-      <div class="row mt-5">
+    </div>
+  </div>
+
+  <div class="grey-bg2 similar-products section-apis">
+    <div class="container">
+      <div class="row">
         <div class="col-12">
-          <div class="sub-title">
-            <h2>{{'CertificatesStandards' | translate}}</h2>
+          <div class="the-title">
+            <h2>Similar Products</h2>
             <p>Everything you need to know when you're looking</p>
           </div>
         </div>
         <div class="col-sm-12">
-          <swiper [slidesPerView]="innerWidth>991 ? 4:2" [spaceBetween]="30" [slidesPerGroup]="1" [loop]="true"
+          <swiper [slidesPerView]="innerWidth>991 ? 3:1" [spaceBetween]="30" [slidesPerGroup]="1" [loop]="true"
             [loopFillGroupWithBlank]="true" [navigation]="true" class="mySwiper">
-            <ng-container *ngFor="let certificate of productDetails?.itemCertificates">
+            <ng-container *ngFor="let item of  this.similarProducts">
               <ng-template swiperSlide>
-                <app-certificate [certificate]="certificate"></app-certificate>
+                <app-product-card [product]="item" bgWhite="bg-white"></app-product-card>
               </ng-template>
             </ng-container>
-
           </swiper>
         </div>
       </div>
     </div>
-
   </div>
-</div>
 
-<div class="grey-bg2 similar-products section-apis">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="the-title">
-          <h2>Similar Products</h2>
-          <p>Everything you need to know when you're looking</p>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <swiper [slidesPerView]="innerWidth>991 ? 3:1" [spaceBetween]="30" [slidesPerGroup]="1" [loop]="true"
-          [loopFillGroupWithBlank]="true" [navigation]="true" class="mySwiper">
-          <ng-container *ngFor="let item of  this.similarProducts">
-            <ng-template swiperSlide>
-              <app-product-card [product]="item" bgWhite="bg-white"></app-product-card>
-            </ng-template>
-          </ng-container>
-        </swiper>
-      </div>
-    </div>
-  </div>
-</div>
-
+</ng-template>

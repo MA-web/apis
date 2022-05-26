@@ -5,6 +5,7 @@ import { ProfileInfoComponent } from './profile-info.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormlyConfModule } from 'src/app/shared/formly-conf/formly-conf.module';
 import { InlineSVGModule } from 'ng-inline-svg-2';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 const route: Route[] = [
   { path: '', component: ProfileInfoComponent },
@@ -18,7 +19,8 @@ const route: Route[] = [
     RouterModule.forChild(route),
     TranslateModule,
     FormlyConfModule,
-    InlineSVGModule
+    InlineSVGModule,
+    LazyLoadImageModule
   ]
 })
 export class ProfileInfoModule { }

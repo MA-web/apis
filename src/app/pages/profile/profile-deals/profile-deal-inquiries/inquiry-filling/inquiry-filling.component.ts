@@ -265,45 +265,40 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'MeltingRange',
-                type: 'input',
+                type: 'number',
                 templateOptions: {
-                  type: 'number',
                   label: this._translateService.instant('MeltingRange'),
                 },
               },
               {
                 className: 'col-md-6 col-12',
                 key: 'Loss_on_drying',
-                type: 'input',
+                type: 'number',
                 templateOptions: {
-                  type: 'number',
                   label: this._translateService.instant('Loss_on_drying'),
                 },
               },
               {
                 className: 'col-md-6 col-12',
                 key: 'PH',
-                type: 'input',
+                type: 'number',
                 templateOptions: {
-                  type: 'number',
                   label: this._translateService.instant('PH'),
                 },
               },
               {
                 className: 'col-md-6 col-12',
                 key: 'ResidualSolvents',
-                type: 'input',
+                type: 'number',
                 templateOptions: {
-                  type: 'number',
                   label: this._translateService.instant('ResidualSolvents'),
                 },
               },
               {
                 className: 'col-md-6 col-12',
                 key: 'From',
-                type: 'input',
+                type: 'number',
                 templateOptions: {
-                  type: 'number',
                   label: this._translateService.instant('From'),
                 },
               },
@@ -319,9 +314,8 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'ParticleSizeD90',
-                type: 'ng-select',
+                type: 'number',
                 templateOptions: {
-                  type: 'number',
                   label: this._translateService.instant('ParticleSizeD90'),
                   required: true
                 },
@@ -332,18 +326,16 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-12',
                 key: 'OpticalRotation',
-                type: 'input',
+                type: 'number',
                 templateOptions: {
-                  type: 'number',
                   label: this._translateService.instant('OpticalRotation'),
                 },
               },
               {
                 className: 'col-md-6 col-12',
                 key: 'DissolutionRate',
-                type: 'input',
+                type: 'number',
                 templateOptions: {
-                  type: 'number',
                   label: this._translateService.instant('DissolutionRate'),
                   labelHint: '(hr/% Percentage) + ( * Minimum one )',
                   required: true,
@@ -353,9 +345,8 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'hour',
-                type: 'input',
+                type: 'number',
                 templateOptions: {
-                  type: 'number',
                   label: this._translateService.instant('hour'),
                   required: true,
                 },
@@ -363,18 +354,16 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit 
               {
                 className: 'col-md-6 col-12',
                 key: 'Total_viable_aerobic_Count',
-                type: 'input',
+                type: 'number',
                 templateOptions: {
-                  type: 'number',
                   label: this._translateService.instant('Total_viable_aerobic_Count'),
                 },
               },
               {
                 className: 'col-md-6 col-12',
                 key: 'Total_yeast_and_mould_count',
-                type: 'input',
+                type: 'number',
                 templateOptions: {
-                  type: 'number',
                   label: this._translateService.instant('Total_yeast_and_mould_count'),
                 },
               },

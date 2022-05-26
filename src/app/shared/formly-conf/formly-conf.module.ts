@@ -30,6 +30,8 @@ import { FormlyRepeatType } from './formly-components/formly-repeat-type';
 import { PanelWrapperComponent } from './formly-components/panel-wrapper.component';
 import { FileValueAccessor } from './formly-components/file-value-accessor';
 import { ImagePreview } from './formly-components/image-preview.directive';
+import { NumberInputDirective } from '../directive/number-input.directive';
+import { FormlyFieldInputNumber } from './formly-components/formly-filed0input-number';
 
 
 export function formlyValidationConfig(translate: TranslateService) {
@@ -64,7 +66,9 @@ export function formlyValidationConfig(translate: TranslateService) {
     FormlyRepeatType,
     PanelWrapperComponent,
     FileValueAccessor,
-    ImagePreview
+    ImagePreview,
+    FormlyFieldInputNumber,
+    NumberInputDirective
   ],
   imports: [
     CommonModule,
@@ -76,6 +80,7 @@ export function formlyValidationConfig(translate: TranslateService) {
       ],
         types: [
           { name: 'input', component: FormlyFieldInput },
+          { name: 'number', component: FormlyFieldInputNumber },
           { name: 'radio', component: FormlyFieldRadio },
           { name: 'captch', component: FormlyFieldCaptch },
           { name: 'ng-select', component: FormlyFieldSelect },
@@ -85,7 +90,7 @@ export function formlyValidationConfig(translate: TranslateService) {
           { name: 'text', component: FormlyFieldText },
           { name: 'accordion', component: FormlyAccordion },
           { name: 'chips', component: FormlyFieldChips },
-          { name: 'file', component: FormlyFieldFile, wrappers: ['form-field'] },
+          { name: 'file-upload', component: FormlyFieldFile, wrappers: ['form-field'] },
           { name: 'uploadArea', component: FormlyUploadArea },
           { name: 'repeat', component: FormlyRepeatType },
           {

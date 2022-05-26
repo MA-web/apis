@@ -1,5 +1,7 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { FieldType } from '@ngx-formly/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FieldType, FormlyFormBuilder } from '@ngx-formly/core';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'formly-field-upload',
@@ -36,18 +38,32 @@ import { FieldType } from '@ngx-formly/core';
   encapsulation: ViewEncapsulation.None,
 
 })
-export class FormlyFieldUpload extends FieldType {
-
+export class FormlyFieldUpload extends FieldType implements OnInit {
+  constructor(private _sharedService: SharedService, private http:HttpClient) {
+    super();
+  }
   files: File[] = [];
 
   onSelect(event: any) {
     this.files.push(...event.addedFiles);
-
     this.formControl.setValue(this.files)
   }
 
   onRemove(event: any, i: any) {
     this.files.splice(this.files.indexOf(event), 1);
+  }
+
+  ngOnInit(): void {
+    this._sharedService.dropzoneEmptySubj.subscribe(res => {
+      if (res) this.files = []
+    })
+    if(this.formControl?.value){
+      this._sharedService.getBlobIcon(this.formControl?.value).subscribe((resImage:any) =>{
+        if (resImage) {
+          this.files.push(new File([resImage], resImage, { type: resImage.type }))
+        }
+      })
+    }
   }
 
 }

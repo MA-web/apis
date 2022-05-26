@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { LookupControllerService } from 'src/app/@api';
 import { breadcrumb } from '../../models/breadcrumb.model';
+import { UploadFileService } from '../../services/file-upload.service';
 import { SharedService } from '../../services/shared.service';
 
 @Component({
@@ -42,6 +43,7 @@ export class AppBaseComponent implements OnDestroy {
   LookupControllerService: LookupControllerService
   toaster: ToastrService;
   route: ActivatedRoute;
+  UploadFileService:UploadFileService
   constructor(injector: Injector) {
     this._translateService = injector.get(TranslateService);
     this._sharedService = injector.get(SharedService);
@@ -49,7 +51,7 @@ export class AppBaseComponent implements OnDestroy {
     this.LookupControllerService = injector.get(LookupControllerService);
     this.toaster = injector.get(ToastrService);
     this.route = injector.get(ActivatedRoute);
-
+    this.UploadFileService = injector.get(UploadFileService);
     this.userData = this._sharedService?.getUser()
   }
 
@@ -61,7 +63,6 @@ export class AppBaseComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.unSubscription.forEach(sub => {
-      console.log('sub: ', sub);
       sub.unsubscribe()
     })
   }

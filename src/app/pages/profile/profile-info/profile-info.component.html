@@ -1,49 +1,64 @@
-<div class="the-title mt-lg-0">
-  <h2>{{'Complete_your_profile' | translate}}</h2>
-</div>
-<div class="row">
-  <div class="col-12">
-    <div class="card white-card">
-      <div class="card-body">
-        <div class="d-flex align-items-center">
-          <div class="avatar">
-            <img src="https://via.placeholder.com/218x218" alt="" class="rounded-circle img-fluid">
-          </div>
-          <div class="mx-4 d-flex flex-column">
-            <button type="button" class="apis-button btn btn-outline-info px-3 mb-3">
-              <span [inlineSVG]="'assets/icons/edit.svg'"></span>
-              {{'uploadNewPicture' | translate}}</button>
-            <button type="button" class="apis-button btn btn-danger px-3">
-              <span [inlineSVG]="'assets/icons/delete.svg'"></span>
-              {{'Delete' | translate}}</button>
-          </div>
-        </div>
+<ng-container *ngIf="isLoading; else elseTemplate">
 
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <formly-form class="row mt-5" [form]="form" [model]="model" [fields]="fields" [options]="options"> </formly-form>
+</ng-container>
+<ng-template #elseTemplate>
+  <div class="the-title mt-lg-0">
+    <h2>{{'Complete_your_profile' | translate}}</h2>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card white-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="avatar">
 
-          <div class="d-lg-flex justify-content-between mt-3">
-            <div class="d-lg-flex flex-wrap gap-2 flex-lg-row flex-column d-inline-block">
-              <button type="button" class="apis-button btn-danger px-4 mr-2 mb-2">
+              <img
+              [lazyLoad]="ProfileDto?.userProfile?.image?.reference ? ProfileDto?.userProfile?.image?.reference : 'https://via.placeholder.com/218x218'"
+              onerror="this.src='assets/img/image2.jpg';" class="lazy-loading rounded-circle img-fluid"
+              alt="{{ ProfileDto?.user?.firstName ? ProfileDto?.user?.firstName : '' }}" />
+            </div>
+            <div class="mx-4 d-flex flex-column">
+              <div>
+                <form [formGroup]="form2" >
+                  <formly-form [form]="form2" [model]="model2" [fields]="fields2" > </formly-form>
+                </form>
+              </div>
+              <!-- <button type="button" class="apis-button btn btn-outline-info px-3 mb-3">
+                <span [inlineSVG]="'assets/icons/edit.svg'"></span>
+                {{'uploadNewPicture' | translate}}</button> -->
+              <button type="button" class="apis-button btn btn-danger px-3">
                 <span [inlineSVG]="'assets/icons/delete.svg'"></span>
-                {{'DeleteAccount' | translate}}</button>
-                <button type="button" class="apis-button btn btn-warning px-4 mr-2  mb-2">
-                  {{'ChangePassword' | translate}}</button>
-            </div>
-            <div class="d-inline-block">
-              <button type="submit" class="apis-button btn btn-success px-4" [disabled]="form.invalid || isSubmit">
-                <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
-                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                  Loading...
-                </ng-container>
-                <ng-template #elseTemplate_isSubmit>
-                  {{'saveChanges' | translate}}
-                </ng-template>
-                </button>
+                {{'Delete' | translate}}</button>
             </div>
           </div>
-        </form>
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <formly-form class="row mt-5" [form]="form" [model]="model" [fields]="fields" [options]="options"> </formly-form>
+
+            <div class="d-lg-flex justify-content-between mt-3">
+              <div class="d-lg-flex flex-wrap gap-2 flex-lg-row flex-column d-inline-block">
+                <button type="button" class="apis-button btn-danger px-4 mr-2 mb-2">
+                  <span [inlineSVG]="'assets/icons/delete.svg'"></span>
+                  {{'DeleteAccount' | translate}}</button>
+                  <button type="button" class="apis-button btn btn-warning px-4 mr-2  mb-2">
+                    {{'ChangePassword' | translate}}</button>
+              </div>
+              <div class="d-inline-block">
+                <button type="submit" class="apis-button btn btn-success px-4" [disabled]="form.invalid || isSubmit">
+                  <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                  </ng-container>
+                  <ng-template #elseTemplate_isSubmit>
+                    {{'saveChanges' | translate}}
+                  </ng-template>
+                  </button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+</ng-template>

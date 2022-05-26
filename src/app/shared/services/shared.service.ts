@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import { ItemCategoryDto } from 'src/app/@api';
 
@@ -25,6 +25,9 @@ export class SharedService {
 
   //send refresh
   sendRefresh: Subject<any> = new Subject<any>();
+
+  //send empty dropzone
+  dropzoneEmptySubj = new Subject();
 
   constructor(private http: HttpClient) { }
 
@@ -86,5 +89,10 @@ export class SharedService {
     return undefined;
   }
 
-
+  getBlobIcon(src_icon) {
+    let headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+    });
+    return this.http.get(src_icon, { headers: headers, responseType: 'blob' });
+  }
 }

@@ -36,6 +36,16 @@
   <div class="col-12">
     <div class="card white-card">
       <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div class="the-title">
+            <h2>{{'MyProducts' | translate}}<span class="number-items">{{products?.length}} {{'Product' | translate}}</span></h2>
+          </div>
+          <div>
+            <a routerLink="../add" class="apis-button btn-success px-4">
+              <span [inlineSVG]="'assets/icons/add.svg'"></span>
+              {{'addProduct' | translate}}</a>
+          </div>
+        </div>
         <ng-container *ngIf="isLoading; else elseTemplate">
           <div class="row">
             <div class="col-sm-6" *ngFor="let item of [].constructor(6)">
@@ -52,16 +62,7 @@
             </div>
           </ng-container>
           <ng-template #elseTemplateNoData>
-            <div class="d-flex justify-content-between">
-              <div class="the-title">
-                <h2>{{'MyProducts' | translate}}<span class="number-items">{{products?.length}} {{'Product' | translate}}</span></h2>
-              </div>
-              <div>
-                <a routerLink="../add" class="apis-button btn-success px-4">
-                  <span [inlineSVG]="'assets/icons/add.svg'"></span>
-                  {{'addProduct' | translate}}</a>
-              </div>
-            </div>
+
             <div class="row">
               <ng-container *ngFor="let product of products">
                 <div class="col-12">

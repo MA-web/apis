@@ -27,7 +27,7 @@ export class HandleErrorService {
           icon: 'error',
           text: JSON.stringify(error.error.content) ,
           showConfirmButton: true,
-          timer: 2500
+          timer: 5000
         })
       }else{
          errMessage = error.error.description

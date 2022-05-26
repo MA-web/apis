@@ -36,7 +36,7 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
           <span class="main2-color" *ngIf="field?.templateOptions?.label">{{field?.templateOptions?.label  | translate}} * &nbsp;: </span>
           <span class="main2-color" *ngIf="field?.templateOptions?.text">{{field?.templateOptions?.text  | translate}}  &nbsp; </span>
               <ng-container *ngIf="to.columnLevel; else elseTemplate">
-              {{item?.field?.key?.value }} {{item?.field?.key?.type }}
+              {{item[field?.key]?.value }} {{item[field?.key]?.type?.uomName || item[field?.key]?.type?.currencyCode}}
               </ng-container>
               <ng-template #elseTemplate>
               <ng-container *ngIf="field.key ==='UploadFile'; else elseTemplateValue">
@@ -61,7 +61,6 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
     </tbody>
   </table>
   </div>
-
   `,
   styles: [
     `

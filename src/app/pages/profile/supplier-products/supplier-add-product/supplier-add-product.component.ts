@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { finalize, forkJoin } from 'rxjs';
 import { ItemCategoryDto, ItemControllerService, ItemDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
@@ -10,15 +10,17 @@ import { UploadFileService } from 'src/app/shared/services/file-upload.service';
   templateUrl: './supplier-add-product.component.html',
   styleUrls: ['./supplier-add-product.component.scss']
 })
-export class SupplierAddProductComponent extends AppBaseComponent implements OnInit {
+export class SupplierAddProductComponent extends AppBaseComponent implements OnInit,OnDestroy {
   productCertificates: any[] = []
 
   ShippingCertificate: any[] = []
   ItemCategory: Array<ItemCategoryDto> = []
+
+  beforeImagesLoaded = []
+  afterImagesLoaded = []
   constructor(
     injector: Injector,
     private _itemControllerService: ItemControllerService,
-    private UploadFileService:UploadFileService
   ) {
     super(injector)
     this.isLoadingForm = true
@@ -66,7 +68,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                     required: true,
                     options: res[0]?.map(v => ({ label: v?.categoryName, value: v?.categoryId })),
                     change: (filed, $event) => {
-                      this.fields[0].fieldGroup[0].fieldGroup[1].templateOptions.options = this.ItemCategory?.find(v => $event === v?.categoryId)?.itemSubcategories?.map(v => ({ label: v?.subcategoryName, value: v?.itemSubcategoryId }))
+                      this.fields[0].fieldGroup[0].fieldGroup[1].templateOptions.options = this.ItemCategory?.find(v => $event === v?.categoryId)?.itemSubcategories?.map(v => ({ label: v?.subcategoryName, value: v }))
                     },
                   },
                 },
@@ -135,7 +137,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   templateOptions: {
                     label: this._translateService.instant('SupplierType'),
                     required: true,
-                    options: res[2]?.map(v => ({ label: v?.categoryDescription, value: v?.categoryId })),
+                    options: res[2]?.map(v => ({ label: v?.categoryDescription, value: v })),
                   },
                 },
                 {
@@ -177,12 +179,13 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 {
                   className: 'col-md-6 col-12',
                   key: 'purity',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'input',
                     label: this._translateService.instant('Purity'),
                     required: true,
-                    placeholder: '%'
+                    placeholder: '%',
+                    min: 0,
+                    max: 100
                   },
                 },
                 {
@@ -252,9 +255,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 {
                   className: 'col-md-6 col-12',
                   key: 'residueIgnition',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'number',
                     label: this._translateService.instant('Residue_on_ignition'),
                   },
                 },
@@ -277,45 +279,40 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 {
                   className: 'col-md-6 col-12',
                   key: 'meltingRange',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'number',
                     label: this._translateService.instant('MeltingRange'),
                   },
                 },
                 {
                   className: 'col-md-6 col-12',
                   key: 'lossOnDrying',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'number',
                     label: this._translateService.instant('Loss_on_drying'),
                   },
                 },
                 {
                   className: 'col-md-6 col-12',
                   key: 'ph',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'number',
                     label: this._translateService.instant('PH'),
                   },
                 },
                 {
                   className: 'col-md-6 col-12',
                   key: 'residualSolvents',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'number',
                     label: this._translateService.instant('ResidualSolvents'),
                   },
                 },
                 {
                   className: 'col-md-6 col-12',
                   key: 'form',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'number',
                     label: this._translateService.instant('From'),
                   },
                 },
@@ -331,11 +328,12 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 {
                   className: 'col-md-6 col-12',
                   key: 'particleSize',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'number',
                     label: this._translateService.instant('ParticleSizeD90'),
-                    required: true
+                    required: true,
+                    min: 0,
+                    max: 100
                   },
                   expressionProperties: {
                     'templateOptions.disabled': () => !this.model.micronization,
@@ -344,18 +342,17 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 {
                   className: 'col-12',
                   key: 'opticalRotation',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'number',
                     label: this._translateService.instant('OpticalRotation'),
                   },
                 },
                 {
                   className: 'col-md-6 col-12',
                   key: 'dissolutionRate',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'number',
+                    type: '',
                     label: this._translateService.instant('DissolutionRate'),
                     labelHint: '(hr/% Percentage) + ( * Minimum one )',
                     required: true,
@@ -365,9 +362,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 {
                   className: 'col-md-6 col-12',
                   key: 'hour',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'number',
                     label: this._translateService.instant('hour'),
                     required: true,
                   },
@@ -375,18 +371,16 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 {
                   className: 'col-md-6 col-12',
                   key: 'totalVac',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'number',
                     label: this._translateService.instant('Total_viable_aerobic_Count'),
                   },
                 },
                 {
                   className: 'col-md-6 col-12',
                   key: 'totalYamc',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    type: 'number',
                     label: this._translateService.instant('Total_yeast_and_mould_count'),
                   },
                 },
@@ -444,23 +438,22 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   type: 'ng-select',
                   templateOptions: {
                     label: this._translateService.instant('CertificateName'),
-                    required: true,
                     options: [
                       { label: "c1", value: "c1" },
                       { label: "c2", value: "c2" }
                     ]
                   },
+                  expressionProperties: {
+                    'templateOptions.required': () => this.model.CertificateName,
+                  },
                 },
                 {
-                  className: 'col-md-3 col-12 p-0 mt-md-4',
+                  className: 'col-md-3 col-12 p-0 mt-md-4 noFormGroup',
                   key: 'UploadProductCertificate',
-                  type: 'file',
+                  type: 'file-upload',
                   templateOptions: {
                     text: this._translateService.instant('UploadCertificate'),
-                    required: true,
                     change: (filed, $event) => {
-                      console.log('$event: ', $event);
-                      console.log(this.model.UploadProductCertificate);
                       let file = $event.target.files
                       let fileToUpload: any;
                       fileToUpload = file.item(0);
@@ -471,6 +464,9 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                       reader.readAsDataURL(fileToUpload);
                     }
                   },
+                  expressionProperties: {
+                    'templateOptions.required': () => this.model.CertificateName,
+                  },
                 },
                 {
                   className: 'col-md-2 col-12',
@@ -480,7 +476,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                     btnType: 'success px-3 mt-md-4',
                     onClick: ($event: any) => {
                       this.productCertificates.push({ CertificateName: this.model?.CertificateName, file: this.model.UploadProductCertificate })
-                      this.model.uploadAreaProducts = this.productCertificates
+                      this.model.uploadAreaCertificate = this.productCertificates
                       this.form.get('CertificateName')?.setValue(undefined)
                       this.form.get('CertificateName')?.reset()
                       this.form.get('UploadProductCertificate')?.setValue(undefined)
@@ -494,7 +490,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
 
                 {
                   className: 'col-12',
-                  key: 'uploadAreaProducts',
+                  key: 'uploadAreaCertificate',
                   type: 'uploadArea',
                   templateOptions: {
                     items: this.productCertificates
@@ -506,7 +502,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
             {
               templateOptions: {
                 label: this._translateService.instant('TradeInformation'),
-                open: true
+                open: true,
+                required: true
               },
               fieldGroupClassName: 'row',
               fieldGroup: [
@@ -525,6 +522,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   templateOptions: {
                     label: this._translateService.instant('Unit'),
                     options: res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
+                    required:true
                   },
                 },
                 {
@@ -588,7 +586,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                             type: 'ng-select',
                             templateOptions: {
                               required: true,
-                              options: res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
+                              options: res[3]?.map(v => ({ label: v?.uomShortName, value: v })),
                             }
                           },
                         ],
@@ -613,7 +611,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                             type: 'ng-select',
                             templateOptions: {
                               required: true,
-                              options: res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
+                              options: res[3]?.map(v => ({ label: v?.uomShortName, value: v })),
                             },
                           },
                         ],
@@ -639,7 +637,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                             type: 'ng-select',
                             templateOptions: {
                               required: true,
-                              options: res[4]?.map(v => ({ label: v?.currencyCode, value: v?.currencyId })),
+                              options: res[4]?.map(v => ({ label: v?.currencyCode, value: v })),
                             },
                           },
                         ],
@@ -694,30 +692,34 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   },
                   expressionProperties: {
                     'templateOptions.disabled': () => !this.model.AllowedSample,
+                    'templateOptions.required': () => this.model.AllowedSample,
                   },
                 },
                 {
                   className: 'col-md-6 col-12',
                   key: 'sampleSize',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
                     label: this._translateService.instant('SampleSize'),
                     required: true,
                   },
                   expressionProperties: {
                     'templateOptions.disabled': () => !this.model.AllowedSample,
+                    'templateOptions.required': () => this.model.AllowedSample,
                   },
                 },
                 {
                   className: 'col-md-6 col-12',
                   key: 'sampleUnit',
-                  type: 'input',
+                  type: 'ng-select',
                   templateOptions: {
                     label: this._translateService.instant('SampleUnit'),
                     required: true,
+                    options: res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
                   },
                   expressionProperties: {
                     'templateOptions.disabled': () => !this.model.AllowedSample,
+                    'templateOptions.required': () => this.model.AllowedSample,
                   },
                 },
               ],
@@ -754,9 +756,20 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 {
                   className: 'col-12',
                   key: 'productionCapacity',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    label: this._translateService.instant('Value')
+                    label: this._translateService.instant('Value'),
+                    change: (f, v) => {
+                      if (!v.target.value && !this.form.get('estimatedDeliveryLeadTime')?.value) {
+                        this.form.get('Period').setValue(undefined)
+                        this.form.get('Period').reset()
+                      }
+                      if (!v.target.value) {
+                        this.form.get('ProductionCapacityUnit').setValue(undefined)
+
+                        this.form.get('ProductionCapacityUnit').reset()
+                      }
+                    }
                   },
                 },
                 {
@@ -765,8 +778,11 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   type: 'ng-select',
                   templateOptions: {
                     label: this._translateService.instant('Unit'),
-                    options: []
+                    options: res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomShortName })),
                   },
+                  expressionProperties: {
+                    'templateOptions.required': () => this.model.productionCapacity,
+                  }
                 },
                 {
                   className: 'col-md-6 col-12',
@@ -774,15 +790,30 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   type: 'ng-select',
                   templateOptions: {
                     label: this._translateService.instant('Period'),
-                    options: []
+                    options: [
+                      { label: 'Day', value: 'day' },
+                      { label: 'Week', value: 'week' },
+                      { label: 'Month', value: 'month' },
+                      { label: 'Quarter', value: 'quarter' },
+                      { label: 'Year', value: 'year' },
+                    ]
                   },
+                  expressionProperties: {
+                    'templateOptions.required': () => this.model?.productionCapacity || this.model?.estimatedDeliveryLeadTime,
+                  }
                 },
                 {
                   className: 'col-md-6 col-12',
                   key: 'estimatedDeliveryLeadTime',
-                  type: 'input',
+                  type: 'number',
                   templateOptions: {
-                    label: this._translateService.instant('EstimatedLeadTime')
+                    label: this._translateService.instant('EstimatedLeadTime'),
+                    change: (f, v) => {
+                      if (!v.target.value && !this.form.get('productionCapacity')?.value) {
+                        this.form.get('Period').setValue(undefined)
+                        this.form.get('Period').reset()
+                      }
+                    }
                   },
                 },
                 {
@@ -840,22 +871,22 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   type: 'ng-select',
                   templateOptions: {
                     label: this._translateService.instant('CertificateName'),
-                    required: true,
                     options: [
                       { label: "c1", value: "c1" },
                       { label: "c2", value: "c2" }
                     ]
                   },
+                  expressionProperties: {
+                    'templateOptions.required': () => this.model.itemCertificates,
+                  },
                 },
                 {
-                  className: 'col-md-3 col-12 p-0 mt-md-4',
+                  className: 'col-md-3 col-12 p-0 mt-md-4 noFormGroup',
                   key: 'itemCertificates',
-                  type: 'file',
+                  type: 'file-upload',
                   templateOptions: {
                     text: this._translateService.instant('UploadCertificate'),
-                    required: true,
                     change: (filed, $event) => {
-
                       let file = $event.target.files
                       let fileToUpload: any;
                       fileToUpload = file.item(0);
@@ -865,6 +896,9 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                       }
                       reader.readAsDataURL(fileToUpload);
                     }
+                  },
+                  expressionProperties: {
+                    'templateOptions.required': () => this.model.ShippingCertificateName,
                   },
                 },
                 {
@@ -953,6 +987,164 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
     })
     this.unSubscription.push(forkSub);
 
+
+    this.UploadFileService.resData.subscribe(res => {
+      let addItemStorage
+      var Values = [];
+      //get olds values
+     if(window.localStorage.getItem('addItemStorage'))  {
+       addItemStorage  = window.localStorage.getItem('addItemStorage')
+      Values = JSON.parse(addItemStorage);
+     }
+
+      //push new value
+      Values.push(res);
+
+      window.localStorage.setItem('addItemStorage', JSON.stringify(Values))
+
+      if(JSON.parse(window.localStorage.getItem('addItemStorage'))?.length === this.beforeImagesLoaded?.length){
+        let finalUploaded = JSON.parse(window.localStorage.getItem('addItemStorage'))
+        let productPicture:string;
+        let productCertificates = []
+        let productShippingCertificates =  []
+        finalUploaded.forEach(element => {
+          if(element.includes('/picture')){
+            productPicture= element
+          }
+          else if(element.includes('/certificate')){
+            productCertificates.push(element)
+          }
+          else{
+            productShippingCertificates.push(element)
+          }
+
+        });
+
+        let finalProductCertificates = []
+        let finalProductShippingCertificates =  []
+        if(productCertificates?.length){
+          productCertificates.forEach((element,index) => {
+            finalProductCertificates.push( {
+              attachment: {
+                attachmentSource:{
+                  "attachmentSourceId": index+1,
+                  attachmentSourceName:element
+                },
+                reference: element
+              },
+              itemCertificateName: this.model?.uploadAreaCertificate[index]?.CertificateName
+            })
+          })
+        }
+
+        if(productShippingCertificates?.length){
+          productShippingCertificates.forEach((element,index) => {
+            finalProductShippingCertificates.push( {
+              attachment: {
+                attachmentSource: element,
+                reference: element
+              },
+              itemCertificateName: this.model?.uploadAreaShipping[index]
+            })
+          })
+        }
+
+
+
+
+          let itemDto: ItemDto = {
+            advantage: this.model?.advantage,
+            appearence: this.model?.appearence,
+            application: this.model?.application,
+            attachment: {
+              attachmentSource: {
+                attachmentSourceId: 1,
+                attachmentSourceName: productPicture
+              },
+              reference: productPicture
+            },
+            caseNumber: this.model?.caseNumber,
+            coa: 'coa',
+            details: this.model?.details,
+            dissolutionRate: this.model?.dissolutionRate && this.model?.hour ? `${this.model?.hour}hr/${this.model?.dissolutionRate}%` : undefined,
+            escherichiaColi: this.model?.escherichiaColi,
+            estimatedDeliveryLeadTime: `${this.model?.estimatedDeliveryLeadTime}${this.model?.Period}`,
+            expiryDate: new Date(this.model?.expiryDate),
+            form: this.model?.form,
+            heavyMetal: this.model?.heavyMetal,
+            incoterms: this.model?.incoterms,
+            indotoxinTest: this.model?.indotoxinTest,
+            injection: this.model?.injection,
+            itemCategory: {
+              categoryId: +this.model?.itemCategory
+            },
+            itemCertificates:finalProductCertificates,
+            itemKeywords: this.model?.itemKeywords?.map(v => ({ keyword: v?.name })),
+            itemName: this.model?.itemName,
+            itemPricings: this.model?.productPrices?.map(v => ({
+              fromQuantity: +v?.from?.value,
+              fromUom: { uomId: +v?.from?.type?.uomId },
+              toQuantity: +v?.to?.value,
+              toUom: { uomId: +v?.to?.type?.uomId },
+              price: +v?.price?.value,
+              currency: { currencyId: +v?.price?.type?.currencyId }
+            })),
+            itemSampleType: this.model?.itemSampleType ? this.model?.itemSampleType : undefined,
+            itemSubcategory: this.model?.itemSubcategory ? this.model?.itemSubcategory : undefined,
+            itemSuppliments: this.model?.itemSuppliments?.map((v,i) => ({
+              attributeName: v?.attributeName,
+              attributeValue: v?.attributeValue,
+              itemSupplimentId:i+1
+            })),
+            lossOnDrying: +this.model?.lossOnDrying,
+            meltingRange: +this.model?.meltingRange,
+            micronization: this.model?.micronization,
+            minOrderQuantity: +this.model?.minOrderQuantity,
+            molFormula: this.model?.molFormula,
+            opticalRotation: +this.model?.opticalRotation,
+            origin: this.model?.origin ? { originId: +this.model?.origin } : undefined,
+            packaging: this.model?.packaging,
+            particleSize: this.model?.particleSize,
+            paymentTerms: this.model?.paymentTerms?.map(v => ({ paymentTermName: v?.paymentTermName, status: true })),
+            ph: +this.model?.ph,
+            portOfDispatching: this.model?.portOfDispatching,
+            productionCapacity: this.model?.productionCapacity ? `${this.model?.productionCapacity}${this.model?.ProductionCapacityUnit}/${this.model?.Period}` : undefined,
+            purity: this.model?.purity ? `${this.model?.purity}%` : undefined,
+            relatedSubstance: this.model?.relatedSubstance,
+            residualSolvents: +this.model?.residualSolvents,
+            residueIgnition: +this.model?.residueIgnition,
+            salmonelaSpecies: this.model?.salmonelaSpecies,
+            sampleSize:this.model?.sampleSize? +this.model?.sampleSize:undefined,
+            sampleUnit: this.model?.sampleUnit ? { uomId: +this.model?.sampleUnit, } : undefined,
+            status: 0,
+            storage: this.model?.storage,
+            supplier: this.userData?.supplierId ? { supplierId: +this.userData?.supplierId } : undefined,
+            supplierCategory: this.model?.supplierCategory,
+            totalVac: this.model?.totalVac ? `${this.model?.totalVac}cfu/gm` : undefined,
+            totalYamc: this.model?.totalYamc ? `${this.model?.totalYamc}cfu/gm` : undefined,
+            transportation: this.model?.transportation,
+            uom: this.model?.uom ? { uomId: +this.model?.uom } : undefined
+          }
+          const addItemUsingPOSTSub = this._itemControllerService.addItemUsingPOST(itemDto).pipe(finalize(()=>{
+              this.isSubmit = false
+          })).subscribe((res: ItemDto) => {
+            if (res) {
+              this.toaster.success(this._translateService.instant('addedSuccessfully'))
+              this.options.resetModel()
+              this._sharedService.dropzoneEmptySubj.next(true)
+            }
+
+          })
+          this.unSubscription.push(addItemUsingPOSTSub)
+
+      }
+
+
+
+    })
+
+
+
   }
 
   //   getDirtyValues(form: any) {
@@ -975,143 +1167,50 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
 
 
   onSubmit() {
-    console.log(this.model);
+    this.isSubmit = true;
 
-    // let file = this.model.attachment[0]
-    // console.log('file: ', file);
-    // const contentType = file.type;
-    // const bucket = new S3(
-    //   {
-    //     endpoint: "https://devspace-marksphinx.fra1.digitaloceanspaces.com",
-    //     accessKeyId: 'BA6EM5E6W3S2W3HBZSAY',
-    //     secretAccessKey: 'GifnJOJ+jpc1u+6bBLEmk2jNZdgSkH3jKB6LVsS56aM',
-    //     region: 'af-south-1',
-    //   }
-    // );
-    // const params = {
-    //   Bucket: 'devspace-marksphinx',
-    //   Key: file.name,
-    //   Body: file,
-    //   ACL: 'public-read',
-    //   ContentType: contentType,
-    // };
-    // bucket.upload(params, function (err, data) {
-    //   if (err) {
-    //     console.log('EROOR: ', JSON.stringify(err));
-    //     return false;
-    //   }
-    //   console.log('File Uploaded.', data);
-    //   return true;
-    // });
+    window.localStorage.removeItem('addItemStorage')
+    this.beforeImagesLoaded = []
+    let prodSeq = (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
 
-    // bucket.putObject(params)
-    // .on("build", request => {
-    // 	request.httpRequest.headers.Host="https://devspace-marksphinx.fra1.digitaloceanspaces.com";
-    // 	request.httpRequest.headers["Content-Length"] = file.size;
-    // 	request.httpRequest.headers["Content-Type"] = "application/octet-stream";
-    // 	request.httpRequest.headers["x-amz-acl"] = "public-read";
-    // 	request.httpRequest.headers["Access-Control-Allow-Origin"] = "*";
-    // })
-    // .send((err) => {
-    // 	if (err) {
-    // 		console.log("Failed to upload file", `${err}`);
-    // 	}
-    // });
+    if (this.model?.attachment?.length) {
 
-    // this.isSubmit = true;
-    // let itemDto: ItemDto = {
-    //   advantage: this.model?.advantage,
-    //   appearence: this.model?.appearence,
-    //   application: this.model?.application,
-    //   attachment: {
-    //     attachmentSource: {
-    //       // attachmentSourceId?: number;
-    //       attachmentSourceName: ''
-    //     },
-    //     reference: ''
-    //   },
-    //   caseNumber: this.model?.caseNumber,
-    //   coa: '',
-    //   // commercialQuantity:'',
-    //   // creationDate?: Date;
-    //   details: this.model?.details,
-    //   dissolutionRate: this.model?.dissolutionRate,
-    //   // dmf:'',
-    //   escherichiaColi: this.model?.escherichiaColi,
-    //   estimatedDeliveryLeadTime: this.model?.estimatedDeliveryLeadTime,
-    //   expiryDate: this.model?.expiryDate,
-    //   form: this.model?.form,
-    //   // freeSamplePaidShippingQuantity:'',
-    //   // freeSampleShippingQuantity:'',
-    //   // gmpCertificate:'',
-    //   // halal:'',
-    //   heavyMetal: this.model?.heavyMetal,
-    //   incoterms: this.model?.incoterms,
-    //   indotoxinTest: this.model?.indotoxinTest,
-    //   injection: this.model?.injection,
-    //   // iso:'',
-    //   itemCategory: this.model?.itemCategory,
-    //   // itemCertificates?: Array<ItemCertificateDto>;
-    //   itemKeywords: this.model?.itemKeywords?.map(v => ({ keyword: v?.name, itemKeywordId: +v?.id })),
-    //   itemName: this.model?.itemName,
-    //   itemPricings: this.model?.productPrices.map(v => ({
-    //     fromQuantity: +v?.from?.value,
-    //     fromUom: { uomId: v?.from?.type },
-    //     toQuantity: +v?.to?.value,
-    //     toUom: { uomId: v?.from?.type },
-    //     price: +v?.price?.value,
-    //     currency: { currencyId: v?.currency?.type }
-    //   })),
-    //   itemSampleType: this.model?.itemSampleType,
-    //   itemSubcategory: this.model?.itemSubcategory,
-    //   itemSuppliments: this.model?.itemSuppliments?.map(v => ({
-    //     attributeName: v?.attributeName,
-    //     attributeValue: v?.attributeValue,
-    //   })),
-    //   lossOnDrying: this.model?.lossOnDrying,
-    //   meltingRange: this.model?.meltingRange,
-    //   micronization: this.model?.micronization,
-    //   minOrderQuantity: this.model?.minOrderQuantity,
-    //   molFormula: this.model?.molFormula,
-    //   opticalRotation: this.model?.particleSize,
-    //   origin: this.model?.origin,
-    //   packaging: this.model?.packaging,
-    //   // paidSampleQuantity:'',
-    //   particleSize: this.model?.particleSize,
-    //   paymentTerms: this.model?.paymentTerms,
-    //   ph: this.model?.ph,
-    //   portOfDispatching: this.model?.portOfDispatching,
-    //   productionCapacity: this.model?.productionCapacity,
-    //   purity: this.model?.purity,
-    //   relatedSubstance: this.model?.relatedSubstance,
-    //   residualSolvents: this.model?.residualSolvents,
-    //   residueIgnition: this.model?.residueIgnition,
-    //   salmonelaSpecies: this.model?.salmonelaSpecies,
-    //   sampleSize: this.model?.sampleSize,
-    //   sampleUnit: this.model?.sampleUnit,
-    //   status: 0,
-    //   storage: this.model?.storage,
-    //   // supplier?: SupplierIdDto;
-    //   supplierCategory: this.model?.supplierCategory,
-    //   totalVac: this.model?.totalVac,
-    //   totalYamc: this.model?.totalYamc,
-    //   transportation: this.model?.transportation,
-    //   uom: {
-    //     uomId: this.model?.uomId,
-    //   }
-    // }
-    // const addItemUsingPOSTSub = this._itemControllerService.addItemUsingPOST(itemDto).pipe(
-    //   finalize(()=>{
-    //     this.isSubmit = false;
-    //   })
-    // ).subscribe((res:ItemDto) => {
-    //   if(res){
-    //     this.toaster.success(this._translateService.instant('addedSuccessfully'))
-    //     this.options.resetModel()
-    //   }
+      this.beforeImagesLoaded?.push(this.model?.attachment[0])
 
-    // })
-    // this.unSubscription.push(addItemUsingPOSTSub)
-    this.UploadFileService.uploadfile(this.model.attachment[0])
+      this.UploadFileService.uploadMultiple([this.model?.attachment[0]], `products/product-${prodSeq}/picture`)
+    }
+
+    if (this.model?.uploadAreaCertificate?.length) {
+
+      let uploadCertificate = []
+      this.model?.uploadAreaCertificate?.forEach(element => {
+        this.beforeImagesLoaded.push(element?.file?.fileToUpload)
+        uploadCertificate.push(element?.file?.fileToUpload)
+      });
+
+      this.UploadFileService.uploadMultiple(uploadCertificate, `products/product-${prodSeq}/certificate`)
+    }
+
+    if (this.model?.uploadAreaShipping.length) {
+
+      let uploadShippingCertificate = []
+
+
+      this.model?.uploadAreaShipping?.forEach(element => {
+        this.beforeImagesLoaded.push(element?.file?.fileToUpload)
+        uploadShippingCertificate.push(element?.file?.fileToUpload)
+      });
+
+      this.UploadFileService.uploadMultiple(uploadShippingCertificate, `products/product-${prodSeq}/shippingCertificate`)
+    }
+
+
+
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    window.localStorage.removeItem('addItemStorage')
   }
 }

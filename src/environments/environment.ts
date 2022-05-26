@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiURL:'http://apis.marksphinx.com:8060'
+  apiURL:'http://164.92.242.241:8060'
 };
 
 /*

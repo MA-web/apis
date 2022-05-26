@@ -16,7 +16,7 @@ export class HttpInterceptors implements HttpInterceptor {
         if(window.localStorage.getItem('token')){
           header['Authorization'] = `Bearer ${ window.localStorage.getItem('token')}`
         }
-        header['Access-Control-Allow-Origin'] = `*`
+        // header['Access-Control-Allow-Origin'] = `*`
 
         request = request.clone({
             setHeaders: header,

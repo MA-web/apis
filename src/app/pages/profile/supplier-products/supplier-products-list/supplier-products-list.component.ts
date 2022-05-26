@@ -64,7 +64,7 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
         },
         {
           className: 'col-md-4 col-12',
-          key: 'SubCategory',
+          key: 'subCategory',
           type: 'ng-select',
           templateOptions: {
             placeholder: this._translateService.instant('SubCategory'),
@@ -90,9 +90,8 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
 
   getList() {
     this.isLoading = true
-    const getFavSub = this._itemControllerService.getItemsForSupplierUsingGET(this.userData?.id, this.pageNumber, this.pageSize).pipe(
-
-    ).subscribe((res: PageItemDto) => {
+    console.log(this._sharedService?.getToken());
+    const getFavSub = this._itemControllerService.searchItemsForSupplierUsingGET(this._sharedService?.getToken(),+this.userData?.id, this.model?.category, undefined,this.pageNumber,this.pageSize,this.model?.status,this.model?.subCategory).subscribe((res: PageItemDto) => {
       if (res) {
         this.isLoading = false
         this.products = res.content;
@@ -106,8 +105,7 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
     this.getList()
   }
   onSubmit() {
-    console.log(this.form)
-    console.log(this.model);
+    this.getList()
 
   }
 }

@@ -13,7 +13,7 @@ import { FieldType } from '@ngx-formly/core';
 
       />
       <label class="file-input__label apis-button btn-outline-info " [for]="field.key">
-        <span [inlineSVG]="'./assets/icons/download.svg'" forceEvalStyles="true"></span>
+        <span [inlineSVG]="to.icon?to.icon:'./assets/icons/download.svg'" forceEvalStyles="true"></span>
         <span>{{to.text}}</span></label
       >
     </div>
