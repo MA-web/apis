@@ -14,7 +14,6 @@
           <a routerLink="./inbox" [routerLinkActive]="['active']">
             <i inlineSVG="assets/icons/inbox.svg"></i>
             {{'Inbox' | translate}}
-            <span class="bi">44</span>
           </a>
           <accordion [closeOthers]="true">
             <accordion-group [isOpen]="router.isActive('/profile/deals', false)">

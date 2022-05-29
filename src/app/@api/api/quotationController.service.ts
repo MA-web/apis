@@ -18,9 +18,10 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { ItemQuotationDto } from '../model/itemQuotationDto';
-import { PageItemQuotationDto } from '../model/pageItemQuotationDto';
-import { RejectionDto } from '../model/rejectionDto';
+import { QuotationResponseDto } from '../model/quotationResponseDto';
+import { QuotationVersionDto } from '../model/quotationVersionDto';
+import { QuotationVersionReplyDto } from '../model/quotationVersionReplyDto';
+import { QuotationVersionRequestDto } from '../model/quotationVersionRequestDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -29,7 +30,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class QuotationControllerService {
 
-    protected basePath = 'https://apis.marksphinx.com:8060';
+    protected basePath = 'https://164.92.242.241:8060';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -59,29 +60,31 @@ export class QuotationControllerService {
 
 
     /**
-     * accept quotation by id
+     * Accept Quotation from supplier
      *
-     * @param authorization Authorization
      * @param quotationId quotationId
+     * @param quotationVersionReplyDto quotationVersionReplyDto
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public acceptQuotationUsingPUT(authorization: string, quotationId: number, observe?: 'body', reportProgress?: boolean): Observable<ItemQuotationDto>;
-    public acceptQuotationUsingPUT(authorization: string, quotationId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ItemQuotationDto>>;
-    public acceptQuotationUsingPUT(authorization: string, quotationId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ItemQuotationDto>>;
-    public acceptQuotationUsingPUT(authorization: string, quotationId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling acceptQuotationUsingPUT.');
-        }
+    public acceptSupplierQuotationUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe?: 'body', reportProgress?: boolean): Observable<QuotationVersionDto>;
+    public acceptSupplierQuotationUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<QuotationVersionDto>>;
+    public acceptSupplierQuotationUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<QuotationVersionDto>>;
+    public acceptSupplierQuotationUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (quotationId === null || quotationId === undefined) {
-            throw new Error('Required parameter quotationId was null or undefined when calling acceptQuotationUsingPUT.');
+            throw new Error('Required parameter quotationId was null or undefined when calling acceptSupplierQuotationUsingPUT.');
+        }
+
+        if (quotationVersionReplyDto === null || quotationVersionReplyDto === undefined) {
+            throw new Error('Required parameter quotationVersionReplyDto was null or undefined when calling acceptSupplierQuotationUsingPUT.');
         }
 
         let headers = this.defaultHeaders;
-        if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // to determine the Accept header
@@ -97,9 +100,70 @@ export class QuotationControllerService {
         const consumes: string[] = [
             'application/json'
         ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
 
-        return this.httpClient.put<ItemQuotationDto>(`${this.basePath}/api/quotations/${encodeURIComponent(String(quotationId))}/acceptance`,
-            null,
+        return this.httpClient.put<QuotationVersionDto>(`${this.basePath}/api/quotations/${encodeURIComponent(String(quotationId))}/supplier-accept`,
+            quotationVersionReplyDto,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Accept Quotation from user
+     *
+     * @param quotationId quotationId
+     * @param quotationVersionReplyDto quotationVersionReplyDto
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public acceptUserQuotationUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe?: 'body', reportProgress?: boolean): Observable<QuotationVersionDto>;
+    public acceptUserQuotationUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<QuotationVersionDto>>;
+    public acceptUserQuotationUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<QuotationVersionDto>>;
+    public acceptUserQuotationUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (quotationId === null || quotationId === undefined) {
+            throw new Error('Required parameter quotationId was null or undefined when calling acceptUserQuotationUsingPUT.');
+        }
+
+        if (quotationVersionReplyDto === null || quotationVersionReplyDto === undefined) {
+            throw new Error('Required parameter quotationVersionReplyDto was null or undefined when calling acceptUserQuotationUsingPUT.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<QuotationVersionDto>(`${this.basePath}/api/quotations/${encodeURIComponent(String(quotationId))}/user-accept`,
+            quotationVersionReplyDto,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -112,27 +176,24 @@ export class QuotationControllerService {
     /**
      * Add a new quotation about an existing inquiry.
      *
-     * @param authorization Authorization
-     * @param quotationDto quotationDto
+     * @param quotationVersionRequestDto quotationVersionRequestDto
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addQuotationUsingPOST(authorization: string, quotationDto: ItemQuotationDto, observe?: 'body', reportProgress?: boolean): Observable<ItemQuotationDto>;
-    public addQuotationUsingPOST(authorization: string, quotationDto: ItemQuotationDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ItemQuotationDto>>;
-    public addQuotationUsingPOST(authorization: string, quotationDto: ItemQuotationDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ItemQuotationDto>>;
-    public addQuotationUsingPOST(authorization: string, quotationDto: ItemQuotationDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addQuotationUsingPOST(quotationVersionRequestDto: QuotationVersionRequestDto, observe?: 'body', reportProgress?: boolean): Observable<QuotationVersionDto>;
+    public addQuotationUsingPOST(quotationVersionRequestDto: QuotationVersionRequestDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<QuotationVersionDto>>;
+    public addQuotationUsingPOST(quotationVersionRequestDto: QuotationVersionRequestDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<QuotationVersionDto>>;
+    public addQuotationUsingPOST(quotationVersionRequestDto: QuotationVersionRequestDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling addQuotationUsingPOST.');
-        }
-
-        if (quotationDto === null || quotationDto === undefined) {
-            throw new Error('Required parameter quotationDto was null or undefined when calling addQuotationUsingPOST.');
+        if (quotationVersionRequestDto === null || quotationVersionRequestDto === undefined) {
+            throw new Error('Required parameter quotationVersionRequestDto was null or undefined when calling addQuotationUsingPOST.');
         }
 
         let headers = this.defaultHeaders;
-        if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // to determine the Accept header
@@ -153,8 +214,8 @@ export class QuotationControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<ItemQuotationDto>(`${this.basePath}/api/quotations`,
-            quotationDto,
+        return this.httpClient.post<QuotationVersionDto>(`${this.basePath}/api/quotations`,
+            quotationVersionRequestDto,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -165,36 +226,31 @@ export class QuotationControllerService {
     }
 
     /**
-     * get page of quotations for specific user by username from authorization header
+     * Add a new customer Reply For user inquiry
      *
-     * @param authorization Authorization
-     * @param page page
-     * @param size size
+     * @param quotationId quotationId
+     * @param quotationVersionReplyDto quotationVersionReplyDto
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getOrdersForUserUsingGET1(authorization: string, page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PageItemQuotationDto>;
-    public getOrdersForUserUsingGET1(authorization: string, page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageItemQuotationDto>>;
-    public getOrdersForUserUsingGET1(authorization: string, page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageItemQuotationDto>>;
-    public getOrdersForUserUsingGET1(authorization: string, page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addSupplierReplyUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe?: 'body', reportProgress?: boolean): Observable<QuotationVersionDto>;
+    public addSupplierReplyUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<QuotationVersionDto>>;
+    public addSupplierReplyUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<QuotationVersionDto>>;
+    public addSupplierReplyUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling getOrdersForUserUsingGET1.');
+        if (quotationId === null || quotationId === undefined) {
+            throw new Error('Required parameter quotationId was null or undefined when calling addSupplierReplyUsingPUT.');
         }
 
-
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (page !== undefined && page !== null) {
-            queryParameters = queryParameters.set('page', <any>page);
-        }
-        if (size !== undefined && size !== null) {
-            queryParameters = queryParameters.set('size', <any>size);
+        if (quotationVersionReplyDto === null || quotationVersionReplyDto === undefined) {
+            throw new Error('Required parameter quotationVersionReplyDto was null or undefined when calling addSupplierReplyUsingPUT.');
         }
 
         let headers = this.defaultHeaders;
-        if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // to determine the Accept header
@@ -208,11 +264,16 @@ export class QuotationControllerService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'application/json'
         ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
 
-        return this.httpClient.get<PageItemQuotationDto>(`${this.basePath}/api/quotations/users`,
+        return this.httpClient.put<QuotationVersionDto>(`${this.basePath}/api/quotations/${encodeURIComponent(String(quotationId))}/supplier-reply`,
+            quotationVersionReplyDto,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -222,15 +283,72 @@ export class QuotationControllerService {
     }
 
     /**
-     * get quotation by quotation id
+     * Add a new customer Reply For user inquiry
+     *
+     * @param quotationId quotationId
+     * @param quotationVersionReplyDto quotationVersionReplyDto
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public addUserReplyUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe?: 'body', reportProgress?: boolean): Observable<QuotationVersionDto>;
+    public addUserReplyUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<QuotationVersionDto>>;
+    public addUserReplyUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<QuotationVersionDto>>;
+    public addUserReplyUsingPUT(quotationId: number, quotationVersionReplyDto: QuotationVersionReplyDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (quotationId === null || quotationId === undefined) {
+            throw new Error('Required parameter quotationId was null or undefined when calling addUserReplyUsingPUT.');
+        }
+
+        if (quotationVersionReplyDto === null || quotationVersionReplyDto === undefined) {
+            throw new Error('Required parameter quotationVersionReplyDto was null or undefined when calling addUserReplyUsingPUT.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<QuotationVersionDto>(`${this.basePath}/api/quotations/${encodeURIComponent(String(quotationId))}/customer-reply`,
+            quotationVersionReplyDto,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get Quotation by id
      *
      * @param quotationId quotationId
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getQuotationByIdUsingGET(quotationId: number, observe?: 'body', reportProgress?: boolean): Observable<ItemQuotationDto>;
-    public getQuotationByIdUsingGET(quotationId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ItemQuotationDto>>;
-    public getQuotationByIdUsingGET(quotationId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ItemQuotationDto>>;
+    public getQuotationByIdUsingGET(quotationId: number, observe?: 'body', reportProgress?: boolean): Observable<QuotationResponseDto>;
+    public getQuotationByIdUsingGET(quotationId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<QuotationResponseDto>>;
+    public getQuotationByIdUsingGET(quotationId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<QuotationResponseDto>>;
     public getQuotationByIdUsingGET(quotationId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (quotationId === null || quotationId === undefined) {
@@ -239,60 +357,9 @@ export class QuotationControllerService {
 
         let headers = this.defaultHeaders;
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<ItemQuotationDto>(`${this.basePath}/api/quotations/${encodeURIComponent(String(quotationId))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * get page of quotations for specific supplier by supplier employee username from authorization header
-     *
-     * @param authorization Authorization
-     * @param page page
-     * @param size size
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getQuotationsForSupplierUsingGET(authorization: string, page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PageItemQuotationDto>;
-    public getQuotationsForSupplierUsingGET(authorization: string, page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageItemQuotationDto>>;
-    public getQuotationsForSupplierUsingGET(authorization: string, page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageItemQuotationDto>>;
-    public getQuotationsForSupplierUsingGET(authorization: string, page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling getQuotationsForSupplierUsingGET.');
-        }
-
-
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (page !== undefined && page !== null) {
-            queryParameters = queryParameters.set('page', <any>page);
-        }
-        if (size !== undefined && size !== null) {
-            queryParameters = queryParameters.set('size', <any>size);
-        }
-
-        let headers = this.defaultHeaders;
-        if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
         // to determine the Accept header
@@ -308,123 +375,7 @@ export class QuotationControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<PageItemQuotationDto>(`${this.basePath}/api/quotations/suppliers`,
-            {
-                params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * reject quotation by id
-     *
-     * @param authorization Authorization
-     * @param quotationId quotationId
-     * @param rejectionDto rejectionDto
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public rejectQuotationUsingPUT(authorization: string, quotationId: number, rejectionDto: RejectionDto, observe?: 'body', reportProgress?: boolean): Observable<ItemQuotationDto>;
-    public rejectQuotationUsingPUT(authorization: string, quotationId: number, rejectionDto: RejectionDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ItemQuotationDto>>;
-    public rejectQuotationUsingPUT(authorization: string, quotationId: number, rejectionDto: RejectionDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ItemQuotationDto>>;
-    public rejectQuotationUsingPUT(authorization: string, quotationId: number, rejectionDto: RejectionDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling rejectQuotationUsingPUT.');
-        }
-
-        if (quotationId === null || quotationId === undefined) {
-            throw new Error('Required parameter quotationId was null or undefined when calling rejectQuotationUsingPUT.');
-        }
-
-        if (rejectionDto === null || rejectionDto === undefined) {
-            throw new Error('Required parameter rejectionDto was null or undefined when calling rejectQuotationUsingPUT.');
-        }
-
-        let headers = this.defaultHeaders;
-        if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.put<ItemQuotationDto>(`${this.basePath}/api/quotations/${encodeURIComponent(String(quotationId))}/rejection`,
-            rejectionDto,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * update quotation by id
-     *
-     * @param authorization Authorization
-     * @param quotationDto quotationDto
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public updateQuotationUsingPUT(authorization: string, quotationDto: ItemQuotationDto, observe?: 'body', reportProgress?: boolean): Observable<ItemQuotationDto>;
-    public updateQuotationUsingPUT(authorization: string, quotationDto: ItemQuotationDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ItemQuotationDto>>;
-    public updateQuotationUsingPUT(authorization: string, quotationDto: ItemQuotationDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ItemQuotationDto>>;
-    public updateQuotationUsingPUT(authorization: string, quotationDto: ItemQuotationDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling updateQuotationUsingPUT.');
-        }
-
-        if (quotationDto === null || quotationDto === undefined) {
-            throw new Error('Required parameter quotationDto was null or undefined when calling updateQuotationUsingPUT.');
-        }
-
-        let headers = this.defaultHeaders;
-        if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.put<ItemQuotationDto>(`${this.basePath}/api/quotations`,
-            quotationDto,
+        return this.httpClient.get<QuotationResponseDto>(`${this.basePath}/api/quotations/${encodeURIComponent(String(quotationId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

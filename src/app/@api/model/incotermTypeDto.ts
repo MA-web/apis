@@ -14,5 +14,4 @@
 export interface IncotermTypeDto { 
     incotermTypeId?: number;
     incotermTypeName?: string;
-    incotermTypeStatus?: boolean;
 }

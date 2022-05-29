@@ -11,8 +11,6 @@
  */
 
 
-export interface CurrencyIdDto { 
-    currencyCode?: string;
-    currencyId: number;
-    currencyName?: string;
+export interface ItemIncotermIdDto { 
+    itemIncotermId?: number;
 }

@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { forkJoin } from 'rxjs';
-import { FavoriteItemDto, ItemCategoryDto, UserControllerService } from 'src/app/@api';
+import {  ItemCategoryDto, ItemDto, PageItemDto, UserControllerService } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { appRouts } from 'src/environments/environment';
 
@@ -11,7 +11,7 @@ import { appRouts } from 'src/environments/environment';
   styleUrls: ['./profile-favorite-products.component.scss']
 })
 export class ProfileFavoriteProductsComponent extends AppBaseComponent implements OnInit {
-  favProducts: Array<FavoriteItemDto> = [];
+  favProducts: Array<ItemDto> = [];
   ItemCategory: Array<ItemCategoryDto> = []
   constructor(
     injector: Injector,
@@ -98,11 +98,12 @@ export class ProfileFavoriteProductsComponent extends AppBaseComponent implement
 
   getList() {
     this.isLoading = true
-    const getFavSub = this._userControllerService.getFavouriteItemsUsingGET(this.pageNumber,this.model?.searchValue,this.pageSize).pipe(
+    const getFavSub = this._userControllerService.getFavouriteItemsUsingGET(this.model?.category,this.model?.searchValue,this.model?.subCategory, this.model?.origin,this.pageNumber,this.pageSize).pipe(
 
-    ).subscribe((res: Array<FavoriteItemDto>) => {
+    ).subscribe((res: PageItemDto) => {
      if(res){
-      this.favProducts = res
+      this.favProducts = res?.content
+      this.totalElements = res.totalElements
       this.isLoading = false
      }
     })

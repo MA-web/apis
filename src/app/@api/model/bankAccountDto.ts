@@ -11,8 +11,12 @@
  */
 
 
-export interface CurrencyIdDto { 
-    currencyCode?: string;
-    currencyId: number;
-    currencyName?: string;
+export interface BankAccountDto { 
+    beneficiaryAccountNumber?: string;
+    beneficiaryBankName?: string;
+    beneficiaryName?: string;
+    beneficiaryPhone?: string;
+    iban?: string;
+    intermediateBank?: string;
+    swiftCode?: string;
 }

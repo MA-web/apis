@@ -11,6 +11,7 @@
  */
 
 
-export interface RejectionDto { 
-    adjustment: string;
+export interface ActionDto { 
+    actionId?: number;
+    actionName?: string;
 }

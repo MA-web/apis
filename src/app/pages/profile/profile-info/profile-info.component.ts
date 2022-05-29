@@ -1,26 +1,31 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { OriginDto, UserControllerService, UserProfileDto, UserResponseDto } from 'src/app/@api';
+import * as e from 'express';
+import { finalize } from 'rxjs';
+import { OriginDto, SupplierControllerService, SupplierEmployeeDto, UpdateSupplierProfileDto, UserControllerService, UserProfileDto, UserResponseDto } from 'src/app/@api';
 import { ProfileDto } from 'src/app/@api/model/profileDto';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
-import { generalValidations } from 'src/environments/environment';
+import { generalValidations, roles } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile-info',
   templateUrl: './profile-info.component.html',
   styleUrls: ['./profile-info.component.scss']
 })
-export class ProfileInfoComponent extends AppBaseComponent implements OnInit,OnDestroy {
+export class ProfileInfoComponent extends AppBaseComponent implements OnInit, OnDestroy {
   ProfileDto: ProfileDto = {}
 
   form2 = new FormGroup({});
   model2: any = {};
   fields2: FormlyFieldConfig[] = []
   beforeImagesLoaded = []
+  businessLicensePicture:string;
+  profilePicture:string;
   constructor(
     injector: Injector,
     private _userControllerService: UserControllerService,
+    private _supplierControllerService: SupplierControllerService
   ) {
     super(injector)
     this.isLoading = true
@@ -28,24 +33,29 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit,OnD
 
   async ngOnInit() {
     await this._translateService.get('dummyTranslation').toPromise().then();
+    let observableGetProfile;
+    if (this.userData?.role === roles?.customer) {
+      observableGetProfile = this._userControllerService.getUserProfileUsingGET()
+    } else {
+      observableGetProfile = this._supplierControllerService.getSupplierProfileUsingGET()
+    }
     const getOriginsUsingGETSub = this.LookupControllerService.getOriginsUsingGET().subscribe(((res_origin: Array<OriginDto>) => {
-      const getUserProfileUsingGET = this._userControllerService.getUserProfileUsingGET().subscribe((res: ProfileDto) => {
+
+      const getUserProfileUsingGET = observableGetProfile.subscribe((res: ProfileDto) => {
 
         this.ProfileDto = res;
-
+        this.profilePicture = this.ProfileDto?.userProfile?.image?.reference
+        this.businessLicensePicture = this.ProfileDto?.company?.businessLicense?.reference
         this.fields2 = [
           {
             className: 'noFormGroup',
             key: 'UploadProfilePicture',
             type: 'file-upload',
-
             templateOptions: {
               text: this._translateService.instant('uploadNewPicture'),
-              icon:'./assets/icons/edit.svg'
+              icon: './assets/icons/edit.svg'
             },
-            expressionProperties: {
-              'templateOptions.required': () => this.model.CertificateName,
-            },
+
           },
         ]
         this.fields = [
@@ -232,11 +242,14 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit,OnD
             className: 'col-12',
             key: 'businessLicense',
             type: 'upload',
-            defaultValue:res?.company?.businessLicense?.reference,
+
             templateOptions: {
+              text: this._translateService.instant('UploadFiles'),
               label: this._translateService.instant('BusinessLicensee'),
+              file: res?.company?.businessLicense?.reference,
             }
           },
+
           {
             className: 'col-12',
             key: 'aboutMe',
@@ -312,6 +325,11 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit,OnD
         ]
 
         this.isLoading = false
+
+
+
+
+
       })
       this.unSubscription.push(getUserProfileUsingGET)
     }))
@@ -323,90 +341,158 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit,OnD
       let addProfileStorage
       var Values = [];
       //get olds values
-     if(window.localStorage.getItem('addProfileStorage'))  {
-      addProfileStorage  = window.localStorage.getItem('addProfileStorage')
-      Values = JSON.parse(addProfileStorage);
-     }
+      if (window.localStorage.getItem('addProfileStorage')) {
+        addProfileStorage = window.localStorage.getItem('addProfileStorage')
+        Values = JSON.parse(addProfileStorage);
+      }
 
       //push new value
       Values.push(res);
 
       window.localStorage.setItem('addProfileStorage', JSON.stringify(Values))
-      if(JSON.parse(window.localStorage.getItem('addProfileStorage'))?.length === this.beforeImagesLoaded?.length){
+      if (JSON.parse(window.localStorage.getItem('addProfileStorage'))?.length === this.beforeImagesLoaded?.length) {
         let finalUploaded = JSON.parse(window.localStorage.getItem('addProfileStorage'))
-        let profilePicture:string;
-        let businessLicensePicture:string;
+
         finalUploaded.forEach(element => {
-          if(element.includes('/profilePicture')){
-            profilePicture= element
+          if (element.includes('/profilePicture')) {
+            this.profilePicture = element
           }
-          else if(element.includes('/businessLicense')){
-            businessLicensePicture = element
+          else if (element.includes('/businessLicense')) {
+            this.businessLicensePicture = element
           }
 
         });
 
-        let userProfileDto: UserProfileDto = {
-          aboutMe: this.model?.aboutMe,
-          address: {
-            city: this.model?.city,
-            // country?: string;
-            postalCode: this.model?.postalCode,
-            street: this.model?.street,
-          },
-          "attachment": {
-            "attachmentSource": {
-              "attachmentSourceId": 1,
-              "attachmentSourceName": profilePicture
-            },
-            "reference": profilePicture
-          },
-          companyName: this.model?.companyName,
-          customer: {
-             businessLicense:{
-              "attachmentSource": {
-                "attachmentSourceId": 1,
-                "attachmentSourceName":businessLicensePicture
-              },
-              "reference": businessLicensePicture
-            },
-            companyType: this.model?.companyType,
-            establishmentDate:this.model?.establishmentDate? String( new Date(this.model?.establishmentDate)):undefined,
-            exportPercentage: this.model?.exportPercentage,
-            mainCustomer: this.model?.mainCustomer,
-            mainMarkets: this.model?.mainMarkets,
-            numberOfEmployees: this.model?.numberEmployees,
-           totalAnnualSalesVolume: this.model?.totalAnnualSales,
-            website: this.model?.website,
-          },
-          fax: this.model?.fax,
-          gender: this.model?.gender,
-          interestedIn: this.model?.interestedIn,
-          jobTitle: this.model?.jobTitle,
-          landLine: this.model?.landLine?.number,
-          phone: this.model?.phone?.number,
-          skype: this.model?.skype,
-          title: this.model?.title,
-          userProfileId:  this.ProfileDto?.userProfile?.userProfileId,
-          workingIn: this.model?.workingIn,
-        }
-        const updateUserDetailsUsingPUTSub = this._userControllerService.updateUserDetailsUsingPUT(userProfileDto).subscribe((res: UserResponseDto) => {
-          if(res){
-            this.toaster.success("updatedSuccessfully")
-          }
 
-        })
-        this.unSubscription.push(updateUserDetailsUsingPUTSub)
+        this.updateProfile()
+
       }
 
     })
 
+    this._sharedService.sendEmptyAttach.subscribe(res =>{
+      if(res)  this.businessLicensePicture = undefined
+    })
   }
 
 
+  updateProfile(){
+    this.isSubmit = true
+    if (this.userData?.role === roles?.customer) {
+      let userProfileDto: UserProfileDto = {
+        aboutMe: this.model?.aboutMe,
+        address: {
+          city: this.model?.city,
+          // country:'',
+          postalCode: this.model?.postalCode,
+          street: this.model?.street,
+        },
+        "attachment": {
+          "attachmentSource": {
+            "attachmentSourceId": 1,
+            "attachmentSourceName": this.profilePicture
+          },
+          "reference": this.profilePicture
+        },
+        companyName: this.model?.companyName,
+        customer: {
+          businessLicense: {
+            "attachmentSource": {
+              "attachmentSourceId": 1,
+              "attachmentSourceName":  this.businessLicensePicture
+            },
+            "reference":  this.businessLicensePicture
+          },
+          companyType: this.model?.companyType,
+          establishmentDate: this.model?.establishmentDate ? new Date(this.model?.establishmentDate) : undefined,
+          exportPercentage: this.model?.exportPercentage,
+          mainCustomer: this.model?.mainCustomer,
+          mainMarkets: this.model?.mainMarkets,
+          numberOfEmployees: this.model?.numberEmployees,
+          totalAnnualSalesVolume: this.model?.totalAnnualSales,
+          website: this.model?.website,
+        },
+        fax: this.model?.fax,
+        gender: this.model?.gender,
+        interestedIn: this.model?.interestedIn,
+        jobTitle: this.model?.jobTitle,
+        landLine: this.model?.landLine?.number,
+        phone: this.model?.phone?.number,
+        skype: this.model?.skype,
+        title: this.model?.title,
+        userProfileId: this.ProfileDto?.userProfile?.userProfileId,
+        workingIn: this.model?.workingIn,
+      }
+
+      const updateUserDetailsUsingPUTSub = this._userControllerService.updateUserDetailsUsingPUT(userProfileDto).pipe(finalize(()=>{
+        this.isSubmit = false
+      })).subscribe((res: UserResponseDto) => {
+        if (res) {
+          this.toaster.success("updatedSuccessfully")
+        }
+      })
+      this.unSubscription.push(updateUserDetailsUsingPUTSub)
+    } else {
+      let UpdateSupplierProfileDto:UpdateSupplierProfileDto = {
+        supplier:{
+          businessLicense: {
+            "attachmentSource": {
+              "attachmentSourceId": 1,
+              "attachmentSourceName": this.businessLicensePicture
+            },
+            "reference":  this.businessLicensePicture
+          },
+          companyType:this.model?.companyType,
+          establishmentDate: this.model?.establishmentDate ? new Date(this.model?.establishmentDate) : undefined,
+          exportPercentage:this.model?.exportPercentage,
+          mainCustomer:this.model?.mainCustomer,
+          mainMarkets:this.model?.mainMarkets,
+          numberEmployees: this.model?.numberEmployees,
+          totalAnnualSales:this.model?.totalAnnualSales,
+          website:this.model?.website,
+        },
+        userProfile:{
+          aboutMe: this.model?.aboutMe,
+          address: {
+            city: this.model?.city,
+            postalCode: this.model?.postalCode,
+            street: this.model?.street,
+          },
+          fax: this.model?.fax,
+          gender: this.model?.gender,
+          interestedIn: this.model?.interestedIn,
+          landline: this.model?.landLine?.number,
+          phone: this.model?.phone?.number,
+          photo:{
+            "attachmentSource": {
+              "attachmentSourceId": 1,
+              "attachmentSourceName": this.profilePicture
+            },
+            "reference": this.profilePicture
+          },
+          skype: this.model?.skype,
+          title: this.model?.title,
+          workingIn: this.model?.workingIn,
+
+        }
+      }
+      const updateUserDetailsUsingPUTSub = this._supplierControllerService.updateSupplierProfileUsingPUT(UpdateSupplierProfileDto).pipe(finalize(()=>{
+        this.isSubmit = false
+      })).subscribe((res: SupplierEmployeeDto) => {
+        if (res) {
+          this.toaster.success("updatedSuccessfully")
+
+        }
+
+      })
+      this.unSubscription.push(updateUserDetailsUsingPUTSub)
+    }
+  }
 
 
   onSubmit() {
+    console.log(this.model2?.UploadProfilePicture);
+
     window.localStorage.removeItem('addProfileStorage')
     this.beforeImagesLoaded = []
 
@@ -414,17 +500,20 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit,OnD
 
       this.beforeImagesLoaded?.push(this.model2?.UploadProfilePicture[0])
 
-      this.UploadFileService.uploadMultiple([this.model2?.UploadProfilePicture[0]], `profiles//profile-${this.ProfileDto?.userProfile?.userProfileId}/profilePicture`)
+      this.UploadFileService.uploadMultiple([this.model2?.UploadProfilePicture[0]], `profiles/profile-${this.ProfileDto?.userProfile?.userProfileId}/profilePicture`)
     }
-
     if (this.model?.businessLicense?.length) {
-      this.beforeImagesLoaded?.push(this.model?.businessLicense[0])
-      this.UploadFileService.uploadMultiple([this.model?.businessLicense[0]], `profiles//profile-${this.ProfileDto?.userProfile?.userProfileId}/businessLicense`)
+      if(this.isFile(this.model?.businessLicense[0])){
+        this.beforeImagesLoaded?.push(this.model?.businessLicense[0])
+      }
+
+      this.UploadFileService.uploadMultiple([this.model?.businessLicense[0]], `profiles/profile-${this.ProfileDto?.userProfile?.userProfileId}/businessLicense`)
 
     }
 
-    this.isSubmit = true
-
+    if(!this.model?.businessLicense && !this.model2?.UploadProfilePicture?.length){
+      this.updateProfile()
+    }
 
 
 

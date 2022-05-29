@@ -12,5 +12,6 @@
 
 
 export interface OriginIdDto { 
-    originId?: number;
+    originId: number;
+    originName?: string;
 }

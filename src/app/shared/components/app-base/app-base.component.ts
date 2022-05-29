@@ -60,7 +60,11 @@ export class AppBaseComponent implements OnDestroy {
     this.router.navigateByUrl(url)
   }
 
-
+  isFile(input) {
+    if ('File' in window && input instanceof File)
+       return true;
+    else return false;
+ }
   ngOnDestroy(): void {
     this.unSubscription.forEach(sub => {
       sub.unsubscribe()

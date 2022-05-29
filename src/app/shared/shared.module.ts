@@ -10,6 +10,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SkeletonCardBoxComponent } from './components/skeleton-card-box/skeleton-card-box.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { InlineSVGModule } from 'ng-inline-svg-2';
+import { SendInboxModule } from './components/send-inbox/send-inbox.module';
 
 
 
@@ -27,7 +28,8 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
     RouterModule,
     NgxSkeletonLoaderModule,
     LazyLoadImageModule,
-    InlineSVGModule
+    InlineSVGModule,
+    SendInboxModule
   ],
   exports:[
     ProductCardComponent,

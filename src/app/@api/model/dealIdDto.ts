@@ -11,7 +11,6 @@
  */
 
 
-export interface CountingOrderDto { 
-    confirmedOrderCount?: number;
-    rejectedOrderCount?: number;
+export interface DealIdDto { 
+    dealId?: number;
 }

@@ -9,13 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ItemQuotationDto } from './itemQuotationDto';
+import { ChatDto } from './chatDto';
 import { Pageable } from './pageable';
 import { Sort } from './sort';
 
 
-export interface PageItemQuotationDto { 
-    content?: Array<ItemQuotationDto>;
+export interface PageChatDto { 
+    content?: Array<ChatDto>;
     empty?: boolean;
     first?: boolean;
     last?: boolean;

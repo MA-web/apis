@@ -9,8 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { BankAccountDto } from './bankAccountDto';
+import { DealStepDto } from './dealStepDto';
 
 
-export interface ItemQuotationIdDto { 
+export interface QuotationDto { 
+    bankAccount?: BankAccountDto;
+    dealStep?: DealStepDto;
     quotationId?: number;
+    status?: number;
 }

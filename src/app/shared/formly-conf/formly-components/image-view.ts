@@ -3,35 +3,8 @@ import { FieldArrayType } from '@ngx-formly/core';
 import { Lightbox } from 'ngx-lightbox';
 
 @Component({
-  selector: 'formly-upload-area',
+  selector: 'formly-image-view',
   template: `
-
-     <ng-container *ngIf="to.single; else elseTemplate">
-     <ul class="list-unstyled mt-3">
-
-        <li class="media align-items-center border-bottom py-2">
-          <img class="mr-3 d" [src]="to.fileLoad? items?.file:items?.file?.src">
-          <div class="media-body ">
-            <div class="d-flex justify-content-between align-items-center">
-            <h5 class="mt-0 mb-1">
-            <span class="d-inline-block mr-3">{{items?.CertificateName}},</span> <span class="d-inline-block">{{to.fileLoad? getImageName(items?.file):items?.file?.fileToUpload?.name}}</span> <span></span>
-            </h5>
-
-            <div class="button-items">
-              <button type="button" class="apis-button btn btn-outline-success border-radius-13 py-2" (click)="onView(items,i)">
-              <span [inlineSVG]="'assets/icons/eye.svg'"></span>
-            </button>
-              <button type="button" class="apis-button btn btn-danger border-radius-13 py-2" (click)="onDelete(i)" *ngIf="!to.fileLoad">
-                <span [inlineSVG]="'assets/icons/delete.svg'"></span>
-              </button>
-            </div>
-            </div>
-          </div>
-        </li>
-     </ul>
-
-     </ng-container>
-     <ng-template #elseTemplate>
      <ul class="list-unstyled mt-3">
         <ng-container *ngFor="let item of to.items; let i = index">
         <li class="media align-items-center border-bottom py-2">
@@ -56,9 +29,6 @@ import { Lightbox } from 'ngx-lightbox';
         </ng-container>
      </ul>
 
-     </ng-template>
-
-
   `,
   styles: [
     `
@@ -77,7 +47,7 @@ import { Lightbox } from 'ngx-lightbox';
     `
   ]
 })
-export class FormlyUploadArea extends FieldArrayType {
+export class FormlyImageView extends FieldArrayType {
    images: any = []
   constructor(
     private lightbox: Lightbox,

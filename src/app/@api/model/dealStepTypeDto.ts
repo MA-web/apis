@@ -11,10 +11,7 @@
  */
 
 
-export interface FavoriteItemDto { 
-    categoryName?: string;
-    itemId?: number;
-    itemName?: string;
-    price?: string;
-    weight?: string;
+export interface DealStepTypeDto { 
+    dealStepTypeId?: number;
+    dealStepTypeName?: string;
 }

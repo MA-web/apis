@@ -16,24 +16,23 @@ import { HttpClient, HttpHeaders, HttpParams,
          HttpResponse, HttpEvent }                           from '@angular/common/http';
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
+import { Observable }                                        from 'rxjs';
 
-
-import { FavoriteItemDto } from '../model/favoriteItemDto';
+import { PageItemDto } from '../model/pageItemDto';
 import { PasswordChangeDto } from '../model/passwordChangeDto';
+import { ProfileDto } from '../model/profileDto';
 import { ResponseDto } from '../model/responseDto';
 import { UserProfileDto } from '../model/userProfileDto';
 import { UserResponseDto } from '../model/userResponseDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
-import { Observable } from 'rxjs';
-import { ProfileDto } from '../model/profileDto';
 
 
 @Injectable()
 export class UserControllerService {
 
-    protected basePath = 'https://apis.marksphinx.com:8060';
+    protected basePath = 'https://164.92.242.241:8060';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -80,6 +79,11 @@ export class UserControllerService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -122,6 +126,11 @@ export class UserControllerService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -174,6 +183,11 @@ export class UserControllerService {
             headers = headers.set('Authorization', String(authorization));
         }
 
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -216,6 +230,11 @@ export class UserControllerService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -242,32 +261,52 @@ export class UserControllerService {
     /**
      * Get a list of favourite items
      *
+     * @param itemCategoryId
+     * @param itemName
+     * @param itemSubcategoryId
+     * @param originId
      * @param page page
-     * @param searchValue searchValue
      * @param size size
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFavouriteItemsUsingGET(page?: number, searchValue?: string, size?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<FavoriteItemDto>>;
-    public getFavouriteItemsUsingGET(page?: number, searchValue?: string, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<FavoriteItemDto>>>;
-    public getFavouriteItemsUsingGET(page?: number, searchValue?: string, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<FavoriteItemDto>>>;
-    public getFavouriteItemsUsingGET(page?: number, searchValue?: string, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getFavouriteItemsUsingGET(itemCategoryId?: number, itemName?: string, itemSubcategoryId?: number, originId?: number, page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PageItemDto>;
+    public getFavouriteItemsUsingGET(itemCategoryId?: number, itemName?: string, itemSubcategoryId?: number, originId?: number, page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageItemDto>>;
+    public getFavouriteItemsUsingGET(itemCategoryId?: number, itemName?: string, itemSubcategoryId?: number, originId?: number, page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageItemDto>>;
+    public getFavouriteItemsUsingGET(itemCategoryId?: number, itemName?: string, itemSubcategoryId?: number, originId?: number, page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
 
 
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (itemCategoryId !== undefined && itemCategoryId !== null) {
+            queryParameters = queryParameters.set('itemCategoryId', <any>itemCategoryId);
+        }
+        if (itemName !== undefined && itemName !== null) {
+            queryParameters = queryParameters.set('itemName', <any>itemName);
+        }
+        if (itemSubcategoryId !== undefined && itemSubcategoryId !== null) {
+            queryParameters = queryParameters.set('itemSubcategoryId', <any>itemSubcategoryId);
+        }
+        if (originId !== undefined && originId !== null) {
+            queryParameters = queryParameters.set('originId', <any>originId);
+        }
         if (page !== undefined && page !== null) {
             queryParameters = queryParameters.set('page', <any>page);
-        }
-        if (searchValue !== undefined && searchValue !== null) {
-            queryParameters = queryParameters.set('searchValue', <any>searchValue);
         }
         if (size !== undefined && size !== null) {
             queryParameters = queryParameters.set('size', <any>size);
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -282,7 +321,7 @@ export class UserControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<FavoriteItemDto>>(`${this.basePath}/api/users/favouriteItems`,
+        return this.httpClient.get<PageItemDto>(`${this.basePath}/api/users/favouriteItems`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -299,12 +338,17 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getProfilePercentageUsingGET(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: number; }>;
-    public getProfilePercentageUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: number; }>>;
-    public getProfilePercentageUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: number; }>>;
-    public getProfilePercentageUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getProfilePercentageUsingGET1(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: number; }>;
+    public getProfilePercentageUsingGET1(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: number; }>>;
+    public getProfilePercentageUsingGET1(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: number; }>>;
+    public getProfilePercentageUsingGET1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -328,7 +372,8 @@ export class UserControllerService {
             }
         );
     }
-   /**
+
+    /**
      * Get logged in user details
      *
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -368,6 +413,7 @@ export class UserControllerService {
             }
         );
     }
+
     /**
      * Removes a favourite item for a user
      *
@@ -385,6 +431,11 @@ export class UserControllerService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -426,6 +477,11 @@ export class UserControllerService {
         }
 
         let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

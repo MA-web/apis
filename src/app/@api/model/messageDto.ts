@@ -16,7 +16,7 @@ import { ChatUserDto } from './chatUserDto';
 export interface MessageDto { 
     attachment?: AttachmentDto;
     messageContent: string;
-    messageDateTime?: string;
+    messageDateTime?: Date;
     messageId?: number;
     sender?: ChatUserDto;
 }

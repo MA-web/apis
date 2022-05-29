@@ -9,11 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { SupplierIdDto } from './supplierIdDto';
+import { DealIdDto } from './dealIdDto';
+import { DealStepTypeDto } from './dealStepTypeDto';
 
 
-export interface ItemIdDto { 
-    itemId: number;
-    itemName?: string;
-    supplier: SupplierIdDto;
+export interface DealStepDto { 
+    deal?: DealIdDto;
+    dealStepId?: number;
+    dealStepType?: DealStepTypeDto;
 }

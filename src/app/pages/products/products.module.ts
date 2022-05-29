@@ -13,6 +13,7 @@ import { FileSaverModule } from 'ngx-filesaver';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { NoDataModule } from 'src/app/shared/no-data/no-data.module';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 const route: Route[] = [
@@ -41,7 +42,7 @@ const route: Route[] = [
     NgxSkeletonLoaderModule,
     NoDataModule,
     LazyLoadImageModule,
-
+    ModalModule.forRoot(),
   ]
 })
 export class ProductsModule { }

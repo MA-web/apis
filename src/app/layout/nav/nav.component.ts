@@ -1,6 +1,7 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ItemCategoryDto } from 'src/app/@api';
+import { interval } from 'rxjs';
+import { InboxControllerService, ItemCategoryDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { user } from 'src/app/shared/models/user.model';
 
@@ -14,11 +15,12 @@ export class NavComponent extends AppBaseComponent implements OnInit {
   userData: user = undefined
 
   categories: Array<ItemCategoryDto> = [];
-
+  messageCount: number;
 
 
   constructor(
     injector: Injector,
+    private InboxControllerService: InboxControllerService,
   ) {
     super(injector)
   }
@@ -34,7 +36,7 @@ export class NavComponent extends AppBaseComponent implements OnInit {
             className: 'noFormGroup col-3 p-0',
             key: 'category',
             type: 'select',
-            defaultValue: this.categories[0]?.categoryId ,
+            defaultValue: this.categories[0]?.categoryId,
             templateOptions: {
               options: this.categories?.map(v => ({ label: v?.categoryName, value: v?.categoryId })),
             }
@@ -50,8 +52,7 @@ export class NavComponent extends AppBaseComponent implements OnInit {
       this.unSubscription.push(getItemsCategoryUsingGETSub)
 
       if (query.searchKey) {
-
-        this.model.category =   JSON.parse(query?.category)?.categoryId;
+        this.model.category = JSON.parse(query?.category)?.categoryId;
         this.model.searchKey = query?.searchKey
       }
 
@@ -63,10 +64,34 @@ export class NavComponent extends AppBaseComponent implements OnInit {
     }
 
 
-
-
+    if (this._sharedService.checkToken()) {
+      this.countReceivedMessages()
+    }
+    const intervalSubscription = interval(3000).subscribe(() => {
+      if (this._sharedService.checkToken()) {
+        this.countReceivedMessages()
+      }
+    });
+    this.unSubscription.push(intervalSubscription)
   }
 
+
+  countReceivedMessages() {
+    this.InboxControllerService.countReceivedMessagesUsingGET().subscribe((res: { [key: string]: number; }) => {
+      if(res){
+        this.messageCount = res?.receivedMessagesCount;
+        if(window.localStorage.getItem('messageCount')){
+          if(res?.receivedMessagesCount > JSON.parse(window.localStorage.getItem('messageCount'))){
+            this._sharedService.RefreshInbox.next(true)
+          }
+        }
+        window.localStorage.setItem('messageCount',String(res?.receivedMessagesCount))
+
+
+      }
+
+    })
+  }
 
   onSignOut() {
     this._sharedService.signOut()
@@ -75,7 +100,7 @@ export class NavComponent extends AppBaseComponent implements OnInit {
   onSubmit() {
     console.log(this.model.category);
     if (this.model.searchKey) {
-      let categoryOBJ:ItemCategoryDto =   this.categories.find( v => v.categoryId ===this.model?.category)
+      let categoryOBJ: ItemCategoryDto = this.categories.find(v => v.categoryId === this.model?.category)
 
       this.router.navigate(['/products'], { queryParams: { category: JSON.stringify({ categoryId: categoryOBJ?.categoryId, categoryName: categoryOBJ?.categoryName }), searchKey: this.model.searchKey, } })
     }

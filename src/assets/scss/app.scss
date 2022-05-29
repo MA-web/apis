@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
+::-webkit-scrollbar
+{
+  width: 10px;
+  height: 10px;
+}
 
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: rgb(193 193 193);
+}
 body {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -69,12 +83,17 @@ body {
 
 .nav-badge>span {
   position: absolute;
-  right: 0;
-  top: 0;
-  width: 10px;
-  height: 10px;
+  right: -14px;
+  top: -12px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background-color: $orange
+  background-color: $orange;
+  color: #263840;
+  text-align: center;
+  line-height: 30px;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .main-menu .nav-badge {
@@ -1265,6 +1284,24 @@ select.form-control option[value=""][disabled] {
 
 
 /***************general*****************/
+.cursor-pointer{
+  cursor: pointer;
+}
+.modal-content {
+  background-color: #E0F4F8;
+  border: 0;
+  border-radius: 47px 47px 0px 47px;
+}
+.modal-header,
+.modal-body,
+.modal-footer {
+  padding: 1rem 2rem;
+}
+.modal-title{
+  color: $mainColor;
+  font-weight: bold;
+  font-size: 30px;
+}
 .radius-0{
   border-radius: 0!important;
 }

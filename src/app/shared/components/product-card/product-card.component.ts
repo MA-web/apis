@@ -40,12 +40,12 @@ export class ProductCardComponent extends AppBaseComponent implements OnInit {
     e.stopPropagation()
     if(!this.fav){
       const addFavouriteItemUsingPUTSub = this._userControllerService.addFavouriteItemUsingPUT(this.product.itemId).subscribe(res => {
-        this.toaster.success("addedSuccessfully")
+        this.toaster.success(this._translateService.instant("addedSuccessfully"))
       })
       this.unSubscription.push(addFavouriteItemUsingPUTSub)
     }else{
       const removeFavouriteItemUsingDELETESub = this._userControllerService.removeFavouriteItemUsingDELETE(this.product.itemId).subscribe(res => {
-        this.toaster.success("removedSuccessfully")
+        this.toaster.success(this._translateService.instant("removedSuccessfully"))
         this._sharedService.sendRefresh.next(true)
       })
       this.unSubscription.push(removeFavouriteItemUsingDELETESub)

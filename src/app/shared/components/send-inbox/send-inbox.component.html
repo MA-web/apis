@@ -1,0 +1,27 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{'ContactSupplier' | translate}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <formly-form [form]="form" [model]="model" [fields]="fields" [options]="options">
+    </formly-form>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">close</button>
+    <button type="submit" class="apis-button btn btn-warning px-5" [disabled]="form.invalid || isSubmit">
+      <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Loading...
+      </ng-container>
+      <ng-template #elseTemplate_isSubmit>
+        {{'send' | translate}}
+      </ng-template>
+    </button>
+  </div>
+</form>

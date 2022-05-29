@@ -1,6 +1,6 @@
 <a href="javascript:void(0)" (click)="onView()">
   <div class="product" [ngClass]="{'bg-white': bgWhite}">
-    <div class="fav" [ngClass]="{'d-block': fav}">
+    <div class="fav" [ngClass]="{'d-block': fav}" *ngIf="_sharedService?.checkToken()">
       <a href="javascript:void(0)" title="add to favorite" (click)="onAddToFav($event)" >
         <img src="assets/icons/fav.svg" alt="fav">
       </a>

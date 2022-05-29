@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 
 import { ChatDto } from '../model/chatDto';
 import { MessageDto } from '../model/messageDto';
+import { PageChatDto } from '../model/pageChatDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -159,9 +160,9 @@ export class InboxControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getInboxUsingGET(page?: number, searchForValue?: string, size?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ChatDto>>;
-    public getInboxUsingGET(page?: number, searchForValue?: string, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ChatDto>>>;
-    public getInboxUsingGET(page?: number, searchForValue?: string, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ChatDto>>>;
+    public getInboxUsingGET(page?: number, searchForValue?: string, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PageChatDto>;
+    public getInboxUsingGET(page?: number, searchForValue?: string, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageChatDto>>;
+    public getInboxUsingGET(page?: number, searchForValue?: string, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageChatDto>>;
     public getInboxUsingGET(page?: number, searchForValue?: string, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
@@ -198,7 +199,7 @@ export class InboxControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<ChatDto>>(`${this.basePath}/api/inbox`,
+        return this.httpClient.get<PageChatDto>(`${this.basePath}/api/inbox`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

@@ -1,17 +1,47 @@
-
 @import 'src/assets/scss/variables';
-:host ::ng-deep{
-  .form-group{
+
+:host ::ng-deep {
+  .form-group {
     margin: 0;
   }
-  .input-apis .form-control{
+
+  .input-apis .form-control {
     border: 0;
     border-radius: 0;
   }
+
+  .formly-accordion accordion-group {
+    .accordion-toggle[aria-expanded=true]:after {
+      display: none;
+    }
+
+    .card-header {
+      padding: 5px;
+    }
+
+    .date {
+      font-size: 14px;
+      color: $grayColor;
+    }
+
+  }
+
+  .formly-accordion .sender {
+    .accordion-toggle:before {
+      left: unset;
+      right: 0;
+      background: $greenColor;
+    }
+    .accordion-toggle .btn{
+      color: $greenColor;
+    }
+  }
 }
+
 .message-card {
   margin: 0 1.25rem;
 }
+
 .deal-card {
   background: white;
   padding: 15px;
@@ -28,8 +58,14 @@
     color: $SonicSilver;
   }
 
-  .date,.user {
+  .date,
+  .user {
     font-weight: 800;
     font-size: 14px;
+  }
+}
+::ng-deep .scroll-container {
+  .ps__thumb-y, .ps__rail-y:hover > .ps__thumb-y {
+      background-color: #209e91;
   }
 }

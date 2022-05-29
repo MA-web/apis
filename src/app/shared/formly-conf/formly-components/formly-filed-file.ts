@@ -10,7 +10,7 @@ import { FieldType } from '@ngx-formly/core';
         [id]="field.key"
         class="file-input__input"
         [formControl]="formControl" [formlyAttributes]="field"
-
+        [multiple]="to.multiple"
       />
       <label class="file-input__label apis-button btn-outline-info " [for]="field.key">
         <span [inlineSVG]="to.icon?to.icon:'./assets/icons/download.svg'" forceEvalStyles="true"></span>

@@ -23,7 +23,10 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this._loading.setLoading(true, request.url);
+    if(!request.url.includes('/inbox/count')){
+      this._loading.setLoading(true, request.url);
+    }
+
     return next.handle(request)
       .pipe(catchError((err) => {
         this._loading.setLoading(false, request.url);

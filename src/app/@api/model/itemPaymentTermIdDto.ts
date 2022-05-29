@@ -11,6 +11,6 @@
  */
 
 
-export interface UserIdDto { 
-    userId: number;
+export interface ItemPaymentTermIdDto { 
+    itemPaymentTermId: number;
 }

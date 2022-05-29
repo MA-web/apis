@@ -22,7 +22,7 @@
         <ng-container *ngIf="userData; else elseTemplate_userData">
           <li class="nav-item">
             <a class="nav-link" href="#" title="email">
-              <div class="nav-badge"><img src="assets/img/email.svg"><span></span></div>
+              <div class="nav-badge"><img src="assets/img/email.svg"><span class="text-truncate">{{messageCount}}</span></div>
             </a>
           </li>
           <li class="nav-item">
@@ -33,7 +33,7 @@
               <a href="javascript.void:(0)"  class="nav-link dropdown-toggle text-white d-flex align-items-center"  title="profile"
                 id="button-basic" dropdownToggle aria-controls="dropdown-basic">
                 <div class="d-flex align-items-center">
-                  <div class="nav-badge mr-2"><img src="assets/img/profile.svg"><span></span></div>
+                  <div class="nav-badge mr-2"><img src="assets/img/profile.svg"></div>
                   <span class="text-white text-truncate" style="width: 60px;">{{userData?.username}}</span>
                   <span class="caret"></span>
                 </div>

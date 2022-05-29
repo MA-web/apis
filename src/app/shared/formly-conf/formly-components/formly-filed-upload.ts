@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FieldType, FormlyFormBuilder } from '@ngx-formly/core';
+import { UploadFileService } from '../../services/file-upload.service';
 import { SharedService } from '../../services/shared.service';
 
 @Component({
@@ -21,13 +22,13 @@ import { SharedService } from '../../services/shared.service';
         </div>
  `,
   styles: [`
- ngx-dropzone-image-preview{
-    margin: auto !important;
+    ngx-dropzone-image-preview{
+        margin: auto !important;
 
-  }
-  ngx-dropzone-image-preview img{
-    opacity: 1!important;
-    }
+      }
+    ngx-dropzone-image-preview img{
+      opacity: 1!important;
+      }
     img + ngx-dropzone-label{
       display:none!important;
     }
@@ -39,7 +40,7 @@ import { SharedService } from '../../services/shared.service';
 
 })
 export class FormlyFieldUpload extends FieldType implements OnInit {
-  constructor(private _sharedService: SharedService, private http:HttpClient) {
+  constructor(private _sharedService: SharedService, private UploadFileService: UploadFileService) {
     super();
   }
   files: File[] = [];
@@ -51,18 +52,25 @@ export class FormlyFieldUpload extends FieldType implements OnInit {
 
   onRemove(event: any, i: any) {
     this.files.splice(this.files.indexOf(event), 1);
+    this.UploadFileService.deleteFile(this.to?.file.replace('https://devspace-marksphinx.fra1.digitaloceanspaces.com/', ''))
+    this._sharedService.sendEmptyAttach.next(true)
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this._sharedService.dropzoneEmptySubj.subscribe(res => {
       if (res) this.files = []
     })
-    if(this.formControl?.value){
-      this._sharedService.getBlobIcon(this.formControl?.value).subscribe((resImage:any) =>{
-        if (resImage) {
-          this.files.push(new File([resImage], resImage, { type: resImage.type }))
-        }
-      })
+
+    if (this.to?.file) {
+
+      let response = await fetch(this.to?.file);
+      let data = await response.blob();
+      let metadata = {
+        type: 'image/jpeg'
+      };
+      let file = new File([data], "test.jpg", metadata);
+      this.files.push(file)
+
     }
   }
 

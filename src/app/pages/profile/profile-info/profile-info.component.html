@@ -13,12 +13,13 @@
             <div class="avatar">
 
               <img
-              [lazyLoad]="ProfileDto?.userProfile?.image?.reference ? ProfileDto?.userProfile?.image?.reference : 'https://via.placeholder.com/218x218'"
+              [defaultImage]=" 'https://via.placeholder.com/218x218'"
+              [lazyLoad]="profilePicture ? profilePicture : 'https://via.placeholder.com/218x218'"
               onerror="this.src='assets/img/image2.jpg';" class="lazy-loading rounded-circle img-fluid"
               alt="{{ ProfileDto?.user?.firstName ? ProfileDto?.user?.firstName : '' }}" />
             </div>
             <div class="mx-4 d-flex flex-column">
-              <div>
+              <div class="mb-3">
                 <form [formGroup]="form2" >
                   <formly-form [form]="form2" [model]="model2" [fields]="fields2" > </formly-form>
                 </form>

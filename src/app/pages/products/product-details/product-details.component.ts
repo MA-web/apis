@@ -1,6 +1,8 @@
 import { Component, HostListener, Injector, OnInit, ViewEncapsulation } from '@angular/core';
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ItemControllerService, ItemDto, PagePublicItemDto, PublicDataControllerService, PublicItemDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
+import { SendInboxComponent } from 'src/app/shared/components/send-inbox/send-inbox.component';
 import { breadcrumb } from 'src/app/shared/models/breadcrumb.model';
 import { appRouts } from 'src/environments/environment';
 
@@ -26,7 +28,8 @@ export class ProductDetailsComponent extends AppBaseComponent implements OnInit 
   constructor(
     Injector: Injector,
     private _publicDataControllerService: PublicDataControllerService,
-    private _itemControllerService: ItemControllerService
+    private _itemControllerService: ItemControllerService,
+    private modalService: BsModalService
   ) {
     super(Injector)
     const navigation = this.router.getCurrentNavigation();
@@ -89,6 +92,17 @@ export class ProductDetailsComponent extends AppBaseComponent implements OnInit 
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.innerWidth = window.innerWidth;
+
+  }
+
+  onSend(){
+    const initialState: ModalOptions = {
+      class: 'modal-md',
+      initialState: {
+        supplierId:this.productDetails?.supplier?.supplierId
+      }
+    };
+    this.modalService.show(SendInboxComponent, initialState);
 
   }
 

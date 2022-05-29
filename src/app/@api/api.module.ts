@@ -4,12 +4,14 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { InboxControllerService } from './api/inboxController.service';
+import { InquiryControllerService } from './api/inquiryController.service';
 import { ItemCategoryControllerService } from './api/itemCategoryController.service';
 import { ItemControllerService } from './api/itemController.service';
 import { JwtAuthenticationControllerService } from './api/jwtAuthenticationController.service';
 import { LookupControllerService } from './api/lookupController.service';
 import { OriginControllerService } from './api/originController.service';
 import { PublicDataControllerService } from './api/publicDataController.service';
+import { QuotationControllerService } from './api/quotationController.service';
 import { RegisterControllerService } from './api/registerController.service';
 import { SupplierControllerService } from './api/supplierController.service';
 import { UserControllerService } from './api/userController.service';
@@ -20,12 +22,14 @@ import { UserControllerService } from './api/userController.service';
   exports:      [],
   providers: [
     InboxControllerService,
+    InquiryControllerService,
     ItemCategoryControllerService,
     ItemControllerService,
     JwtAuthenticationControllerService,
     LookupControllerService,
     OriginControllerService,
     PublicDataControllerService,
+    QuotationControllerService,
     RegisterControllerService,
     SupplierControllerService,
     UserControllerService ]

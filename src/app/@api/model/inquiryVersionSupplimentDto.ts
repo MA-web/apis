@@ -11,8 +11,9 @@
  */
 
 
-export interface CurrencyIdDto { 
-    currencyCode?: string;
-    currencyId: number;
-    currencyName?: string;
+export interface InquiryVersionSupplimentDto { 
+    attachFlag?: boolean;
+    attribute?: string;
+    inquirySupplimentId?: number;
+    value?: string;
 }
