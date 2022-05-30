@@ -86,7 +86,11 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
 
 
     this.getList()
-  }
+
+    const sendRefreshSub = this._sharedService.sendRefresh.subscribe(res => {
+      if (res) this.getList()
+    })
+    this.unSubscription.push(sendRefreshSub)  }
 
   getList() {
     this.isLoading = true

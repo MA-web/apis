@@ -2,8 +2,9 @@ import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { forkJoin } from 'rxjs';
 import {  ItemCategoryDto, ItemDto, PageItemDto, UserControllerService } from 'src/app/@api';
+import { SupplierEmployeeControllerService } from 'src/app/@api/api/supplierEmployeeController.service';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
-import { appRouts } from 'src/environments/environment';
+import { appRouts, roles } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile-favorite-products',
@@ -16,6 +17,7 @@ export class ProfileFavoriteProductsComponent extends AppBaseComponent implement
   constructor(
     injector: Injector,
     private _userControllerService: UserControllerService,
+    private _supplierEmployeeControllerService:SupplierEmployeeControllerService
   ) {
     super(injector)
     this.isLoading = true;
@@ -98,7 +100,14 @@ export class ProfileFavoriteProductsComponent extends AppBaseComponent implement
 
   getList() {
     this.isLoading = true
-    const getFavSub = this._userControllerService.getFavouriteItemsUsingGET(this.model?.category,this.model?.searchValue,this.model?.subCategory, this.model?.origin,this.pageNumber,this.pageSize).pipe(
+    let obs
+    if(this.userData?.role === roles.customer){
+      obs = this._userControllerService.getFavouriteItemsUsingGET(this.model?.category,this.model?.searchValue,this.model?.subCategory, this.model?.origin,this.pageNumber,this.pageSize)
+    }else{
+      obs = this._supplierEmployeeControllerService.getFavouriteItemsUsingGET(this.model?.category,this.model?.searchValue,this.model?.subCategory, this.model?.origin,this.pageNumber,this.pageSize)
+
+    }
+    const getFavSub = obs.pipe(
 
     ).subscribe((res: PageItemDto) => {
      if(res){

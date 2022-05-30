@@ -1,10 +1,11 @@
 import { Component, HostListener, Injector, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { ItemControllerService, ItemDto, PagePublicItemDto, PublicDataControllerService, PublicItemDto } from 'src/app/@api';
+import { ItemControllerService, ItemDto, PagePublicItemDto, PublicDataControllerService, PublicItemDto, UserControllerService } from 'src/app/@api';
+import { SupplierEmployeeControllerService } from 'src/app/@api/api/supplierEmployeeController.service';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { SendInboxComponent } from 'src/app/shared/components/send-inbox/send-inbox.component';
 import { breadcrumb } from 'src/app/shared/models/breadcrumb.model';
-import { appRouts } from 'src/environments/environment';
+import { appRouts, roles } from 'src/environments/environment';
 
 import SwiperCore, { Pagination, Navigation } from "swiper";
 
@@ -27,6 +28,8 @@ export class ProductDetailsComponent extends AppBaseComponent implements OnInit,
     Injector: Injector,
     private _publicDataControllerService: PublicDataControllerService,
     private _itemControllerService: ItemControllerService,
+    private _userControllerService: UserControllerService,
+    private _supplierEmployeeControllerService:SupplierEmployeeControllerService,
     private modalService: BsModalService
   ) {
     super(Injector)
@@ -101,6 +104,21 @@ export class ProductDetailsComponent extends AppBaseComponent implements OnInit,
       }
     };
     this.modalService.show(SendInboxComponent, initialState);
+
+  }
+
+
+  onAddToFav() {
+      let obs;
+      if(this.userData?.role === roles?.customer){
+        obs =  this._userControllerService.addFavouriteItemUsingPUT(this.productDetails.itemId)
+      }else{
+        obs =  this._supplierEmployeeControllerService.addFavouriteItemUsingPUT(this.productDetails.itemId)
+      }
+      const addFavouriteItemUsingPUTSub = obs.subscribe(res => {
+        this.toaster.success(this._translateService.instant("addedSuccessfully"))
+      })
+      this.unSubscription.push(addFavouriteItemUsingPUTSub)
 
   }
 

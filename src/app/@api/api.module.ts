@@ -15,6 +15,7 @@ import { QuotationControllerService } from './api/quotationController.service';
 import { RegisterControllerService } from './api/registerController.service';
 import { SupplierControllerService } from './api/supplierController.service';
 import { UserControllerService } from './api/userController.service';
+import { SupplierEmployeeControllerService } from './api/supplierEmployeeController.service';
 
 @NgModule({
   imports:      [],
@@ -32,7 +33,8 @@ import { UserControllerService } from './api/userController.service';
     QuotationControllerService,
     RegisterControllerService,
     SupplierControllerService,
-    UserControllerService ]
+    UserControllerService ,
+    SupplierEmployeeControllerService]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): any {

@@ -1240,17 +1240,33 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
 
           storageTradeInformation: this.model?.storageTradeInformation,
         }
-        const addItemUsingPOSTSub = this._itemControllerService.addItemUsingPOST(itemDto).pipe(finalize(() => {
-          this.isSubmit = false
-        })).subscribe((res: ItemDto) => {
-          if (res) {
-            this.toaster.success(this._translateService.instant('addedSuccessfully'))
-            this.options.resetModel()
-            this._sharedService.dropzoneEmptySubj.next(true)
-          }
 
-        })
-        this.unSubscription.push(addItemUsingPOSTSub)
+        if(this.productId){
+          const addItemUsingPOSTSub = this._itemControllerService.updateItemUsingPUT(itemDto).pipe(finalize(() => {
+            this.isSubmit = false
+          })).subscribe((res: ItemDto) => {
+            if (res) {
+              this.toaster.success(this._translateService.instant('updatedSuccessfully'))
+              this.options.resetModel()
+              this._sharedService.dropzoneEmptySubj.next(true)
+            }
+
+          })
+          this.unSubscription.push(addItemUsingPOSTSub)
+        }else{
+          const addItemUsingPOSTSub = this._itemControllerService.addItemUsingPOST(itemDto).pipe(finalize(() => {
+            this.isSubmit = false
+          })).subscribe((res: ItemDto) => {
+            if (res) {
+              this.toaster.success(this._translateService.instant('addedSuccessfully'))
+              this.options.resetModel()
+              this._sharedService.dropzoneEmptySubj.next(true)
+            }
+
+          })
+          this.unSubscription.push(addItemUsingPOSTSub)
+        }
+
 
       }
 

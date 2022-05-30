@@ -1,6 +1,9 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
+import { ItemDto } from 'src/app/@api';
 import { PublicItemDto, UserControllerService } from 'src/app/@api';
+import { SupplierEmployeeControllerService } from 'src/app/@api/api/supplierEmployeeController.service';
+import { roles } from 'src/environments/environment';
 import { AppBaseComponent } from '../app-base/app-base.component';
 
 @Component({
@@ -11,12 +14,13 @@ import { AppBaseComponent } from '../app-base/app-base.component';
 export class ProductCardComponent extends AppBaseComponent implements OnInit {
   @Input() bgWhite: string = ''
 
-  @Input() product: PublicItemDto;
+  @Input() product: ItemDto;
 
   @Input() fav: boolean = false
   constructor(
     injector: Injector,
     private _userControllerService: UserControllerService,
+    private _supplierEmployeeControllerService:SupplierEmployeeControllerService
   ) {
     super(injector)
   }
@@ -39,12 +43,24 @@ export class ProductCardComponent extends AppBaseComponent implements OnInit {
   onAddToFav(e) {
     e.stopPropagation()
     if(!this.fav){
-      const addFavouriteItemUsingPUTSub = this._userControllerService.addFavouriteItemUsingPUT(this.product.itemId).subscribe(res => {
+      let obs;
+      if(this.userData?.role === roles?.customer){
+        obs =  this._userControllerService.addFavouriteItemUsingPUT(this.product.itemId)
+      }else{
+        obs =  this._supplierEmployeeControllerService.addFavouriteItemUsingPUT(this.product.itemId)
+      }
+      const addFavouriteItemUsingPUTSub = obs.subscribe(res => {
         this.toaster.success(this._translateService.instant("addedSuccessfully"))
       })
       this.unSubscription.push(addFavouriteItemUsingPUTSub)
     }else{
-      const removeFavouriteItemUsingDELETESub = this._userControllerService.removeFavouriteItemUsingDELETE(this.product.itemId).subscribe(res => {
+      let obs;
+      if(this.userData?.role === roles?.customer){
+        obs =  this._userControllerService.removeFavouriteItemUsingDELETE(this.product.itemId)
+      }else{
+        obs =  this._supplierEmployeeControllerService.removeFavouriteItemUsingDELETE(this.product.itemId)
+      }
+      const removeFavouriteItemUsingDELETESub = obs.subscribe(res => {
         this.toaster.success(this._translateService.instant("removedSuccessfully"))
         this._sharedService.sendRefresh.next(true)
       })
