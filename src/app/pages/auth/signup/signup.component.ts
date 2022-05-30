@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { finalize } from 'rxjs';
 import { OriginDto, RegisterControllerService, SupplierEmployeeDto, SupplierEmployeeResponseDto, UserRequestDto, UserResponseDto } from 'src/app/@api';
@@ -10,7 +10,7 @@ import { generalValidations } from 'src/environments/environment';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent extends AppBaseComponent implements OnInit {
+export class SignupComponent extends AppBaseComponent implements OnInit, OnDestroy {
 
   constructor(
     injector: Injector,

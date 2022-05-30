@@ -1,4 +1,4 @@
-import { Component, HostListener, Injector, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, Injector, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ItemControllerService, ItemDto, PagePublicItemDto, PublicDataControllerService, PublicItemDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
@@ -11,15 +11,13 @@ import SwiperCore, { Pagination, Navigation } from "swiper";
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
 
-export interface item extends PublicItemDto, ItemDto {
 
-}
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
 })
-export class ProductDetailsComponent extends AppBaseComponent implements OnInit {
+export class ProductDetailsComponent extends AppBaseComponent implements OnInit, OnDestroy {
 
   productDetails: ItemDto
   id: any;

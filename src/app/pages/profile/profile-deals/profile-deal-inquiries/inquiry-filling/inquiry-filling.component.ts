@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { forkJoin, take } from 'rxjs';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
@@ -7,7 +7,7 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
   templateUrl: './inquiry-filling.component.html',
   styleUrls: ['./inquiry-filling.component.scss']
 })
-export class InquiryFillingComponent extends AppBaseComponent implements OnInit {
+export class InquiryFillingComponent extends AppBaseComponent implements OnInit, OnDestroy {
 
   productCertificates: any[] = [
     { CertificateName: 'Certificate Name 01', file: 'https://via.placeholder.com/600' },

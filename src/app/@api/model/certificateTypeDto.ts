@@ -11,7 +11,8 @@
  */
 
 
-export interface ItemSupplimentDto { 
-    attributeName?: string;
-    attributeValue?: string;
+export interface CertificateTypeDto { 
+    certificateLevel?: number;
+    certificateTypeId?: number;
+    certificateTypeName?: string;
 }

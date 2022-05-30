@@ -9,9 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { SupplierIdDto } from './supplierIdDto';
 
 
-export interface ItemSupplimentDto { 
-    attributeName?: string;
-    attributeValue?: string;
+export interface ItemIdDto { 
+    itemId: number;
+    itemName?: string;
+    supplier: SupplierIdDto;
 }

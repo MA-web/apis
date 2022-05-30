@@ -1,4 +1,4 @@
-import { Component, OnInit,} from "@angular/core";
+import { Component, OnDestroy, OnInit,} from "@angular/core";
 import { CalendarOptions, EventInput } from "@fullcalendar/core";
 import { AppBaseComponent } from "src/app/shared/components/app-base/app-base.component";
 
@@ -8,7 +8,7 @@ import { AppBaseComponent } from "src/app/shared/components/app-base/app-base.co
   templateUrl: './profile-dashboard.component.html',
   styleUrls: ['./profile-dashboard.component.scss']
 })
-export class ProfileDashboardComponent extends AppBaseComponent implements OnInit {
+export class ProfileDashboardComponent extends AppBaseComponent implements OnInit, OnDestroy {
 
   async ngOnInit(){
     await this._translateService.get('dummyTranslation').toPromise().then();

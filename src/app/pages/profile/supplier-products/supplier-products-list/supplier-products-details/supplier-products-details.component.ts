@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
 @Component({
@@ -6,7 +6,7 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
   templateUrl: './supplier-products-details.component.html',
   styleUrls: ['./supplier-products-details.component.scss']
 })
-export class SupplierProductsDetailsComponent extends AppBaseComponent implements OnInit {
+export class SupplierProductsDetailsComponent extends AppBaseComponent implements OnInit, OnDestroy {
   prices = [
     {
       from: { value: 120, type: 'gram' },

@@ -20,8 +20,8 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
   model2: any = {};
   fields2: FormlyFieldConfig[] = []
   beforeImagesLoaded = []
-  businessLicensePicture:string;
-  profilePicture:string;
+  businessLicensePicture: string;
+  profilePicture: string;
   constructor(
     injector: Injector,
     private _userControllerService: UserControllerService,
@@ -327,9 +327,6 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
         this.isLoading = false
 
 
-
-
-
       })
       this.unSubscription.push(getUserProfileUsingGET)
     }))
@@ -337,7 +334,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
 
     this.unSubscription.push(getOriginsUsingGETSub)
 
-    this.UploadFileService.resData.subscribe(res => {
+    const resDataSub = this.UploadFileService.resData.subscribe(res => {
       let addProfileStorage
       var Values = [];
       //get olds values
@@ -369,14 +366,16 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
       }
 
     })
+    this.unSubscription.push(resDataSub)
 
-    this._sharedService.sendEmptyAttach.subscribe(res =>{
-      if(res)  this.businessLicensePicture = undefined
+    const sendEmptyAttachSub = this._sharedService.sendEmptyAttach.subscribe(res => {
+      if (res) this.businessLicensePicture = undefined
     })
+    this.unSubscription.push(sendEmptyAttachSub)
   }
 
 
-  updateProfile(){
+  updateProfile() {
     this.isSubmit = true
     if (this.userData?.role === roles?.customer) {
       let userProfileDto: UserProfileDto = {
@@ -399,9 +398,9 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
           businessLicense: {
             "attachmentSource": {
               "attachmentSourceId": 1,
-              "attachmentSourceName":  this.businessLicensePicture
+              "attachmentSourceName": this.businessLicensePicture
             },
-            "reference":  this.businessLicensePicture
+            "reference": this.businessLicensePicture
           },
           companyType: this.model?.companyType,
           establishmentDate: this.model?.establishmentDate ? new Date(this.model?.establishmentDate) : undefined,
@@ -424,7 +423,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
         workingIn: this.model?.workingIn,
       }
 
-      const updateUserDetailsUsingPUTSub = this._userControllerService.updateUserDetailsUsingPUT(userProfileDto).pipe(finalize(()=>{
+      const updateUserDetailsUsingPUTSub = this._userControllerService.updateUserDetailsUsingPUT(userProfileDto).pipe(finalize(() => {
         this.isSubmit = false
       })).subscribe((res: UserResponseDto) => {
         if (res) {
@@ -433,25 +432,25 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
       })
       this.unSubscription.push(updateUserDetailsUsingPUTSub)
     } else {
-      let UpdateSupplierProfileDto:UpdateSupplierProfileDto = {
-        supplier:{
+      let UpdateSupplierProfileDto: UpdateSupplierProfileDto = {
+        supplier: {
           businessLicense: {
             "attachmentSource": {
               "attachmentSourceId": 1,
               "attachmentSourceName": this.businessLicensePicture
             },
-            "reference":  this.businessLicensePicture
+            "reference": this.businessLicensePicture
           },
-          companyType:this.model?.companyType,
+          companyType: this.model?.companyType,
           establishmentDate: this.model?.establishmentDate ? new Date(this.model?.establishmentDate) : undefined,
-          exportPercentage:this.model?.exportPercentage,
-          mainCustomer:this.model?.mainCustomer,
-          mainMarkets:this.model?.mainMarkets,
+          exportPercentage: this.model?.exportPercentage,
+          mainCustomer: this.model?.mainCustomer,
+          mainMarkets: this.model?.mainMarkets,
           numberEmployees: this.model?.numberEmployees,
-          totalAnnualSales:this.model?.totalAnnualSales,
-          website:this.model?.website,
+          totalAnnualSales: this.model?.totalAnnualSales,
+          website: this.model?.website,
         },
-        userProfile:{
+        userProfile: {
           aboutMe: this.model?.aboutMe,
           address: {
             city: this.model?.city,
@@ -463,7 +462,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
           interestedIn: this.model?.interestedIn,
           landline: this.model?.landLine?.number,
           phone: this.model?.phone?.number,
-          photo:{
+          photo: {
             "attachmentSource": {
               "attachmentSourceId": 1,
               "attachmentSourceName": this.profilePicture
@@ -476,7 +475,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
 
         }
       }
-      const updateUserDetailsUsingPUTSub = this._supplierControllerService.updateSupplierProfileUsingPUT(UpdateSupplierProfileDto).pipe(finalize(()=>{
+      const updateUserDetailsUsingPUTSub = this._supplierControllerService.updateSupplierProfileUsingPUT(UpdateSupplierProfileDto).pipe(finalize(() => {
         this.isSubmit = false
       })).subscribe((res: SupplierEmployeeDto) => {
         if (res) {
@@ -491,8 +490,6 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
 
 
   onSubmit() {
-    console.log(this.model2?.UploadProfilePicture);
-
     window.localStorage.removeItem('addProfileStorage')
     this.beforeImagesLoaded = []
 
@@ -503,7 +500,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
       this.UploadFileService.uploadMultiple([this.model2?.UploadProfilePicture[0]], `profiles/profile-${this.ProfileDto?.userProfile?.userProfileId}/profilePicture`)
     }
     if (this.model?.businessLicense?.length) {
-      if(this.isFile(this.model?.businessLicense[0])){
+      if (this.isFile(this.model?.businessLicense[0])) {
         this.beforeImagesLoaded?.push(this.model?.businessLicense[0])
       }
 
@@ -511,7 +508,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
 
     }
 
-    if(!this.model?.businessLicense && !this.model2?.UploadProfilePicture?.length){
+    if (!this.model?.businessLicense && !this.model2?.UploadProfilePicture?.length) {
       this.updateProfile()
     }
 
@@ -519,8 +516,6 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
 
   }
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
     window.localStorage.removeItem('addProfileStorage')
   }
 }

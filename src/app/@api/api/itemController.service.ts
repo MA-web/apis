@@ -20,6 +20,8 @@ import { Observable }                                        from 'rxjs';
 
 import { ItemDraftDto } from '../model/itemDraftDto';
 import { ItemDto } from '../model/itemDto';
+import { ItemIncotermDto } from '../model/itemIncotermDto';
+import { ItemPaymentTermDto } from '../model/itemPaymentTermDto';
 import { ItemSearchFilter } from '../model/itemSearchFilter';
 import { PageItemDto } from '../model/pageItemDto';
 import { ResponseDto } from '../model/responseDto';
@@ -330,6 +332,98 @@ export class ItemControllerService {
     }
 
     /**
+     * List item incoterms by item id
+     *
+     * @param itemId itemId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getItemIncotermsUsingGET(itemId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ItemIncotermDto>>;
+    public getItemIncotermsUsingGET(itemId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ItemIncotermDto>>>;
+    public getItemIncotermsUsingGET(itemId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ItemIncotermDto>>>;
+    public getItemIncotermsUsingGET(itemId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (itemId === null || itemId === undefined) {
+            throw new Error('Required parameter itemId was null or undefined when calling getItemIncotermsUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ItemIncotermDto>>(`${this.basePath}/api/items/${encodeURIComponent(String(itemId))}/incoterms`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * List item payment terms by item id
+     *
+     * @param itemId itemId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getItemPaymentTermsUsingGET(itemId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ItemPaymentTermDto>>;
+    public getItemPaymentTermsUsingGET(itemId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ItemPaymentTermDto>>>;
+    public getItemPaymentTermsUsingGET(itemId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ItemPaymentTermDto>>>;
+    public getItemPaymentTermsUsingGET(itemId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (itemId === null || itemId === undefined) {
+            throw new Error('Required parameter itemId was null or undefined when calling getItemPaymentTermsUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ItemPaymentTermDto>>(`${this.basePath}/api/items/${encodeURIComponent(String(itemId))}/payment-terms`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * List items  for specific supplier in the system
      *
      * @param supplierId supplierId
@@ -570,7 +664,6 @@ export class ItemControllerService {
      * Search items for specific supplier in the system by category, subCategory, origin and status
      *
      * @param authorization Authorization
-     * @param supplierId supplierId
      * @param category category
      * @param origin origin
      * @param page page
@@ -580,17 +673,13 @@ export class ItemControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public searchItemsForSupplierUsingGET(authorization: string, supplierId: number, category?: string, origin?: string, page?: number, size?: number, status?: number, subCategory?: string, observe?: 'body', reportProgress?: boolean): Observable<PageItemDto>;
-    public searchItemsForSupplierUsingGET(authorization: string, supplierId: number, category?: string, origin?: string, page?: number, size?: number, status?: number, subCategory?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageItemDto>>;
-    public searchItemsForSupplierUsingGET(authorization: string, supplierId: number, category?: string, origin?: string, page?: number, size?: number, status?: number, subCategory?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageItemDto>>;
-    public searchItemsForSupplierUsingGET(authorization: string, supplierId: number, category?: string, origin?: string, page?: number, size?: number, status?: number, subCategory?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public searchItemsForSupplierUsingGET(authorization: string, category?: string, origin?: string, page?: number, size?: number, status?: number, subCategory?: string, observe?: 'body', reportProgress?: boolean): Observable<PageItemDto>;
+    public searchItemsForSupplierUsingGET(authorization: string, category?: string, origin?: string, page?: number, size?: number, status?: number, subCategory?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageItemDto>>;
+    public searchItemsForSupplierUsingGET(authorization: string, category?: string, origin?: string, page?: number, size?: number, status?: number, subCategory?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageItemDto>>;
+    public searchItemsForSupplierUsingGET(authorization: string, category?: string, origin?: string, page?: number, size?: number, status?: number, subCategory?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (authorization === null || authorization === undefined) {
             throw new Error('Required parameter authorization was null or undefined when calling searchItemsForSupplierUsingGET.');
-        }
-
-        if (supplierId === null || supplierId === undefined) {
-            throw new Error('Required parameter supplierId was null or undefined when calling searchItemsForSupplierUsingGET.');
         }
 
 
@@ -642,7 +731,7 @@ export class ItemControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<PageItemDto>(`${this.basePath}/api/items/suppliers/${encodeURIComponent(String(supplierId))}/search`,
+        return this.httpClient.get<PageItemDto>(`${this.basePath}/api/items/suppliers/search`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

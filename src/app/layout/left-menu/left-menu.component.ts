@@ -1,12 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import {  NavService } from '../services/nav.service';
+import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
+import { NavService } from '../services/nav.service';
 
 
 // Menu
- interface Menu {
+interface Menu {
   path?: string;
   title?: string;
   type?: string;
@@ -25,43 +25,42 @@ import {  NavService } from '../services/nav.service';
   templateUrl: './left-menu.component.html',
   styleUrls: ['./left-menu.component.scss']
 })
-export class LeftMenuComponent implements OnInit {
+export class LeftMenuComponent extends AppBaseComponent implements OnInit {
 
-  public menuItems: Menu[] =[];
+  public menuItems: Menu[] = [];
 
   constructor(
-    private router: Router,
+    injector: Injector,
     public navServices: NavService,
     @Inject(DOCUMENT) public document: Document,
-    private translateService: TranslateService
-    ) {
-
+  ) {
+    super(injector)
   }
 
-  async ngOnInit(){
-    await this.translateService.get('dummyTranslation').toPromise().then();
-    this.menuItems =  [
+  async ngOnInit() {
+    await this._translateService.get('dummyTranslation').toPromise().then();
+    this.menuItems = [
 
       {
-        path: '/home', title: this.translateService.instant('Home'), type: 'link', icon: 'fa fa-home'
+        path: '/home', title: this._translateService.instant('Home'), type: 'link', icon: 'fa fa-home'
       },
       {
-        path: '/about-us', title: this.translateService.instant('AboutUs'), type: 'link', icon: 'fa fa-info-circle'
+        path: '/about-us', title: this._translateService.instant('AboutUs'), type: 'link', icon: 'fa fa-info-circle'
       },
       {
-        path: '/products', title: this.translateService.instant('Products'), type: 'link', icon: 'fa fa-filter'
+        path: '/products', title: this._translateService.instant('Products'), type: 'link', icon: 'fa fa-filter'
       },
       {
-        path: '/suppliers', title: this.translateService.instant('ourSuppliers'), type: 'link', icon: 'fa fa-american-sign-language-interpreting'
+        path: '/suppliers', title: this._translateService.instant('ourSuppliers'), type: 'link', icon: 'fa fa-american-sign-language-interpreting'
       },
       {
-        path: '/news', title: this.translateService.instant('News'), type: 'link', icon: 'fa fa-file-text-o'
+        path: '/news', title: this._translateService.instant('News'), type: 'link', icon: 'fa fa-file-text-o'
       },
       {
-        path: '/events', title: this.translateService.instant('Events'), type: 'link', icon: 'fa fa-calendar-check-o'
+        path: '/events', title: this._translateService.instant('Events'), type: 'link', icon: 'fa fa-calendar-check-o'
       },
       {
-        path: '/contact-us', title: this.translateService.instant('ContactUs'), type: 'link', icon: 'fa fa-phone'
+        path: '/contact-us', title: this._translateService.instant('ContactUs'), type: 'link', icon: 'fa fa-phone'
       },
 
     ];
@@ -71,18 +70,23 @@ export class LeftMenuComponent implements OnInit {
     });
   }
 
+  onSignOut() {
+    this._sharedService.signOut()
+  }
+
+
   leftMenuToggle(): void {
     this.navServices.leftMenuToggle = !this.navServices.leftMenuToggle;
   }
 
   // Click Toggle menu (Mobile)
-  toggletNavActive(item:any) {
+  toggletNavActive(item: any) {
     item.active = !item.active;
   }
 
-  onHover(menuItem:any) {
-    if(window.innerWidth > 1200 && menuItem){
-       this.document.getElementById('unset')?.classList.add('sidebar-unset')
+  onHover(menuItem: any) {
+    if (window.innerWidth > 1200 && menuItem) {
+      this.document.getElementById('unset')?.classList.add('sidebar-unset')
     } else {
       this.document.getElementById('unset')?.classList.remove('sidebar-unset')
     }

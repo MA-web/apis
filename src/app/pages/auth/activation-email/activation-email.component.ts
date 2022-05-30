@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
 import { AccountConfirmationToken, RegisterControllerService, ResponseDto, UserEmailDto, UserResponseDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
@@ -10,7 +10,7 @@ import { ToastrService } from "ngx-toastr";
   templateUrl: './activation-email.component.html',
   styleUrls: ['./activation-email.component.scss']
 })
-export class ActivationEmailComponent extends AppBaseComponent implements OnInit {
+export class ActivationEmailComponent extends AppBaseComponent implements OnInit , OnDestroy{
 
   email: string = '';
 

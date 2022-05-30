@@ -10,10 +10,12 @@
  * Do not edit the class manually.
  */
 import { AttachmentDto } from './attachmentDto';
+import { CertificateTypeIdDto } from './certificateTypeIdDto';
 
 
 export interface ItemCertificateDto { 
     attachment?: AttachmentDto;
+    certificateType?: CertificateTypeIdDto;
     itemCertificateId?: number;
     itemCertificateName?: string;
 }

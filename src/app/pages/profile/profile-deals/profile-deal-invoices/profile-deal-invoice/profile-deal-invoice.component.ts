@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
 @Component({
@@ -6,7 +6,7 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
   templateUrl: './profile-deal-invoice.component.html',
   styleUrls: ['./profile-deal-invoice.component.scss']
 })
-export class ProfileDealInvoiceComponent extends AppBaseComponent implements OnInit {
+export class ProfileDealInvoiceComponent extends AppBaseComponent implements OnInit, OnDestroy {
 
 
   async ngOnInit() {

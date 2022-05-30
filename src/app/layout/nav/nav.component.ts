@@ -1,4 +1,4 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { interval } from 'rxjs';
 import { InboxControllerService, ItemCategoryDto } from 'src/app/@api';
@@ -10,7 +10,7 @@ import { user } from 'src/app/shared/models/user.model';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent extends AppBaseComponent implements OnInit {
+export class NavComponent extends AppBaseComponent implements OnInit, OnDestroy {
   @Input() home: boolean = false
   userData: user = undefined
 
@@ -67,7 +67,7 @@ export class NavComponent extends AppBaseComponent implements OnInit {
     if (this._sharedService.checkToken()) {
       this.countReceivedMessages()
     }
-    const intervalSubscription = interval(3000).subscribe(() => {
+    const intervalSubscription = interval(10000).subscribe(() => {
       if (this._sharedService.checkToken()) {
         this.countReceivedMessages()
       }

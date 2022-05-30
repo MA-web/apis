@@ -23,7 +23,8 @@ const route: Route[] = [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: SupplierProductsListComponent },
       { path: 'add', component: SupplierAddProductComponent },
-      { path: 'details/:id', component: SupplierProductsDetailsComponent }
+      { path: 'details/:id', component: SupplierProductsDetailsComponent },
+      { path: 'edit/:id', component: SupplierAddProductComponent }
     ]
   },
 ]

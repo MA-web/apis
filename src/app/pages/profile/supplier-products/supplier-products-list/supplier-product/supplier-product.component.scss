@@ -5,7 +5,11 @@
     background-color: #F9F9F9;
     padding: 15px;
     .product-img{
+      @media (min-width:767px) {
+        width: 350px;
+      }
       display: inline-block;
+      overflow: hidden;
       border: 2px solid $mainColor;
       border-radius: 35px 35px 0 35px;
       margin-bottom: 25px;

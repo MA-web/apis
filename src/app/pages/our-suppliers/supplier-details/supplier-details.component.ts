@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { appRouts } from 'src/environments/environment';
 
@@ -7,7 +7,7 @@ import { appRouts } from 'src/environments/environment';
   templateUrl: './supplier-details.component.html',
   styleUrls: ['./supplier-details.component.scss']
 })
-export class SupplierDetailsComponent extends AppBaseComponent implements OnInit {
+export class SupplierDetailsComponent extends AppBaseComponent implements OnInit, OnDestroy {
 
 
   async ngOnInit() {

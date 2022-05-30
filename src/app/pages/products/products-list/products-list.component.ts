@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { LabelType } from "@angular-slider/ngx-slider";
 import { appRouts } from 'src/environments/environment';
@@ -11,7 +11,7 @@ import { FormlyForm } from '@ngx-formly/core';
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.scss']
 })
-export class ProductsListComponent extends AppBaseComponent implements OnInit {
+export class ProductsListComponent extends AppBaseComponent implements OnInit, OnDestroy {
   @ViewChild("formlyForm") formlyForm: FormlyForm;
   products: Array<ItemDto> = [];
   SearchCategory: ItemCategoryDto = {};
@@ -243,12 +243,7 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit {
     let observable;
     let filter: ItemSearchFilter = {
       caseNumber: this.model?.caseNumber,
-      coa: this.model?.coa,
-      dmf: this.model?.dmf,
-      gmpCertificate: this.model?.gmpCertificate,
-      halal: this.model?.halal,
       injection: this.model?.injection,
-      iso: this.model?.iso,
       itemCategoryId: this.model?.itemCategoryId,
       itemName: this.model?.itemName,
       itemSampleTypesId: this.model?.itemSampleTypesId,
@@ -273,6 +268,7 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit {
         this.totalElements = res.totalElements
       }
     })
+    this.unSubscription.push(sub)
   }
 
   onTogglingView(type: string) {

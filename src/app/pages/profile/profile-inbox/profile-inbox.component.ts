@@ -1,4 +1,4 @@
-import { Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
@@ -12,7 +12,7 @@ import { roles } from 'src/environments/environment';
   templateUrl: './profile-inbox.component.html',
   styleUrls: ['./profile-inbox.component.scss']
 })
-export class ProfileInboxComponent extends AppBaseComponent implements OnInit {
+export class ProfileInboxComponent extends AppBaseComponent implements OnInit , OnDestroy{
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
 
@@ -66,7 +66,6 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit {
         key: 'inboxImages',
         type: 'file-upload',
         templateOptions: {
-          multiple: true,
           text: this._translateService.instant('UploadFiles')
         }
       },
@@ -84,6 +83,12 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit {
       this.refreshList()
     })
     this.unSubscription.push(RefreshInboxSub)
+
+    const resDataSub = this.UploadFileService.resData.subscribe(res => {
+
+        this.replyChat(res)
+
+    })
   }
 
 
@@ -120,20 +125,21 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit {
     } catch (err) { }
   }
 
-  onSubmit() {
-    this.isSubmit = true;
-    let MessageDto: MessageDto = {
-      // attachment: {
-      //   attachmentSource: {
-      //     attachmentSourceId: 1,
-      //     attachmentSourceName: 'x'
-      //   },
-      //   reference: 'x'
-      // },
+
+  replyChat(attachments?){
+    console.log('attachments: ', attachments);
+      let MessageDto: MessageDto = {
+        attachment:{
+          attachmentId: 1,
+          attachmentSource: {
+            attachmentSourceId:1,
+            attachmentSourceName: attachments
+          },
+          reference: attachments
+        },
       messageContent: this.model2?.messageContent,
       sender: {
         id: this.userData?.role === roles?.customer ? this.userData?.id : this.userData?.supplierId,
-
       }
     }
    const replyToChatUsingPOSTSub = this.InboxControllerService.replyToChatUsingPOST(this.ChatDto?.chatId, MessageDto).pipe(
@@ -151,5 +157,46 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit {
       }
     })
     this.unSubscription.push(replyToChatUsingPOSTSub)
+  }
+
+
+  onSubmit() {
+    this.isSubmit = true;
+
+      this.UploadFileService.uploadfile(this.model2?.inboxImages[0], `inboxes/inbox-${this.ChatDto?.chatId}`)
+
+
+    if (!this.model2?.inboxImages) {
+      this.replyChat()
+    }
+  //   let MessageDto: MessageDto = {
+  //     // attachment: {
+  //     //   attachmentSource: {
+  //     //     attachmentSourceId: 1,
+  //     //     attachmentSourceName: 'x'
+  //     //   },
+  //     //   reference: 'x'
+  //     // },
+  //     messageContent: this.model2?.messageContent,
+  //     sender: {
+  //       id: this.userData?.role === roles?.customer ? this.userData?.id : this.userData?.supplierId,
+
+  //     }
+  //   }
+  //  const replyToChatUsingPOSTSub = this.InboxControllerService.replyToChatUsingPOST(this.ChatDto?.chatId, MessageDto).pipe(
+  //     finalize(() =>{
+  //       this.isSubmit = false;
+  //     })
+  //   ).subscribe((res: MessageDto) => {
+  //     if(res){
+  //       this.options.resetModel()
+  //       this.ChatDto.messages.push(res)
+  //       this.scrollToBottom();
+  //       setTimeout(() => {
+  //         this.scrollToBottom();
+  //       }, 100);
+  //     }
+  //   })
+  //   this.unSubscription.push(replyToChatUsingPOSTSub)
   }
 }

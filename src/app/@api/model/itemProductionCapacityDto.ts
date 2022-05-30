@@ -11,7 +11,7 @@
  */
 
 
-export interface ItemSupplimentDto { 
-    attributeName?: string;
-    attributeValue?: string;
+export interface ItemProductionCapacityDto { 
+    productionPeriod?: Array<string>;
+    productionWeight?: Array<string>;
 }

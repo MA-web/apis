@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { finalize } from 'rxjs';
 import { ChatDto, InboxControllerService } from 'src/app/@api';
@@ -9,7 +9,7 @@ import { AppBaseComponent } from '../app-base/app-base.component';
   templateUrl: './send-inbox.component.html',
   styleUrls: ['./send-inbox.component.scss']
 })
-export class SendInboxComponent extends AppBaseComponent implements OnInit {
+export class SendInboxComponent extends AppBaseComponent implements OnInit, OnDestroy {
 
   supplierId:number;
 

@@ -1,4 +1,4 @@
-import { Component,  Injector,  OnInit } from '@angular/core';
+import { Component,  Injector,  OnDestroy,  OnInit } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { finalize } from 'rxjs';
 import { RegisterControllerService, ResponseDto, UserEmailDto } from 'src/app/@api';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './forget-password.component.html',
   styleUrls: ['./forget-password.component.scss']
 })
-export class ForgetPasswordComponent extends AppBaseComponent implements OnInit {
+export class ForgetPasswordComponent extends AppBaseComponent implements OnInit, OnDestroy {
 
   constructor(
     injector: Injector,

@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { PagePublicItemDto, PublicDataControllerService, PublicItemDto } from '../@api';
 import { AppBaseComponent } from '../shared/components/app-base/app-base.component';
@@ -8,7 +8,7 @@ import { AppBaseComponent } from '../shared/components/app-base/app-base.compone
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent extends AppBaseComponent implements OnInit {
+export class HomeComponent extends AppBaseComponent implements OnInit, OnDestroy {
 
   products : Array<PublicItemDto> = [];
   constructor(

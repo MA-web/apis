@@ -13,12 +13,7 @@
 
 export interface ItemSearchFilter { 
     caseNumber?: string;
-    coa?: boolean;
-    dmf?: boolean;
-    gmpCertificate?: boolean;
-    halal?: boolean;
     injection?: boolean;
-    iso?: boolean;
     itemCategoryId?: number;
     itemName?: string;
     itemSampleTypesId?: number;

@@ -67,7 +67,8 @@ export interface PublicItemDto {
     residueIgnition: number;
     salmonelaSpecies?: string;
     status: number;
-    storage: string;
+    storage?: string;
+    storageTradeInformation: string;
     totalVac?: string;
     totalYamc?: string;
     transportation?: TransportationDto;

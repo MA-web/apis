@@ -13,13 +13,13 @@
       <div class="product-details-2 mt-4">
         <div class="row">
           <div class="col-12">
-            <p><span>{{'category' | translate}}: </span>??</p>
+            <p><span>{{'category' | translate}}: </span>{{product?.itemCategory?.categoryName}}</p>
           </div>
-          <div class="col-md-6">
-            <p><span>{{'origin' | translate}}: </span>??</p>
+          <div class="col-12">
+            <p><span>{{'origin' | translate}}: </span>{{product?.origin?.originName}}</p>
           </div>
-          <div class="col-md-6">
-            <p><span>{{'status' | translate}}: </span>??</p>
+          <div class="col-12">
+            <p><span>{{'status' | translate}}: </span>{{product?.status}}</p>
           </div>
 
         </div>
@@ -31,7 +31,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="product-btns">
-        <button type="button" class="apis-button btn-outline-info">
+        <button type="button" class="apis-button btn-outline-info" [routerLink]="['/profile/products/edit/',product?.itemId]">
           <span [inlineSVG]="'assets/icons/edit.svg'"></span>
           {{'edit' |translate}}
         </button>
@@ -48,7 +48,7 @@
           {{'UnPublish' |translate}}
         </button>
 
-        <button type="button" class="apis-button btn btn-warning pull-md-right" routerLink="/profile/products/details/1">
+        <button type="button" class="apis-button btn btn-warning pull-md-right" [routerLink]="['/products/details/',product?.itemId]"  >
           <span [inlineSVG]="'assets/icons/eye.svg'"></span>
           {{'Preview' |translate}}
         </button>

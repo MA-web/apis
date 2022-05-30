@@ -35,6 +35,9 @@ export class AppBaseComponent implements OnDestroy {
 
   userData: any = {}
 
+  beforeImagesLoaded = []
+
+
   unSubscription: Subscription[] = []
 
   _translateService: TranslateService;

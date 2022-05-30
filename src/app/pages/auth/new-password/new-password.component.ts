@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { finalize } from 'rxjs';
 import { RegisterControllerService, ResetPasswordDto, ResponseDto } from 'src/app/@api';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './new-password.component.html',
   styleUrls: ['./new-password.component.scss']
 })
-export class NewPasswordComponent extends AppBaseComponent implements OnInit {
+export class NewPasswordComponent extends AppBaseComponent implements OnInit , OnDestroy{
 
   VerifyCode: string = '';
 

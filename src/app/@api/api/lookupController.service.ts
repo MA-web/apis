@@ -19,11 +19,13 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { AttachmentSource } from '../model/attachmentSource';
+import { CertificateTypeDto } from '../model/certificateTypeDto';
 import { CurrencyDto } from '../model/currencyDto';
 import { DealStepTypeDto } from '../model/dealStepTypeDto';
 import { IncotermDto } from '../model/incotermDto';
 import { ItemCategoryDto } from '../model/itemCategoryDto';
 import { ItemKeywordDto } from '../model/itemKeywordDto';
+import { ItemProductionCapacityDto } from '../model/itemProductionCapacityDto';
 import { ItemSampleTypeDto } from '../model/itemSampleTypeDto';
 import { OriginDto } from '../model/originDto';
 import { PaymentTermDto } from '../model/paymentTermDto';
@@ -273,6 +275,129 @@ export class LookupControllerService {
     }
 
     /**
+     * get all item estiamtion  delivery Period in the system
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getEstimationDeliveryUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
+    public getEstimationDeliveryUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
+    public getEstimationDeliveryUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
+    public getEstimationDeliveryUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<string>>(`${this.basePath}/lookup/estiamtionDeliveryTime`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get all item certificate Types in the system
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getItemCerTypeUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<CertificateTypeDto>>;
+    public getItemCerTypeUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CertificateTypeDto>>>;
+    public getItemCerTypeUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CertificateTypeDto>>>;
+    public getItemCerTypeUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<CertificateTypeDto>>(`${this.basePath}/lookup/itemCertificateType`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get all item Prod Capacity in the system
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getItemProdCapacityUsingGET(observe?: 'body', reportProgress?: boolean): Observable<ItemProductionCapacityDto>;
+    public getItemProdCapacityUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ItemProductionCapacityDto>>;
+    public getItemProdCapacityUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ItemProductionCapacityDto>>;
+    public getItemProdCapacityUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<ItemProductionCapacityDto>(`${this.basePath}/lookup/productionCapacityInfo`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * get item sample types in the system
      *
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -435,6 +560,47 @@ export class LookupControllerService {
         ];
 
         return this.httpClient.get<Array<OriginDto>>(`${this.basePath}/lookup/origins`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get all shipping certificate Types in the system
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getShippingCerTypeUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<CertificateTypeDto>>;
+    public getShippingCerTypeUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CertificateTypeDto>>>;
+    public getShippingCerTypeUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CertificateTypeDto>>>;
+    public getShippingCerTypeUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<CertificateTypeDto>>(`${this.basePath}/lookup/shippingCertificateType`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

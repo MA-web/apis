@@ -1,4 +1,4 @@
-import { Component,  Injector,  OnInit } from '@angular/core';
+import { Component,  Injector,  OnDestroy,  OnInit } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { finalize } from 'rxjs';
 import { AuthenticationRequest, AuthenticationResponse, JwtAuthenticationControllerService, RegisterControllerService, ResponseDto, UserEmailDto } from 'src/app/@api';
@@ -9,7 +9,7 @@ import { generalValidations } from 'src/environments/environment';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent extends AppBaseComponent implements OnInit {
+export class LoginComponent extends AppBaseComponent implements OnInit , OnDestroy{
 
 
   constructor(

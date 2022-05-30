@@ -1284,6 +1284,11 @@ select.form-control option[value=""][disabled] {
 
 
 /***************general*****************/
+.floatValidation{
+  .invalid-feedback{
+    position: absolute;
+  }
+}
 .cursor-pointer{
   cursor: pointer;
 }

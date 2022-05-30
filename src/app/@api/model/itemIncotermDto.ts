@@ -9,9 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { IncotermShippingDto } from './incotermShippingDto';
+import { ItemIdDto } from './itemIdDto';
 
 
-export interface ItemSupplimentDto { 
-    attributeName?: string;
-    attributeValue?: string;
+export interface ItemIncotermDto { 
+    incotermShipping?: IncotermShippingDto;
+    item?: ItemIdDto;
+    itemIncotermId?: number;
 }

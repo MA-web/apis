@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { forkJoin } from 'rxjs';
 import { ItemCategoryDto, ItemControllerService, ItemDto, PageItemDto, PublicDataControllerService } from 'src/app/@api';
@@ -9,7 +9,7 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
   templateUrl: './supplier-products-list.component.html',
   styleUrls: ['./supplier-products-list.component.scss']
 })
-export class SupplierProductsListComponent extends AppBaseComponent implements OnInit {
+export class SupplierProductsListComponent extends AppBaseComponent implements OnInit , OnDestroy{
   ItemCategory: Array<ItemCategoryDto> = []
   products: Array<ItemDto> = [];
   constructor(
@@ -91,7 +91,7 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
   getList() {
     this.isLoading = true
     console.log(this._sharedService?.getToken());
-    const getFavSub = this._itemControllerService.searchItemsForSupplierUsingGET(this._sharedService?.getToken(),+this.userData?.id, this.model?.category, undefined,this.pageNumber,this.pageSize,this.model?.status,this.model?.subCategory).subscribe((res: PageItemDto) => {
+    const getFavSub = this._itemControllerService.searchItemsForSupplierUsingGET(this._sharedService?.getToken(), this.model?.category, undefined,this.pageNumber,this.pageSize,this.model?.status,this.model?.subCategory).subscribe((res: PageItemDto) => {
       if (res) {
         this.isLoading = false
         this.products = res.content;

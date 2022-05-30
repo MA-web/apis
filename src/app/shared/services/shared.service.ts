@@ -59,7 +59,8 @@ export class SharedService {
   }
 
   signOut(): void {
-    window.localStorage.clear();
+    window.localStorage.removeItem(TOKEN_KEY)
+    window.localStorage.removeItem(USER_KEY)
     setTimeout(() => {
       window.location.reload()
     }, 100);

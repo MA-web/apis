@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { forkJoin } from 'rxjs';
 import {  ItemCategoryDto, ItemDto, PageItemDto, UserControllerService } from 'src/app/@api';
@@ -10,7 +10,7 @@ import { appRouts } from 'src/environments/environment';
   templateUrl: './profile-favorite-products.component.html',
   styleUrls: ['./profile-favorite-products.component.scss']
 })
-export class ProfileFavoriteProductsComponent extends AppBaseComponent implements OnInit {
+export class ProfileFavoriteProductsComponent extends AppBaseComponent implements OnInit , OnDestroy{
   favProducts: Array<ItemDto> = [];
   ItemCategory: Array<ItemCategoryDto> = []
   constructor(
