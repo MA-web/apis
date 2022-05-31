@@ -1,4 +1,6 @@
 import { SharedService } from './../services/shared.service';
+import { EMPTY } from 'rxjs';
+
 import {
   HttpEvent,
   HttpInterceptor,
@@ -24,7 +26,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           this.HandleErrorService.handleError(error)
 
-          return throwError(error);
+          return throwError(EMPTY);
         })
       )
   }
