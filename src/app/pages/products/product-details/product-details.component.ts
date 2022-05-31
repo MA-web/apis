@@ -111,7 +111,7 @@ export class ProductDetailsComponent extends AppBaseComponent implements OnInit,
   onAddToFav() {
       let obs;
       if(this.userData?.role === roles?.customer){
-        obs =  this._userControllerService.addFavouriteItemUsingPUT(this.productDetails.itemId)
+        obs =  this._userControllerService.addFavouriteItemUsingPUT1(this.productDetails.itemId)
       }else{
         obs =  this._supplierEmployeeControllerService.addFavouriteItemUsingPUT(this.productDetails.itemId)
       }

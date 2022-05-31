@@ -17,8 +17,19 @@
       <h4>{{product?.itemName}}</h4>
       <p class="text-truncate">{{product?.details?product?.details:'&nbsp;'}}</p>
       <div class="row">
-        <div class="col-6 gram"><img src="assets/img/balance_black_24dp.png">{{product?.itemPricings[0]?.toQuantity}} {{product?.itemPricings[0]?.toUom?.uomName}}</div>
-        <div class="col-6 price"><img src="assets/img/payments_black_24dp%20(1).png">{{product?.itemPricings[0]?.price}} </div>
+        <div class="col-6 gram"><img src="assets/img/balance_black_24dp.png">
+          <ng-container *ngIf="product?.itemPricings?.length">
+            {{product?.itemPricings[0]?.toQuantity}} {{product?.itemPricings[0]?.toUom?.uomName}}
+          </ng-container>
+
+        </div>
+        <div class="col-6 price"><img src="assets/img/payments_black_24dp%20(1).png">
+
+          <ng-container *ngIf="product?.itemPricings?.length">
+            {{product?.itemPricings[0]?.price}}  {{product?.itemPricings[0]?.currency?.currencyCode}}
+          </ng-container>
+
+        </div>
       </div>
     </div>
   </div>

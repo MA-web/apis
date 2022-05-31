@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 
 import { AttachmentSource } from '../model/attachmentSource';
 import { CertificateTypeDto } from '../model/certificateTypeDto';
+import { CountryCityDto } from '../model/countryCityDto';
 import { CurrencyDto } from '../model/currencyDto';
 import { DealStepTypeDto } from '../model/dealStepTypeDto';
 import { IncotermDto } from '../model/incotermDto';
@@ -29,6 +30,12 @@ import { ItemProductionCapacityDto } from '../model/itemProductionCapacityDto';
 import { ItemSampleTypeDto } from '../model/itemSampleTypeDto';
 import { OriginDto } from '../model/originDto';
 import { PaymentTermDto } from '../model/paymentTermDto';
+import { ProfileAnnualSalesDto } from '../model/profileAnnualSalesDto';
+import { ProfileEmployeesNumberDto } from '../model/profileEmployeesNumberDto';
+import { ProfileExportPercentageDto } from '../model/profileExportPercentageDto';
+import { ProfileInterestDto } from '../model/profileInterestDto';
+import { ProfileMainCustomerDto } from '../model/profileMainCustomerDto';
+import { ProfileMainMarketDto } from '../model/profileMainMarketDto';
 import { SupplierCategoryDto } from '../model/supplierCategoryDto';
 import { TransportationDto } from '../model/transportationDto';
 import { UomDto } from '../model/uomDto';
@@ -152,6 +159,47 @@ export class LookupControllerService {
     }
 
     /**
+     * get annual sales volume lookups
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAnnualSalesVolumeUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<ProfileAnnualSalesDto>>;
+    public getAnnualSalesVolumeUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProfileAnnualSalesDto>>>;
+    public getAnnualSalesVolumeUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProfileAnnualSalesDto>>>;
+    public getAnnualSalesVolumeUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ProfileAnnualSalesDto>>(`${this.basePath}/lookup/annualSalesVolume`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * This Api will get all attachments source in the system
      *
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -183,6 +231,93 @@ export class LookupControllerService {
         ];
 
         return this.httpClient.get<Array<AttachmentSource>>(`${this.basePath}/lookup/attachments-source`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get all countries cities
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getCountriesCitiesUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<CountryCityDto>>;
+    public getCountriesCitiesUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CountryCityDto>>>;
+    public getCountriesCitiesUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CountryCityDto>>>;
+    public getCountriesCitiesUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<CountryCityDto>>(`${this.basePath}/lookup/countryCity`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get country city
+     *
+     * @param originId originId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getCountryCityUsingGET(originId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<CountryCityDto>>;
+    public getCountryCityUsingGET(originId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CountryCityDto>>>;
+    public getCountryCityUsingGET(originId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CountryCityDto>>>;
+    public getCountryCityUsingGET(originId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (originId === null || originId === undefined) {
+            throw new Error('Required parameter originId was null or undefined when calling getCountryCityUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<CountryCityDto>>(`${this.basePath}/lookup/countryCity/${encodeURIComponent(String(originId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -275,6 +410,47 @@ export class LookupControllerService {
     }
 
     /**
+     * get employees number lookups
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getEmployeesNumberUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<ProfileEmployeesNumberDto>>;
+    public getEmployeesNumberUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProfileEmployeesNumberDto>>>;
+    public getEmployeesNumberUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProfileEmployeesNumberDto>>>;
+    public getEmployeesNumberUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ProfileEmployeesNumberDto>>(`${this.basePath}/lookup/employeesNumber`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * get all item estiamtion  delivery Period in the system
      *
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -306,6 +482,88 @@ export class LookupControllerService {
         ];
 
         return this.httpClient.get<Array<string>>(`${this.basePath}/lookup/estiamtionDeliveryTime`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get export percentage lookups
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getExportPercentageUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<ProfileExportPercentageDto>>;
+    public getExportPercentageUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProfileExportPercentageDto>>>;
+    public getExportPercentageUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProfileExportPercentageDto>>>;
+    public getExportPercentageUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ProfileExportPercentageDto>>(`${this.basePath}/lookup/exportPercentage`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get interests lookups
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getInterestsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<ProfileInterestDto>>;
+    public getInterestsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProfileInterestDto>>>;
+    public getInterestsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProfileInterestDto>>>;
+    public getInterestsUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ProfileInterestDto>>(`${this.basePath}/lookup/interests`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -520,6 +778,88 @@ export class LookupControllerService {
         return this.httpClient.get<Array<ItemKeywordDto>>(`${this.basePath}/lookup/item-keywords`,
             {
                 params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get main customer lookups
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getMainCustomerUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<ProfileMainCustomerDto>>;
+    public getMainCustomerUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProfileMainCustomerDto>>>;
+    public getMainCustomerUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProfileMainCustomerDto>>>;
+    public getMainCustomerUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ProfileMainCustomerDto>>(`${this.basePath}/lookup/mainCustomers`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get main markets lookups
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getMainMarketsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<ProfileMainMarketDto>>;
+    public getMainMarketsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProfileMainMarketDto>>>;
+    public getMainMarketsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProfileMainMarketDto>>>;
+    public getMainMarketsUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ProfileMainMarketDto>>(`${this.basePath}/lookup/mainMarkets`,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

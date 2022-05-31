@@ -102,7 +102,7 @@ export class ProfileFavoriteProductsComponent extends AppBaseComponent implement
     this.isLoading = true
     let obs
     if(this.userData?.role === roles.customer){
-      obs = this._userControllerService.getFavouriteItemsUsingGET(this.model?.category,this.model?.searchValue,this.model?.subCategory, this.model?.origin,this.pageNumber,this.pageSize)
+      obs = this._userControllerService.getFavouriteItemsUsingGET1(this.model?.category,this.model?.searchValue,this.model?.subCategory, this.model?.origin,this.pageNumber,this.pageSize)
     }else{
       obs = this._supplierEmployeeControllerService.getFavouriteItemsUsingGET(this.model?.category,this.model?.searchValue,this.model?.subCategory, this.model?.origin,this.pageNumber,this.pageSize)
 

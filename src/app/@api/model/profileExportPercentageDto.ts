@@ -11,7 +11,7 @@
  */
 
 
-export interface ItemSubcategoryIdDto { 
-    itemSubcategoryId: number;
-    subcategoryName?: string;
+export interface ProfileExportPercentageDto { 
+    exportPercentageLookupId?: number;
+    exportPercentageValue?: string;
 }

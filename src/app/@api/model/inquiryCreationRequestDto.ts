@@ -24,7 +24,7 @@ export interface InquiryCreationRequestDto {
     application?: string;
     dissolutionRate?: string;
     escherichiaColi?: string;
-    expiryDate?: string;
+    expiryDate?: Date;
     extraComment?: string;
     form?: string;
     heavyMetal?: string;

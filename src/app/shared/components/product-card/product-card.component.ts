@@ -45,7 +45,7 @@ export class ProductCardComponent extends AppBaseComponent implements OnInit {
     if(!this.fav){
       let obs;
       if(this.userData?.role === roles?.customer){
-        obs =  this._userControllerService.addFavouriteItemUsingPUT(this.product.itemId)
+        obs =  this._userControllerService.addFavouriteItemUsingPUT1(this.product.itemId)
       }else{
         obs =  this._supplierEmployeeControllerService.addFavouriteItemUsingPUT(this.product.itemId)
       }
@@ -56,7 +56,7 @@ export class ProductCardComponent extends AppBaseComponent implements OnInit {
     }else{
       let obs;
       if(this.userData?.role === roles?.customer){
-        obs =  this._userControllerService.removeFavouriteItemUsingDELETE(this.product.itemId)
+        obs =  this._userControllerService.removeFavouriteItemUsingDELETE1(this.product.itemId)
       }else{
         obs =  this._supplierEmployeeControllerService.removeFavouriteItemUsingDELETE(this.product.itemId)
       }

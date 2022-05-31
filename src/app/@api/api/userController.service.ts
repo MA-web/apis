@@ -116,13 +116,13 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addFavouriteItemUsingPUT(itemId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public addFavouriteItemUsingPUT(itemId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public addFavouriteItemUsingPUT(itemId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public addFavouriteItemUsingPUT(itemId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addFavouriteItemUsingPUT1(itemId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addFavouriteItemUsingPUT1(itemId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addFavouriteItemUsingPUT1(itemId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addFavouriteItemUsingPUT1(itemId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (itemId === null || itemId === undefined) {
-            throw new Error('Required parameter itemId was null or undefined when calling addFavouriteItemUsingPUT.');
+            throw new Error('Required parameter itemId was null or undefined when calling addFavouriteItemUsingPUT1.');
         }
 
         let headers = this.defaultHeaders;
@@ -223,10 +223,10 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFavouriteItemsCountUsingGET(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: number; }>;
-    public getFavouriteItemsCountUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: number; }>>;
-    public getFavouriteItemsCountUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: number; }>>;
-    public getFavouriteItemsCountUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getFavouriteItemsCountUsingGET1(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: number; }>;
+    public getFavouriteItemsCountUsingGET1(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: number; }>>;
+    public getFavouriteItemsCountUsingGET1(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: number; }>>;
+    public getFavouriteItemsCountUsingGET1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -270,10 +270,10 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFavouriteItemsUsingGET(itemCategoryId?: number, itemName?: string, itemSubcategoryId?: number, originId?: number, page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PageItemDto>;
-    public getFavouriteItemsUsingGET(itemCategoryId?: number, itemName?: string, itemSubcategoryId?: number, originId?: number, page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageItemDto>>;
-    public getFavouriteItemsUsingGET(itemCategoryId?: number, itemName?: string, itemSubcategoryId?: number, originId?: number, page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageItemDto>>;
-    public getFavouriteItemsUsingGET(itemCategoryId?: number, itemName?: string, itemSubcategoryId?: number, originId?: number, page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getFavouriteItemsUsingGET1(itemCategoryId?: number, itemName?: string, itemSubcategoryId?: number, originId?: number, page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PageItemDto>;
+    public getFavouriteItemsUsingGET1(itemCategoryId?: number, itemName?: string, itemSubcategoryId?: number, originId?: number, page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageItemDto>>;
+    public getFavouriteItemsUsingGET1(itemCategoryId?: number, itemName?: string, itemSubcategoryId?: number, originId?: number, page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageItemDto>>;
+    public getFavouriteItemsUsingGET1(itemCategoryId?: number, itemName?: string, itemSubcategoryId?: number, originId?: number, page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
@@ -421,13 +421,13 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeFavouriteItemUsingDELETE(itemId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public removeFavouriteItemUsingDELETE(itemId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public removeFavouriteItemUsingDELETE(itemId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public removeFavouriteItemUsingDELETE(itemId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public removeFavouriteItemUsingDELETE1(itemId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeFavouriteItemUsingDELETE1(itemId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeFavouriteItemUsingDELETE1(itemId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public removeFavouriteItemUsingDELETE1(itemId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (itemId === null || itemId === undefined) {
-            throw new Error('Required parameter itemId was null or undefined when calling removeFavouriteItemUsingDELETE.');
+            throw new Error('Required parameter itemId was null or undefined when calling removeFavouriteItemUsingDELETE1.');
         }
 
         let headers = this.defaultHeaders;

@@ -2,8 +2,8 @@ import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import * as e from 'express';
-import { finalize } from 'rxjs';
-import { OriginDto, SupplierControllerService, SupplierEmployeeDto, UpdateSupplierProfileDto, UserControllerService, UserProfileDto, UserResponseDto } from 'src/app/@api';
+import { finalize, forkJoin } from 'rxjs';
+import { CountryCityDto, OriginDto, SupplierControllerService, SupplierEmployeeDto, UpdateSupplierProfileDto, UserControllerService, UserProfileDto, UserResponseDto } from 'src/app/@api';
 import { ProfileDto } from 'src/app/@api/model/profileDto';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { generalValidations, roles } from 'src/environments/environment';
@@ -39,300 +39,322 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
     } else {
       observableGetProfile = this._supplierControllerService.getSupplierProfileUsingGET()
     }
-    const getOriginsUsingGETSub = this.LookupControllerService.getOriginsUsingGET().subscribe(((res_origin: Array<OriginDto>) => {
 
-      const getUserProfileUsingGET = observableGetProfile.subscribe((res: ProfileDto) => {
+    let observables = [
+      observableGetProfile,
+      this.LookupControllerService.getOriginsUsingGET(),
+      this.LookupControllerService.getEmployeesNumberUsingGET(),
+      this.LookupControllerService.getInterestsUsingGET(),
+      this.LookupControllerService.getAnnualSalesVolumeUsingGET(),
+      this.LookupControllerService.getExportPercentageUsingGET(),
+      this.LookupControllerService.getMainMarketsUsingGET(),
+      this.LookupControllerService.getMainCustomerUsingGET(),
+    ]
 
-        this.ProfileDto = res;
-        this.profilePicture = this.ProfileDto?.userProfile?.image?.reference
-        this.businessLicensePicture = this.ProfileDto?.company?.businessLicense?.reference
-        this.fields2 = [
-          {
-            className: 'noFormGroup',
-            key: 'UploadProfilePicture',
-            type: 'file-upload',
-            templateOptions: {
-              text: this._translateService.instant('uploadNewPicture'),
-              icon: './assets/icons/edit.svg'
+    const sub = forkJoin(observables).subscribe((res: any) => {
+      this.ProfileDto = res[0];
+
+      this.profilePicture = this.ProfileDto?.userProfile?.image?.reference
+      this.businessLicensePicture = this.ProfileDto?.company?.businessLicense?.reference
+
+
+
+
+
+      this.fields2 = [
+        {
+          className: 'noFormGroup',
+          key: 'UploadProfilePicture',
+          type: 'file-upload',
+          templateOptions: {
+            text: this._translateService.instant('uploadNewPicture'),
+            icon: './assets/icons/edit.svg'
+          },
+
+        },
+      ]
+
+      this.fields = [
+        {
+          className: 'col-sm-6 col-12',
+          key: 'firstName',
+          type: 'input',
+          defaultValue: this.ProfileDto?.user?.firstName,
+          templateOptions: {
+            label: this._translateService.instant('firstName'),
+            readonly: true
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'lastName',
+          type: 'input',
+          defaultValue: this.ProfileDto?.user?.lastName,
+          templateOptions: {
+            label: this._translateService.instant('lastName'),
+            readonly: true
+          }
+        },
+        {
+          className: 'col-12',
+          key: 'gender',
+          type: 'ng-select',
+          defaultValue: this.ProfileDto?.userProfile?.gender,
+          templateOptions: {
+            label: this._translateService.instant('gender'),
+            options: [{ label: 'Male', value: 0 }, { label: 'Female', value: 1 }]
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'phone',
+          type: 'phone',
+          defaultValue: this.ProfileDto?.userProfile?.phone,
+          templateOptions: {
+            label: this._translateService.instant('telephone'),
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'landLine',
+          type: 'phone',
+          defaultValue: this.ProfileDto?.userProfile?.landLine,
+          templateOptions: {
+            label: this._translateService.instant('Landline')
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'fax',
+          type: 'input',
+          defaultValue: this.ProfileDto?.userProfile?.fax,
+          templateOptions: {
+            label: this._translateService.instant('Fax')
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'skype',
+          type: 'input',
+          defaultValue: this.ProfileDto?.userProfile?.skype,
+          templateOptions: {
+            label: this._translateService.instant('Skype')
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'companyName',
+          type: 'input',
+          defaultValue: this.ProfileDto?.user?.companyName,
+          templateOptions: {
+            label: this._translateService.instant('Company'),
+            readonly: true
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'establishmentDate',
+          type: 'input',
+          defaultValue: this.ProfileDto?.company?.establishmentDate,
+          templateOptions: {
+            type: 'date',
+            label: this._translateService.instant('EstablishmentDate')
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'origin',
+          type: 'ng-select',
+          defaultValue: this.ProfileDto?.user?.companyLocation?.originId,
+          templateOptions: {
+            label: this._translateService.instant('companyLocation'),
+            options: res[1].map(v => ({ label: v.originName, value: v.originId })),
+            disabled: true,
+            change: (f, e) => {
+              if (e) {
+                const getCountryCityUsingGETSub = this.LookupControllerService.getCountryCityUsingGET(this.model2?.origin).subscribe((res: Array<CountryCityDto>) => {
+                  this.fields2.find(v => v?.key === 'city').templateOptions.options = res.map(v => ({ label: v?.cityName, value: v?.countryCityLookupId }))
+                })
+                this.unSubscription.push(getCountryCityUsingGETSub)
+              }
+            }
+
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'city',
+          type: 'ng-select',
+          defaultValue: this.ProfileDto?.userProfile?.address?.city,
+          templateOptions: {
+            multiple: true,
+            label: this._translateService.instant('city'),
+            options: [],
+
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'street',
+          type: 'input',
+          defaultValue: this.ProfileDto?.userProfile?.address?.street,
+          templateOptions: {
+            label: this._translateService.instant('Street'),
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'postalCode',
+          type: 'input',
+          defaultValue: this.ProfileDto?.userProfile?.address?.postalCode,
+          templateOptions: {
+            label: this._translateService.instant('Postal_zip_code'),
+            pattern: generalValidations.zip
+          },
+          validation: {
+            messages: {
+              pattern: (error, field: FormlyFieldConfig) => `${this._translateService.instant('validations.zip')}`,
             },
+          },
+        },
 
+        {
+          className: 'col-sm-6 col-12',
+          key: 'website',
+          type: 'input',
+          defaultValue: this.ProfileDto?.company?.website,
+          templateOptions: {
+            type: 'url',
+            label: this._translateService.instant('Website'),
+            pattern: generalValidations.url
           },
-        ]
-        this.fields = [
-          {
-            className: 'col-sm-6 col-12',
-            key: 'firstName',
-            type: 'input',
-            defaultValue: res?.user?.firstName,
-            templateOptions: {
-              label: this._translateService.instant('firstName'),
-              readonly: true
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'lastName',
-            type: 'input',
-            defaultValue: res?.user?.lastName,
-            templateOptions: {
-              label: this._translateService.instant('lastName'),
-              readonly: true
-            }
-          },
-          {
-            className: 'col-12',
-            key: 'gender',
-            type: 'ng-select',
-            defaultValue: this.ProfileDto?.userProfile?.gender,
-            templateOptions: {
-              label: this._translateService.instant('gender'),
-              options: [{ label: 'Male', value: 0 }, { label: 'Female', value: 1 }]
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'phone',
-            type: 'phone',
-            defaultValue: this.ProfileDto?.userProfile?.phone,
-            templateOptions: {
-              label: this._translateService.instant('telephone'),
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'landLine',
-            type: 'phone',
-            defaultValue: this.ProfileDto?.userProfile?.landLine,
-            templateOptions: {
-              label: this._translateService.instant('Landline')
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'fax',
-            type: 'input',
-            defaultValue: this.ProfileDto?.userProfile?.fax,
-            templateOptions: {
-              label: this._translateService.instant('Fax')
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'skype',
-            type: 'input',
-            defaultValue: this.ProfileDto?.userProfile?.skype,
-            templateOptions: {
-              label: this._translateService.instant('Skype')
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'companyName',
-            type: 'input',
-            defaultValue: res?.user?.companyName,
-            templateOptions: {
-              label: this._translateService.instant('Company'),
-              readonly: true
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'establishmentDate',
-            type: 'input',
-            defaultValue: res?.company?.establishmentDate,
-            templateOptions: {
-              type: 'date',
-              label: this._translateService.instant('EstablishmentDate')
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'origin',
-            type: 'ng-select',
-            defaultValue: res?.user?.companyLocation?.originId,
-            templateOptions: {
-              label: this._translateService.instant('companyLocation'),
-              options: res_origin?.map(v => ({ label: v.originName, value: v.originId })),
-              disabled: true
-
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'city',
-            type: 'ng-select',
-            defaultValue: res?.userProfile?.address?.city,
-            templateOptions: {
-              multiple: true,
-              label: this._translateService.instant('city'),
-              options: [],
-
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'street',
-            type: 'input',
-            defaultValue: res?.userProfile?.address?.street,
-            templateOptions: {
-              label: this._translateService.instant('Street'),
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'postalCode',
-            type: 'input',
-            defaultValue: res?.userProfile?.address?.postalCode,
-            templateOptions: {
-              label: this._translateService.instant('Postal_zip_code'),
-              pattern: generalValidations.zip
-            },
-            validation: {
-              messages: {
-                pattern: (error, field: FormlyFieldConfig) => `${this._translateService.instant('validations.zip')}`,
-              },
+          validation: {
+            messages: {
+              pattern: (error, field: FormlyFieldConfig) => `${this._translateService.instant('validations.url')}`,
             },
           },
+        },
 
-          {
-            className: 'col-sm-6 col-12',
-            key: 'website',
-            type: 'input',
-            defaultValue: res?.company?.website,
-            templateOptions: {
-              type: 'url',
-              label: this._translateService.instant('Website'),
-              pattern: generalValidations.url
-            },
-            validation: {
-              messages: {
-                pattern: (error, field: FormlyFieldConfig) => `${this._translateService.instant('validations.url')}`,
-              },
-            },
-          },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'numberEmployees',
+          type: 'ng-select',
+          defaultValue: this.ProfileDto?.company?.numberEmployees,
+          templateOptions: {
+            label: this._translateService.instant('numEmployees'),
+            options: res[2].map(v => ({ label: v?.numberOfEmployeesValue, value: v?.numberOfEmployeesLookupId })),
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'title',
+          type: 'input',
+          defaultValue: this.ProfileDto?.userProfile?.title,
+          templateOptions: {
+            label: this._translateService.instant('Title'),
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'companyType',
+          type: 'input',
+          defaultValue: this.ProfileDto?.company?.companyType,
+          templateOptions: {
+            label: this._translateService.instant('Type'),
+          }
+        },
+        {
+          className: 'col-12',
+          key: 'businessLicense',
+          type: 'upload',
 
-          {
-            className: 'col-sm-6 col-12',
-            key: 'numberEmployees',
-            type: 'number',
-            defaultValue: res?.company?.numberEmployees,
-            templateOptions: {
-              label: this._translateService.instant('numEmployees'),
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'title',
-            type: 'input',
-            defaultValue: res?.userProfile?.title,
-            templateOptions: {
-              label: this._translateService.instant('Title'),
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'companyType',
-            type: 'input',
-            defaultValue: res?.company?.companyType,
-            templateOptions: {
-              label: this._translateService.instant('Type'),
-            }
-          },
-          {
-            className: 'col-12',
-            key: 'businessLicense',
-            type: 'upload',
+          templateOptions: {
+            text: this._translateService.instant('UploadFiles'),
+            label: this._translateService.instant('BusinessLicensee'),
+            file: this.ProfileDto?.company?.businessLicense?.reference,
+          }
+        },
 
-            templateOptions: {
-              text: this._translateService.instant('UploadFiles'),
-              label: this._translateService.instant('BusinessLicensee'),
-              file: res?.company?.businessLicense?.reference,
-            }
-          },
-
-          {
-            className: 'col-12',
-            key: 'aboutMe',
-            type: 'input',
-            defaultValue: res?.userProfile?.aboutMe,
-            templateOptions: {
-              label: this._translateService.instant('AboutMe'),
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'workingIn',
-            type: 'input',
-            defaultValue: res?.userProfile?.workingIn,
-            templateOptions: {
-              label: this._translateService.instant('WorkingIn'),
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'interestedIn',
-            // type: 'ng-select',
-            type: 'input',
-            defaultValue: res?.userProfile?.interestedIn,
-            templateOptions: {
-              label: this._translateService.instant('interestedIn'),
-              // options: []
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'totalAnnualSales',
-            // type: 'ng-select',
-            type: 'number',
-            defaultValue: res?.company?.totalAnnualSales,
-            templateOptions: {
-              label: this._translateService.instant('Total_annual_sales_volume'),
-              // options: []
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'exportPercentage',
-            // type: 'ng-select',
-            type: 'number',
-            defaultValue: res?.company?.exportPercentage,
-            templateOptions: {
-              label: this._translateService.instant('Export_Percentage'),
-              // options: []
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'mainMarkets',
-            type: 'ng-select',
-            // type:'input',
-            defaultValue: res?.company?.mainMarkets,
-            templateOptions: {
-              label: this._translateService.instant('Main_Markets'),
-              options: []
-            }
-          },
-          {
-            className: 'col-sm-6 col-12',
-            key: 'mainCustomer',
-            type: 'ng-select',
-            defaultValue: res?.company?.mainCustomer,
-            templateOptions: {
-              label: this._translateService.instant('Main_Customer'),
-              options: []
-            }
-          },
-        ]
-
-        this.isLoading = false
-
-
+        {
+          className: 'col-12',
+          key: 'aboutMe',
+          type: 'input',
+          defaultValue: this.ProfileDto?.userProfile?.aboutMe,
+          templateOptions: {
+            label: this._translateService.instant('AboutMe'),
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'workingIn',
+          type: 'input',
+          defaultValue: this.ProfileDto?.userProfile?.workingIn,
+          templateOptions: {
+            label: this._translateService.instant('WorkingIn'),
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'interestedIn',
+          type: 'ng-select',
+          defaultValue: this.ProfileDto?.userProfile?.interestedIn,
+          templateOptions: {
+            label: this._translateService.instant('interestedIn'),
+            options: res[3].map(v => ({ label: v?.interestedInValue, value: v?.interestedInLookupId })),
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'totalAnnualSales',
+          type: 'ng-select',
+          defaultValue: this.ProfileDto?.company?.totalAnnualSales,
+          templateOptions: {
+            label: this._translateService.instant('Total_annual_sales_volume'),
+            options: res[4].map(v => ({ label: v?.annualSalesValue, value: v?.annualSalesLookupId })),
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'exportPercentage',
+          type: 'ng-select',
+          defaultValue: this.ProfileDto?.company?.exportPercentage,
+          templateOptions: {
+            label: this._translateService.instant('Export_Percentage'),
+            options: res[5].map(v => ({ label: v?.exportPercentageValue, value: v?.exportPercentageLookupId })),
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'mainMarkets',
+          type: 'ng-select',
+          defaultValue: this.ProfileDto?.company?.mainMarkets,
+          templateOptions: {
+            label: this._translateService.instant('Main_Markets'),
+            options: res[6].map(v => ({ label: v?.mainMarketsValue, value: v?.mainMarketsLookupId })),
+          }
+        },
+        {
+          className: 'col-sm-6 col-12',
+          key: 'mainCustomer',
+          type: 'ng-select',
+          defaultValue: this.ProfileDto?.company?.mainCustomer,
+          templateOptions: {
+            label: this._translateService.instant('Main_Customer'),
+            options: res[7].map(v => ({ label: v?.mainCustomerValue, value: v?.mainCustomerLookupId })),
+          }
+        },
+      ]
+      const getCountryCityUsingGETSub = this.LookupControllerService.getCountryCityUsingGET(this.ProfileDto?.user?.companyLocation?.originId).subscribe((res: Array<CountryCityDto>) => {
+        this.fields.find(v => v?.key === 'city').templateOptions.options = res.map(v => ({ label: v?.cityName, value: v?.countryCityLookupId }))
       })
-      this.unSubscription.push(getUserProfileUsingGET)
-    }))
+      this.unSubscription.push(getCountryCityUsingGETSub)
+      this.isLoading = false
+
+    })
 
 
-    this.unSubscription.push(getOriginsUsingGETSub)
+    this.unSubscription.push(sub)
+
 
     const resDataSub = this.UploadFileService.resData.subscribe(res => {
       let addProfileStorage
