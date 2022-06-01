@@ -137,9 +137,7 @@ export class SignupComponent extends AppBaseComponent implements OnInit, OnDestr
               message: this._translateService.instant('validations.PasswordNotMatching'),
             },
           },
-          expressionProperties: {
-            'templateOptions.disabled': () => !this.form.get('password').valid,
-          }
+
         },
         {
           className: 'col-12',

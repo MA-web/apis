@@ -14,7 +14,10 @@ import { Lightbox } from 'ngx-lightbox';
           <div class="media-body ">
             <div class="d-flex justify-content-between align-items-center">
             <h5 class="mt-0 mb-1">
-            <span class="d-inline-block mr-3">{{items?.CertificateName}},</span> <span class="d-inline-block">{{to.fileLoad? getImageName(items?.file):items?.file?.fileToUpload?.name}}</span> <span></span>
+            <pre>
+
+            </pre>
+            <span class="d-inline-block mr-3">{{items?.Certificate?.certificateTypeName ||items?.otherCertificateName }},</span> <span class="d-inline-block">{{to.fileLoad? getImageName(items?.file):items?.file?.fileToUpload?.name}}</span> <span></span>
             </h5>
 
             <div class="button-items">
@@ -39,7 +42,7 @@ import { Lightbox } from 'ngx-lightbox';
           <div class="media-body ">
             <div class="d-flex justify-content-between align-items-center">
             <h5 class="mt-0 mb-1">
-            <span class="d-inline-block mr-3">{{item?.CertificateName}},</span> <span class="d-inline-block">{{to.fileLoad? getImageName(item?.file):item?.file?.fileToUpload?.name}}</span> <span></span>
+            <span class="d-inline-block mr-3">{{item?.Certificate?.certificateTypeName }}  <span *ngIf="item?.otherCertificateName "> - {{item?.otherCertificateName }}</span> ,</span> <span class="d-inline-block">{{to.fileLoad? getImageName(item?.file):item?.file?.fileToUpload?.name}}</span> <span></span>
             </h5>
 
             <div class="button-items">

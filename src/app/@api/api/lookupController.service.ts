@@ -20,7 +20,7 @@ import { Observable }                                        from 'rxjs';
 
 import { AttachmentSource } from '../model/attachmentSource';
 import { CertificateTypeDto } from '../model/certificateTypeDto';
-import { CountryCityDto } from '../model/countryCityDto';
+import { CityDto } from '../model/cityDto';
 import { CurrencyDto } from '../model/currencyDto';
 import { DealStepTypeDto } from '../model/dealStepTypeDto';
 import { IncotermDto } from '../model/incotermDto';
@@ -231,93 +231,6 @@ export class LookupControllerService {
         ];
 
         return this.httpClient.get<Array<AttachmentSource>>(`${this.basePath}/lookup/attachments-source`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * get all countries cities
-     *
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getCountriesCitiesUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<CountryCityDto>>;
-    public getCountriesCitiesUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CountryCityDto>>>;
-    public getCountriesCitiesUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CountryCityDto>>>;
-    public getCountriesCitiesUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (JWT) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<Array<CountryCityDto>>(`${this.basePath}/lookup/countryCity`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * get country city
-     *
-     * @param originId originId
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getCountryCityUsingGET(originId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<CountryCityDto>>;
-    public getCountryCityUsingGET(originId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CountryCityDto>>>;
-    public getCountryCityUsingGET(originId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CountryCityDto>>>;
-    public getCountryCityUsingGET(originId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (originId === null || originId === undefined) {
-            throw new Error('Required parameter originId was null or undefined when calling getCountryCityUsingGET.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (JWT) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<Array<CountryCityDto>>(`${this.basePath}/lookup/countryCity/${encodeURIComponent(String(originId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -859,6 +772,52 @@ export class LookupControllerService {
         ];
 
         return this.httpClient.get<Array<ProfileMainMarketDto>>(`${this.basePath}/lookup/mainMarkets`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get country city
+     *
+     * @param originId originId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getOriginCitiesUsingGET(originId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<CityDto>>;
+    public getOriginCitiesUsingGET(originId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CityDto>>>;
+    public getOriginCitiesUsingGET(originId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CityDto>>>;
+    public getOriginCitiesUsingGET(originId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (originId === null || originId === undefined) {
+            throw new Error('Required parameter originId was null or undefined when calling getOriginCitiesUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<CityDto>>(`${this.basePath}/lookup/origins/${encodeURIComponent(String(originId))}/cities`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

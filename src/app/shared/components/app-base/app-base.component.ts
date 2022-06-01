@@ -1,4 +1,4 @@
-import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormlyFieldConfig, FormlyForm, FormlyFormOptions } from '@ngx-formly/core';
@@ -16,7 +16,7 @@ import { SharedService } from '../../services/shared.service';
   templateUrl: './app-base.component.html',
   styleUrls: ['./app-base.component.scss']
 })
-export class AppBaseComponent implements OnDestroy {
+export class AppBaseComponent implements OnDestroy,AfterViewInit {
 
   pageNumber: number = 0;
   pageSize: number = 6
@@ -47,6 +47,7 @@ export class AppBaseComponent implements OnDestroy {
   toaster: ToastrService;
   route: ActivatedRoute;
   UploadFileService:UploadFileService
+  cdr: ChangeDetectorRef
   constructor(injector: Injector) {
     this._translateService = injector.get(TranslateService);
     this._sharedService = injector.get(SharedService);
@@ -55,9 +56,13 @@ export class AppBaseComponent implements OnDestroy {
     this.toaster = injector.get(ToastrService);
     this.route = injector.get(ActivatedRoute);
     this.UploadFileService = injector.get(UploadFileService);
+    this.cdr = injector.get(ChangeDetectorRef);
     this.userData = this._sharedService?.getUser()
   }
 
+  ngAfterViewInit() {
+    this.cdr.detectChanges();
+  }
 
   tabSelected(url: string) {
     this.router.navigateByUrl(url)

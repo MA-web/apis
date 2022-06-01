@@ -14,12 +14,13 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
 <div  class="subform">
     <form [formGroup]="singleForm" *ngIf="showForm">
         <formly-form class="row" [model]="mdl" [fields]="singleField" [form]="singleForm" [options]="ops">
-        <div class="button-items">
-              <button type="button" class="apis-button btn btn-success border-radius-13 px-2 mt-md-4" (click)="save(mdl)"  [disabled]="singleForm.invalid">
-              <span [inlineSVG]="'assets/icons/check.svg'"></span>
+
+        <div class="button-items mt-2">
+              <button type="button" class="apis-button btn btn-success border-radius-13 p-2 mt-md-4" (click)="save(mdl)"  [disabled]="singleForm.invalid">
+              <span [inlineSVG]="'assets/icons/check.svg'" style="width: 30px;"></span>
             </button>
-            <button type="button" class="apis-button btn btn-danger border-radius-13   px-2 mt-md-4" (click)="hideForm()" >
-              <span [inlineSVG]="'assets/icons/cancel.svg'"></span>
+            <button type="button" class="apis-button btn btn-danger border-radius-13  p-2 mt-md-4" (click)="hideForm()" >
+              <span [inlineSVG]="'assets/icons/cancel.svg'" style="width: 30px;"></span>
             </button>
             </div>
         </formly-form>
@@ -40,20 +41,22 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
               </ng-container>
               <ng-template #elseTemplate>
               <ng-container *ngIf="field.key ==='UploadFile'; else elseTemplateValue">
-              <img src="" imgPreview [image]="item?.field?.key[0]" class="media-object" width="45" (click)="onView(item?.field?.key[0])" />
+              <img *ngIf="item[field?.key]" src="" imgPreview [image]="item[field?.key][0]" class="media-object" width="45" (click)="onView(item[field?.key][0])" />
               </ng-container>
               <ng-template #elseTemplateValue>
               {{item[field?.key] }}
               </ng-template>
               </ng-template>
+
+
       </td>
            <td class="px-2 py-0 align-middle">
             <div class="button-items">
-              <button type="button" class="apis-button btn btn-outline-info border-radius-13 py-2" (click)="editForm(i)">
-              <span [inlineSVG]="'assets/icons/edit.svg'" ></span>
+              <button type="button" class="apis-button btn btn-outline-info border-radius-13 p-2" (click)="editForm(i)">
+              <span [inlineSVG]="'assets/icons/edit.svg'" style="width: 30px;" ></span>
             </button>
-              <button type="button" class="apis-button btn btn-danger border-radius-13 py-2" (click)="remove(i);hideForm()">
-                <span [inlineSVG]="'assets/icons/delete.svg'"></span>
+              <button type="button" class="apis-button btn btn-danger border-radius-13 p-2" (click)="remove(i);hideForm()">
+                <span [inlineSVG]="'assets/icons/delete.svg'" style="width: 30px;"></span>
               </button>
             </div>
         </td>
@@ -61,6 +64,8 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
     </tbody>
   </table>
   </div>
+
+
   `,
   styles: [
     `
@@ -90,12 +95,12 @@ export class FormlyRepeatType extends FieldArrayType implements OnInit {
     super(builder);
   }
   ngOnInit() {
-    this.singleField = JSON.parse(JSON.stringify(this.field?.fieldArray?.fieldGroup));
+    this.singleField = [...this.field?.fieldArray?.fieldGroup];
   }
   addItem() {
     this.mdl = {}
     this.showForm = true;
-    // this.ops?.resetModel();
+    this.ops.resetModel();
   }
   editForm(index: any) {
     var model = this.model;
@@ -107,6 +112,7 @@ export class FormlyRepeatType extends FieldArrayType implements OnInit {
     this.showForm = false;
     this.ops?.resetModel();
     this.index = -1;
+    this.form.reset()
   }
   save(model: any) {
     if (this.singleForm.valid) {
@@ -115,10 +121,12 @@ export class FormlyRepeatType extends FieldArrayType implements OnInit {
       } else {
         this.formControl.at(this.index)?.patchValue(model);
       }
-
-      this.hideForm();
       this.ops?.resetModel();
       this.mdl = {}
+      this.singleForm.reset()
+      this.field?.fieldArray?.fieldGroup.forEach(v =>{
+        v.templateOptions.disabled = false
+      })
     }
   }
   onView(item: any) {

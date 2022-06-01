@@ -52,7 +52,6 @@ export class FormlyFieldUpload extends FieldType implements OnInit {
 
   onRemove(event: any, i: any) {
     this.files.splice(this.files.indexOf(event), 1);
-    this.UploadFileService.deleteFile(this.to?.file.replace('https://devspace-marksphinx.fra1.digitaloceanspaces.com/', ''))
     this._sharedService.sendEmptyAttach.next(true)
   }
 

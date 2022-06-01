@@ -16,6 +16,7 @@ export class UploadFileService {
   imageUrl = "";
 
   resData: Subject<any> = new Subject();
+  sendEmptyAttach: Subject<any> = new Subject();
 
   data = { message: "", data: "" };
 
@@ -85,11 +86,11 @@ export class UploadFileService {
       bucket.upload(params, function (err, data) {
 
         if (err) {
-          console.log('There was an error uploading your file: ', err);
+
           return false;
         }
 
-        // console.log('Successfully uploaded file.', data);
+        //
         // that.data.message = "Successfully uploaded file.";
         // that.data.data = data.Location;
         that.resData.next(data.Location);
@@ -101,7 +102,7 @@ export class UploadFileService {
   }
 
   deleteFile(fileName) {
-
+    var that = this;
     const bucket = new S3(
       {
         endpoint: "fra1.digitaloceanspaces.com",
@@ -112,7 +113,7 @@ export class UploadFileService {
     );
     var params = {
       Bucket: 'devspace-marksphinx',
-      Key: fileName
+      Key: fileName?.replace('https://devspace-marksphinx.fra1.digitaloceanspaces.com/', '')
       /*
          where value for 'Key' equals 'pathName1/pathName2/.../pathNameN/fileName.ext'
          - full path name to your file without '/' at the beginning
@@ -120,10 +121,10 @@ export class UploadFileService {
     };
     var that = this;
     bucket.deleteObject(params, function (err, data) {
-      if (err) console.log(err, err.stack); // an error occurred
-      else console.log(data)
+      that.sendEmptyAttach.next(true)
 
     });
+
   }
   public getFile() {
     return this.resData.asObservable();

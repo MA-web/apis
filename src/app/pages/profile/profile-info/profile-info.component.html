@@ -27,7 +27,7 @@
               <!-- <button type="button" class="apis-button btn btn-outline-info px-3 mb-3">
                 <span [inlineSVG]="'assets/icons/edit.svg'"></span>
                 {{'uploadNewPicture' | translate}}</button> -->
-              <button type="button" class="apis-button btn btn-danger px-3">
+              <button type="button" class="apis-button btn btn-danger px-3" (click)="onDeleteImage()">
                 <span [inlineSVG]="'assets/icons/delete.svg'"></span>
                 {{'Delete' | translate}}</button>
             </div>
@@ -41,7 +41,7 @@
                 <button type="button" class="apis-button btn-danger px-4 mr-2 mb-2">
                   <span [inlineSVG]="'assets/icons/delete.svg'"></span>
                   {{'DeleteAccount' | translate}}</button>
-                  <button type="button" class="apis-button btn btn-warning px-4 mr-2  mb-2">
+                  <button type="button" class="apis-button btn btn-warning px-4 mr-2  mb-2" (click)="onChangePassword()">
                     {{'ChangePassword' | translate}}</button>
               </div>
               <div class="d-inline-block">

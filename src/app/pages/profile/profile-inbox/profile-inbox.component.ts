@@ -12,7 +12,7 @@ import { roles } from 'src/environments/environment';
   templateUrl: './profile-inbox.component.html',
   styleUrls: ['./profile-inbox.component.scss']
 })
-export class ProfileInboxComponent extends AppBaseComponent implements OnInit , OnDestroy{
+export class ProfileInboxComponent extends AppBaseComponent implements OnInit, OnDestroy {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
 
@@ -58,7 +58,7 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit , 
         templateOptions: {
           placeholder: this._translateService.instant('Type your reply Here …..'),
           rows: 5,
-          required:true
+          required: true
         }
       },
       {
@@ -66,7 +66,8 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit , 
         key: 'inboxImages',
         type: 'file-upload',
         templateOptions: {
-          text: this._translateService.instant('UploadFiles')
+          text: this._translateService.instant('UploadFiles'),
+          multiple:true
         }
       },
     ]
@@ -79,14 +80,28 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit , 
     })
     this.unSubscription.push(sendInboxSub)
 
-    const RefreshInboxSub = this._sharedService.RefreshInbox.subscribe(res =>{
+    const RefreshInboxSub = this._sharedService.RefreshInbox.subscribe(res => {
       this.refreshList()
     })
     this.unSubscription.push(RefreshInboxSub)
 
     const resDataSub = this.UploadFileService.resData.subscribe(res => {
+      var Values = [];
+      //get olds values
+      if (window.localStorage.getItem('addIInboxStorage')) {
+        Values = JSON.parse(window.localStorage.getItem('addIInboxStorage'));
+      }
 
-        this.replyChat(res)
+      //push new value
+      Values.push(res);
+
+      window.localStorage.setItem('addIInboxStorage', JSON.stringify(Values))
+
+      if (JSON.parse(window.localStorage.getItem('addIInboxStorage'))?.length === this.beforeImagesLoaded?.length) {
+        let finalUploaded = JSON.parse(window.localStorage.getItem('addIInboxStorage'))
+        this.replyChat(finalUploaded)
+      }
+
 
     })
   }
@@ -110,7 +125,7 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit , 
     this.unSubscription.push(getInboxUsingGETSub)
   }
 
-  refreshList(){
+  refreshList() {
     const getInboxUsingGETSub = this.InboxControllerService.getInboxUsingGET(this.pageNumber, this.model?.search, this.pageSize).subscribe((res: PageChatDto) => {
       this.chatList = res?.content;
       this.totalElements = res?.totalElements
@@ -126,28 +141,28 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit , 
   }
 
 
-  replyChat(attachments?){
+  replyChat(attachments?) {
     console.log('attachments: ', attachments);
-      let MessageDto: MessageDto = {
+    let MessageDto: MessageDto = {
+      attachments: attachments?.map((v,index) =>( {
         attachment:{
-          attachmentId: 1,
-          attachmentSource: {
-            attachmentSourceId:1,
-            attachmentSourceName: attachments
-          },
-          reference: attachments
+          attachmentId: index+1,
+          attachmentSource:v,
+          reference: v
         },
+        attachmentName:v
+      })),
       messageContent: this.model2?.messageContent,
       sender: {
         id: this.userData?.role === roles?.customer ? this.userData?.id : this.userData?.supplierId,
       }
     }
-   const replyToChatUsingPOSTSub = this.InboxControllerService.replyToChatUsingPOST(this.ChatDto?.chatId, MessageDto).pipe(
-      finalize(() =>{
+    const replyToChatUsingPOSTSub = this.InboxControllerService.replyToChatUsingPOST(this.ChatDto?.chatId, MessageDto).pipe(
+      finalize(() => {
         this.isSubmit = false;
       })
     ).subscribe((res: MessageDto) => {
-      if(res){
+      if (res) {
         this.options.resetModel()
         this.ChatDto.messages.push(res)
         this.scrollToBottom();
@@ -162,41 +177,54 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit , 
 
   onSubmit() {
     this.isSubmit = true;
+    window.localStorage.removeItem('addIInboxStorage')
+    this.beforeImagesLoaded = []
 
-      this.UploadFileService.uploadfile(this.model2?.inboxImages[0], `inboxes/inbox-${this.ChatDto?.chatId}`)
+    console.log(this.model2);
+    if (this.model2?.inboxImages?.length) {
+      let inboxImages = []
+      for (let i = 0; i <  this.model2?.inboxImages.length; i++) {
+        let file =  this.model2?.inboxImages[i];
+        this.beforeImagesLoaded.push(file)
+        inboxImages.push(file)
+    }
 
+
+      this.UploadFileService.uploadMultiple(inboxImages, `inboxes/inbox-${this.ChatDto?.chatId}`)
+    }
 
     if (!this.model2?.inboxImages) {
       this.replyChat()
     }
-  //   let MessageDto: MessageDto = {
-  //     // attachment: {
-  //     //   attachmentSource: {
-  //     //     attachmentSourceId: 1,
-  //     //     attachmentSourceName: 'x'
-  //     //   },
-  //     //   reference: 'x'
-  //     // },
-  //     messageContent: this.model2?.messageContent,
-  //     sender: {
-  //       id: this.userData?.role === roles?.customer ? this.userData?.id : this.userData?.supplierId,
 
-  //     }
-  //   }
-  //  const replyToChatUsingPOSTSub = this.InboxControllerService.replyToChatUsingPOST(this.ChatDto?.chatId, MessageDto).pipe(
-  //     finalize(() =>{
-  //       this.isSubmit = false;
-  //     })
-  //   ).subscribe((res: MessageDto) => {
-  //     if(res){
-  //       this.options.resetModel()
-  //       this.ChatDto.messages.push(res)
-  //       this.scrollToBottom();
-  //       setTimeout(() => {
-  //         this.scrollToBottom();
-  //       }, 100);
-  //     }
-  //   })
-  //   this.unSubscription.push(replyToChatUsingPOSTSub)
+    //   let MessageDto: MessageDto = {
+    //     // attachment: {
+    //     //   attachmentSource: {
+    //     //     attachmentSourceId: 1,
+    //     //     attachmentSourceName: 'x'
+    //     //   },
+    //     //   reference: 'x'
+    //     // },
+    //     messageContent: this.model2?.messageContent,
+    //     sender: {
+    //       id: this.userData?.role === roles?.customer ? this.userData?.id : this.userData?.supplierId,
+
+    //     }
+    //   }
+    //  const replyToChatUsingPOSTSub = this.InboxControllerService.replyToChatUsingPOST(this.ChatDto?.chatId, MessageDto).pipe(
+    //     finalize(() =>{
+    //       this.isSubmit = false;
+    //     })
+    //   ).subscribe((res: MessageDto) => {
+    //     if(res){
+    //       this.options.resetModel()
+    //       this.ChatDto.messages.push(res)
+    //       this.scrollToBottom();
+    //       setTimeout(() => {
+    //         this.scrollToBottom();
+    //       }, 100);
+    //     }
+    //   })
+    //   this.unSubscription.push(replyToChatUsingPOSTSub)
   }
 }

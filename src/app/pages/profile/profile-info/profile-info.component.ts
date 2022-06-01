@@ -2,11 +2,13 @@ import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import * as e from 'express';
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { finalize, forkJoin } from 'rxjs';
-import { CountryCityDto, OriginDto, SupplierControllerService, SupplierEmployeeDto, UpdateSupplierProfileDto, UserControllerService, UserProfileDto, UserResponseDto } from 'src/app/@api';
+import {    SupplierControllerService, SupplierEmployeeDto, UpdateSupplierProfileDto, UserControllerService, UserProfileDto, UserResponseDto } from 'src/app/@api';
 import { ProfileDto } from 'src/app/@api/model/profileDto';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { generalValidations, roles } from 'src/environments/environment';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @Component({
   selector: 'app-profile-info',
@@ -25,7 +27,8 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
   constructor(
     injector: Injector,
     private _userControllerService: UserControllerService,
-    private _supplierControllerService: SupplierControllerService
+    private _supplierControllerService: SupplierControllerService,
+    private modalService: BsModalService
   ) {
     super(injector)
     this.isLoading = true
@@ -172,8 +175,8 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
             disabled: true,
             change: (f, e) => {
               if (e) {
-                const getCountryCityUsingGETSub = this.LookupControllerService.getCountryCityUsingGET(this.model2?.origin).subscribe((res: Array<CountryCityDto>) => {
-                  this.fields2.find(v => v?.key === 'city').templateOptions.options = res.map(v => ({ label: v?.cityName, value: v?.countryCityLookupId }))
+                const getCountryCityUsingGETSub = this.LookupControllerService.getOriginCitiesUsingGET(this.model2?.origin).subscribe((res: any) => {
+                  this.fields2.find(v => v?.key === 'city').templateOptions.options = res.map(v => ({ label: v?.cityName, value: v?.cityLookupId }))
                 })
                 this.unSubscription.push(getCountryCityUsingGETSub)
               }
@@ -185,9 +188,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
           className: 'col-sm-6 col-12',
           key: 'city',
           type: 'ng-select',
-          defaultValue: this.ProfileDto?.userProfile?.address?.city,
           templateOptions: {
-            multiple: true,
             label: this._translateService.instant('city'),
             options: [],
 
@@ -297,7 +298,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
           className: 'col-sm-6 col-12',
           key: 'interestedIn',
           type: 'ng-select',
-          defaultValue: this.ProfileDto?.userProfile?.interestedIn,
+          defaultValue: +this.ProfileDto?.userProfile?.interestedIn,
           templateOptions: {
             label: this._translateService.instant('interestedIn'),
             options: res[3].map(v => ({ label: v?.interestedInValue, value: v?.interestedInLookupId })),
@@ -307,7 +308,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
           className: 'col-sm-6 col-12',
           key: 'totalAnnualSales',
           type: 'ng-select',
-          defaultValue: this.ProfileDto?.company?.totalAnnualSales,
+          defaultValue: +this.ProfileDto?.company?.totalAnnualSales,
           templateOptions: {
             label: this._translateService.instant('Total_annual_sales_volume'),
             options: res[4].map(v => ({ label: v?.annualSalesValue, value: v?.annualSalesLookupId })),
@@ -317,7 +318,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
           className: 'col-sm-6 col-12',
           key: 'exportPercentage',
           type: 'ng-select',
-          defaultValue: this.ProfileDto?.company?.exportPercentage,
+          defaultValue: +this.ProfileDto?.company?.exportPercentage,
           templateOptions: {
             label: this._translateService.instant('Export_Percentage'),
             options: res[5].map(v => ({ label: v?.exportPercentageValue, value: v?.exportPercentageLookupId })),
@@ -327,7 +328,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
           className: 'col-sm-6 col-12',
           key: 'mainMarkets',
           type: 'ng-select',
-          defaultValue: this.ProfileDto?.company?.mainMarkets,
+          defaultValue: +this.ProfileDto?.company?.mainMarkets,
           templateOptions: {
             label: this._translateService.instant('Main_Markets'),
             options: res[6].map(v => ({ label: v?.mainMarketsValue, value: v?.mainMarketsLookupId })),
@@ -337,15 +338,16 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
           className: 'col-sm-6 col-12',
           key: 'mainCustomer',
           type: 'ng-select',
-          defaultValue: this.ProfileDto?.company?.mainCustomer,
+          defaultValue: +this.ProfileDto?.company?.mainCustomer,
           templateOptions: {
             label: this._translateService.instant('Main_Customer'),
             options: res[7].map(v => ({ label: v?.mainCustomerValue, value: v?.mainCustomerLookupId })),
           }
         },
       ]
-      const getCountryCityUsingGETSub = this.LookupControllerService.getCountryCityUsingGET(this.ProfileDto?.user?.companyLocation?.originId).subscribe((res: Array<CountryCityDto>) => {
-        this.fields.find(v => v?.key === 'city').templateOptions.options = res.map(v => ({ label: v?.cityName, value: v?.countryCityLookupId }))
+      const getCountryCityUsingGETSub = this.LookupControllerService.getOriginCitiesUsingGET(this.ProfileDto?.user?.companyLocation?.originId).subscribe((res:any) => {
+        this.fields.find(v => v?.key === 'city').templateOptions.options = res.map(v => ({ label: v?.cityName, value: v?.cityLookupId }))
+        this.form.get('city')?.setValue(+this.ProfileDto?.userProfile?.address?.city)
       })
       this.unSubscription.push(getCountryCityUsingGETSub)
       this.isLoading = false
@@ -391,9 +393,22 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
     this.unSubscription.push(resDataSub)
 
     const sendEmptyAttachSub = this._sharedService.sendEmptyAttach.subscribe(res => {
-      if (res) this.businessLicensePicture = undefined
+
+      if (res) {
+        this.UploadFileService.deleteFile(this.businessLicensePicture)
+        this.businessLicensePicture = undefined
+      }
     })
     this.unSubscription.push(sendEmptyAttachSub)
+
+    const sendEmptyAttachSub2 = this.UploadFileService.sendEmptyAttach.subscribe(res => {
+      if (res){
+        this.profilePicture = undefined
+        if(!this.profilePicture)    this.updateProfile()
+
+      }
+    })
+    this.unSubscription.push(sendEmptyAttachSub2)
   }
 
 
@@ -456,13 +471,13 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
     } else {
       let UpdateSupplierProfileDto: UpdateSupplierProfileDto = {
         supplier: {
-          businessLicense: {
+          businessLicense:this.businessLicensePicture? {
             "attachmentSource": {
               "attachmentSourceId": 1,
               "attachmentSourceName": this.businessLicensePicture
             },
             "reference": this.businessLicensePicture
-          },
+          }:undefined,
           companyType: this.model?.companyType,
           establishmentDate: this.model?.establishmentDate ? new Date(this.model?.establishmentDate) : undefined,
           exportPercentage: this.model?.exportPercentage,
@@ -501,8 +516,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
         this.isSubmit = false
       })).subscribe((res: SupplierEmployeeDto) => {
         if (res) {
-          this.toaster.success("updatedSuccessfully")
-
+          this.toaster.success(this._translateService.instant("updatedSuccessfully"))
         }
 
       })
@@ -510,7 +524,11 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
     }
   }
 
+  onDeleteImage(){
+    this.UploadFileService.deleteFile(this.profilePicture)
 
+
+  }
   onSubmit() {
     window.localStorage.removeItem('addProfileStorage')
     this.beforeImagesLoaded = []
@@ -537,6 +555,16 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
 
 
   }
+
+  onChangePassword(){
+    const initialState: ModalOptions = {
+      class: 'modal-md',
+    };
+    this.modalService.show(ChangePasswordComponent, initialState);
+
+  }
+
+
   ngOnDestroy(): void {
     window.localStorage.removeItem('addProfileStorage')
   }

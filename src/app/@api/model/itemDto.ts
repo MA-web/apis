@@ -30,7 +30,7 @@ export interface ItemDto {
     advantage?: string;
     appearence?: string;
     application: string;
-    attachment: AttachmentDto;
+    attachment?: AttachmentDto;
     caseNumber: string;
     commercialQuantity?: number;
     creationDate?: Date;
@@ -47,7 +47,7 @@ export interface ItemDto {
     indotoxinTest?: string;
     injection?: boolean;
     itemCategory: ItemCategoryIdDto;
-    itemCertificates?: Array<ItemCertificateDto>;
+    itemCertificateDtos: Array<ItemCertificateDto>;
     itemId?: number;
     itemKeywords?: Array<ItemKeywordDto>;
     itemName: string;
@@ -76,6 +76,7 @@ export interface ItemDto {
     salmonelaSpecies?: string;
     sampleSize?: number;
     sampleUnit?: UomIdDto;
+    shippingCertificateDtos: Array<ItemCertificateDto>;
     status: number;
     storage?: string;
     storageTradeInformation: string;

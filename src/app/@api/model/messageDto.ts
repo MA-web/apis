@@ -9,12 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { AttachmentDto } from './attachmentDto';
 import { ChatUserDto } from './chatUserDto';
+import { MessageAttachmentDto } from './messageAttachmentDto';
 
 
 export interface MessageDto { 
-    attachment?: AttachmentDto;
+    attachments?: Array<MessageAttachmentDto>;
     messageContent: string;
     messageDateTime?: Date;
     messageId?: number;

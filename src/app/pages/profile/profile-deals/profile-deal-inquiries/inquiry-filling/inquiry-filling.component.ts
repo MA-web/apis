@@ -933,7 +933,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
                     {
                       className: 'col-md-3 col-12 mt-md-4',
                       key: 'UploadFile',
-                      type: 'file',
+                      type: 'file-upload',
                       templateOptions: {
                         text: this._translateService.instant('UploadFile'),
                       },

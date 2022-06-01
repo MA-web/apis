@@ -227,9 +227,9 @@
   "Subject":"Subject",
   "Write_message":"Write Your message ….",
   "noDataFound":"No data found!",
-  "":"",
-  "":"",
-
+  "oldPassword":"Old Password",
+  "newPassword":"New Password",
+  "Certificates":"Certificates",
 
   "validations": {
     "required": "This field is required!",

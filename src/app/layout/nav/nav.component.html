@@ -22,7 +22,7 @@
         <ng-container *ngIf="userData; else elseTemplate_userData">
           <li class="nav-item">
             <a class="nav-link" href="#" title="email">
-              <div class="nav-badge"><img src="assets/img/email.svg"><span class="text-truncate">{{messageCount}}</span></div>
+              <div class="nav-badge"><img src="assets/img/email.svg"><span class="text-truncate" *ngIf="messageCount > 0">{{messageCount}}</span></div>
             </a>
           </li>
           <li class="nav-item">

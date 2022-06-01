@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 import { AttachmentDto } from './attachmentDto';
-import { CertificateTypeDto } from './certificateTypeDto';
+import { ItemCertificateDto } from './itemCertificateDto';
 
 
-export interface ItemCertificateDto { 
+export interface ItemAttachmentsDto { 
     attachment?: AttachmentDto;
-    certificateType?: CertificateTypeDto;
-    itemCertificateId?: number;
-    itemCertificateName?: string;
+    itemCertificateDtos: Array<ItemCertificateDto>;
+    shippingCertificateDtos: Array<ItemCertificateDto>;
 }
