@@ -27,7 +27,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class SupplierEmployeeControllerService {
 
-    protected basePath = 'https://164.92.242.241:8060';
+    protected basePath = 'https://apis.marksphinx.com:8444';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

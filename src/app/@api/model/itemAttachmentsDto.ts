@@ -11,10 +11,12 @@
  */
 import { AttachmentDto } from './attachmentDto';
 import { ItemCertificateDto } from './itemCertificateDto';
+import { ItemSupplimentDto } from './itemSupplimentDto';
 
 
 export interface ItemAttachmentsDto { 
     attachment?: AttachmentDto;
     itemCertificateDtos: Array<ItemCertificateDto>;
+    itemSuppliments?: Array<ItemSupplimentDto>;
     shippingCertificateDtos: Array<ItemCertificateDto>;
 }
