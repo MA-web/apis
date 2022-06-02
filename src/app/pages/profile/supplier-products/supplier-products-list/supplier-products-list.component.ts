@@ -31,12 +31,19 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
 
     let observables = [
       this.LookupControllerService.getItemsCategoryUsingGET(),
+      this.LookupControllerService.getItemStatuesMapUsingGET(),
 
     ]
     const forkSub = forkJoin(observables).subscribe((res: any) => {
+      console.log('res: ', res);
       this.ItemCategory = res[0];
       this.isLoadingForm = false;
-
+      let status = []
+      for (var key in res[1]) {
+        if (res[1]?.hasOwnProperty(key)) {
+            status?.push({label: res[1][key], value:key})
+        }
+    }
       this.fields = [
         {
           className: 'col-12',
@@ -77,7 +84,7 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
           type: 'ng-select',
           templateOptions: {
             placeholder: this._translateService.instant('status'),
-            options: []
+            options: status
           }
         },
       ]

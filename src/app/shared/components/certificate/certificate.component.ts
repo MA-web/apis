@@ -24,7 +24,7 @@ export class CertificateComponent implements OnInit {
   open(index: number): void {
     // open lightbox
     let imgs :any= [
-      {'src':this.certificate?.attachment?.attachmentSource?.attachmentSourceName,'caption':this.certificate?.itemCertificateName}
+      {'src':this.certificate?.attachment?.reference,'caption':this.certificate?.itemCertificateName}
     ]
     this.lightbox.open(imgs, index,{
       showZoom: true,

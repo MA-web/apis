@@ -96,7 +96,7 @@
           </p>
         </div>
 
-        <div class="row mt-5" *ngIf="productDetails?.itemCertificates?.length">
+        <div class="row mt-5" *ngIf="Certificates?.length">
           <div class="col-12">
             <div class="sub-title">
               <h2>{{'CertificatesStandards' | translate}}</h2>
@@ -104,9 +104,9 @@
             </div>
           </div>
           <div class="col-sm-12">
-            <swiper [slidesPerView]="innerWidth>991 ? 4:2" [spaceBetween]="30" [slidesPerGroup]="1" [loop]="true"
+            <swiper [slidesPerView]="innerWidth>991 ? 4:2" [spaceBetween]="30" [slidesPerGroup]="1"
               [loopFillGroupWithBlank]="true" [navigation]="true" class="mySwiper">
-              <ng-container *ngFor="let certificate of productDetails?.itemCertificates">
+              <ng-container *ngFor="let certificate of Certificates">
                 <ng-template swiperSlide>
                   <app-certificate [certificate]="certificate"></app-certificate>
                 </ng-template>
@@ -130,7 +130,7 @@
           </div>
         </div>
         <div class="col-sm-12">
-          <swiper [slidesPerView]="innerWidth>991 ? 3:1" [spaceBetween]="30" [slidesPerGroup]="1" [loop]="true"
+          <swiper [slidesPerView]="innerWidth>991 ? 3:1" [spaceBetween]="30" [slidesPerGroup]="1"
             [loopFillGroupWithBlank]="true" [navigation]="true" class="mySwiper">
             <ng-container *ngFor="let item of  similarProducts">
               <ng-template swiperSlide>

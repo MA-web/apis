@@ -55,7 +55,7 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
               <button type="button" class="apis-button btn btn-outline-info border-radius-13 p-2" (click)="editForm(i)">
               <span [inlineSVG]="'assets/icons/edit.svg'" style="width: 30px;" ></span>
             </button>
-              <button type="button" class="apis-button btn btn-danger border-radius-13 p-2" (click)="remove(i);hideForm()">
+              <button type="button" class="apis-button btn btn-danger border-radius-13 p-2" (click)="remove(i);">
                 <span [inlineSVG]="'assets/icons/delete.svg'" style="width: 30px;"></span>
               </button>
             </div>
@@ -128,6 +128,8 @@ export class FormlyRepeatType extends FieldArrayType implements OnInit {
         v.templateOptions.disabled = false
       })
     }
+    this.ops?.resetModel();
+    this.index = -1;
   }
   onView(item: any) {
     if (item) {

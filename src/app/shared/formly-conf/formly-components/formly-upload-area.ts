@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FieldArrayType } from '@ngx-formly/core';
 import { Lightbox } from 'ngx-lightbox';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'formly-upload-area',
@@ -17,14 +18,14 @@ import { Lightbox } from 'ngx-lightbox';
             <pre>
 
             </pre>
-            <span class="d-inline-block mr-3">{{items?.Certificate?.certificateTypeName ||items?.otherCertificateName }},</span> <span class="d-inline-block">{{to.fileLoad? getImageName(items?.file):items?.file?.fileToUpload?.name}}</span> <span></span>
+            <span class="d-inline-block mr-3">{{items?.Certificate?.certificateTypeName }},</span> <span class="d-inline-block">{{to.fileLoad? getImageName(items?.file):items?.file?.fileToUpload?.name}}</span> <span></span>
             </h5>
 
             <div class="button-items">
               <button type="button" class="apis-button btn btn-outline-success border-radius-13 py-2" (click)="onView(items,i)">
               <span [inlineSVG]="'assets/icons/eye.svg'"></span>
             </button>
-              <button type="button" class="apis-button btn btn-danger border-radius-13 py-2" (click)="onDelete(i)" *ngIf="!to.fileLoad">
+              <button type="button" class="apis-button btn btn-danger border-radius-13 py-2" (click)="onDelete(i,items)" *ngIf="!to.fileLoad">
                 <span [inlineSVG]="'assets/icons/delete.svg'"></span>
               </button>
             </div>
@@ -42,14 +43,14 @@ import { Lightbox } from 'ngx-lightbox';
           <div class="media-body ">
             <div class="d-flex justify-content-between align-items-center">
             <h5 class="mt-0 mb-1">
-            <span class="d-inline-block mr-3">{{item?.Certificate?.certificateTypeName }}  <span *ngIf="item?.otherCertificateName "> - {{item?.otherCertificateName }}</span> ,</span> <span class="d-inline-block">{{to.fileLoad? getImageName(item?.file):item?.file?.fileToUpload?.name}}</span> <span></span>
+            <span class="d-inline-block mr-3">{{item?.Certificate?.certificateTypeName || item?.Certificate?.Certificate}}  <span *ngIf="item?.otherCertificateName "> - {{item?.otherCertificateName }}</span> ,</span> <span class="d-inline-block">{{to.fileLoad? getImageName(item?.file):item?.file?.fileToUpload?.name || item?.file?.src?.replace('https://devspace-marksphinx.fra1.digitaloceanspaces.com/products/product-' + to?.productId +'/'+ to?.type +'/', '')}}</span> <span></span>
             </h5>
 
             <div class="button-items">
               <button type="button" class="apis-button btn btn-outline-success border-radius-13 py-2" (click)="onView(item,i)">
               <span [inlineSVG]="'assets/icons/eye.svg'"></span>
             </button>
-              <button type="button" class="apis-button btn btn-danger border-radius-13 py-2" (click)="onDelete(i)" *ngIf="!to.fileLoad">
+              <button type="button" class="apis-button btn btn-danger border-radius-13 py-2" (click)="onDelete(i,item)" *ngIf="!to.fileLoad">
                 <span [inlineSVG]="'assets/icons/delete.svg'"></span>
               </button>
             </div>
@@ -84,6 +85,7 @@ export class FormlyUploadArea extends FieldArrayType {
    images: any = []
   constructor(
     private lightbox: Lightbox,
+    private SharedService:SharedService
   ) {
     super()
   }
@@ -107,7 +109,8 @@ export class FormlyUploadArea extends FieldArrayType {
    }
   }
 
-  onDelete(index: number) {
+  onDelete(index: number,item?) {
+    this.SharedService.removeIndexFromUploadArea.next({index:index,item:item})
     this.to.items?.splice(index, 1)
   }
 

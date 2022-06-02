@@ -73,6 +73,15 @@ export class AppBaseComponent implements OnDestroy,AfterViewInit {
        return true;
     else return false;
  }
+ arrayHasKey(arr) {
+  return arr.some(function (el) {
+    if (el.file.fileToUpload) {
+      return true;
+    }
+
+  });
+}
+
   ngOnDestroy(): void {
     this.unSubscription.forEach(sub => {
       sub.unsubscribe()

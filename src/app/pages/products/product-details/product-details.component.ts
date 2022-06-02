@@ -1,6 +1,6 @@
 import { Component, HostListener, Injector, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { ItemControllerService, ItemDto, PagePublicItemDto, PublicDataControllerService, PublicItemDto, UserControllerService } from 'src/app/@api';
+import { ItemCertificateDto, ItemControllerService, ItemDto, PagePublicItemDto, PublicDataControllerService, PublicItemDto, UserControllerService } from 'src/app/@api';
 import { SupplierEmployeeControllerService } from 'src/app/@api/api/supplierEmployeeController.service';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { SendInboxComponent } from 'src/app/shared/components/send-inbox/send-inbox.component';
@@ -19,7 +19,7 @@ SwiperCore.use([Pagination, Navigation]);
   styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent extends AppBaseComponent implements OnInit, OnDestroy {
-
+  Certificates :Array<ItemCertificateDto> =[]
   productDetails: ItemDto
   id: any;
 
@@ -69,6 +69,7 @@ export class ProductDetailsComponent extends AppBaseComponent implements OnInit,
 
         this.productDetails = res;
         this.getSimilarProducts()
+        this.Certificates = [...this.productDetails.itemCertificateDtos,...this.productDetails.shippingCertificateDtos]
         this.breadcrumbItems = [
           { label: this._translateService.instant('Products'), path: appRouts.productsList },
           { label: this.productDetails?.itemName, active: true }
@@ -83,6 +84,7 @@ export class ProductDetailsComponent extends AppBaseComponent implements OnInit,
       if(res){
         this.isLoading = false;
         this.similarProducts = res.content
+        console.log(' this.similarProducts : ',  this.similarProducts );
       }
     })
     this.unSubscription.push(getSimilarProductsUsingGETSub)

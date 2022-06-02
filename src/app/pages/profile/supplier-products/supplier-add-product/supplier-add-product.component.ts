@@ -11,7 +11,7 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
   styleUrls: ['./supplier-add-product.component.scss'],
   providers: [DatePipe]
 })
-export class SupplierAddProductComponent extends AppBaseComponent implements OnInit, OnDestroy{
+export class SupplierAddProductComponent extends AppBaseComponent implements OnInit, OnDestroy {
   productCertificates: any[] = []
 
   ShippingCertificate: any[] = []
@@ -26,7 +26,9 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
   ItemSampleTypeArr: Array<ItemSampleTypeDto> = []
   CertificateTypArr: Array<CertificateTypeDto> = []
   productId: number;
+  productDetails: ItemDto
 
+  uploadNewFile = false
 
   constructor(
     injector: Injector,
@@ -66,7 +68,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
     }
 
     const forkSub = forkJoin(observables).subscribe((res: any) => {
-      let productDetails: ItemDto = res[12] ? res[12] : []
+      this.productDetails = res[12] ? res[12] : []
       this.ItemCategory = res[0] ? res[0] : []
       this.supplierCategory = res[2] ? res[2] : []
       this.PaymentTermsArr = res[8] ? res[8] : []
@@ -74,8 +76,19 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
       this.incotermsArr = res[6] ? res[6] : []
 
       if (this.productId) {
-        this.itemSubcategories = this.ItemCategory?.find(v => productDetails?.itemCategory?.categoryId === v?.categoryId)?.itemSubcategories?.map(v => ({ label: v?.subcategoryName, value: v }))
-        console.log('this.itemSubcategories : ', this.itemSubcategories);
+        this.itemSubcategories = this.ItemCategory?.find(v => this.productDetails?.itemCategory?.categoryId === v?.categoryId)?.itemSubcategories?.map(v => ({ label: v?.subcategoryName, value: v }))
+        this.productCertificates = this.productDetails?.itemCertificateDtos.map(v => (
+          {
+            Certificate: { Certificate: v?.itemCertificateName }, file: { src: v?.attachment?.reference }
+          }
+        ))
+        this.ShippingCertificate = this.productDetails?.shippingCertificateDtos.map(v => (
+          {
+            Certificate: { Certificate: v?.itemCertificateName }, file: { src: v?.attachment?.reference }
+          }
+        ))
+
+        this.model.itemSuppliments = this.productDetails?.itemSuppliments
       }
 
       this.isLoadingForm = false
@@ -96,7 +109,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'itemCategory',
                   type: 'ng-select',
-                  defaultValue: productDetails?.itemCategory?.categoryId,
+                  defaultValue: this.productDetails?.itemCategory?.categoryId,
                   templateOptions: {
                     label: this._translateService.instant('category'),
                     required: true,
@@ -111,11 +124,11 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'itemSubcategory',
                   type: 'ng-select',
-                  defaultValue: productDetails?.itemSubcategory?.itemSubcategoryId,
+                  defaultValue: this.productDetails?.itemSubcategory?.itemSubcategoryId,
                   templateOptions: {
                     label: this._translateService.instant('SubCategory'),
                     required: true,
-                    options: this.productId ? this.ItemCategory?.find(v => productDetails?.itemCategory?.categoryId === v?.categoryId)?.itemSubcategories?.map(v => ({ label: v?.subcategoryName, value: v?.itemSubcategoryId })) : [],
+                    options: this.productId ? this.ItemCategory?.find(v => this.productDetails?.itemCategory?.categoryId === v?.categoryId)?.itemSubcategories?.map(v => ({ label: v?.subcategoryName, value: v?.itemSubcategoryId })) : [],
                   },
                 },
               ],
@@ -133,7 +146,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   key: 'itemName',
                   type: 'input',
-                  defaultValue: productDetails?.itemName,
+                  defaultValue: this.productDetails?.itemName,
                   templateOptions: {
                     label: this._translateService.instant('ProductName'),
                     required: true,
@@ -143,7 +156,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'caseNumber',
                   type: 'input',
-                  defaultValue: productDetails?.caseNumber,
+                  defaultValue: this.productDetails?.caseNumber,
                   templateOptions: {
                     label: this._translateService.instant('casNo'),
                     required: true,
@@ -153,7 +166,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'molFormula',
                   type: 'input',
-                  defaultValue: productDetails?.molFormula,
+                  defaultValue: this.productDetails?.molFormula,
                   templateOptions: {
                     label: this._translateService.instant('MolecularFormula'),
                   },
@@ -162,7 +175,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'origin',
                   type: 'ng-select',
-                  defaultValue: productDetails?.origin?.originId,
+                  defaultValue: this.productDetails?.origin?.originId,
                   templateOptions: {
                     label: this._translateService.instant('origin'),
                     required: true,
@@ -173,7 +186,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'supplierCategory',
                   type: 'ng-select',
-                  defaultValue: productDetails?.supplierCategory?.categoryId,
+                  defaultValue: this.productDetails?.supplierCategory?.categoryId,
                   templateOptions: {
                     label: this._translateService.instant('SupplierType'),
                     required: true,
@@ -184,7 +197,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   key: 'itemKeywords',
                   type: 'chips',
-                  defaultValue: productDetails?.itemKeywords?.map(v =>(v?.keyword )),
+                  defaultValue: this.productDetails?.itemKeywords?.map(v => (v?.keyword)),
                   templateOptions: {
                     label: this._translateService.instant('keywords'),
                   },
@@ -195,16 +208,16 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   type: 'upload',
                   templateOptions: {
                     label: this._translateService.instant('ProductPicture'),
-                    file: productDetails?.attachment?.reference,
+                    file: this.productDetails?.attachment?.reference,
                   }
                 },
                 {
                   className: 'col-12',
                   key: 'details',
                   type: 'textarea',
-                  defaultValue: productDetails?.details,
+                  defaultValue: this.productDetails?.details,
                   templateOptions: {
-                    label: this._translateService.instant('ProductDetails'),
+                    label: this._translateService.instant('this.productDetails'),
                     rows: 5
                   },
                 },
@@ -223,7 +236,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'purity',
                   type: 'number',
-                  defaultValue: productDetails?.purity?.match(/\d+/)[0],
+                  defaultValue: this.productDetails?.purity?.match(/\d+/)[0],
                   templateOptions: {
                     label: this._translateService.instant('Purity'),
                     required: true,
@@ -236,7 +249,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'appearence',
                   type: 'input',
-                  defaultValue: productDetails?.appearence,
+                  defaultValue: this.productDetails?.appearence,
                   templateOptions: {
                     label: this._translateService.instant('Appearance'),
                   },
@@ -245,7 +258,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'storage',
                   type: 'input',
-                  defaultValue: productDetails?.storage,
+                  defaultValue: this.productDetails?.storage,
                   templateOptions: {
                     label: this._translateService.instant('Storage'),
                   },
@@ -254,7 +267,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'application',
                   type: 'input',
-                  defaultValue: productDetails?.application,
+                  defaultValue: this.productDetails?.application,
                   templateOptions: {
                     label: this._translateService.instant('Application'),
                     required: true,
@@ -275,7 +288,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   key: 'advantage',
                   type: 'textarea',
-                  defaultValue: productDetails?.advantage,
+                  defaultValue: this.productDetails?.advantage,
                   templateOptions: {
                     label: this._translateService.instant('Advantage'),
                     rows: 5
@@ -296,7 +309,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   key: 'relatedSubstance',
                   type: 'input',
-                  defaultValue: productDetails?.relatedSubstance,
+                  defaultValue: this.productDetails?.relatedSubstance,
                   templateOptions: {
                     label: this._translateService.instant('RelatedSubstances'),
                   },
@@ -305,7 +318,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'residueIgnition',
                   type: 'number',
-                  defaultValue: productDetails?.residueIgnition,
+                  defaultValue: this.productDetails?.residueIgnition,
                   templateOptions: {
                     label: this._translateService.instant('Residue_on_ignition'),
                   },
@@ -314,7 +327,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'heavyMetal',
                   type: 'input',
-                  defaultValue: productDetails?.heavyMetal,
+                  defaultValue: this.productDetails?.heavyMetal,
                   templateOptions: {
                     label: this._translateService.instant('HeavyMetal'),
                   },
@@ -331,7 +344,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'meltingRange',
                   type: 'number',
-                  defaultValue: productDetails?.meltingRange,
+                  defaultValue: this.productDetails?.meltingRange,
                   templateOptions: {
                     label: this._translateService.instant('MeltingRange'),
                   },
@@ -340,7 +353,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'lossOnDrying',
                   type: 'number',
-                  defaultValue: productDetails?.lossOnDrying,
+                  defaultValue: this.productDetails?.lossOnDrying,
                   templateOptions: {
                     label: this._translateService.instant('Loss_on_drying'),
                   },
@@ -349,7 +362,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'ph',
                   type: 'number',
-                  defaultValue: productDetails?.ph,
+                  defaultValue: this.productDetails?.ph,
                   templateOptions: {
                     label: this._translateService.instant('PH'),
                   },
@@ -358,7 +371,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'residualSolvents',
                   type: 'number',
-                  defaultValue: productDetails?.residualSolvents,
+                  defaultValue: this.productDetails?.residualSolvents,
                   templateOptions: {
                     label: this._translateService.instant('ResidualSolvents'),
                   },
@@ -367,7 +380,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'form',
                   type: 'number',
-                  defaultValue: productDetails?.form,
+                  defaultValue: this.productDetails?.form,
                   templateOptions: {
                     label: this._translateService.instant('From'),
                   },
@@ -376,7 +389,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12 mt-4',
                   key: 'micronization',
                   type: 'checkbox',
-                  defaultValue: productDetails?.micronization ? productDetails?.micronization : false,
+                  defaultValue: this.productDetails?.micronization ? this.productDetails?.micronization : false,
                   templateOptions: {
                     label: this._translateService.instant('Micronization'),
                     change: (f, e) => {
@@ -390,7 +403,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'particleSize',
                   type: 'number',
-                  defaultValue: productDetails?.particleSize,
+                  defaultValue: this.productDetails?.particleSize,
                   templateOptions: {
                     label: this._translateService.instant('ParticleSizeD90'),
                     required: true,
@@ -406,7 +419,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   key: 'opticalRotation',
                   type: 'number',
-                  defaultValue: productDetails?.opticalRotation,
+                  defaultValue: this.productDetails?.opticalRotation,
                   templateOptions: {
                     label: this._translateService.instant('OpticalRotation'),
                   },
@@ -415,7 +428,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'dissolutionRate',
                   type: 'number',
-                  defaultValue: +productDetails?.dissolutionRate?.split("hr/")[1]?.replace("%", ""),
+                  defaultValue: +this.productDetails?.dissolutionRate?.split("hr/")[1]?.replace("%", ""),
                   templateOptions: {
                     type: '',
                     label: this._translateService.instant('DissolutionRate'),
@@ -428,7 +441,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'hour',
                   type: 'number',
-                  defaultValue: +productDetails?.dissolutionRate?.split(/hr(.*)/)[0],
+                  defaultValue: +this.productDetails?.dissolutionRate?.split(/hr(.*)/)[0],
                   templateOptions: {
                     label: this._translateService.instant('hour'),
                     required: true,
@@ -438,7 +451,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'totalVac',
                   type: 'number',
-                  defaultValue: +productDetails?.totalVac?.split("cfu/gm")[0],
+                  defaultValue: +this.productDetails?.totalVac?.split("cfu/gm")[0],
                   templateOptions: {
                     label: this._translateService.instant('Total_viable_aerobic_Count'),
                   },
@@ -447,7 +460,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'totalYamc',
                   type: 'number',
-                  defaultValue: +productDetails?.totalYamc?.split("cfu/gm")[0],
+                  defaultValue: +this.productDetails?.totalYamc?.split("cfu/gm")[0],
                   templateOptions: {
                     label: this._translateService.instant('Total_yeast_and_mould_count'),
                   },
@@ -456,7 +469,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'escherichiaColi',
                   type: 'input',
-                  defaultValue: productDetails?.escherichiaColi,
+                  defaultValue: this.productDetails?.escherichiaColi,
                   templateOptions: {
                     label: this._translateService.instant('EscherichiaColi'),
                   },
@@ -465,7 +478,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'salmonelaSpecies',
                   type: 'input',
-                  defaultValue: productDetails?.salmonelaSpecies,
+                  defaultValue: this.productDetails?.salmonelaSpecies,
                   templateOptions: {
                     label: this._translateService.instant('SalmonellaSpecies'),
                   },
@@ -474,7 +487,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12 mt-4',
                   key: 'injection',
                   type: 'checkbox',
-                  defaultValue: productDetails?.injection ? productDetails?.injection : false,
+                  defaultValue: this.productDetails?.injection ? this.productDetails?.injection : false,
                   templateOptions: {
                     label: this._translateService.instant('Injection'),
                     change: (f, e) => {
@@ -488,7 +501,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'indotoxinTest',
                   type: 'input',
-                  defaultValue: productDetails?.indotoxinTest,
+                  defaultValue: this.productDetails?.indotoxinTest,
                   templateOptions: {
                     label: this._translateService.instant('endotoxinTest'),
                     required: true
@@ -561,8 +574,11 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                     icon: 'add.svg',
                     btnType: 'success p-2 mt-md-4',
                     onClick: ($event: any) => {
+                      this.uploadNewFile = true
                       this.productCertificates.push({ Certificate: this.model?.Certificate, otherCertificateName: this.model?.CertificateName, file: this.model.UploadProductCertificate })
-                      this.model.uploadAreaCertificate = this.productCertificates
+                      this.model.uploadAreaCertificate = [...this.model.uploadAreaCertificate, { Certificate: this.model?.Certificate, otherCertificateName: this.model?.CertificateName, file: this.model.UploadProductCertificate }]
+
+
                       this.form.get('Certificate')?.setValue(undefined)
                       this.form.get('Certificate')?.reset()
                       this.form.get('CertificateName')?.setValue(undefined)
@@ -582,7 +598,9 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   key: 'uploadAreaCertificate',
                   type: 'uploadArea',
                   templateOptions: {
-                    items: this.productCertificates
+                    items: this.productCertificates,
+                    productId: this.productId,
+                    type: 'certificate'
                   },
                 },
               ],
@@ -600,7 +618,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'minOrderQuantity',
                   type: 'input',
-                  defaultValue: productDetails?.minOrderQuantity,
+                  defaultValue: this.productDetails?.minOrderQuantity,
                   templateOptions: {
                     label: this._translateService.instant('MinimumOrderQuantity'),
                   },
@@ -609,7 +627,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'uom',
                   type: 'ng-select',
-                  defaultValue: productDetails?.uom?.uomId,
+                  defaultValue: this.productDetails?.uom?.uomId,
                   templateOptions: {
                     label: this._translateService.instant('Unit'),
                     options: res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
@@ -620,7 +638,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'storageTradeInformation',
                   type: 'input',
-                  defaultValue: productDetails?.storageTradeInformation,
+                  defaultValue: this.productDetails?.storageTradeInformation,
                   templateOptions: {
                     label: this._translateService.instant('Storage'),
                   },
@@ -629,7 +647,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'expiryDate',
                   type: 'input',
-                  defaultValue: productDetails?.expiryDate ? new Date(productDetails?.expiryDate).toISOString().split('T')[0] : undefined,
+                  defaultValue: this.productDetails?.expiryDate ? new Date(this.productDetails?.expiryDate).toISOString().split('T')[0] : undefined,
                   templateOptions: {
                     type: 'date',
                     label: this._translateService.instant('ValidPeriod'),
@@ -650,7 +668,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   type: 'repeat',
                   key: 'productPrices',
-                  defaultValue: productDetails?.itemPricings?.map(v => (
+                  defaultValue: this.productDetails?.itemPricings?.map(v => (
                     {
                       from: { value: v?.fromQuantity, type: v?.fromUom },
                       to: { value: v?.toQuantity, type: v?.toUom },
@@ -750,7 +768,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   key: 'paymentTerms',
                   type: 'ng-select',
-                  defaultValue: productDetails?.paymentTerms?.map(v => (v?.paymentTermId)),
+                  defaultValue: this.productDetails?.paymentTerms?.map(v => (v?.paymentTermId)),
                   templateOptions: {
                     required: true,
                     label: this._translateService.instant('PaymentTerms'),
@@ -773,7 +791,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   key: 'AllowedSample',
                   type: 'checkbox',
-                  defaultValue: productDetails?.itemSampleType && productDetails?.sampleSize && productDetails?.sampleUnit ? true : false,
+                  defaultValue: this.productDetails?.itemSampleType && this.productDetails?.sampleSize && this.productDetails?.sampleUnit ? true : false,
                   templateOptions: {
                     label: this._translateService.instant('AllowedSample'),
                   },
@@ -786,7 +804,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   key: 'itemSampleType',
                   type: 'ng-select',
-                  defaultValue: productDetails?.itemSampleType?.itemSampleTypesId,
+                  defaultValue: this.productDetails?.itemSampleType?.itemSampleTypesId,
                   templateOptions: {
                     label: this._translateService.instant('sampleType'),
                     required: true,
@@ -801,7 +819,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'sampleSize',
                   type: 'number',
-                  defaultValue: productDetails?.sampleSize,
+                  defaultValue: this.productDetails?.sampleSize,
                   templateOptions: {
                     label: this._translateService.instant('SampleSize'),
                     required: true,
@@ -815,7 +833,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'sampleUnit',
                   type: 'ng-select',
-                  defaultValue: productDetails?.sampleUnit?.uomId,
+                  defaultValue: this.productDetails?.sampleUnit?.uomId,
                   templateOptions: {
                     label: this._translateService.instant('SampleUnit'),
                     required: true,
@@ -842,7 +860,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   key: 'portOfDispatching',
                   type: 'input',
-                  defaultValue: productDetails?.portOfDispatching,
+                  defaultValue: this.productDetails?.portOfDispatching,
                   templateOptions: {
                     label: this._translateService.instant('Port_of_Discharge')
                   },
@@ -862,7 +880,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   key: 'productionCapacity',
                   type: 'number',
-                  defaultValue: productDetails?.productionCapacity?.split("/")[0]?.match(/\d+/)[0],
+                  defaultValue: this.productDetails?.productionCapacity?.split("/")[0]?.match(/\d+/)[0],
                   templateOptions: {
                     label: this._translateService.instant('Value'),
                     change: (f, v) => {
@@ -882,7 +900,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'ProductionCapacityUnit',
                   type: 'ng-select',
-                  defaultValue: productDetails?.productionCapacity?.split("/")[0]?.replace(/[^a-zA-Z]+/g, ''),
+                  defaultValue: this.productDetails?.productionCapacity?.split("/")[0]?.replace(/[^a-zA-Z]+/g, ''),
                   templateOptions: {
                     label: this._translateService.instant('Unit'),
                     options: res[9]?.productionWeight?.map(v => ({ label: v?.toLowerCase(), value: v })),
@@ -895,7 +913,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'Period',
                   type: 'ng-select',
-                  defaultValue: productDetails?.productionCapacity?.split("/")[1],
+                  defaultValue: this.productDetails?.productionCapacity?.split("/")[1],
                   templateOptions: {
                     label: this._translateService.instant('Period'),
                     options: res[9]?.productionPeriod?.map(v => ({ label: v?.toLowerCase(), value: v })),
@@ -908,7 +926,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'estimatedDeliveryLeadTime',
                   type: 'number',
-                  defaultValue: productDetails?.estimatedDeliveryLeadTime?.match(/\d+/)[0],
+                  defaultValue: this.productDetails?.estimatedDeliveryLeadTime?.match(/\d+/)[0],
                   templateOptions: {
                     label: this._translateService.instant('EstimatedLeadTime'),
                     change: (f, v) => {
@@ -923,7 +941,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'packaging',
                   type: 'input',
-                  defaultValue: productDetails?.packaging,
+                  defaultValue: this.productDetails?.packaging,
                   templateOptions: {
                     label: this._translateService.instant('Package')
                   },
@@ -943,7 +961,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'incoterms',
                   type: 'ng-select',
-                  defaultValue: productDetails?.incoterms?.map(v => (v?.incotermId)),
+                  defaultValue: this.productDetails?.incoterms?.map(v => (v?.incotermId)),
                   templateOptions: {
                     label: this._translateService.instant('Incoterms'),
                     options: res[6]?.map(v => ({ label: v?.incotermShortName, value: v?.incotermId })),
@@ -954,7 +972,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'transportation',
                   type: 'ng-select',
-                  defaultValue: productDetails?.transportation?.transportationId,
+                  defaultValue: this.productDetails?.transportation?.transportationId,
                   templateOptions: {
                     label: this._translateService.instant('Transportation'),
                     options: res[7]?.map(v => ({ label: v?.transportationName, value: v?.transportationId })),
@@ -978,11 +996,11 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   type: 'ng-select',
                   templateOptions: {
                     label: this._translateService.instant('Certificates'),
-                    options: res[10]?.map(v => ({ label: v?.certificateTypeName, value: v }))
+                    options: res[11]?.map(v => ({ label: v?.certificateTypeName, value: v }))
                   },
                   expressionProperties: {
                     'templateOptions.required': () => this.model.ShippingCertificateName,
-                    className: `model.ShippingCertificate?.certificateTypeId ===6? 'col-md-3' : 'col-md-6'`
+                    className: `model.ShippingCertificate?.certificateTypeId ===8? 'col-md-3' : 'col-md-6'`
                   },
 
                 },
@@ -993,7 +1011,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   templateOptions: {
                     label: this._translateService.instant('CertificateName'),
                   },
-                  hideExpression: "model.ShippingCertificate?.certificateTypeId !== 6"
+                  hideExpression: "model.ShippingCertificate?.certificateTypeId !== 8"
 
                 },
                 {
@@ -1024,8 +1042,12 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                     icon: 'add.svg',
                     btnType: 'success p-2 mt-md-4',
                     onClick: ($event: any) => {
+                      this.uploadNewFile = true
                       this.ShippingCertificate.push({ Certificate: this.model?.ShippingCertificate, otherCertificateName: this.model?.ShippingCertificateName, file: this.model.UploadShippingCertificate })
-                      this.model.uploadAreaShipping = this.ShippingCertificate
+                      this.model.uploadAreaShipping = [...this.model.uploadAreaShipping, { Certificate: this.model?.ShippingCertificate, otherCertificateName: this.model?.ShippingCertificateName, file: this.model.UploadShippingCertificate }]
+
+
+
                       this.form.get('ShippingCertificate')?.setValue(undefined)
                       this.form.get('ShippingCertificate')?.reset()
                       this.form.get('ShippingCertificateName')?.setValue(undefined)
@@ -1045,7 +1067,9 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   key: 'uploadAreaShipping',
                   type: 'uploadArea',
                   templateOptions: {
-                    items: this.ShippingCertificate
+                    items: this.ShippingCertificate,
+                    productId: this.productId,
+                    type: 'shippingCertificate'
                   },
                 },
               ],
@@ -1066,7 +1090,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-12',
                   type: 'repeat',
                   key: 'itemSuppliments',
-                  defaultValue: productDetails?.itemSuppliments?.map(v => (
+                  defaultValue: this.productDetails?.itemSuppliments?.map(v => (
                     {
                       attributeName: v?.attributeName,
                       attributeValue: v?.attributeValue
@@ -1080,7 +1104,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                     fieldGroupClassName: 'row',
                     fieldGroup: [
                       {
-                        className: 'col-md-3 col-12',
+                        className: 'col-md-4 col-12',
                         key: 'attributeName',
                         type: 'input',
                         templateOptions: {
@@ -1089,39 +1113,41 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                         },
                       },
                       {
-                        className: 'col-md-3 col-12',
+                        className: 'col-md-4 col-12',
                         key: 'attributeValue',
                         type: 'input',
                         templateOptions: {
                           label: this._translateService.instant('Value'),
-                          disabled:false,
-                          change:(f,e) =>{
-                            if(e?.target?.value){
-                              this.fields[0].fieldGroup[12].fieldGroup[1].fieldArray.fieldGroup[2].templateOptions.disabled = true
-                            }else{
-                              this.fields[0].fieldGroup[12].fieldGroup[1].fieldArray.fieldGroup[2].templateOptions.disabled = false
-                            }
-                          }
+                          disabled: false,
+                          // change: (f, e) => {
+                          //   if (e?.target?.value) {
+                          //     this.fields[0].fieldGroup[12].fieldGroup[1].fieldArray.fieldGroup[2].templateOptions.disabled = true
+                          //   } else {
+                          //     this.fields[0].fieldGroup[12].fieldGroup[1].fieldArray.fieldGroup[2].templateOptions.disabled = false
+                          //   }
+                          // }
                         },
 
                       },
-                      {
-                        className: 'col-md-3 col-12 mt-md-4',
-                        key: 'UploadFile',
-                        type: 'file-upload',
-                        templateOptions: {
-                          text: this._translateService.instant('UploadFile'),
-                          disabled:false,
-                          change:(f,e) =>{
-                            if(e){
-                              this.fields[0].fieldGroup[12].fieldGroup[1].fieldArray.fieldGroup[1].templateOptions.disabled = true
-                            }else{
-                              this.fields[0].fieldGroup[12].fieldGroup[1].fieldArray.fieldGroup[1].templateOptions.disabled = false
-                            }
-                          }
-                        },
+                      // {
+                      //   className: 'col-md-3 col-12 mt-md-4',
+                      //   key: 'UploadFile',
+                      //   type: 'file-upload',
+                      //   templateOptions: {
+                      //     text: this._translateService.instant('UploadFile'),
+                      //     disabled: false,
+                      //     change: (f, e) => {
+                      //       if (e) {
+                      //         this.uploadNewFile = true
+                      //         this.fields[0].fieldGroup[12].fieldGroup[1].fieldArray.fieldGroup[1].templateOptions.disabled = true
+                      //       } else {
+                      //         this.fields[0].fieldGroup[12].fieldGroup[1].fieldArray.fieldGroup[1].templateOptions.disabled = false
+                      //       }
 
-                      },
+                      //     }
+                      //   },
+
+                      // },
                     ]
                   }
                 },
@@ -1133,8 +1159,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
         }
       ]
       // if(this.productId){
-      //   this.model.itemCategory = productDetails?.itemCategory?.categoryId;
-      //   this.model.itemSubcategory =  productDetails?.itemSubcategory?.itemSubcategoryId
+      //   this.model.itemCategory = this.productDetails?.itemCategory?.categoryId;
+      //   this.model.itemSubcategory =  this.productDetails?.itemSubcategory?.itemSubcategoryId
 
       // }
     })
@@ -1160,9 +1186,9 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
         let productPicture: {};
         let productCertificates = []
         let productShippingCertificates = []
-        let SupplementsFiles = []
+        // let SupplementsFiles = []
         finalUploaded.forEach(element => {
-          if (element.includes('/picture')) {
+          if (element.includes('/picture/')) {
             productPicture = {
               attachmentSource: {
                 attachmentSourceId: 1,
@@ -1170,23 +1196,25 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
               },
 
               reference: element
+            }
           }
-          }
-          else if (element.includes('/certificate')) {
+          else if (element.includes('/certificate/')) {
             productCertificates.push(element)
           }
-          else if (element.includes('/shippingCertificate')) {
+          else if (element.includes('/shippingCertificate/')) {
             productShippingCertificates.push(element)
           }
           else {
-            SupplementsFiles.push(element)
+
+            // SupplementsFiles.push(element)
+
           }
 
         });
 
         let finalProductCertificates: any = []
         let finalProductShippingCertificates = []
-        let finalSupplementsFiles = []
+        // let finalSupplementsFiles = []
         if (productCertificates?.length) {
           productCertificates.forEach((element, index) => {
             finalProductCertificates.push({
@@ -1197,7 +1225,6 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 },
                 reference: element
               },
-
               certificateType: {
                 certificateLevel: this.model?.uploadAreaCertificate[index]?.Certificate?.certificateLevel,
                 certificateTypeId: this.model?.uploadAreaCertificate[index]?.Certificate?.certificateTypeId,
@@ -1205,9 +1232,36 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
               },
               itemCertificateName: this.model?.uploadAreaCertificate[index]?.Certificate?.certificateTypeId === 6 ? this.model?.uploadAreaCertificate[index]?.otherCertificateName : this.model?.uploadAreaCertificate[index]?.Certificate?.certificateTypeName
             })
-          })
-        }
 
+          })
+
+
+
+        }
+        if (this.productDetails?.itemCertificateDtos?.length) {
+          let oldProductCertificates = []
+
+
+          this.productDetails?.itemCertificateDtos?.forEach(v => {
+            oldProductCertificates.push({
+              attachment: {
+                attachmentSource: {
+                  "attachmentSourceId": v?.attachment?.attachmentSource?.attachmentSourceId,
+                  attachmentSourceName: v?.attachment?.attachmentSource?.attachmentSourceName,
+                },
+                reference: v?.attachment?.reference,
+              },
+              certificateType: {
+                certificateLevel: v?.certificateType?.certificateLevel,
+                certificateTypeId: v?.certificateType?.certificateTypeId,
+                certificateTypeName: v?.certificateType?.certificateTypeName,
+              },
+              itemCertificateName: v?.itemCertificateName
+            })
+          })
+          finalProductCertificates = [...oldProductCertificates, ...finalProductCertificates]
+
+        }
         if (productShippingCertificates?.length) {
           productShippingCertificates.forEach((element, index) => {
             finalProductShippingCertificates.push({
@@ -1224,40 +1278,67 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 certificateTypeId: this.model?.uploadAreaShipping[index]?.Certificate?.certificateTypeId,
                 certificateTypeName: this.model?.uploadAreaShipping[index]?.Certificate?.certificateTypeName
               },
-              itemCertificateName: this.model?.uploadAreaShipping[index]?.Certificate?.certificateTypeId === 6 ? this.model?.uploadAreaShipping[index]?.otherCertificateName : this.model?.uploadAreaShipping[index]?.Certificate?.certificateTypeName
+              itemCertificateName: this.model?.uploadAreaShipping[index]?.Certificate?.certificateTypeId === 8 ? this.model?.uploadAreaShipping[index]?.otherCertificateName : this.model?.uploadAreaShipping[index]?.Certificate?.certificateTypeName
             })
 
 
           })
+
+
+        }
+        if (this.productDetails?.shippingCertificateDtos?.length) {
+          let oldShippingCertificate = []
+          this.productDetails?.shippingCertificateDtos?.forEach(v => {
+            oldShippingCertificate.push({
+              attachment: {
+                attachmentSource: {
+                  "attachmentSourceId": v?.attachment?.attachmentSource?.attachmentSourceId,
+                  attachmentSourceName: v?.attachment?.attachmentSource?.attachmentSourceName,
+                },
+                reference: v?.attachment?.reference,
+              },
+              certificateType: {
+                certificateLevel: v?.certificateType?.certificateLevel,
+                certificateTypeId: v?.certificateType?.certificateTypeId,
+                certificateTypeName: v?.certificateType?.certificateTypeName,
+              },
+              itemCertificateName: v?.itemCertificateName
+            })
+          })
+          finalProductShippingCertificates = [...oldShippingCertificate, ...finalProductShippingCertificates]
+
         }
 
         // if (SupplementsFiles?.length) {
         //   SupplementsFiles.forEach((element, index) => {
         //     finalSupplementsFiles.push({
-        //       attachment: {
-        //         attachmentSource: {
-        //           "attachmentSourceId": index + 1,
-        //           attachmentSourceName: element
-        //         },
-        //         reference: element
-        //       },
-
-        //       certificateType: {
-        //         certificateLevel: this.model?.uploadAreaShipping[index]?.Certificate?.certificateLevel,
-        //         certificateTypeId: this.model?.uploadAreaShipping[index]?.Certificate?.certificateTypeId,
-        //         certificateTypeName: this.model?.uploadAreaShipping[index]?.Certificate?.certificateTypeName
-        //       },
-        //       itemCertificateName: this.model?.uploadAreaShipping[index]?.Certificate?.certificateTypeId === 6 ? this.model?.uploadAreaShipping[index]?.otherCertificateName : this.model?.uploadAreaShipping[index]?.Certificate?.certificateTypeName
+        //       attributeName: this.model?.itemSuppliments[index]?.attributeName,
+        //       attributeValue: element
         //     })
 
 
         //   })
+
+        //
+
+        //   if (this.productDetails?.itemSuppliments?.length > 0) {
+        //     alert(true)
+        //     let oldItemSuppliments =[]
+        //     this.productDetails?.itemSuppliments?.forEach(v =>{
+        //
+        //       oldItemSuppliments.push({
+        //           attributeName:v?.attributeName,
+        //         attributeValue: v?.attributeValue
+        //       })
+        //     })
+        //     finalSupplementsFiles = [...oldItemSuppliments, ...finalSupplementsFiles]
+
+        //   }
+
         // }
-
-          this.updateAttachment(productPicture,finalProductCertificates,finalProductShippingCertificates)
-
-
-
+        console.log(finalProductCertificates);
+        console.log(finalProductShippingCertificates);
+        this.updateAttachment(productPicture, finalProductCertificates, finalProductShippingCertificates)
 
 
       }
@@ -1267,7 +1348,20 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
     })
 
 
+    this._sharedService.removeIndexFromUploadArea.subscribe(res => {
+      if (res) {
 
+        if (res?.item?.file?.src.includes('/certificate/')) {
+          this.productDetails.itemCertificateDtos.splice(res?.index, 1)
+
+        } else if (res?.item?.file?.src.includes('/shippingCertificate/')) {
+          this.productDetails.shippingCertificateDtos.splice(res?.index, 1)
+        }
+
+        this.UploadFileService.deleteFile(res?.item?.file?.src)
+        this.updateAttachment(this.productDetails.attachment, this.productDetails.itemCertificateDtos, this.productDetails.shippingCertificateDtos,'removedSuccessfully')
+      }
+    })
   }
 
   //   getDirtyValues(form: any) {
@@ -1288,29 +1382,31 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
   //     return dirtyValues;
   // }
 
-  updateAttachment(itemPicture, itemCertificateDtos, shippingCertificateDtos) {
+  updateAttachment(itemPicture, itemCertificateDtos, shippingCertificateDtos,message?) {
     let body: ItemAttachmentsDto = {
       attachment: itemPicture ? itemPicture : undefined,
       itemCertificateDtos: itemCertificateDtos?.length ? itemCertificateDtos : [],
       shippingCertificateDtos: shippingCertificateDtos?.length ? shippingCertificateDtos : [],
+      itemSuppliments: this.model?.itemSuppliments ? this.model?.itemSuppliments : []
     }
     this._itemControllerService.updateItemAttachmentsUsingPUT(body, this.productId).subscribe((res: ItemDto) => {
-      console.log('res: ', res);
-      this.toaster.success(this._translateService.instant('addedSuccessfully'))
-      this.options.resetModel()
-      this._sharedService.dropzoneEmptySubj.next(true)
+
+      this.toaster.success(this._translateService.instant( message ?message :'SuccessfullyDone' ))
+      if(this.productId){
+        this.options.resetModel()
+        this._sharedService.dropzoneEmptySubj.next(true)
+      }
     })
   }
 
   onSubmit() {
-    console.log(this.form);
-    console.log(this.model);
-    this.isSubmit = true;
+
+    // this.isSubmit = true;
 
 
-    function SupplementsExistFile( arr) {
-      return arr.some(function(el) {
-        if( el.UploadFile){
+    function SupplementsExistFile(arr) {
+      return arr.some(function (el) {
+        if (el.UploadFile) {
           return true;
         }
 
@@ -1318,6 +1414,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
     }
 
     let itemDto: ItemDto = {
+      attachment: !this.uploadNewFile ? this.productDetails?.attachment : undefined,
       advantage: this.model?.advantage,
       appearence: this.model?.appearence,
       application: this.model?.application,
@@ -1337,8 +1434,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
       itemCategory: {
         categoryId: +this.model?.itemCategory
       },
-      itemCertificateDtos: [],
-      shippingCertificateDtos: [],
+      itemCertificateDtos: !this.uploadNewFile ? this.productDetails?.itemCertificateDtos : [],
+      shippingCertificateDtos: !this.uploadNewFile ? this.productDetails?.shippingCertificateDtos : [],
       itemKeywords: this.model?.itemKeywords?.map(v => ({ keyword: v?.name || v })),
       itemName: this.model?.itemName,
       itemPricings: this.model?.productPrices?.map(v => ({
@@ -1351,11 +1448,11 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
       })),
       itemSampleType: this.model?.itemSampleType ? this.ItemSampleTypeArr?.find(v => v?.itemSampleTypesId === this.model?.itemSampleType) : undefined,
       itemSubcategory: this.model?.itemSubcategory ? { itemSubcategoryId: this.model?.itemSubcategory } : undefined,
-      itemSuppliments: SupplementsExistFile(this.model?.itemSuppliments)? []: this.model?.itemSuppliments?.map((v, i) => ({
+      itemSuppliments: this.model?.itemSuppliments ? this.model?.itemSuppliments?.map((v, i) => ({
         attributeName: v?.attributeName,
         attributeValue: v?.attributeValue,
         itemSupplimentId: i + 1
-      })),
+      })) : [],
       lossOnDrying: +this.model?.lossOnDrying,
       meltingRange: +this.model?.meltingRange,
       micronization: this.model?.micronization,
@@ -1388,27 +1485,16 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
       uom: this.model?.uom ? { uomId: +this.model?.uom } : undefined,
 
       storageTradeInformation: this.model?.storageTradeInformation,
-      itemId:this.productId? +this.productId:undefined
+      itemId: this.productId ? +this.productId : undefined
     }
 
     if (this.productId) {
+      // itemDto.itemSuppliments =  !this.uploadNewFile4? this.productDetails?.itemSuppliments : [];
+
       const addItemUsingPOSTSub = this._itemControllerService.updateItemUsingPUT(itemDto).pipe(finalize(() => {
         this.isSubmit = false
       })).subscribe((res: ItemDto) => {
         if (res) {
-          this.toaster.success(this._translateService.instant('updatedSuccessfully'))
-        }
-
-      })
-      this.unSubscription.push(addItemUsingPOSTSub)
-    } else {
-      const addItemUsingPOSTSub = this._itemControllerService.addItemUsingPOST(itemDto).pipe(finalize(() => {
-        this.isSubmit = false
-      })).subscribe((res: ItemDto) => {
-        if (res) {
-          this.productId = res?.itemId
-
-
           window.localStorage.removeItem('addItemStorage')
           this.beforeImagesLoaded = []
 
@@ -1420,8 +1506,11 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
           if (this.model?.uploadAreaCertificate?.length) {
             let uploadCertificate = []
             this.model?.uploadAreaCertificate?.forEach(element => {
-              this.beforeImagesLoaded.push(element?.file?.fileToUpload)
-              uploadCertificate.push(element?.file?.fileToUpload)
+              if (element?.file?.fileToUpload) {
+                this.beforeImagesLoaded.push(element?.file?.fileToUpload)
+                uploadCertificate.push(element?.file?.fileToUpload)
+              }
+
             });
             this.UploadFileService.uploadMultiple(uploadCertificate, `products/product-${res?.itemId}/certificate`)
           }
@@ -1429,29 +1518,93 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
           if (this.model?.uploadAreaShipping.length) {
             let uploadShippingCertificate = []
             this.model?.uploadAreaShipping?.forEach(element => {
-              this.beforeImagesLoaded.push(element?.file?.fileToUpload)
-              uploadShippingCertificate.push(element?.file?.fileToUpload)
+              if (element?.file?.fileToUpload) {
+                this.beforeImagesLoaded.push(element?.file?.fileToUpload)
+                uploadShippingCertificate.push(element?.file?.fileToUpload)
+              }
             });
             this.UploadFileService.uploadMultiple(uploadShippingCertificate, `products/product-${res?.itemId}/shippingCertificate`)
           }
 
+          // if (this.model?.itemSuppliments.length) {
+          //   if (SupplementsExistFile(this.model?.itemSuppliments)) {
+          //     let uploadItemSuppliments = []
+          //     this.model?.itemSuppliments?.forEach(element => {
+          //       if (element?.UploadFile) {
+          //         let file = element?.UploadFile
+          //         let fileToUpload: any;
+          //         fileToUpload = file.item(0);
+          //         this.beforeImagesLoaded.push(fileToUpload)
+          //         uploadItemSuppliments.push(fileToUpload)
 
+          //       }
+          //     });
+          //     this.UploadFileService.uploadMultiple(uploadItemSuppliments, `products/product-${res?.itemId}/Supplements`)
+          //   }
 
+          // }
 
-          if (this.model?.itemSuppliments.length) {
-            if(SupplementsExistFile(this.model?.itemSuppliments)){
-              let uploadItemSuppliments = []
-              this.model?.itemSuppliments?.forEach(element => {
-                  if(element?.UploadFile){
-                    this.beforeImagesLoaded.push(element?.UploadFile?.file?.fileToUpload)
-                    uploadItemSuppliments.push(element?.UploadFile?.file?.fileToUpload)
-                  }
-              });
-              this.UploadFileService.uploadMultiple(uploadItemSuppliments, `products/product-${res?.itemId}/Supplements`)
-            }
+          if(!this.model?.attachment?.length && !this.model?.uploadAreaCertificate?.length && !this.model?.uploadAreaShipping?.length){
+            this.toaster.success(this._translateService.instant( 'SuccessfullyDone' ))
+          }
+        }
 
+      })
+      this.unSubscription.push(addItemUsingPOSTSub)
+    } else {
+      const addItemUsingPOSTSub = this._itemControllerService.addItemUsingPOST(itemDto).pipe(finalize(() => {
+        this.isSubmit = false
+      })).subscribe((res: ItemDto) => {
+        if (res) {
+          this.productId = res?.itemId
+          window.localStorage.removeItem('addItemStorage')
+          this.beforeImagesLoaded = []
+
+          if (this.model?.attachment?.length) {
+            this.beforeImagesLoaded?.push(this.model?.attachment[0])
+            this.UploadFileService.uploadMultiple([this.model?.attachment[0]], `products/product-${res?.itemId}/picture`)
           }
 
+          if (this.model?.uploadAreaCertificate?.length) {
+            let uploadCertificate = []
+            this.model?.uploadAreaCertificate?.forEach(element => {
+              if (element?.file?.fileToUpload) {
+                this.beforeImagesLoaded.push(element?.file?.fileToUpload)
+                uploadCertificate.push(element?.file?.fileToUpload)
+              }
+
+            });
+            this.UploadFileService.uploadMultiple(uploadCertificate, `products/product-${res?.itemId}/certificate`)
+          }
+
+          if (this.model?.uploadAreaShipping.length) {
+            let uploadShippingCertificate = []
+            this.model?.uploadAreaShipping?.forEach(element => {
+              if (element?.file?.fileToUpload) {
+                this.beforeImagesLoaded.push(element?.file?.fileToUpload)
+                uploadShippingCertificate.push(element?.file?.fileToUpload)
+              }
+            });
+            this.UploadFileService.uploadMultiple(uploadShippingCertificate, `products/product-${res?.itemId}/shippingCertificate`)
+          }
+
+          // if (this.model?.itemSuppliments.length) {
+          //   if (SupplementsExistFile(this.model?.itemSuppliments)) {
+          //     let uploadItemSuppliments = []
+          //     this.model?.itemSuppliments?.forEach(element => {
+          //       if (element?.UploadFile) {
+          //         let file = element?.UploadFile
+          //         let fileToUpload: any;
+          //         fileToUpload = file.item(0);
+          //         this.beforeImagesLoaded.push(fileToUpload)
+          //         uploadItemSuppliments.push(fileToUpload)
+
+          //       }
+          //     });
+          //     this.UploadFileService.uploadMultiple(uploadItemSuppliments, `products/product-${res?.itemId}/Supplements`)
+          //   }
+
+          // }
         }
 
       })

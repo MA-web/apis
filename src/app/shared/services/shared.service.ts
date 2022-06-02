@@ -32,13 +32,15 @@ export class SharedService {
   //empty attach
   sendEmptyAttach: Subject<any> = new Subject<any>();
 
- //send inbox
- sendInbox: Subject<any> = new Subject<any>();
+  //send inbox
+  sendInbox: Subject<any> = new Subject<any>();
 
   //refresh inbox
   RefreshInbox: Subject<any> = new Subject<any>();
 
 
+  //remove index From Upload area
+  removeIndexFromUploadArea: Subject<any> = new Subject<any>();
   constructor(private http: HttpClient) { }
 
 
