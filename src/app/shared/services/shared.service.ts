@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import { ItemCategoryDto } from 'src/app/@api';
+import { Router } from '@angular/router';
 
 
 const TOKEN_KEY = 'token';
@@ -41,7 +42,10 @@ export class SharedService {
 
   //remove index From Upload area
   removeIndexFromUploadArea: Subject<any> = new Subject<any>();
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router:Router
+    ) { }
 
 
   getBlob(src: any) {
@@ -63,6 +67,7 @@ export class SharedService {
   signOut(): void {
     window.localStorage.removeItem(TOKEN_KEY)
     window.localStorage.removeItem(USER_KEY)
+    this.router.navigate(['/home'])
     setTimeout(() => {
       window.location.reload()
     }, 100);

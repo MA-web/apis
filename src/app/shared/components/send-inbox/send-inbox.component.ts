@@ -22,6 +22,7 @@ export class SendInboxComponent extends AppBaseComponent implements OnInit, OnDe
     this.isLoadingForm = true
   }
   async ngOnInit(){
+
     await this._translateService.get('dummyTranslation').toPromise().then();
     this.fields = [
       {

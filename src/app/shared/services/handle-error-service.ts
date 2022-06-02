@@ -49,7 +49,7 @@ export class HandleErrorService {
 
 
     if (error.status == 401) {
-      //this.AuthService.logout()
+      this._sharedService.signOut()
       // window.location.reload()
 
     }

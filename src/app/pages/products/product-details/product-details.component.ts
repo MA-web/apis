@@ -1,5 +1,5 @@
 import { Component, HostListener, Injector, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { ItemCertificateDto, ItemControllerService, ItemDto, PagePublicItemDto, PublicDataControllerService, PublicItemDto, UserControllerService } from 'src/app/@api';
 import { SupplierEmployeeControllerService } from 'src/app/@api/api/supplierEmployeeController.service';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
@@ -99,7 +99,7 @@ export class ProductDetailsComponent extends AppBaseComponent implements OnInit,
   }
 
   onSend(){
-    const initialState: ModalOptions = {
+    const initialState = {
       class: 'modal-md',
       initialState: {
         supplierId:this.productDetails?.supplier?.supplierId

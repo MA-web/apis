@@ -24,7 +24,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       .pipe(
 
         catchError((error: HttpErrorResponse) => {
-          console.log('error: ', error);
           this.HandleErrorService.handleError(error)
 
           return throwError(error);
