@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { LookupControllerService } from 'src/app/@api';
+import { AttachmentSource, LookupControllerService } from 'src/app/@api';
 import { breadcrumb } from '../../models/breadcrumb.model';
 import { UploadFileService } from '../../services/file-upload.service';
 import { SharedService } from '../../services/shared.service';
@@ -37,7 +37,7 @@ export class AppBaseComponent implements OnDestroy,AfterViewInit {
 
   beforeImagesLoaded = []
 
-
+  attachmentSource:Array<AttachmentSource> =[]
   unSubscription: Subscription[] = []
 
   _translateService: TranslateService;
@@ -80,6 +80,14 @@ export class AppBaseComponent implements OnDestroy,AfterViewInit {
     }
 
   });
+}
+
+getAttachmentsSource(){
+  const getAttachmentsSourceUsingGETSub =  this.LookupControllerService.getAttachmentsSourceUsingGET().subscribe((res:Array<AttachmentSource>) =>{
+    console.log('res: ', res);
+    this.attachmentSource = res
+  })
+  this.unSubscription.push(getAttachmentsSourceUsingGETSub)
 }
 
   ngOnDestroy(): void {

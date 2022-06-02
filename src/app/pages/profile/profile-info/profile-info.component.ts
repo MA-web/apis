@@ -393,7 +393,6 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
     this.unSubscription.push(resDataSub)
 
     const sendEmptyAttachSub = this._sharedService.sendEmptyAttach.subscribe(res => {
-
       if (res) {
         this.UploadFileService.deleteFile(this.businessLicensePicture)
         this.businessLicensePicture = undefined

@@ -50,9 +50,7 @@ export class LeftMenuComponent extends AppBaseComponent implements OnInit {
       {
         path: '/products', title: this._translateService.instant('Products'), type: 'link', icon: 'fa fa-filter'
       },
-      {
-        path: '/suppliers', title: this._translateService.instant('ourSuppliers'), type: 'link', icon: 'fa fa-american-sign-language-interpreting'
-      },
+
       {
         path: '/news', title: this._translateService.instant('News'), type: 'link', icon: 'fa fa-file-text-o'
       },
@@ -64,6 +62,19 @@ export class LeftMenuComponent extends AppBaseComponent implements OnInit {
       },
 
     ];
+    const insert = (arr, index, newItem) => [
+      // part of the array before the specified index
+      ...arr.slice(0, index),
+      // inserted item
+      newItem,
+      // part of the array after the specified index
+      ...arr.slice(index)
+    ]
+    if(this.userData){
+      this.menuItems = insert(this.menuItems,3,{
+        path: '/suppliers', title: this._translateService.instant('ourSuppliers'), type: 'link', icon: 'fa fa-american-sign-language-interpreting'
+      })
+    }
 
     this.router.events.subscribe((event) => {
       this.navServices.mainMenuToggle = false;

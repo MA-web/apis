@@ -47,6 +47,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
     this.breadcrumbItems = [
       { label: this._translateService.instant('ProductsAddition'), active: true },
     ]
+    this.getAttachmentsSource();
 
     let observables: any = [
       this.LookupControllerService.getItemsCategoryUsingGET(),
@@ -1167,7 +1168,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
     this.unSubscription.push(forkSub);
 
 
-    this.UploadFileService.resData.subscribe(res => {
+    const resDataSub = this.UploadFileService.resData.subscribe(res => {
       let addItemStorage
       var Values = [];
       //get olds values
@@ -1191,8 +1192,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
           if (element.includes('/picture/')) {
             productPicture = {
               attachmentSource: {
-                attachmentSourceId: 1,
-                attachmentSourceName: element
+                attachmentSourceId: this.attachmentSource[1]?.attachmentSourceId,
+                attachmentSourceName: this.attachmentSource[1]?.attachmentSourceName
               },
 
               reference: element
@@ -1220,8 +1221,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
             finalProductCertificates.push({
               attachment: {
                 attachmentSource: {
-                  "attachmentSourceId": index + 1,
-                  attachmentSourceName: element
+                  attachmentSourceId: this.attachmentSource[1]?.attachmentSourceId,
+                  attachmentSourceName: this.attachmentSource[1]?.attachmentSourceName
                 },
                 reference: element
               },
@@ -1267,8 +1268,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
             finalProductShippingCertificates.push({
               attachment: {
                 attachmentSource: {
-                  "attachmentSourceId": index + 1,
-                  attachmentSourceName: element
+                  attachmentSourceId: this.attachmentSource[1]?.attachmentSourceId,
+                  attachmentSourceName: this.attachmentSource[1]?.attachmentSourceName
                 },
                 reference: element
               },
@@ -1336,8 +1337,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
         //   }
 
         // }
-        console.log(finalProductCertificates);
-        console.log(finalProductShippingCertificates);
+
         this.updateAttachment(productPicture, finalProductCertificates, finalProductShippingCertificates)
 
 
@@ -1346,9 +1346,10 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
 
 
     })
+    this.unSubscription.push(resDataSub)
 
 
-    this._sharedService.removeIndexFromUploadArea.subscribe(res => {
+   const removeIndexFromUploadAreaSub = this._sharedService.removeIndexFromUploadArea.subscribe(res => {
       if (res) {
 
         if (res?.item?.file?.src.includes('/certificate/')) {
@@ -1362,6 +1363,17 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
         this.updateAttachment(this.productDetails.attachment, this.productDetails.itemCertificateDtos, this.productDetails.shippingCertificateDtos,'removedSuccessfully')
       }
     })
+    this.unSubscription.push(removeIndexFromUploadAreaSub)
+
+    const sendEmptyAttachSub = this._sharedService.sendEmptyAttach.subscribe(res => {
+      if (res) {
+        this.UploadFileService.deleteFile(this.productDetails.attachment?.reference)
+        this.productDetails.attachment.reference = undefined
+        this.updateAttachment(this.productDetails.attachment, this.productDetails.itemCertificateDtos, this.productDetails.shippingCertificateDtos,'removedSuccessfully')
+
+      }
+    })
+    this.unSubscription.push(sendEmptyAttachSub)
   }
 
   //   getDirtyValues(form: any) {
@@ -1562,7 +1574,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
 
           if (this.model?.attachment?.length) {
             this.beforeImagesLoaded?.push(this.model?.attachment[0])
-            this.UploadFileService.uploadMultiple([this.model?.attachment[0]], `products/product-${res?.itemId}/picture`)
+            this.UploadFileService.uploadMultiple([this.model?.attachment[0]], `products/product-${res?.itemId}-${parseInt(String(Date.now() * Math.random()))}/picture`)
           }
 
           if (this.model?.uploadAreaCertificate?.length) {
@@ -1574,7 +1586,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
               }
 
             });
-            this.UploadFileService.uploadMultiple(uploadCertificate, `products/product-${res?.itemId}/certificate`)
+            this.UploadFileService.uploadMultiple(uploadCertificate, `products/product-${res?.itemId}-${parseInt(String(Date.now() * Math.random()))}/certificate`)
           }
 
           if (this.model?.uploadAreaShipping.length) {
@@ -1585,7 +1597,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 uploadShippingCertificate.push(element?.file?.fileToUpload)
               }
             });
-            this.UploadFileService.uploadMultiple(uploadShippingCertificate, `products/product-${res?.itemId}/shippingCertificate`)
+            this.UploadFileService.uploadMultiple(uploadShippingCertificate, `products/product-${res?.itemId}-${parseInt(String(Date.now() * Math.random()))}/shippingCertificate`)
           }
 
           // if (this.model?.itemSuppliments.length) {

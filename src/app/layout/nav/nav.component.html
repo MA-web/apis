@@ -6,10 +6,10 @@
       <!-- search -->
 
       <form [formGroup]="form"  class="search-header">
-        <div class="input-group mb-3">
-          <formly-form class="row m-0" [form]="form" [model]="model" [fields]="fields" [options]="options"> </formly-form>
+        <div class="input-group mb-3 d-flex justify-content-between">
+          <formly-form class="row m-0 w-100" [form]="form" [model]="model" [fields]="fields" [options]="options"> </formly-form>
           <div class="input-group-append">
-            <button class="btn" type="button" (click)="onSubmit()"><img src="assets/img/search.svg"></button>
+            <button class="btn" type="button" (click)="onSubmit()"><img src="assets/img/search.svg" class="img-fluid"></button>
           </div>
         </div>
 
@@ -62,7 +62,7 @@
 
 
         <!-- Dropdown -->
-        <li class="nav-item dropdown the-menu ml-md-5">
+        <li class="nav-item dropdown the-menu ml-md-5 ml-3">
           <div class="main-menu border-section border-top-0">
             <div class="menu-left">
               <app-left-menu></app-left-menu>

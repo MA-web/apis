@@ -73,9 +73,9 @@ body {
 
 
 /***/
-.the-menu .dropdown-toggle::after {
-  display: none
-}
+// .the-menu .dropdown-toggle::after {
+//   display: none
+// }
 
 .nav-badge {
   position: relative
@@ -954,10 +954,6 @@ select.form-control option[value=""][disabled] {
     margin-right: 10px
   }
 
-  .search-header input.form-control {
-    width: 300px
-  }
-
   .about-num {
     right: -20px
   }
@@ -997,17 +993,11 @@ select.form-control option[value=""][disabled] {
 }
 
 @media screen and (max-width:992px) {
-  .search-header input.form-control {
-    width: 160px
-  }
 
   .main-menu .nav-badge {
     margin-right: 3px
   }
 
-  .search-header select.form-control {
-    max-width: 90px
-  }
 
   .navbar-brand img {
     max-width: 130px
@@ -1089,9 +1079,7 @@ select.form-control option[value=""][disabled] {
     padding-left: 4px;
   }
 
-  .search-header input.form-control {
-    width: 120px
-  }
+
 
   .main-menu .navbar-expand-sm .navbar-nav .nav-link img {
     max-width: 26px;
@@ -1122,30 +1110,8 @@ select.form-control option[value=""][disabled] {
 }
 
 @media screen and (max-width:633px) {
-  .navbar-menu {
-    position: absolute;
-    top: 20px;
-    right: 0;
-    flex-direction: initial;
-    padding-right: 0;
-    padding-left: revert;
-  }
 
-  .main-menu .nav-badge {
-    margin-right: 13px
-  }
 
-  .search-header {
-    width: 100%;
-    margin-top: 0
-  }
-
-  .the-menu .dropdown-menu {
-    right: 0;
-    left: auto;
-    z-index: 99;
-    position: absolute;
-  }
 
   .main-text {
     min-height: 460px

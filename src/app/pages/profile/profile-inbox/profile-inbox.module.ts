@@ -7,6 +7,7 @@ import { SharedProfileModule } from '../shared-profile/shared-profile.module';
 import { FormlyConfModule } from 'src/app/shared/formly-conf/formly-conf.module';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 const route: Route[] = [
   { path: '', component: ProfileInboxComponent },
@@ -24,6 +25,8 @@ const route: Route[] = [
     FormlyConfModule,
     PaginationModule,
     AccordionModule,
+    LazyLoadImageModule,
+
   ]
 })
 export class ProfileInboxModule { }

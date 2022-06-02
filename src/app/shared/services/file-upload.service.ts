@@ -79,7 +79,8 @@ export class UploadFileService {
         Body: file,
         ACL: 'public-read',
         ContentType: file.type,
-        headers: { 'Access-Control-Allow-Origin': '*' }
+        headers: { 'Access-Control-Allow-Origin': '*' },
+
       };
       var that = this;
 

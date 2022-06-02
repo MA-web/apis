@@ -2,8 +2,9 @@ import { Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { Lightbox } from 'ngx-lightbox';
 import { finalize } from 'rxjs';
-import { ChatDto, InboxControllerService, MessageDto, PageChatDto } from 'src/app/@api';
+import {  ChatDto, InboxControllerService, MessageAttachmentDto, MessageDto, PageChatDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { roles } from 'src/environments/environment';
 
@@ -24,14 +25,20 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit, O
   chatList: Array<ChatDto> = []
 
   ChatDto: ChatDto;
+
+  selectMessagesAttach = []
+  selectedMessageContent;
+
   constructor(
     injector: Injector,
     private InboxControllerService: InboxControllerService,
+    private lightbox: Lightbox,
   ) {
     super(injector)
     this.isLoading = true
   }
   async ngOnInit() {
+
     await this._translateService.get('dummyTranslation').toPromise().then();
 
     this.getList()
@@ -67,10 +74,12 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit, O
         type: 'file-upload',
         templateOptions: {
           text: this._translateService.instant('UploadFiles'),
-          multiple:true
+          multiple: true
         }
       },
     ]
+
+    this.getAttachmentsSource();
 
     const sendInboxSub = this._sharedService.sendInbox.subscribe((res: ChatDto) => {
       this.ChatDto = res
@@ -99,12 +108,31 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit, O
 
       if (JSON.parse(window.localStorage.getItem('addIInboxStorage'))?.length === this.beforeImagesLoaded?.length) {
         let finalUploaded = JSON.parse(window.localStorage.getItem('addIInboxStorage'))
+
+        finalUploaded= finalUploaded?.map((v, index) => ({
+          attachment: {
+            attachmentSource: {
+              attachmentSourceId: this.attachmentSource[2]?.attachmentSourceId,
+              attachmentSourceName: this.attachmentSource[2]?.attachmentSourceName
+            },
+            reference: v
+          },
+          attachmentName: v
+        }))
         this.replyChat(finalUploaded)
       }
 
 
     })
+
+   const sendEmptyAttachSub = this.UploadFileService.sendEmptyAttach.subscribe(res => {
+      if (res) {
+        this.replyChat(this?.selectMessagesAttach, this.selectedMessageContent)
+      }
+    })
+    this.unSubscription.push(sendEmptyAttachSub)
   }
+
 
 
   pageChanged(event: PageChangedEvent): void {
@@ -141,18 +169,10 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit, O
   }
 
 
-  replyChat(attachments?) {
-    console.log('attachments: ', attachments);
+  replyChat(attachments? , messageContent?) {
     let MessageDto: MessageDto = {
-      attachments: attachments?.map((v,index) =>( {
-        attachment:{
-          attachmentId: index+1,
-          attachmentSource:v,
-          reference: v
-        },
-        attachmentName:v
-      })),
-      messageContent: this.model2?.messageContent,
+      attachments: attachments,
+      messageContent: this.model2?.messageContent || messageContent,
       sender: {
         id: this.userData?.role === roles?.customer ? this.userData?.id : this.userData?.supplierId,
       }
@@ -174,57 +194,58 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit, O
     this.unSubscription.push(replyToChatUsingPOSTSub)
   }
 
+  onDelete(item: MessageAttachmentDto, attachments: Array<MessageAttachmentDto>, index , messageContent) {
+    attachments.splice(index, 1)
+    this.UploadFileService.deleteFile(item?.attachment.reference)
+    this.selectMessagesAttach = attachments?.map(v =>({
+      attachment: {
+        attachmentSource: {
+          attachmentSourceId: this.attachmentSource[2]?.attachmentSourceId,
+          attachmentSourceName: this.attachmentSource[2]?.attachmentSourceName
+        },
+        reference: v.attachment?.reference
+      },
+      attachmentName: v?.attachmentName
+    }))
+
+    this.selectedMessageContent= messageContent
+  }
+
+  onOpen(img){
+    console.log('img: ', img);
+    let imgs:any = []
+   if(img){
+     imgs.push( {'src':img,'caption':''})
+
+    this.lightbox.open(imgs, 0,{
+      showZoom: true,
+      enableTransition: true,
+      showDownloadButton: true,
+    });
+   }
+  }
 
   onSubmit() {
     this.isSubmit = true;
     window.localStorage.removeItem('addIInboxStorage')
     this.beforeImagesLoaded = []
 
-    console.log(this.model2);
+
     if (this.model2?.inboxImages?.length) {
       let inboxImages = []
-      for (let i = 0; i <  this.model2?.inboxImages.length; i++) {
-        let file =  this.model2?.inboxImages[i];
+      for (let i = 0; i < this.model2?.inboxImages.length; i++) {
+        let file = this.model2?.inboxImages[i];
         this.beforeImagesLoaded.push(file)
         inboxImages.push(file)
-    }
+      }
 
 
-      this.UploadFileService.uploadMultiple(inboxImages, `inboxes/inbox-${this.ChatDto?.chatId}`)
+      this.UploadFileService.uploadMultiple(inboxImages, `inboxes/inbox${this.ChatDto?.chatId}-${parseInt(String(Date.now() * Math.random()))}`)
     }
 
     if (!this.model2?.inboxImages) {
       this.replyChat()
     }
 
-    //   let MessageDto: MessageDto = {
-    //     // attachment: {
-    //     //   attachmentSource: {
-    //     //     attachmentSourceId: 1,
-    //     //     attachmentSourceName: 'x'
-    //     //   },
-    //     //   reference: 'x'
-    //     // },
-    //     messageContent: this.model2?.messageContent,
-    //     sender: {
-    //       id: this.userData?.role === roles?.customer ? this.userData?.id : this.userData?.supplierId,
-
-    //     }
-    //   }
-    //  const replyToChatUsingPOSTSub = this.InboxControllerService.replyToChatUsingPOST(this.ChatDto?.chatId, MessageDto).pipe(
-    //     finalize(() =>{
-    //       this.isSubmit = false;
-    //     })
-    //   ).subscribe((res: MessageDto) => {
-    //     if(res){
-    //       this.options.resetModel()
-    //       this.ChatDto.messages.push(res)
-    //       this.scrollToBottom();
-    //       setTimeout(() => {
-    //         this.scrollToBottom();
-    //       }, 100);
-    //     }
-    //   })
-    //   this.unSubscription.push(replyToChatUsingPOSTSub)
   }
 }

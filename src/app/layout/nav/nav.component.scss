@@ -1,20 +1,40 @@
 :host ::ng-deep{
   @import 'src/assets/scss/variables';
 
+  .navbar{
+    flex-wrap: wrap!important;
+  }
+  .navbar-nav .dropdown-menu {
+    position: absolute!important;
+}
 .search-header {
   margin: 10px auto 0;
   .btn {
     background: #fff;
     border-radius: 25px
   }
+
+  .input-group-append{
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
   input.form-control {
     height: 54px;
     border: 0;
-    width: 400px;
+    width: 70%;
     background-image: url(/assets/img/Line.svg);
     background-repeat: no-repeat;
     background-position: left center;
-    border-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    @media screen and (max-width:1200px) {
+      width: 280px
+    }
+    @media screen and (max-width:992px) {
+      width: 100%
+    }
   }
 
   select.form-control {
@@ -27,7 +47,13 @@
     font-weight: 700;
     -webkit-appearance: none;
     -moz-appearance: none;
-    max-width: 120px
+    max-width: 120px;
+    @media screen and (max-width:1200px) {
+      width: 100px
+    }
+    @media screen and (max-width:992px) {
+      max-width: 90px
+    }
   }
   .input-group {
     background-repeat: no-repeat;
@@ -57,4 +83,33 @@
 
 }
 
+}
+@media screen and (max-width:820px) {
+  .main-menu{
+    background: rgb(0 0 0 / 10%);
+  }
+  .the-menu .dropdown-menu {
+    right: 0;
+    left: auto;
+    z-index: 99;
+    position: absolute!important;
+  }
+
+  .navbar-menu {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    flex-direction: initial;
+    padding-right: 0;
+    padding-left: revert;
+  }
+
+  .main-menu .nav-badge {
+    margin-right: 13px
+  }
+
+  .search-header {
+    width: 100%;
+    margin-top: 0
+  }
 }

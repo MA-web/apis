@@ -231,6 +231,9 @@
   "oldPassword":"Old Password",
   "newPassword":"New Password",
   "Certificates":"Certificates",
+  "Resources":"Resources",
+
+
 
   "validations": {
     "required": "This field is required!",

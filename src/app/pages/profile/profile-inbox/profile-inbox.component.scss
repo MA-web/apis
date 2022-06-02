@@ -32,7 +32,8 @@
       right: 0;
       background: $greenColor;
     }
-    .accordion-toggle .btn{
+
+    .accordion-toggle .btn {
       color: $greenColor;
     }
   }
@@ -64,8 +65,54 @@
     font-size: 14px;
   }
 }
+
 ::ng-deep .scroll-container {
-  .ps__thumb-y, .ps__rail-y:hover > .ps__thumb-y {
-      background-color: #209e91;
+
+  .ps__thumb-y,
+  .ps__rail-y:hover>.ps__thumb-y {
+    background-color: #209e91;
   }
+}
+
+
+.image-area {
+  position: relative;
+  cursor: pointer;
+  margin: 0 2px;
+  img {
+    height: 70px;
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.remove-image {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  border-radius: 10em;
+  text-decoration: none;
+  font: 600 18px/18px sans-serif;
+  background: #555;
+  border: 1px solid #fff;
+  color: #FFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 19px;
+}
+
+.remove-image:hover {
+  display: block;
+  background: #E54E4E;
+}
+
+.remove-image:active {
+  background: #E54E4E;
+  top: -10px;
+  right: -11px;
 }

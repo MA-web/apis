@@ -44,12 +44,25 @@
                   <div>{{message?.sender?.name}}</div>
                   <div class="date">{{message?.messageDateTime | date :'short'}}</div>
                 </div>
-                <div class="row basic-info" [ngClass]="{'text-right': userData?.id ===message?.sender?.id}">
+                <div class="row basic-info mt-0" [ngClass]="{'text-right': userData?.id ===message?.sender?.id}">
 
                   <p class="col-md-12 font-size-14">
                     {{message?.messageContent }}
                   </p>
 
+                  <div class="row w-100 m-0"  [ngClass]="{'flex-row-reverse': userData?.id ===message?.sender?.id}">
+                    <ng-container *ngFor="let item of message?.attachments;let i =index">
+                      <div class="image-area col-2 p-0">
+                        <img
+                        [defaultImage]="item?.attachment?.reference ? item?.attachment?.reference : 'assets/img/image2.jpg'"
+                        [lazyLoad]="item?.attachment?.reference ? item?.attachment?.reference : 'assets/img/image2.jpg'"
+                        onerror="this.src='assets/img/image2.jpg';" class="img-thumbnail lazy-loading"
+                        alt="{{ message?.messageContent ? message?.messageContent : '' }}" (click)="onOpen(item?.attachment?.reference)"/>
+
+                        <!-- <a class="remove-image" href="javascript:void(0)"  (click)="onDelete(item, message?.attachments,index,message?.messageContent)">&#215;</a> -->
+                      </div>
+                    </ng-container>
+                  </div>
 
                 </div>
 
