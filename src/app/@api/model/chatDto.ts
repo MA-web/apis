@@ -19,6 +19,14 @@ export interface ChatDto {
     chatId?: number;
     chatTitle: string;
     messages: Array<MessageDto>;
+    status?: ChatDto.StatusEnum;
     supplier?: ChatUserDto;
     user?: ChatUserDto;
+}
+export namespace ChatDto {
+    export type StatusEnum = 'READ' | 'UNREAD';
+    export const StatusEnum = {
+        READ: 'READ' as StatusEnum,
+        UNREAD: 'UNREAD' as StatusEnum
+    };
 }

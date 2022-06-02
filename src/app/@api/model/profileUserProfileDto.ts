@@ -17,7 +17,7 @@ export interface ProfileUserProfileDto {
     aboutMe?: string;
     address?: AddressDto;
     fax?: string;
-    gender?: number;
+    gender?: ProfileUserProfileDto.GenderEnum;
     image?: AttachmentDto;
     interestedIn?: string;
     landLine?: string;
@@ -26,4 +26,11 @@ export interface ProfileUserProfileDto {
     title?: string;
     userProfileId?: number;
     workingIn?: string;
+}
+export namespace ProfileUserProfileDto {
+    export type GenderEnum = 'FEMALE' | 'MALE';
+    export const GenderEnum = {
+        FEMALE: 'FEMALE' as GenderEnum,
+        MALE: 'MALE' as GenderEnum
+    };
 }

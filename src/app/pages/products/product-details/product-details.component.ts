@@ -80,7 +80,7 @@ export class ProductDetailsComponent extends AppBaseComponent implements OnInit,
   }
 
   getSimilarProducts() {
-    const getSimilarProductsUsingGETSub = this._publicDataControllerService.getSimilarProductsUsingGET(this.productDetails?.itemCategory?.categoryId, this.productDetails?.itemSubcategory?.itemSubcategoryId, this.pageNumber, this.pageSize).subscribe((res: PagePublicItemDto) => {
+    const getSimilarProductsUsingGETSub = this._publicDataControllerService.getSimilarProductsUsingGET(this.productDetails?.itemCategory?.categoryId, this.productDetails?.itemId,this.productDetails?.itemSubcategory?.itemSubcategoryId, this.pageNumber, this.pageSize).subscribe((res: PagePublicItemDto) => {
       if(res){
         this.isLoading = false;
         this.similarProducts = res.content

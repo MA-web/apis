@@ -17,7 +17,7 @@ export interface UpdateSupplierUserProfileDto {
     aboutMe?: string;
     address?: AddressDto;
     fax?: string;
-    gender?: number;
+    gender?: UpdateSupplierUserProfileDto.GenderEnum;
     interestedIn?: string;
     landline?: string;
     phone?: string;
@@ -25,4 +25,11 @@ export interface UpdateSupplierUserProfileDto {
     skype?: string;
     title?: string;
     workingIn?: string;
+}
+export namespace UpdateSupplierUserProfileDto {
+    export type GenderEnum = 'FEMALE' | 'MALE';
+    export const GenderEnum = {
+        FEMALE: 'FEMALE' as GenderEnum,
+        MALE: 'MALE' as GenderEnum
+    };
 }

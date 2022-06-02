@@ -21,7 +21,7 @@ export interface UserProfileDto {
     companyName?: string;
     customer?: CustomerDto;
     fax?: string;
-    gender?: string;
+    gender?: UserProfileDto.GenderEnum;
     interestedIn?: string;
     jobTitle?: string;
     landLine?: string;
@@ -30,4 +30,11 @@ export interface UserProfileDto {
     title?: string;
     userProfileId?: number;
     workingIn?: string;
+}
+export namespace UserProfileDto {
+    export type GenderEnum = 'FEMALE' | 'MALE';
+    export const GenderEnum = {
+        FEMALE: 'FEMALE' as GenderEnum,
+        MALE: 'MALE' as GenderEnum
+    };
 }

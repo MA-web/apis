@@ -27,7 +27,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class PublicDataControllerService {
 
-    protected basePath = 'https://apis.marksphinx.com:8444';
+    protected basePath = 'https://164.92.242.241:8060';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -101,19 +101,24 @@ export class PublicDataControllerService {
      * get similar products by category and sub category
      *
      * @param categoryId categoryId
+     * @param itemId itemId
      * @param itemSubcategoryId itemSubcategoryId
      * @param page page
      * @param size size
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getSimilarProductsUsingGET(categoryId: number, itemSubcategoryId: number, page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PagePublicItemDto>;
-    public getSimilarProductsUsingGET(categoryId: number, itemSubcategoryId: number, page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagePublicItemDto>>;
-    public getSimilarProductsUsingGET(categoryId: number, itemSubcategoryId: number, page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagePublicItemDto>>;
-    public getSimilarProductsUsingGET(categoryId: number, itemSubcategoryId: number, page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getSimilarProductsUsingGET(categoryId: number, itemId: number, itemSubcategoryId: number, page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PagePublicItemDto>;
+    public getSimilarProductsUsingGET(categoryId: number, itemId: number, itemSubcategoryId: number, page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagePublicItemDto>>;
+    public getSimilarProductsUsingGET(categoryId: number, itemId: number, itemSubcategoryId: number, page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagePublicItemDto>>;
+    public getSimilarProductsUsingGET(categoryId: number, itemId: number, itemSubcategoryId: number, page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (categoryId === null || categoryId === undefined) {
             throw new Error('Required parameter categoryId was null or undefined when calling getSimilarProductsUsingGET.');
+        }
+
+        if (itemId === null || itemId === undefined) {
+            throw new Error('Required parameter itemId was null or undefined when calling getSimilarProductsUsingGET.');
         }
 
         if (itemSubcategoryId === null || itemSubcategoryId === undefined) {
@@ -156,7 +161,7 @@ export class PublicDataControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<PagePublicItemDto>(`${this.basePath}/public/data/simliar-products`,
+        return this.httpClient.get<PagePublicItemDto>(`${this.basePath}/public/data/simliar-products/${encodeURIComponent(String(itemId))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
