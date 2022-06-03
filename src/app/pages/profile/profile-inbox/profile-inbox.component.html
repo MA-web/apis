@@ -50,14 +50,15 @@
                     {{message?.messageContent }}
                   </p>
 
-                  <div class="row w-100 m-0"  [ngClass]="{'flex-row-reverse': userData?.id ===message?.sender?.id}">
+                  <div class="row w-100 m-0" [ngClass]="{'flex-row-reverse': userData?.id ===message?.sender?.id}">
                     <ng-container *ngFor="let item of message?.attachments;let i =index">
                       <div class="image-area col-2 p-0">
                         <img
-                        [defaultImage]="item?.attachment?.reference ? item?.attachment?.reference : 'assets/img/image2.jpg'"
-                        [lazyLoad]="item?.attachment?.reference ? item?.attachment?.reference : 'assets/img/image2.jpg'"
-                        onerror="this.src='assets/img/image2.jpg';" class="img-thumbnail lazy-loading"
-                        alt="{{ message?.messageContent ? message?.messageContent : '' }}" (click)="onOpen(item?.attachment?.reference)"/>
+                          [defaultImage]="item?.attachment?.reference ? item?.attachment?.reference : 'assets/img/image2.jpg'"
+                          [lazyLoad]="item?.attachment?.reference ? item?.attachment?.reference : 'assets/img/image2.jpg'"
+                          onerror="this.src='assets/img/image2.jpg';" class="img-thumbnail lazy-loading"
+                          alt="{{ message?.messageContent ? message?.messageContent : '' }}"
+                          (click)="onOpen(item?.attachment?.reference)" />
 
                         <!-- <a class="remove-image" href="javascript:void(0)"  (click)="onDelete(item, message?.attachments,index,message?.messageContent)">&#215;</a> -->
                       </div>
@@ -79,14 +80,16 @@
 
 
           <form [formGroup]="form2" (ngSubmit)="onSubmit()">
-            <formly-form class="row" [form]="form2" [model]="model2" [fields]="fields2" [options]="options"> </formly-form>
+            <formly-form class="row" [form]="form2" [model]="model2" [fields]="fields2" [options]="options">
+            </formly-form>
             <div class="button-items mt-4 mb-0">
-              <button type="button" class="apis-button btn-sm btn btn-outline-info  px-4 py-2">
+              <!-- <button type="button" class="apis-button btn-sm btn btn-outline-info  px-4 py-2">
                 <span [inlineSVG]="'assets/icons/edit.svg'"></span>
                 {{'Save_as_Draft' |translate}}
-              </button>
+              </button> -->
 
-              <button type="submit" class="apis-button btn btn-sm btn-warning pull-md-right px-4 py-2" [disabled]="form.invalid || isSubmit">
+              <button type="submit" class="apis-button btn btn-sm btn-warning pull-md-right px-4 py-2"
+                [disabled]="form.invalid || isSubmit">
                 <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
                   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                   Loading...

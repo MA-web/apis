@@ -24,9 +24,9 @@ export interface ChatDto {
     user?: ChatUserDto;
 }
 export namespace ChatDto {
-    export type StatusEnum = 'READ' | 'UNREAD';
+    export type StatusEnum = 'NOT_READ' | 'READ';
     export const StatusEnum = {
-        READ: 'READ' as StatusEnum,
-        UNREAD: 'UNREAD' as StatusEnum
+        NOTREAD: 'NOT_READ' as StatusEnum,
+        READ: 'READ' as StatusEnum
     };
 }

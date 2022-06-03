@@ -5,6 +5,7 @@
   margin: 0 -1.25rem;
   position: relative;
   border-bottom: 1px solid #EEEEEE;
+  background-color: white;
   .attach{
     position: absolute;
     top: 0;
@@ -44,4 +45,7 @@
     margin-bottom: 0;
   }
 
+}
+.bg-light {
+  background-color: #f6f6f6 !important;
 }

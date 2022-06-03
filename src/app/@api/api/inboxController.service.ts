@@ -247,7 +247,7 @@ export class InboxControllerService {
             'application/json'
         ];
 
-        return this.httpClient.put<any>(`${this.basePath}/api/inbox/chat/${encodeURIComponent(String(chatId))}/markRead`,
+        return this.httpClient.put<any>(`${this.basePath}/api/inbox/chat/${encodeURIComponent(String(chatId))}/read`,
             null,
             {
                 withCredentials: this.configuration.withCredentials,
