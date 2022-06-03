@@ -97,6 +97,9 @@ export class NavComponent extends AppBaseComponent implements OnInit, OnDestroy 
     this._sharedService.signOut()
   }
 
+  onReset(){
+
+  }
   onSubmit() {
     console.log(this.model.category);
     if (this.model.searchKey) {

@@ -9,6 +9,8 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {  ReactiveFormsModule } from '@angular/forms';
 import { FormlyConfModule } from '../shared/formly-conf/formly-conf.module';
+import { InboxIconComponent } from './inbox-icon/inbox-icon.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 
@@ -17,6 +19,7 @@ import { FormlyConfModule } from '../shared/formly-conf/formly-conf.module';
     FooterComponent,
     LeftMenuComponent,
     NavComponent,
+    InboxIconComponent,
   ],
   imports: [
     CommonModule,
@@ -26,12 +29,15 @@ import { FormlyConfModule } from '../shared/formly-conf/formly-conf.module';
     BsDropdownModule,
     ReactiveFormsModule,
     FormlyConfModule,
-
+    InlineSVGModule,
+    ModalModule.forRoot(),
   ],
   exports:[
     FooterComponent,
     LeftMenuComponent,
-    NavComponent
+    NavComponent,
+    InboxIconComponent
+
   ]
 })
 export class LayoutModule { }

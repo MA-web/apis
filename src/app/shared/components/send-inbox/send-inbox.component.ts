@@ -53,13 +53,14 @@ export class SendInboxComponent extends AppBaseComponent implements OnInit, OnDe
         messageContent: this.model?.messageContent,
       }
       ],
-      supplier:{
-        id:this.supplierId,
-
-      },
       user:{
         id:this.userData?.id,
       }
+    }
+    if(this.supplierId){
+      chat.supplier.id = this.supplierId
+    }else{
+      chat.admin.id= 1
     }
    const createChatUsingPOSTSub = this.InboxControllerService.createChatUsingPOST(chat).pipe(
       finalize(() =>{

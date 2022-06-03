@@ -1,0 +1,21 @@
+@import 'src/assets/scss/_variables.scss';
+
+.inbox-icon{
+  background-color: $orange;
+  position: fixed;
+  top: 50%;
+  right: 0;
+  color: white;
+  border-radius: 14px 14px 4px 14px;
+  padding: 1rem .7rem;
+  cursor: pointer;
+  span{
+    font-weight: 900;
+    font-size: 12px;
+  }
+}
+:host ::ng-deep{
+  .inbox-icon svg path:last-child{
+    fill: white;
+  }
+}
