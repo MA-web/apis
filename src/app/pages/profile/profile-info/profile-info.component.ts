@@ -4,7 +4,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import * as e from 'express';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { finalize, forkJoin } from 'rxjs';
-import {    SupplierControllerService, SupplierEmployeeDto, UpdateSupplierProfileDto, UserControllerService, UserProfileDto, UserResponseDto } from 'src/app/@api';
+import {    ProfileUserProfileDto, SupplierControllerService, SupplierEmployeeDto, UpdateSupplierProfileDto, UserControllerService, UserProfileDto, UserResponseDto } from 'src/app/@api';
 import { ProfileDto } from 'src/app/@api/model/profileDto';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { generalValidations, roles } from 'src/environments/environment';
@@ -105,7 +105,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
           defaultValue: this.ProfileDto?.userProfile?.gender,
           templateOptions: {
             label: this._translateService.instant('gender'),
-            options: [{ label: 'Male', value: 0 }, { label: 'Female', value: 1 }]
+            options: this.getEnumAsOptions(ProfileUserProfileDto.GenderEnum)
           }
         },
         {

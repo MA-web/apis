@@ -82,6 +82,11 @@ export class AppBaseComponent implements OnDestroy,AfterViewInit {
   });
 }
 
+ getEnumAsOptions(statusEnum) {
+  let arr = Object.values(statusEnum);
+  return arr.map((str:string, index) => ({ label: str[0]?.toUpperCase() + str?.slice(1)?.toLowerCase(), value: str }));
+}
+
 getAttachmentsSource(){
   const getAttachmentsSourceUsingGETSub =  this.LookupControllerService.getAttachmentsSourceUsingGET().subscribe((res:Array<AttachmentSource>) =>{
     console.log('res: ', res);
