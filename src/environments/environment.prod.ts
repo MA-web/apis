@@ -1,6 +1,8 @@
+import { EMPTY } from "rxjs";
+
 export const environment = {
   production: true,
-  apiURL:'https://apis.marksphinx.com:4444'
+  apiURL:'http://164.92.242.241:8060'
 };
 
 
@@ -23,3 +25,4 @@ export const roles = {
   supplier:"SUPPLIER"
 
 }
+

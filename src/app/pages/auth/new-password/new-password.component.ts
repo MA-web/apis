@@ -21,16 +21,11 @@ export class NewPasswordComponent extends AppBaseComponent implements OnInit , O
     private RegisterControllerService: RegisterControllerService
   ) {
     super(injector);
-    this._sharedService.sendVerifyCode.subscribe((res: string) => {
-      if (res) {
-        this.VerifyCode = res;
-      } else {
-        this.router.navigate(['/auth/login'])
-      }
-    })
+
   }
 
   async ngOnInit() {
+
     await this._translateService.get('dummyTranslation').toPromise().then();
     this.fields = [
       {
@@ -68,6 +63,18 @@ export class NewPasswordComponent extends AppBaseComponent implements OnInit , O
         }
       },
     ]
+
+    setTimeout(() => {
+    const sendVerifyCodeSub =  this._sharedService.sendVerifyCode.subscribe((res: string) => {
+        console.log('res: ', res);
+        if (res) {
+          this.VerifyCode = res;
+        } else {
+          this.router.navigate(['/auth/login'])
+        }
+      })
+      this.unSubscription.push(sendVerifyCodeSub)
+    }, 100);
   }
 
 
@@ -78,7 +85,7 @@ export class NewPasswordComponent extends AppBaseComponent implements OnInit , O
         password: this.model?.password,
         token: this.VerifyCode
       }
-      this.RegisterControllerService.resetPasswordUsingPUT(body).pipe(
+     const resetPasswordUsingPUTSub = this.RegisterControllerService.resetPasswordUsingPUT(body).pipe(
         finalize(() => {
           this.isSubmit = false;
         })
@@ -94,6 +101,7 @@ export class NewPasswordComponent extends AppBaseComponent implements OnInit , O
           this._sharedService.sendVerifyCode.next(undefined)
         }
       })
+      this.unSubscription.push(resetPasswordUsingPUTSub)
     }
   }
 

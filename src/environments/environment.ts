@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiURL:'https://apis.marksphinx.com:4444'
+  apiURL:'http://164.92.242.241:8060'
 };
 
 /*
@@ -37,3 +37,4 @@ export const roles = {
   supplier:"SUPPLIER"
 
 }
+

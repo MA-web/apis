@@ -10,7 +10,7 @@ import { ToastrService } from "ngx-toastr";
   templateUrl: './activation-email.component.html',
   styleUrls: ['./activation-email.component.scss']
 })
-export class ActivationEmailComponent extends AppBaseComponent implements OnInit , OnDestroy{
+export class ActivationEmailComponent extends AppBaseComponent implements OnInit, OnDestroy {
 
   email: string = '';
 
@@ -19,7 +19,7 @@ export class ActivationEmailComponent extends AppBaseComponent implements OnInit
     private RegisterControllerService: RegisterControllerService
   ) {
     super(injector);
-    this._sharedService.sendEmail.subscribe((res: string) => {
+    const sendEmailSub = this._sharedService.sendEmail.subscribe((res: string) => {
       if (res || window.localStorage.getItem('emailToAPIs')) {
         if (res) {
           this.email = res
@@ -30,6 +30,7 @@ export class ActivationEmailComponent extends AppBaseComponent implements OnInit
         this.router.navigate(['/auth/login'])
       }
     })
+    this.unSubscription.push(sendEmailSub)
   }
   async ngOnInit() {
 
@@ -60,7 +61,7 @@ export class ActivationEmailComponent extends AppBaseComponent implements OnInit
     }
 
     const resendTokenUsingPUTSub = observable.subscribe((res: ResponseDto) => {
-      console.log('res: ', res);
+
       this.toaster.success('success')
     })
     this.unSubscription.push(resendTokenUsingPUTSub)
@@ -83,14 +84,16 @@ export class ActivationEmailComponent extends AppBaseComponent implements OnInit
         } else {
           this._sharedService.sendVerifyCode.next(this.model?.token)
           this.router.navigate(['/auth/new-password'])
+
+          window.localStorage.removeItem('emailToAPIs')
+          window.localStorage.removeItem('emailToAPIs_forgetPassword')
         }
 
-        this._sharedService.sendEmail.next(undefined)
-        window.localStorage.removeItem('emailToAPIs')
-        window.localStorage.removeItem('emailToAPIs_forgetPassword')
+
       }
     })
     this.unSubscription.push(verifyAccountUsingPUTSub)
 
   }
+
 }

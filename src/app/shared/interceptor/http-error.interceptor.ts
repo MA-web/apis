@@ -26,7 +26,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           this.HandleErrorService.handleError(error)
 
-          return throwError(error);
+          return throwError(EMPTY);
         })
       )
   }

@@ -25,7 +25,7 @@ export class LoginComponent extends AppBaseComponent implements OnInit , OnDestr
   }
 
   async ngOnInit(){
-
+    this._sharedService.sendEmail.next(undefined)
     await this._translateService.get('dummyTranslation').toPromise().then();
     this.fields = [
       {
