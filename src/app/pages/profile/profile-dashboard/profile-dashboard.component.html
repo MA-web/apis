@@ -1,15 +1,13 @@
 <div class="the-title mt-lg-0">
-  <h2>{{'Hello' | translate}}, <span>Ahmad Supplier</span></h2>
+  <h2>{{'Hello' | translate}}, <span>{{userData?.fisrtNmae}} {{userData?.lastNmae}}</span></h2>
 </div>
-
 <div class="row">
-  <div class="col-lg-8 col-12">
+  <!-- <div class="col-lg-8 col-12">
     <div class="card white-card mb-4 h-100 border-radius-18">
       <div class="card-body">
         <div class="card-title">
           {{'YourProgressWeekAPIS' | translate}}
         </div>
-
         <div class="row m-0">
           <div class="col-lg-4 px-0">
             <app-radial-bar-chart label="Search Results" [value]="76" [color]="'#F07777'"></app-radial-bar-chart>
@@ -23,21 +21,26 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-lg-4 col-12">
+  </div> -->
+  <div class="col-12">
     <div class="card white-card mb-4 h-100 border-radius-18">
       <div class="card-body">
         <div class="card-title">
           {{'updateYourProfile' | translate}}
         </div>
-        <app-radial-bar-chart [value]="76" [color]="'#53CBDB'" strokeType="true"></app-radial-bar-chart>
-        <div class="font-weight-bold font-size-14" style="color: #454545;">Add More information to achieve
-          the best sales <a href="#" style="color: #1AAFD1;">Update your profile</a></div>
+        <ng-container *ngIf="profilePercentLoading; else elseTemplate_profilePercentLoading">
+
+        </ng-container>
+        <ng-template #elseTemplate_profilePercentLoading>
+          <app-radial-bar-chart [value]="profilePercent" [color]="'#53CBDB'" strokeType="true"></app-radial-bar-chart>
+        </ng-template>
+
+        <div class="font-weight-bold font-size-14 text-center" style="color: #454545;">Add More information to achieve
+          the best sales <a routerLink="/profile/info" style="color: #1AAFD1;">Update your profile</a></div>
       </div>
     </div>
   </div>
 </div>
-
 <div class="row">
   <div class="col-12">
     <div class="card white-card my-4 border-radius-18">
@@ -138,7 +141,6 @@
     </div>
   </div>
 </div>
-
 <div class="row">
   <div class="col-lg-6 mb-3">
     <div class="card white-card mb-3 border-radius-18">
@@ -147,7 +149,6 @@
           <span class="mr-2" inlineSVG="assets/icons/deal.svg"></span>
           21 {{'DealNeedAction' | translate}}
         </div>
-
         <div class="mb-2">
           <app-dashboard-deal></app-dashboard-deal>
         </div>
@@ -160,28 +161,21 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-6 mb-3">
+  <div class="col-lg-6 mb-3" *ngIf="chatList?.length>0">
     <div class="card white-card border-radius-18">
-      <div class="card-body">
+      <div class="card-body pb-0">
         <div class="card-title">
           <span class="mr-2" inlineSVG="assets/icons/message.svg"></span>
-          21 {{'newMessage' | translate}}
+          {{messageCount}} {{'newMessage' | translate}}
         </div>
-
-        <div class="mb-2">
-          <app-message-card></app-message-card>
-        </div>
-        <div class="mb-2">
-          <app-message-card></app-message-card>
-        </div>
-        <div>
-          <app-message-card></app-message-card>
-        </div>
+        <ng-container *ngFor="let chat of chatList; let last = last">
+          <div [ngClass]="{'mb-0': last}" [ngClass]="{'mb-2': !last}">
+            <app-message-card [ChatDto]="chat"></app-message-card>
+          </div>
+        </ng-container>
       </div>
     </div>
-
   </div>
-
   <div class="col-12">
     <div class="card white-card border-radius-18">
       <div class="card-body">

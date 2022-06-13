@@ -339,33 +339,6 @@ body {
   background-size: cover;
 }
 
-.event-details {
-  border-radius: 0 45px 0 45px;
-  background: #fff;
-  padding: 20px 20px 18px;
-  margin-top: -43px;
-  z-index: 2;
-  position: relative;
-}
-
-.event-details h4 a {
-  color: $mainColor;
-  font-size: 20px;
-  font-weight: 800;
-  transition: all .2s ease-in-out
-}
-
-.event-details h4 a:hover {
-  text-decoration: none;
-  color: $orange
-}
-
-.event-details p {
-  font-size: 14px;
-  color: #DDDDDD;
-  font-weight: 400
-}
-
 .profile {
   color: $SonicSilver;
   font-size: 20px;
@@ -416,17 +389,6 @@ body {
   opacity: .85
 }
 
-.event {
-  margin-bottom: 25px
-}
-
-.event-img img {
-  min-width: 100%
-}
-
-.news-img img {
-  min-width: 100%
-}
 
 .new {
   background: rgb(255 255 255 / 21%);
@@ -441,15 +403,16 @@ body {
 
 .news-date {
   position: absolute;
-  right: -20px;
+  right: -23px;
   top: 23%;
   background: #fff;
   text-align: center;
   padding: 8px;
-  border-top: 5px solid $orange;
-  color: $orange;
+  border-top: 5px solid #FCB813;
+  color: #FCB813;
   font-weight: 800;
-  font-size: 16px
+  font-size: 16px;
+  width: 77px;
 }
 
 .news-date span {
@@ -696,56 +659,6 @@ body {
 
 
 
-.event-sm .date {
-  font-size: 11px;
-  margin-top: 7px
-}
-
-.event-sm .date img {
-  width: 20px;
-}
-
-.event-sm .profile {
-  font-size: 11px
-}
-
-.event-lg .event-details {
-  margin-top: 0;
-  border-radius: 0 45px 0 45px
-}
-
-.event-lg.event .row>div {
-  padding: 0
-}
-
-.event-lg.event .event-details .row {
-  margin-left: 0;
-  margin-right: 0
-}
-
-.event-lg.event .event-img img {
-  border-radius: 45px 45px 0 45px
-}
-
-.event-lg.event>.row {
-  margin-left: 0;
-  margin-right: 0
-}
-
-.event-lg.event {
-  background: #fff;
-  border-radius: 45px 45px 0 45px
-}
-
-.event-lg.event .event-details h4 {
-  margin-bottom: 20px
-}
-
-.event-lg.event .event-details p {
-  margin-top: 15px;
-  font-size: 18px;
-  color: $taupeGrayColor;
-}
 
 .filter-grid button {
   border: 0;
@@ -1094,9 +1007,7 @@ select.form-control option[value=""][disabled] {
     margin-bottom: 10px
   }
 
-  .view {
-    margin-bottom: 20px
-  }
+
 
   .partner {
     margin-bottom: 15px
@@ -1289,19 +1200,20 @@ select.form-control option[value=""][disabled] {
   background: #EEEEEE;
   box-shadow: 0px 4px 8px #2c27380a;
   color: #24B6F7!important;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 900;
   display: inline-block;
-  margin: 10px;
+  margin: 5px 0;
   border-radius: 15px;
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 45px;
+  line-height: 35px;
   padding:2px;
   text-align:center
 }
+
 .hint {
   color: $grayColor;
   font-size: 16px;
@@ -1882,3 +1794,83 @@ textarea.form-control {
 .swal2-icon.swal2-error.swal2-icon-show{
   zoom: .7;
 }
+
+
+  .fc-scroller-harness > .fc-scroller{
+    overflow: auto!important;
+  }
+  .fc-toolbar-title {
+    color: $active-link2;
+    font-weight: bold;
+    font-size: 17px;
+  }
+
+  .fc {
+    .fc-toolbar.fc-header-toolbar {
+      margin-bottom: 1rem;
+    }
+   .fc-toolbar-title{
+     font-size: 18px;
+     font-weight: 800;
+     position: relative;
+     padding-left: 45px;
+     &::after {
+      content: '';
+      zoom: 1.2;
+      background-image: url(/assets/icons/calendar.svg);
+      background-repeat: no-repeat;
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      left: 0px;
+      top: -5px;
+      bottom: 0;
+      border-radius: 0px 3px 3px 0px;
+    }
+     &:before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      background-color: $active-link2;
+      position: absolute;
+      left: -20px;
+      top: 0;
+      bottom: 0;
+      border-radius: 0px 3px 3px 0px;
+    }
+   }
+  }
+
+  .fc-daygrid {
+
+    .fc-col-header-cell-cushion {
+      color: $active-link2;
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+
+      text-align: center !important;
+    }
+
+    .fc-daygrid-day.fc-day-today {
+      background-color: transparent;
+    }
+
+    .fc-daygrid-event-dot {
+      border-color: $active-link;
+    }
+
+    .bg-primary {
+      background-color: $active-link2 !important;
+    }
+
+  }
+
+  .text-gray{
+    color: $grayColor!important;
+    }
+    .table th, .table td {
+      white-space: nowrap;
+  }

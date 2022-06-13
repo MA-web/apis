@@ -102,7 +102,7 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
   getList() {
     this.isLoading = true
     console.log(this._sharedService?.getToken());
-    const getFavSub = this._itemControllerService.searchItemsForSupplierUsingGET(this._sharedService?.getToken(), this.model?.category, undefined,this.pageNumber,this.pageSize,this.model?.status,this.model?.subCategory).subscribe((res: PageItemDto) => {
+    const getFavSub = this._itemControllerService.searchItemsForSupplierUsingGET(this._sharedService?.getToken(), this.model?.category, this.model?.searchValue,undefined,this.pageNumber,this.pageSize,this.model?.status,this.model?.subCategory).subscribe((res: PageItemDto) => {
       if (res) {
         this.isLoading = false
         this.products = res.content;

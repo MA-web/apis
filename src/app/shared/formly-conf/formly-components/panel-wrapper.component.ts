@@ -6,7 +6,7 @@ import { FieldWrapper } from '@ngx-formly/core';
   template: `
     <div class="input-wrap">
     <div class="form-group  m-0">
-        <label for="">{{to.label}}</label>
+        <label for="">{{to.label}} <span class="ng-star-inserted" *ngIf="to.required">*</span></label>
      <ng-container #fieldComponent></ng-container>
     </div>
     </div>

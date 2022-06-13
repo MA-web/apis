@@ -135,7 +135,7 @@
 </div>
 <!-- end steps -->
 <!-- start products -->
-<div class="products section-apis">
+<div class="products section-apis" *ngIf="products?.length>0">
   <div class="container">
     <div class="row">
       <div class="col-md-8">
@@ -159,99 +159,75 @@
 </div>
 <!-- end products -->
 <!-- start latest -->
-<div class="latest">
+<div class="latest" *ngIf="latestNews?.length>0 || latestEvents?.length >0">
   <div class="latest-bg section-apis">
     <div class="container">
       <div class="row">
-        <div class="col-lg-6">
-          <h3>Latest Events</h3>
+        <div class="col-lg-6" *ngIf="latestNews?.length>0">
+          <h3>{{'latestNews' | translate}}</h3>
           <div class="event">
-            <div class="event-img"><img src="assets/img/latest.png"></div>
+            <div class="event-img  bg-white">
+              <img class="d-block m-auto"
+                [defaultImage]="latestNews[0]?.image?.reference ? latestNews[0]?.image?.reference : './assets/img/latest.png'"
+                [lazyLoad]="latestNews[0]?.image?.reference ? latestNews[0]?.image?.reference : './assets/img/latest.png'"
+                onerror="this.src='./assets/img/latest.png';"
+                alt="{{ latestNews[0]?.title ? latestNews[0].title : '' }}" />
+            </div>
             <div class="event-details">
-              <h4><a href="#">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                  unknown printer</a></h4>
-              <p>Lorem ipsum dolor sit amet, vel accumsan liberavisse ex, ea nec elaboraret interpretaris, sed diceret
-                concludaturque no. Verear habemus sea ut. His nibh scripta in. In sea vocibus facilisis. Sed ea cibo
-                eripuit vituperata, pri eius debitis ne. Eos et wisi legimus, vel cu paulo doctus vidisse. Iudico
-                dicant nostrum nec an, in eos harum vitae, te quod vero salutandi nam.</p>
+              <h4 class="text-truncate"><a href="javascript:void(0)" (click)="onViewNews()">{{latestNews[0]?.title}}</a>
+              </h4>
+              <p style="word-break:break-all">{{latestNews[0]?.content.length > 70?
+                latestNews[0]?.content.substring(0,70)+ '...' :latestNews[0]?.content}}</p>
               <div class="row">
                 <div class="col-sm-6">
-                  <div class="profile">
+                  <!-- <div class="profile">
                     <img src="assets/img/profile.png">
                     Lorem Ipsum
+                  </div> -->
+                </div>
+                <div class="col-sm-6">
+                  <div class="date"><img src="assets/img/schedule_black_24dp.png">{{latestNews[0]?.lastUpdatedDate |
+                    date :'short'}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="link-align"><a routerLink="/news">{{'ViewAllNews' | translate}}<img
+                src="assets/img/arrow-white.png"></a></div>
+        </div>
+        <div class="col-lg-6" *ngIf="latestEvents?.length > 0">
+          <h3>{{'latestEvents' | translate}}</h3>
+          <ng-container *ngFor="let event of latestEvents">
+            <div class="new">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="news-img">
+                    <img style="height: 166px;"
+                      [defaultImage]="event?.image?.reference ? event?.image?.reference : './assets/img/latest.png'"
+                      [lazyLoad]="event?.image?.reference ? event?.image?.reference : './assets/img/latest.png'"
+                      onerror="this.src='./assets/img/latest.png';" class="img-fluid w-100"
+                      alt="{{ event?.title ? event.title : '' }}" />
+                    <div class="news-date">{{event?.eventDate | date }}</div>
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <div class="date"><img src="assets/img/schedule_black_24dp.png">08:03 . 20-Dec-2021</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="link-align"><a href="#">View All Events<img src="assets/img/arrow-white.png"></a></div>
-        </div>
-        <div class="col-lg-6">
-          <h3>Latest News</h3>
-          <div class="new">
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="news-img">
-                  <img src="assets/img/news1.png">
-                  <div class="news-date"><span>22</span>Dec 2021</div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="news-details">
-                  <h4><a href="#">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</a>
-                  </h4>
-                  <div class="profile">
-                    <img src="assets/img/profile.png">
-                    Lorem Ipsum
+                  <div class="news-details">
+                    <h4 class="text-truncate"><a href="javascript:void(0)" (click)="onViewEvent(event)">{{event?.title}}
+                      </a></h4>
+                    <!-- <div class="profile">
+                      <img src="assets/img/profile.png">
+                      Lorem Ipsum
+                    </div> -->
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="new">
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="news-img">
-                  <img src="assets/img/news1.png">
-                  <div class="news-date"><span>22</span>Dec 2021</div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="news-details">
-                  <h4><a href="#">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</a>
-                  </h4>
-                  <div class="profile">
-                    <img src="assets/img/profile.png">
-                    Lorem Ipsum
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="new">
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="news-img">
-                  <img src="assets/img/news1.png">
-                  <div class="news-date"><span>22</span>Dec 2021</div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="news-details">
-                  <h4><a href="#">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</a>
-                  </h4>
-                  <div class="profile">
-                    <img src="assets/img/profile.png">
-                    Lorem Ipsum
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="link-align"><a href="#">View All News<img src="assets/img/arrow-white.png"></a></div>
+          </ng-container>
+
+
+
+          <div class="link-align"><a routerLink="/events">{{'ViewAllEvents' | translate}}<img
+                src="assets/img/arrow-white.png"></a></div>
         </div>
       </div>
     </div>
@@ -259,38 +235,33 @@
 </div>
 <!-- end latest -->
 <!-- start partners -->
-<div class="partners section-apis">
+<div class="partners section-apis" *ngIf="PartnerList?.length">
   <div class="container">
     <div class="row">
       <div class="col-sm-8">
         <div class="the-title">
-          <h2>Our Partners</h2>
+          <h2>{{'OurPartners' | translate}}</h2>
           <p>Everything you need to know when you're looking</p>
         </div>
       </div>
       <div class="col-sm-4 view">
-        <a href="#" class="link">View All Partners<img src="assets/img/arrow.png"></a>
+        <a href="#" class="link">{{'ViewAllPartners' | translate}}<img src="assets/img/arrow.png"></a>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2 col-sm-4 col-6">
-        <div class="partner"><img src="assets/img/p3.png"></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6">
-        <div class="partner"><img src="assets/img/p3.png"></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6">
-        <div class="partner"><img src="assets/img/p3.png"></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6">
-        <div class="partner"><img src="assets/img/p3.png"></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6">
-        <div class="partner"><img src="assets/img/p3.png"></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6">
-        <div class="partner"><img src="assets/img/p3.png"></div>
-      </div>
+      <ng-container *ngFor="let partner of PartnerList">
+        <div class="col-md-2 col-sm-4 col-6">
+          <div class="partner">
+            <img
+            [defaultImage]="partner?.partnerLogo?.reference ? partner?.partnerLogo?.reference : './assets/img/p3.png'"
+            [lazyLoad]="partner?.partnerLogo?.reference ? partner?.partnerLogo?.reference : './assets/img/p3.png'"
+            onerror="this.src='./assets/img/p3.png';"
+            alt="{{ partner?.partnerName ? partner.partnerName : '' }}" />
+           </div>
+        </div>
+
+      </ng-container>
+
     </div>
   </div>
 </div>

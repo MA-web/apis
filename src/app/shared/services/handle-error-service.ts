@@ -51,8 +51,6 @@ export class HandleErrorService {
 
     if (error.status == 401 && error.error.message !=="Invalid email or password") {
       this._sharedService.signOut()
-      window.location.reload()
-
     }
 
 

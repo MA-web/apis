@@ -4,7 +4,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import * as e from 'express';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { finalize, forkJoin } from 'rxjs';
-import {    ProfileUserProfileDto, SupplierControllerService, SupplierEmployeeDto, UpdateSupplierProfileDto, UserControllerService, UserProfileDto, UserResponseDto } from 'src/app/@api';
+import {    AccountCancelControllerService, ProfileUserProfileDto, SupplierControllerService, SupplierEmployeeDto, UpdateSupplierProfileDto, UserControllerService, UserProfileDto, UserResponseDto } from 'src/app/@api';
 import { ProfileDto } from 'src/app/@api/model/profileDto';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { generalValidations, roles } from 'src/environments/environment';
@@ -28,7 +28,8 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
     injector: Injector,
     private _userControllerService: UserControllerService,
     private _supplierControllerService: SupplierControllerService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private accountCancelControllerService:AccountCancelControllerService
   ) {
     super(injector)
     this.isLoading = true
@@ -563,6 +564,11 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
 
   }
 
+  // onDeleteAccount(){
+  //   this.accountCancelControllerService.requestCancelAccountUsingPOST().subscribe(res =>{
+
+  //   })
+  // }
 
   ngOnDestroy(): void {
     window.localStorage.removeItem('addProfileStorage')

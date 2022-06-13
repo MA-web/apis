@@ -17,7 +17,6 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
-
 import { ChatDto } from '../model/chatDto';
 import { MessageDto } from '../model/messageDto';
 import { PageChatDto } from '../model/pageChatDto';

@@ -12,5 +12,5 @@
 
 
 export interface DealIdDto { 
-    dealId?: number;
+    dealId: number;
 }

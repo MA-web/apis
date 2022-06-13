@@ -17,7 +17,6 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
-
 import { PageItemDto } from '../model/pageItemDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';

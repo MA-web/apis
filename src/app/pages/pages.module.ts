@@ -22,6 +22,14 @@ const route: Route[] = [
     loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
   },
   {
+    path: 'news',
+    loadChildren: () => import('./news/news.module').then(m => m.NewsModule)
+  },
+  {
+    path: 'events',
+    loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
+  },
+  {
     path: 'suppliers',
     loadChildren: () => import('./our-suppliers/our-suppliers.module').then(m => m.OurSuppliersModule)
   },

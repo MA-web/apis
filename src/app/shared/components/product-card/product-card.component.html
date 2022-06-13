@@ -8,27 +8,23 @@
     </div>
     <div class="product-img">
       <img
-        [defaultImage]="product?.attachment?.attachmentSource?.attachmentSourceName ? product?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
-        [lazyLoad]="product?.attachment?.attachmentSource?.attachmentSourceName ? product?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
+        [defaultImage]="product?.attachment?.reference ? product?.attachment?.reference : 'assets/img/image2.jpg'"
+        [lazyLoad]="product?.attachment?.reference ? product?.attachment?.reference : 'assets/img/image2.jpg'"
         onerror="this.src='assets/img/image2.jpg';" class="img-fluid lazy-loading"
         alt="{{ product?.itemName ? product.itemName : '' }}" />
+
+
     </div>
     <div class="product-details">
       <h4>{{product?.itemName}}</h4>
       <p class="text-truncate">{{product?.details?product?.details:'&nbsp;'}}</p>
-      <div class="row">
+      <div class="row" *ngIf="product?.itemPricings?.length > 0">
         <div class="col-6 gram"><img src="assets/img/balance_black_24dp.png">
-          <ng-container *ngIf="product?.itemPricings?.length">
             {{product?.itemPricings[0]?.toQuantity}} {{product?.itemPricings[0]?.toUom?.uomName}}
-          </ng-container>
 
         </div>
         <div class="col-6 price"><img src="assets/img/payments_black_24dp%20(1).png">
-
-          <ng-container *ngIf="product?.itemPricings?.length">
             {{product?.itemPricings[0]?.price}}  {{product?.itemPricings[0]?.currency?.currencyCode}}
-          </ng-container>
-
         </div>
       </div>
     </div>

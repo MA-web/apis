@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit,} from "@angular/core";
+import { Component, Injector, OnDestroy, OnInit,} from "@angular/core";
 import { CalendarOptions, EventInput } from "@fullcalendar/core";
+import { ChatDto, InboxControllerService, PageChatDto, SupplierControllerService, UserControllerService } from "src/app/@api";
 import { AppBaseComponent } from "src/app/shared/components/app-base/app-base.component";
+import { roles } from "src/environments/environment";
 
 
 @Component({
@@ -9,7 +11,21 @@ import { AppBaseComponent } from "src/app/shared/components/app-base/app-base.co
   styleUrls: ['./profile-dashboard.component.scss']
 })
 export class ProfileDashboardComponent extends AppBaseComponent implements OnInit, OnDestroy {
+  chatList: Array<ChatDto> = []
+  messageCount: number = 0;
 
+  profilePercent:number = 0;
+  profilePercentLoading = false
+  constructor(
+    injector: Injector,
+    private InboxControllerService: InboxControllerService,
+    private UserControllerService:UserControllerService,
+    private SupplierControllerService:SupplierControllerService
+
+  ) {
+    super(injector)
+    this.isLoading = true
+  }
   async ngOnInit(){
     await this._translateService.get('dummyTranslation').toPromise().then();
 
@@ -29,7 +45,8 @@ export class ProfileDashboardComponent extends AppBaseComponent implements OnIni
     let myElement:any = document.querySelector(".fc-toolbar-title");
     myElement.textContent = myElement.textContent+ ' Events'
 
-
+    this.getList();
+    this.getProfilePercentage()
   }
   calendarEvents: EventInput[] = [
     {
@@ -67,6 +84,36 @@ export class ProfileDashboardComponent extends AppBaseComponent implements OnIni
     },
     aspectRatio:1,
   };
+
+  getList() {
+    const getInboxUsingGETSub = this.InboxControllerService.getInboxUsingGET(this.pageNumber, this.model?.search, 3).subscribe((res: PageChatDto) => {
+      this.chatList = res?.content.filter(v =>{return v.status ===  ChatDto.StatusEnum.NOTREAD} );
+      this.isLoading = false
+
+    })
+    this.unSubscription.push(getInboxUsingGETSub)
+  }
+
+  getMessageCount(){
+    if(window.localStorage.getItem('messageCount')){
+      this.messageCount = JSON.parse(window.localStorage.getItem('messageCount'))
+    }
+  }
+
+  getProfilePercentage(){
+    this.profilePercentLoading = true;
+    let obs
+    if(this.userData?.role === roles?.customer){
+      obs =  this.UserControllerService.getProfilePercentageUsingGET1()
+    }else{
+      obs =  this.SupplierControllerService.getProfilePercentageUsingGET()
+    }
+   const getProfilePercentageUsingSub = obs.subscribe(res =>{
+      if(res) this.profilePercent= res.profilePercent;    this.profilePercentLoading = false;
+    })
+    this.unSubscription.push(getProfilePercentageUsingSub)
+  }
+
   onSubmit() {
     console.log(this.form)
     console.log(this.model);

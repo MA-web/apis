@@ -17,10 +17,9 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
-
+import { CustomerProfileDto } from '../model/customerProfileDto';
 import { PageItemDto } from '../model/pageItemDto';
 import { PasswordChangeDto } from '../model/passwordChangeDto';
-import { ProfileDto } from '../model/profileDto';
 import { ResponseDto } from '../model/responseDto';
 import { UserProfileDto } from '../model/userProfileDto';
 import { UserResponseDto } from '../model/userResponseDto';
@@ -379,9 +378,9 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserProfileUsingGET(observe?: 'body', reportProgress?: boolean): Observable<ProfileDto>;
-    public getUserProfileUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProfileDto>>;
-    public getUserProfileUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProfileDto>>;
+    public getUserProfileUsingGET(observe?: 'body', reportProgress?: boolean): Observable<CustomerProfileDto>;
+    public getUserProfileUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CustomerProfileDto>>;
+    public getUserProfileUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CustomerProfileDto>>;
     public getUserProfileUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -404,7 +403,7 @@ export class UserControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<ProfileDto>(`${this.basePath}/api/users/profile`,
+        return this.httpClient.get<CustomerProfileDto>(`${this.basePath}/api/users/profile`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

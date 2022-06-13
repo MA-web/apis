@@ -17,8 +17,15 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
-
+import { EventDto } from '../model/eventDto';
+import { ItemSearchFilter } from '../model/itemSearchFilter';
+import { NewsDto } from '../model/newsDto';
+import { PageEventDto } from '../model/pageEventDto';
+import { PageFaqDto } from '../model/pageFaqDto';
+import { PageNewsDto } from '../model/pageNewsDto';
+import { PagePartnerDto } from '../model/pagePartnerDto';
 import { PagePublicItemDto } from '../model/pagePublicItemDto';
+import { PublicItemDto } from '../model/publicItemDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -57,15 +64,236 @@ export class PublicDataControllerService {
 
 
     /**
+     * This api is responsiable for filter all items for user.
+     *
+     * @param itemSearchFilter itemSearchFilter
+     * @param page page
+     * @param size size
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public filterItemsForUserUsingPOST1(itemSearchFilter: ItemSearchFilter, page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PagePublicItemDto>;
+    public filterItemsForUserUsingPOST1(itemSearchFilter: ItemSearchFilter, page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagePublicItemDto>>;
+    public filterItemsForUserUsingPOST1(itemSearchFilter: ItemSearchFilter, page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagePublicItemDto>>;
+    public filterItemsForUserUsingPOST1(itemSearchFilter: ItemSearchFilter, page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (itemSearchFilter === null || itemSearchFilter === undefined) {
+            throw new Error('Required parameter itemSearchFilter was null or undefined when calling filterItemsForUserUsingPOST1.');
+        }
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (page !== undefined && page !== null) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (size !== undefined && size !== null) {
+            queryParameters = queryParameters.set('size', <any>size);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<PagePublicItemDto>(`${this.basePath}/public/data/item/filter`,
+            itemSearchFilter,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getEventById
+     *
+     * @param eventId eventId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getEventByIdUsingGET(eventId: number, observe?: 'body', reportProgress?: boolean): Observable<EventDto>;
+    public getEventByIdUsingGET(eventId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<EventDto>>;
+    public getEventByIdUsingGET(eventId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<EventDto>>;
+    public getEventByIdUsingGET(eventId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (eventId === null || eventId === undefined) {
+            throw new Error('Required parameter eventId was null or undefined when calling getEventByIdUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<EventDto>(`${this.basePath}/public/data/events/${encodeURIComponent(String(eventId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getEvents
+     *
+     * @param eventEndDate eventEndDate
+     * @param eventStartDate eventStartDate
+     * @param page page
+     * @param size size
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getEventsUsingGET1(eventEndDate?: Date, eventStartDate?: Date, page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PageEventDto>;
+    public getEventsUsingGET1(eventEndDate?: Date, eventStartDate?: Date, page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageEventDto>>;
+    public getEventsUsingGET1(eventEndDate?: Date, eventStartDate?: Date, page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageEventDto>>;
+    public getEventsUsingGET1(eventEndDate?: Date, eventStartDate?: Date, page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (eventEndDate !== undefined && eventEndDate !== null) {
+            queryParameters = queryParameters.set('eventEndDate', <any>eventEndDate.toISOString());
+        }
+        if (eventStartDate !== undefined && eventStartDate !== null) {
+            queryParameters = queryParameters.set('eventStartDate', <any>eventStartDate.toISOString());
+        }
+        if (page !== undefined && page !== null) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (size !== undefined && size !== null) {
+            queryParameters = queryParameters.set('size', <any>size);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PageEventDto>(`${this.basePath}/public/data/events`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * this api responsible for grt item by item id
+     *
+     * @param itemId itemId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getItemByItemIdUsingGET1(itemId: number, observe?: 'body', reportProgress?: boolean): Observable<PublicItemDto>;
+    public getItemByItemIdUsingGET1(itemId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PublicItemDto>>;
+    public getItemByItemIdUsingGET1(itemId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PublicItemDto>>;
+    public getItemByItemIdUsingGET1(itemId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (itemId === null || itemId === undefined) {
+            throw new Error('Required parameter itemId was null or undefined when calling getItemByItemIdUsingGET1.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PublicItemDto>(`${this.basePath}/public/data/item/${encodeURIComponent(String(itemId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Get latest 6 published items(no need for authentication).
      *
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getLatestPublishedProductsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<PagePublicItemDto>;
-    public getLatestPublishedProductsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagePublicItemDto>>;
-    public getLatestPublishedProductsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagePublicItemDto>>;
-    public getLatestPublishedProductsUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getLatestPublishedProductsUsingGET1(observe?: 'body', reportProgress?: boolean): Observable<PagePublicItemDto>;
+    public getLatestPublishedProductsUsingGET1(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagePublicItemDto>>;
+    public getLatestPublishedProductsUsingGET1(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagePublicItemDto>>;
+    public getLatestPublishedProductsUsingGET1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -98,42 +326,280 @@ export class PublicDataControllerService {
     }
 
     /**
-     * get similar products by category and sub category
+     * getNewsById
      *
-     * @param categoryId categoryId
-     * @param itemId itemId
-     * @param itemSubcategoryId itemSubcategoryId
+     * @param newsId newsId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getNewsByIdUsingGET(newsId: number, observe?: 'body', reportProgress?: boolean): Observable<NewsDto>;
+    public getNewsByIdUsingGET(newsId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<NewsDto>>;
+    public getNewsByIdUsingGET(newsId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<NewsDto>>;
+    public getNewsByIdUsingGET(newsId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (newsId === null || newsId === undefined) {
+            throw new Error('Required parameter newsId was null or undefined when calling getNewsByIdUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<NewsDto>(`${this.basePath}/public/data/news/${encodeURIComponent(String(newsId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getNews
+     *
      * @param page page
      * @param size size
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getSimilarProductsUsingGET(categoryId: number, itemId: number, itemSubcategoryId: number, page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PagePublicItemDto>;
-    public getSimilarProductsUsingGET(categoryId: number, itemId: number, itemSubcategoryId: number, page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagePublicItemDto>>;
-    public getSimilarProductsUsingGET(categoryId: number, itemId: number, itemSubcategoryId: number, page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagePublicItemDto>>;
-    public getSimilarProductsUsingGET(categoryId: number, itemId: number, itemSubcategoryId: number, page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getNewsUsingGET(page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PageNewsDto>;
+    public getNewsUsingGET(page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageNewsDto>>;
+    public getNewsUsingGET(page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageNewsDto>>;
+    public getNewsUsingGET(page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (categoryId === null || categoryId === undefined) {
-            throw new Error('Required parameter categoryId was null or undefined when calling getSimilarProductsUsingGET.');
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (page !== undefined && page !== null) {
+            queryParameters = queryParameters.set('page', <any>page);
         }
+        if (size !== undefined && size !== null) {
+            queryParameters = queryParameters.set('size', <any>size);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PageNewsDto>(`${this.basePath}/public/data/news`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getPublishedFaqs
+     *
+     * @param page page
+     * @param size size
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getPublishedFaqsUsingGET(page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PageFaqDto>;
+    public getPublishedFaqsUsingGET(page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageFaqDto>>;
+    public getPublishedFaqsUsingGET(page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageFaqDto>>;
+    public getPublishedFaqsUsingGET(page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (page !== undefined && page !== null) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (size !== undefined && size !== null) {
+            queryParameters = queryParameters.set('size', <any>size);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PageFaqDto>(`${this.basePath}/public/data/faq`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * this api responsible for get published item by item id
+     *
+     * @param itemId itemId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getPublishedItemByItemIdUsingGET1(itemId: number, observe?: 'body', reportProgress?: boolean): Observable<PublicItemDto>;
+    public getPublishedItemByItemIdUsingGET1(itemId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PublicItemDto>>;
+    public getPublishedItemByItemIdUsingGET1(itemId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PublicItemDto>>;
+    public getPublishedItemByItemIdUsingGET1(itemId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (itemId === null || itemId === undefined) {
-            throw new Error('Required parameter itemId was null or undefined when calling getSimilarProductsUsingGET.');
+            throw new Error('Required parameter itemId was null or undefined when calling getPublishedItemByItemIdUsingGET1.');
         }
 
-        if (itemSubcategoryId === null || itemSubcategoryId === undefined) {
-            throw new Error('Required parameter itemSubcategoryId was null or undefined when calling getSimilarProductsUsingGET.');
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PublicItemDto>(`${this.basePath}/public/data/item/${encodeURIComponent(String(itemId))}/published`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getPublishedPartners
+     *
+     * @param page page
+     * @param size size
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getPublishedPartnersUsingGET(page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PagePartnerDto>;
+    public getPublishedPartnersUsingGET(page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagePartnerDto>>;
+    public getPublishedPartnersUsingGET(page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagePartnerDto>>;
+    public getPublishedPartnersUsingGET(page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (page !== undefined && page !== null) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (size !== undefined && size !== null) {
+            queryParameters = queryParameters.set('size', <any>size);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PagePartnerDto>(`${this.basePath}/public/data/partners`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get similar products by category and sub category
+     *
+     * @param itemId itemId
+     * @param page page
+     * @param size size
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getSimilarProductsUsingGET1(itemId: number, page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PagePublicItemDto>;
+    public getSimilarProductsUsingGET1(itemId: number, page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PagePublicItemDto>>;
+    public getSimilarProductsUsingGET1(itemId: number, page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PagePublicItemDto>>;
+    public getSimilarProductsUsingGET1(itemId: number, page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (itemId === null || itemId === undefined) {
+            throw new Error('Required parameter itemId was null or undefined when calling getSimilarProductsUsingGET1.');
         }
 
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (categoryId !== undefined && categoryId !== null) {
-            queryParameters = queryParameters.set('categoryId', <any>categoryId);
-        }
-        if (itemSubcategoryId !== undefined && itemSubcategoryId !== null) {
-            queryParameters = queryParameters.set('itemSubcategoryId', <any>itemSubcategoryId);
-        }
         if (page !== undefined && page !== null) {
             queryParameters = queryParameters.set('page', <any>page);
         }

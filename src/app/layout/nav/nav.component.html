@@ -9,7 +9,7 @@
         <div class="input-group mb-3 d-flex justify-content-between">
           <formly-form class="row m-0 w-100" [form]="form" [model]="model" [fields]="fields" [options]="options"> </formly-form>
           <div class="input-group-append">
-            <button class="btn" type="button" (click)="onSubmit()"><img src="assets/img/search.svg" class="img-fluid"></button>
+            <button class="btn" type="submit" (click)="onSubmit()"><img src="assets/img/search.svg" class="img-fluid"></button>
           </div>
         </div>
 
@@ -34,7 +34,7 @@
                 id="button-basic" dropdownToggle aria-controls="dropdown-basic">
                 <div class="d-flex align-items-center">
                   <div class="nav-badge mr-2"><img src="assets/img/profile.svg"></div>
-                  <span class="text-white text-truncate" style="width: 60px;">{{userData?.username}}</span>
+                  <span class="text-white text-truncate" style="width: 60px;">{{userData?.fisrtNmae}} {{userData?.lastNmae}}</span>
                   <span class="caret"></span>
                 </div>
 

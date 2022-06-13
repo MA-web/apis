@@ -17,8 +17,11 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
-
 import { InquiryCreationRequestDto } from '../model/inquiryCreationRequestDto';
+import { InquiryVersionRequestDto } from '../model/inquiryVersionRequestDto';
+import { InquiryVersionResponseDto } from '../model/inquiryVersionResponseDto';
+import { RejectionDto } from '../model/rejectionDto';
+import { ViewInquiryMainDataDto } from '../model/viewInquiryMainDataDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -55,6 +58,163 @@ export class InquiryControllerService {
         return false;
     }
 
+
+    /**
+     * Accept inquiry by id
+     *
+     * @param inquiryId inquiryId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public acceptInquiryUsingPUT(inquiryId: number, observe?: 'body', reportProgress?: boolean): Observable<ViewInquiryMainDataDto>;
+    public acceptInquiryUsingPUT(inquiryId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ViewInquiryMainDataDto>>;
+    public acceptInquiryUsingPUT(inquiryId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ViewInquiryMainDataDto>>;
+    public acceptInquiryUsingPUT(inquiryId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (inquiryId === null || inquiryId === undefined) {
+            throw new Error('Required parameter inquiryId was null or undefined when calling acceptInquiryUsingPUT.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.put<ViewInquiryMainDataDto>(`${this.basePath}/api/inquiries/${encodeURIComponent(String(inquiryId))}/acceptance`,
+            null,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Add a new inquiry for an existing product as draft.
+     *
+     * @param inquiryCreationRequestDto inquiryCreationRequestDto
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public addInquiryAsDraftUsingPOST(inquiryCreationRequestDto: InquiryCreationRequestDto, observe?: 'body', reportProgress?: boolean): Observable<InquiryCreationRequestDto>;
+    public addInquiryAsDraftUsingPOST(inquiryCreationRequestDto: InquiryCreationRequestDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InquiryCreationRequestDto>>;
+    public addInquiryAsDraftUsingPOST(inquiryCreationRequestDto: InquiryCreationRequestDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InquiryCreationRequestDto>>;
+    public addInquiryAsDraftUsingPOST(inquiryCreationRequestDto: InquiryCreationRequestDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (inquiryCreationRequestDto === null || inquiryCreationRequestDto === undefined) {
+            throw new Error('Required parameter inquiryCreationRequestDto was null or undefined when calling addInquiryAsDraftUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<InquiryCreationRequestDto>(`${this.basePath}/api/inquiries/draft`,
+            inquiryCreationRequestDto,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Reply to an inquiry by user or supplier.
+     *
+     * @param inquiryId inquiryId
+     * @param inquiryVersionRequestDto inquiryVersionRequestDto
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public addInquiryReplyUsingPOST(inquiryId: number, inquiryVersionRequestDto: InquiryVersionRequestDto, observe?: 'body', reportProgress?: boolean): Observable<InquiryVersionResponseDto>;
+    public addInquiryReplyUsingPOST(inquiryId: number, inquiryVersionRequestDto: InquiryVersionRequestDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InquiryVersionResponseDto>>;
+    public addInquiryReplyUsingPOST(inquiryId: number, inquiryVersionRequestDto: InquiryVersionRequestDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InquiryVersionResponseDto>>;
+    public addInquiryReplyUsingPOST(inquiryId: number, inquiryVersionRequestDto: InquiryVersionRequestDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (inquiryId === null || inquiryId === undefined) {
+            throw new Error('Required parameter inquiryId was null or undefined when calling addInquiryReplyUsingPOST.');
+        }
+
+        if (inquiryVersionRequestDto === null || inquiryVersionRequestDto === undefined) {
+            throw new Error('Required parameter inquiryVersionRequestDto was null or undefined when calling addInquiryReplyUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<InquiryVersionResponseDto>(`${this.basePath}/api/inquiries/${encodeURIComponent(String(inquiryId))}/replies`,
+            inquiryVersionRequestDto,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * Add a new inquiry for an existing product.
@@ -99,6 +259,155 @@ export class InquiryControllerService {
 
         return this.httpClient.post<InquiryCreationRequestDto>(`${this.basePath}/api/inquiries`,
             inquiryCreationRequestDto,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Reject inquiry by id
+     *
+     * @param inquiryId inquiryId
+     * @param rejectionDto rejectionDto
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public rejectInquiryUsingPUT(inquiryId: number, rejectionDto: RejectionDto, observe?: 'body', reportProgress?: boolean): Observable<ViewInquiryMainDataDto>;
+    public rejectInquiryUsingPUT(inquiryId: number, rejectionDto: RejectionDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ViewInquiryMainDataDto>>;
+    public rejectInquiryUsingPUT(inquiryId: number, rejectionDto: RejectionDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ViewInquiryMainDataDto>>;
+    public rejectInquiryUsingPUT(inquiryId: number, rejectionDto: RejectionDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (inquiryId === null || inquiryId === undefined) {
+            throw new Error('Required parameter inquiryId was null or undefined when calling rejectInquiryUsingPUT.');
+        }
+
+        if (rejectionDto === null || rejectionDto === undefined) {
+            throw new Error('Required parameter rejectionDto was null or undefined when calling rejectInquiryUsingPUT.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<ViewInquiryMainDataDto>(`${this.basePath}/api/inquiries/${encodeURIComponent(String(inquiryId))}/rejection`,
+            rejectionDto,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * view an inquiry main data by inquiry id.
+     *
+     * @param inquiryId inquiryId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public viewInquiryMainDataUsingGET(inquiryId: number, observe?: 'body', reportProgress?: boolean): Observable<ViewInquiryMainDataDto>;
+    public viewInquiryMainDataUsingGET(inquiryId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ViewInquiryMainDataDto>>;
+    public viewInquiryMainDataUsingGET(inquiryId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ViewInquiryMainDataDto>>;
+    public viewInquiryMainDataUsingGET(inquiryId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (inquiryId === null || inquiryId === undefined) {
+            throw new Error('Required parameter inquiryId was null or undefined when calling viewInquiryMainDataUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<ViewInquiryMainDataDto>(`${this.basePath}/api/inquiries/${encodeURIComponent(String(inquiryId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * view an inquiry reply by inquiry Version id.
+     *
+     * @param inquiryVersionId inquiryVersionId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public viewInquiryVersionUsingGET(inquiryVersionId: number, observe?: 'body', reportProgress?: boolean): Observable<InquiryVersionResponseDto>;
+    public viewInquiryVersionUsingGET(inquiryVersionId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InquiryVersionResponseDto>>;
+    public viewInquiryVersionUsingGET(inquiryVersionId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InquiryVersionResponseDto>>;
+    public viewInquiryVersionUsingGET(inquiryVersionId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (inquiryVersionId === null || inquiryVersionId === undefined) {
+            throw new Error('Required parameter inquiryVersionId was null or undefined when calling viewInquiryVersionUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<InquiryVersionResponseDto>(`${this.basePath}/api/inquiries/replies/${encodeURIComponent(String(inquiryVersionId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

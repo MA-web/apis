@@ -17,7 +17,6 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
-
 import { AccountConfirmationToken } from '../model/accountConfirmationToken';
 import { ResetPasswordDto } from '../model/resetPasswordDto';
 import { ResponseDto } from '../model/responseDto';

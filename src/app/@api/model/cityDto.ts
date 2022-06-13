@@ -9,9 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { OriginDto } from './originDto';
 
 
 export interface CityDto { 
-    cityLookupId?: number;
+    cityLookupId: number;
     cityName?: string;
+    origin?: OriginDto;
 }

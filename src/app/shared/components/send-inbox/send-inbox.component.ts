@@ -2,6 +2,7 @@ import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { finalize } from 'rxjs';
 import { ChatDto, InboxControllerService } from 'src/app/@api';
+import { roles } from 'src/environments/environment';
 import { AppBaseComponent } from '../app-base/app-base.component';
 
 @Component({
@@ -12,6 +13,7 @@ import { AppBaseComponent } from '../app-base/app-base.component';
 export class SendInboxComponent extends AppBaseComponent implements OnInit, OnDestroy {
 
   supplierId:number;
+  admin:boolean = false;
 
   constructor(
     injector: Injector,
@@ -45,6 +47,7 @@ export class SendInboxComponent extends AppBaseComponent implements OnInit, OnDe
   }
 
   onSubmit() {
+    alert(true)
     this.isSubmit = true;
     let chat :ChatDto ={
       chatTitle:this.model?.chatTitle,
@@ -54,14 +57,18 @@ export class SendInboxComponent extends AppBaseComponent implements OnInit, OnDe
       }
       ],
       user:{
-        id:this.userData?.id,
+        id:this.userData?.role === roles.customer?this.userData?.id :this.userData?.supplierId,
       }
     }
     if(this.supplierId){
       chat.supplier.id = this.supplierId
-    }else{
-      chat.admin.id= 1
     }
+
+
+    if(this.admin){
+      chat.adminChat = true
+    }
+
    const createChatUsingPOSTSub = this.InboxControllerService.createChatUsingPOST(chat).pipe(
       finalize(() =>{
         this.isSubmit = false;

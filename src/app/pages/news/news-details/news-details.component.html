@@ -1,0 +1,104 @@
+<div class="section-apis">
+  <div class="container">
+    <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+    <div class="row">
+      <div class="col-12">
+        <div class="event news-data">
+          <div class="event-img">
+            <img
+            [defaultImage]="news?.image?.reference ? news?.image?.reference : './assets/img/latest.png'"
+            [lazyLoad]="news?.image?.reference ? news?.image?.reference : './assets/img/latest.png'"
+            onerror="this.src='./assets/img/latest.png';" class="img-fluid lazy-loading d-block m-auto"
+            alt="{{ news?.title ? news.title : '' }}" />
+          </div>
+          <div class="event-details">
+              <!-- <div class="col-sm-6">
+                <div class="profile">
+                  <img src="./assets/img/profile.png">
+                  Lorem Ipsum
+                </div>
+              </div> -->
+                <div class="date text-right"><img src="./assets/img/schedule_black_24dp.png">{{news?.lastUpdatedDate | date :'short'}}</div>
+
+            <h4>{{news?.title}}
+            </h4>
+            <p>{{news?.content}}</p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-xl-4">
+        <div class="filter-by similar-events">
+          <h4>{{'SimilarNews' | translate}}</h4>
+          <div class="row">
+            <div class="col-xl-12 col-md-6">
+              <div class="new">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="news-img">
+                      <img src="./assets/img/similar-events.jpg">
+                      <div class="news-date"><span>22</span>Dec 2021</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="news-details">
+                      <h4><a href="#">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</a>
+                      </h4>
+                      <div class="profile">
+                        <img src="./assets/img/profile.png">
+                        Lorem Ipsum
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-12 col-md-6">
+              <div class="new">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="news-img">
+                      <img src="./assets/img/similar-events.jpg">
+                      <div class="news-date"><span>22</span>Dec 2021</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="news-details">
+                      <h4><a href="#">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</a>
+                      </h4>
+                      <div class="profile">
+                        <img src="./assets/img/profile.png">
+                        Lorem Ipsum
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-12 col-md-6">
+              <div class="new">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="news-img">
+                      <img src="./assets/img/similar-events.jpg">
+                      <div class="news-date"><span>22</span>Dec 2021</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="news-details">
+                      <h4><a href="#">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</a>
+                      </h4>
+                      <div class="profile">
+                        <img src="./assets/img/profile.png">
+                        Lorem Ipsum
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

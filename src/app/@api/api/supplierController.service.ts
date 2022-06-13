@@ -17,10 +17,10 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
-
-import { ProfileDto } from '../model/profileDto';
+import { OurSuppliersDto } from '../model/ourSuppliersDto';
 import { SupplierDto } from '../model/supplierDto';
 import { SupplierEmployeeDto } from '../model/supplierEmployeeDto';
+import { SupplierProfileDto } from '../model/supplierProfileDto';
 import { UpdateSupplierProfileDto } from '../model/updateSupplierProfileDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -58,6 +58,87 @@ export class SupplierControllerService {
         return false;
     }
 
+
+    /**
+     * Get suppliers list for &#39;our suppliers&#39; page
+     *
+     * @param itemCertificatesIds
+     * @param itemOriginId
+     * @param itemSampleTypeId
+     * @param page page
+     * @param size size
+     * @param supplierName
+     * @param supplierTypeId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getOurSuppliersUsingGET(itemCertificatesIds?: Array<number>, itemOriginId?: number, itemSampleTypeId?: number, page?: number, size?: number, supplierName?: string, supplierTypeId?: number, observe?: 'body', reportProgress?: boolean): Observable<OurSuppliersDto>;
+    public getOurSuppliersUsingGET(itemCertificatesIds?: Array<number>, itemOriginId?: number, itemSampleTypeId?: number, page?: number, size?: number, supplierName?: string, supplierTypeId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<OurSuppliersDto>>;
+    public getOurSuppliersUsingGET(itemCertificatesIds?: Array<number>, itemOriginId?: number, itemSampleTypeId?: number, page?: number, size?: number, supplierName?: string, supplierTypeId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<OurSuppliersDto>>;
+    public getOurSuppliersUsingGET(itemCertificatesIds?: Array<number>, itemOriginId?: number, itemSampleTypeId?: number, page?: number, size?: number, supplierName?: string, supplierTypeId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+
+
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (itemCertificatesIds) {
+            itemCertificatesIds.forEach((element) => {
+                queryParameters = queryParameters.append('itemCertificatesIds', <any>element);
+            })
+        }
+        if (itemOriginId !== undefined && itemOriginId !== null) {
+            queryParameters = queryParameters.set('itemOriginId', <any>itemOriginId);
+        }
+        if (itemSampleTypeId !== undefined && itemSampleTypeId !== null) {
+            queryParameters = queryParameters.set('itemSampleTypeId', <any>itemSampleTypeId);
+        }
+        if (page !== undefined && page !== null) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (size !== undefined && size !== null) {
+            queryParameters = queryParameters.set('size', <any>size);
+        }
+        if (supplierName !== undefined && supplierName !== null) {
+            queryParameters = queryParameters.set('supplierName', <any>supplierName);
+        }
+        if (supplierTypeId !== undefined && supplierTypeId !== null) {
+            queryParameters = queryParameters.set('supplierTypeId', <any>supplierTypeId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<OurSuppliersDto>(`${this.basePath}/api/suppliers/ourSuppliers`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * Get profile completion percentage
@@ -152,9 +233,9 @@ export class SupplierControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getSupplierProfileUsingGET(observe?: 'body', reportProgress?: boolean): Observable<ProfileDto>;
-    public getSupplierProfileUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProfileDto>>;
-    public getSupplierProfileUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProfileDto>>;
+    public getSupplierProfileUsingGET(observe?: 'body', reportProgress?: boolean): Observable<SupplierProfileDto>;
+    public getSupplierProfileUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SupplierProfileDto>>;
+    public getSupplierProfileUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SupplierProfileDto>>;
     public getSupplierProfileUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -177,7 +258,7 @@ export class SupplierControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<ProfileDto>(`${this.basePath}/api/suppliers/profile`,
+        return this.httpClient.get<SupplierProfileDto>(`${this.basePath}/api/suppliers/profile`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

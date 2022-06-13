@@ -26,7 +26,9 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit, O
     this.isLoadingForm = true
   }
 
-  ngOnInit() {
+  async  ngOnInit() {
+
+    await this._translateService.get('dummyTranslation').toPromise().then();
     this.breadcrumbItems = [
       { label: this._translateService.instant('Products'), path: appRouts.productsList, active: true }
     ]
@@ -213,6 +215,8 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit, O
       }
     })
     this.unSubscription.push(forkSub);
+
+    this._sharedService.resetSearch.next(true)
   }
 
   getInitProduct() {
@@ -256,7 +260,7 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit, O
     let category: ItemCategoryDto = this.ItemCategory?.find(v => this.model?.itemCategoryId === v?.categoryId)
     this.router.navigate(['/products'], { queryParams: { category: JSON.stringify({ categoryId: category?.categoryId, categoryName: category?.categoryName }), searchKey: this.model.itemName, } })
     if (!this._sharedService.checkToken()) {
-      // observable = this._publicDataControllerService.searchForItemsUsingGET1(this.searchResult?.category, this.pageNumber, this.searchResult.searchKey, this.pageSize)
+      observable = this._publicDataControllerService.filterItemsForUserUsingPOST1(filter, this.pageNumber, this.pageSize)
     } else {
       observable = this._itemControllerService.filterItemsForUserUsingPOST(filter, this.pageNumber, this.pageSize)
     }

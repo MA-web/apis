@@ -14,7 +14,7 @@ import { DealStepTypeDto } from './dealStepTypeDto';
 
 
 export interface DealStepDto { 
-    deal?: DealIdDto;
+    deal: DealIdDto;
     dealStepId?: number;
     dealStepType?: DealStepTypeDto;
 }

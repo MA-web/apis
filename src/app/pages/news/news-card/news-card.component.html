@@ -1,0 +1,18 @@
+<div class="event event-sm">
+  <div class="event-img">
+    <img
+    [defaultImage]="news?.image?.reference ? news?.image?.reference : './assets/img/latest.png'"
+    [lazyLoad]="news?.image?.reference ? news?.image?.reference : './assets/img/latest.png'"
+    onerror="this.src='./assets/img/latest.png';" class="img-fluid lazy-loading"
+    alt="{{ news?.title ? news.title : '' }}" />
+  </div>
+  <div class="event-details">
+      <h4 class="text-truncate"><a href="javascript:void(0)" (click)="onView()">{{news?.title}}</a></h4>
+      <p style="word-break:break-all">{{news?.content.length > 70? news?.content.substring(0,70)+ '...' :news?.content}}</p>
+      <div class="row">
+          <div class="col-12">
+              <div class="date text-right"><img src="./assets/img/schedule_black_24dp.png">{{news?.lastUpdatedDate | date :'short'}}</div>
+          </div>
+      </div>
+  </div>
+</div>

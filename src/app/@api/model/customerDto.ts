@@ -15,6 +15,8 @@ import { AttachmentDto } from './attachmentDto';
 export interface CustomerDto { 
     businessLicense?: AttachmentDto;
     companyType?: string;
+    customerId?: number;
+    customerName?: string;
     establishmentDate?: Date;
     exportPercentage?: string;
     mainCustomer?: string;

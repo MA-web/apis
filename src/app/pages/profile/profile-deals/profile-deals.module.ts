@@ -41,7 +41,7 @@ const route: Route[] = [
         ]
       },
 
-      { path: 'inquiries/:id/filling', component: InquiryFillingComponent },
+      { path: 'inquiries/filling/:id', component: InquiryFillingComponent },
       {
         path: 'quotations/:id', component: ProfileDealDetailsComponent, children: [
           {

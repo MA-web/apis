@@ -17,7 +17,6 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
-
 import { AuthenticationRequest } from '../model/authenticationRequest';
 import { AuthenticationResponse } from '../model/authenticationResponse';
 

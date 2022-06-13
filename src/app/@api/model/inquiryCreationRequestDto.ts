@@ -31,7 +31,7 @@ export interface InquiryCreationRequestDto {
     indotoxinTest?: string;
     injection?: boolean;
     inquiry?: InquiryIdDto;
-    inquiryVerrsionPrices?: Array<InquiryVersionPricesDto>;
+    inquiryVersionPrices?: Array<InquiryVersionPricesDto>;
     inquiryVersionSuppliments?: Array<InquiryVersionSupplimentDto>;
     itemId: number;
     itemIncoterm?: ItemIncotermIdDto;

@@ -218,7 +218,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   type: 'textarea',
                   defaultValue: this.productDetails?.details,
                   templateOptions: {
-                    label: this._translateService.instant('this.productDetails'),
+                    label: this._translateService.instant('ProductDetails'),
                     rows: 5
                   },
                 },
@@ -322,6 +322,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   defaultValue: this.productDetails?.residueIgnition,
                   templateOptions: {
                     label: this._translateService.instant('Residue_on_ignition'),
+                    required:true
                   },
                 },
                 {
@@ -601,7 +602,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   templateOptions: {
                     items: this.productCertificates,
                     productId: this.productId,
-                    type: 'certificate'
+                    type: 'certificate',
+                    delete:true
                   },
                 },
               ],
@@ -618,7 +620,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 {
                   className: 'col-md-6 col-12',
                   key: 'minOrderQuantity',
-                  type: 'input',
+                  type: 'number',
                   defaultValue: this.productDetails?.minOrderQuantity,
                   templateOptions: {
                     label: this._translateService.instant('MinimumOrderQuantity'),
@@ -1070,7 +1072,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   templateOptions: {
                     items: this.ShippingCertificate,
                     productId: this.productId,
-                    type: 'shippingCertificate'
+                    type: 'shippingCertificate',
+                    delete:true
                   },
                 },
               ],
@@ -1574,7 +1577,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
 
           if (this.model?.attachment?.length) {
             this.beforeImagesLoaded?.push(this.model?.attachment[0])
-            this.UploadFileService.uploadMultiple([this.model?.attachment[0]], `products/product-${res?.itemId}-${parseInt(String(Date.now() * Math.random()))}/picture`)
+            this.UploadFileService.uploadMultiple([this.model?.attachment[0]], `products/product-${res?.itemId}/picture`)
           }
 
           if (this.model?.uploadAreaCertificate?.length) {
@@ -1586,7 +1589,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
               }
 
             });
-            this.UploadFileService.uploadMultiple(uploadCertificate, `products/product-${res?.itemId}-${parseInt(String(Date.now() * Math.random()))}/certificate`)
+            this.UploadFileService.uploadMultiple(uploadCertificate, `products/product-${res?.itemId}/certificate`)
           }
 
           if (this.model?.uploadAreaShipping.length) {
@@ -1597,7 +1600,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 uploadShippingCertificate.push(element?.file?.fileToUpload)
               }
             });
-            this.UploadFileService.uploadMultiple(uploadShippingCertificate, `products/product-${res?.itemId}-${parseInt(String(Date.now() * Math.random()))}/shippingCertificate`)
+            this.UploadFileService.uploadMultiple(uploadShippingCertificate, `products/product-${res?.itemId}/shippingCertificate`)
           }
 
           // if (this.model?.itemSuppliments.length) {
@@ -1629,6 +1632,10 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
 
 
 
+  }
+
+  onSaveDraft(){
+    // this._itemControllerService.addDraftedItemUsingPOST()
   }
 
   ngOnDestroy(): void {

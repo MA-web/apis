@@ -25,7 +25,7 @@ import { SharedService } from '../../services/shared.service';
               <button type="button" class="apis-button btn btn-outline-success border-radius-13 py-2" (click)="onView(items,i)">
               <span [inlineSVG]="'assets/icons/eye.svg'"></span>
             </button>
-              <button type="button" class="apis-button btn btn-danger border-radius-13 py-2" (click)="onDelete(i,items)" *ngIf="!to.fileLoad">
+              <button type="button" class="apis-button btn btn-danger border-radius-13 py-2" (click)="onDelete(i,items)" *ngIf="!to.fileLoad || !to.delete">
                 <span [inlineSVG]="'assets/icons/delete.svg'"></span>
               </button>
             </div>
@@ -45,14 +45,18 @@ import { SharedService } from '../../services/shared.service';
             <h5 class="mt-0 mb-1">
             <span class="d-inline-block mr-3">{{item?.Certificate?.certificateTypeName || item?.Certificate?.Certificate}}  <span *ngIf="item?.otherCertificateName "> - {{item?.otherCertificateName }}</span> ,</span> <span class="d-inline-block">{{to.fileLoad? getImageName(item?.file):item?.file?.fileToUpload?.name || item?.file?.src?.replace('https://devspace-marksphinx.fra1.digitaloceanspaces.com/products/product-' + to?.productId +'/'+ to?.type +'/', '')}}</span> <span></span>
             </h5>
-
+{{to?.type}}
             <div class="button-items">
               <button type="button" class="apis-button btn btn-outline-success border-radius-13 py-2" (click)="onView(item,i)">
               <span [inlineSVG]="'assets/icons/eye.svg'"></span>
             </button>
+              <ng-container *ngIf="to.delete;">
               <button type="button" class="apis-button btn btn-danger border-radius-13 py-2" (click)="onDelete(i,item)" *ngIf="!to.fileLoad">
                 <span [inlineSVG]="'assets/icons/delete.svg'"></span>
               </button>
+              </ng-container>
+
+
             </div>
             </div>
           </div>
@@ -88,6 +92,7 @@ export class FormlyUploadArea extends FieldArrayType {
     private SharedService:SharedService
   ) {
     super()
+
   }
 
   onView(item: any, index: number) {

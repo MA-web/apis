@@ -1,0 +1,48 @@
+<!-- <div class="event event-lg">
+  <div class="row ">
+    <div class="col-lg-4">
+      <div class="event-img">
+        <img [defaultImage]="event?.image?.reference ? event?.image?.reference : './assets/img/latest.png'"
+          [lazyLoad]="event?.image?.reference ? event?.image?.reference : './assets/img/latest.png'"
+          onerror="this.src='./assets/img/latest.png';" class="img-fluid lazy-loading"
+          alt="{{ event?.title ? event.title : '' }}" />
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="event-details h-100">
+        <div>
+          <h4 style="word-break:break-all" class="mb-4"><a href="javascript:void(0)"
+              (click)="onView()">{{event?.title.length > 190? event?.title.substring(0,190)+ '...' :event?.title}} </a>
+          </h4>
+          <div class="date text-right">{{event?.eventDate | date }}</div>
+        </div>
+        <div class="view d-flex align-items-end justify-content-end">
+          <a href="javascript:void(0)" (click)="onView()" class="link">{{'ViewMore' | translate}}<img
+              src="./assets/img/arrow.png"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="new">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="news-img">
+        <img [defaultImage]="event?.image?.reference ? event?.image?.reference : './assets/img/latest.png'"
+        [lazyLoad]="event?.image?.reference ? event?.image?.reference : './assets/img/latest.png'"
+        onerror="this.src='./assets/img/latest.png';" class="img-fluid lazy-loading"
+        alt="{{ event?.title ? event.title : '' }}" />
+        <div class="news-date">{{event?.eventDate | date }}</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="news-details">
+        <h4><a href="javascript:void(0)"
+          (click)="onView()">{{event?.title.length > 190? event?.title.substring(0,190)+ '...' :event?.title}} </a></h4>
+        <!-- <div class="profile"><img src="assets/img/profile.png">
+          Lorem Ipsum </div> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,7 +13,6 @@ import { AttachmentSourceDto } from './attachmentSourceDto';
 
 
 export interface AttachmentDto { 
-    attachmentId?: number;
     attachmentSource: AttachmentSourceDto;
     reference: string;
 }

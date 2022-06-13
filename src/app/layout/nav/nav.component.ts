@@ -25,11 +25,13 @@ export class NavComponent extends AppBaseComponent implements OnInit, OnDestroy 
     super(injector)
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await this._translateService.get('dummyTranslation').toPromise().then();
     const qSub = this.route.queryParams.subscribe(query => {
 
       const getItemsCategoryUsingGETSub = this.LookupControllerService.getItemsCategoryUsingGET().subscribe((res: Array<ItemCategoryDto>) => {
         this.categories = res;
+        this.categories.push({ categoryName:this._translateService.instant('selectCategory') })
         this.fields = [
 
           {
@@ -73,6 +75,14 @@ export class NavComponent extends AppBaseComponent implements OnInit, OnDestroy 
       }
     });
     this.unSubscription.push(intervalSubscription)
+
+   const resetSearchSub = this._sharedService.resetSearch.subscribe(res =>{
+      if(res) {
+          this.model.searchKey = ''
+          this.model.category = undefined
+      }
+    })
+    this.unSubscription.push(resetSearchSub)
   }
 
 

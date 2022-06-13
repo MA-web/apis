@@ -23,6 +23,9 @@ export class InboxIconComponent extends AppBaseComponent implements OnInit {
   onSend(){
     const initialState = {
       class: 'modal-md',
+      initialState: {
+        admin:true
+      }
     };
     this.modalService.show(SendInboxComponent, initialState);
   }

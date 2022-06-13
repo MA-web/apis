@@ -42,6 +42,10 @@ export class SharedService {
 
   //remove index From Upload area
   removeIndexFromUploadArea: Subject<any> = new Subject<any>();
+
+  //reset Search
+  resetSearch : Subject<boolean> = new Subject<boolean>();
+
   constructor(
     private http: HttpClient,
     private router:Router

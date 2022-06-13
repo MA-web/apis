@@ -233,7 +233,22 @@
   "newPassword":"New Password",
   "Certificates":"Certificates",
   "Resources":"Resources",
-
+  "news":"News",
+  "ViewMore":"View More",
+  "SimilarEvents":"Similar Events",
+  "SimilarNews":"Similar News",
+  "events":"Events",
+  "latestNews":"Latest News",
+  "latestEvents":"Latest Events",
+  "ViewAllEvents":"View All Events",
+  "ViewAllNews":"View All News",
+  "OurPartners":"Our Partners",
+  "ViewAllPartners":"View All Partners",
+  "ViewProducts":"View Products",
+  "SupplierProducts": "Supplier Products",
+  "UpdateProduct":"Update Product",
+  "Quantity":"Quantity",
+  "selectCategory":"Select Category",
 
 
   "validations": {

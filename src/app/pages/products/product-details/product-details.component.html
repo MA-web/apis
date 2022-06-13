@@ -24,7 +24,7 @@
                 <img
                   [defaultImage]="productDetails?.attachment?.reference? productDetails?.attachment?.reference : 'assets/img/image2.jpg'"
                   [lazyLoad]="productDetails?.attachment?.reference ? productDetails?.attachment?.reference : 'assets/img/image2.jpg'"
-                  onerror="this.src='assets/img/image2.jpg';" class="img-fluid lazy-loading"
+                  onerror="this.src='assets/img/image2.jpg';" class="img-fluid lazy-loading about-img w-100"
                   alt="{{ productDetails?.itemName ? productDetails.itemName : '' }}" />
               </div>
             </div>
@@ -35,17 +35,17 @@
                 <div class="col-md-12">
                   <h2>{{productDetails?.itemName}}</h2>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" *ngIf="productDetails?.itemPricings?.length">
                   <p><img src="assets/img/gram.svg" alt=""><span>{{'Weight' | translate}}: </span>
-                    <ng-container *ngIf="productDetails?.itemPricings?.length">
+                    <ng-container >
                       {{productDetails?.itemPricings[0]?.toQuantity}} {{productDetails?.itemPricings[0]?.toUom?.uomName}}
                     </ng-container>
                   </p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" *ngIf="productDetails?.itemPricings?.length">
                   <p><img src="assets/img/price.svg" alt=""><span>{{'Price' | translate}}:
                     </span>
-                    <ng-container *ngIf="productDetails?.itemPricings?.length">
+                    <ng-container >
                       {{productDetails?.itemPricings[0]?.price}}   {{productDetails?.itemPricings[0]?.currency?.currencyCode}}
                     </ng-container>
                   </p>
@@ -71,7 +71,7 @@
                       translate}}</a>
                     <a  href="javascribt:void(0)" class="apis-button apis-button2 px-3" (click)="onAddToFav()"><img src="assets/img/fav.svg" alt="">{{'Favorites' |
                       translate}}</a>
-                    <a  href="javascribt:void(0)" class="apis-button  btn btn-warning px-3">{{'SendInquiry' | translate}}</a>
+                    <a  href="javascribt:void(0)" class="apis-button  btn btn-warning px-3" [routerLink]="['/profile/deals/inquiries/filling',productDetails?.itemId]">{{'SendInquiry' | translate}}</a>
                   </div>
                 </div>
               </div>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { OurSuppliersSupplierDto } from 'src/app/@api';
 
 @Component({
   selector: 'app-supplier-card',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./supplier-card.component.scss']
 })
 export class SupplierCardComponent implements OnInit {
+  @Input() supplier:OurSuppliersSupplierDto;
 
   constructor() { }
 

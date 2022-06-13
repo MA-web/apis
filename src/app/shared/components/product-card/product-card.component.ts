@@ -30,7 +30,6 @@ export class ProductCardComponent extends AppBaseComponent implements OnInit {
   }
 
   onView() {
-
     if(this.fav){
       this.router.navigate(['/products/details', this.product?.itemId]);
     }else{

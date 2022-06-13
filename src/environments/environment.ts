@@ -20,7 +20,9 @@ export const environment = {
 
 export const appRouts = {
   productsList:'/products/list',
-  ourSuppliersList:'/suppliers/list'
+  ourSuppliersList:'/suppliers/list',
+  news:'news',
+  events:'events'
 }
 
 

@@ -1,15 +1,21 @@
 <div class="supplier">
   <div class="row">
       <div class="col-sm-6">
-          <div class="supplier-img"><img src="assets/img/rowlands_logo_png.png"></div>
+          <div class="supplier-img">
+            <img
+            [defaultImage]="supplier?.supplierImage?.reference ? supplier?.supplierImage?.reference : 'assets/img/rowlands_logo_png.png'"
+            [lazyLoad]="supplier?.supplierImage?.reference ? supplier?.supplierImage?.reference : 'assets/img/rowlands_logo_png.png'"
+            onerror="this.src='assets/img/rowlands_logo_png.png';"
+            alt="{{ supplier?.supplierName ? supplier.supplierName : '' }}" style="height: 142px;"/>
+          </div>
       </div>
       <div class="col-sm-6">
           <div class="supplier-details">
-              <h4>Supplier Name</h4>
-              <p><span>Category:</span> Natural Extracts,Plant Extracts</p>
-              <p><span>Company:</span> JF-NATURAL</p>
+              <h4>{{supplier?.supplierName}}</h4>
+              <p><span>{{'category' | translate}}:</span> {{supplier?.supplierCategory}}</p>
+              <p><span>{{'Company' | translate}}:</span>{{supplier?.supplierCompany}}</p>
               <div style="margin-top: 30px">
-                  <a routerLink="/suppliers/details" class="apis-button px-5">View Products(20)</a>
+                  <a [routerLink]="['/suppliers/details',supplier?.supplierId]" class="apis-button px-5">{{'ViewProducts' | translate}}({{supplier?.supplierProductsCount}})</a>
               </div>
           </div>
       </div>

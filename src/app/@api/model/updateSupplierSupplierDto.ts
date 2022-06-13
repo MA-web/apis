@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { AttachmentDto } from './attachmentDto';
+import { SupplierCategoryDto } from './supplierCategoryDto';
 
 
 export interface UpdateSupplierSupplierDto { 
@@ -20,6 +21,7 @@ export interface UpdateSupplierSupplierDto {
     mainCustomer?: string;
     mainMarkets?: string;
     numberEmployees?: number;
+    supplierCategory?: SupplierCategoryDto;
     totalAnnualSales?: string;
     website?: string;
 }

@@ -17,7 +17,6 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
-
 import { QuotationResponseDto } from '../model/quotationResponseDto';
 import { QuotationVersionDto } from '../model/quotationVersionDto';
 import { QuotationVersionReplyDto } from '../model/quotationVersionReplyDto';

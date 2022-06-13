@@ -11,6 +11,7 @@ import { SkeletonCardBoxComponent } from './components/skeleton-card-box/skeleto
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { SendInboxModule } from './components/send-inbox/send-inbox.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -29,7 +30,8 @@ import { SendInboxModule } from './components/send-inbox/send-inbox.module';
     NgxSkeletonLoaderModule,
     LazyLoadImageModule,
     InlineSVGModule,
-    SendInboxModule
+    SendInboxModule,
+    TranslateModule
   ],
   exports:[
     ProductCardComponent,

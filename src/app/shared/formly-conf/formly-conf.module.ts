@@ -32,6 +32,7 @@ import { FileValueAccessor } from './formly-components/file-value-accessor';
 import { ImagePreview } from './formly-components/image-preview.directive';
 import { NumberInputDirective } from '../directive/number-input.directive';
 import { FormlyFieldInputNumber } from './formly-components/formly-filed0input-number';
+import { FormlyRepeatPriceType } from './formly-components/formly-repeat-price-type.component';
 
 
 export function formlyValidationConfig(translate: TranslateService) {
@@ -68,7 +69,8 @@ export function formlyValidationConfig(translate: TranslateService) {
     FileValueAccessor,
     ImagePreview,
     FormlyFieldInputNumber,
-    NumberInputDirective
+    NumberInputDirective,
+    FormlyRepeatPriceType
   ],
   imports: [
     CommonModule,
@@ -93,6 +95,9 @@ export function formlyValidationConfig(translate: TranslateService) {
           { name: 'file-upload', component: FormlyFieldFile, wrappers: ['form-field'] },
           { name: 'uploadArea', component: FormlyUploadArea },
           { name: 'repeat', component: FormlyRepeatType },
+          { name: 'repeat-price', component: FormlyRepeatPriceType },
+
+
           {
             name: 'button',
             component: FormlyFieldButton,
