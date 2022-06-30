@@ -1,5 +1,7 @@
 import { Component, Injector, Input, OnDestroy, OnInit } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { ItemControllerService, ItemDto } from 'src/app/@api';
+import { ProductActionAlertComponent } from 'src/app/shared/components/alert-conf/product-action-alert/product-action-alert.component';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
 @Component({
@@ -13,6 +15,7 @@ export class SupplierProductComponent extends AppBaseComponent implements OnInit
   constructor(
     injector: Injector,
     private _itemControllerService: ItemControllerService,
+    private modalService: BsModalService
   ) {
     super(injector)
   }
@@ -20,27 +23,17 @@ export class SupplierProductComponent extends AppBaseComponent implements OnInit
   }
 
 
-  onDelete(){
-   const deleteItemUsingDELETESub = this._itemControllerService.deleteItemUsingDELETE(this.product?.itemId).subscribe((res) =>{
-    this.toaster.success(this._translateService.instant('removedSuccessfully'))
-    this._sharedService.sendRefresh.next(true)
-    })
-    this.unSubscription.push(deleteItemUsingDELETESub)
+  onAction(action:string){
+    const initialState: any = {
+      class: 'modal-md',
+      initialState: {
+        Action:action,
+        productId:this.product?.itemId,
+
+      }
+    };
+    const bsModalRef = this.modalService.show(ProductActionAlertComponent, initialState);
+
   }
 
-  onRepublish(){
-    const publishItemUsingPUTSub = this._itemControllerService.publishItemUsingPUT(this.product?.itemId).subscribe((res) =>{
-      this.toaster.success(this._translateService.instant('removedSuccessfully'))
-      this._sharedService.sendRefresh.next(true)
-      })
-      this.unSubscription.push(publishItemUsingPUTSub)
-  }
-
-  onUnPublish(){
-    // const publishItemUsingPUTSub = this._itemControllerService.publishItemUsingPUT(this.product?.itemId).subscribe((res) =>{
-    //   this.toaster.success(this._translateService.instant('removedSuccessfully'))
-    //   this._sharedService.sendRefresh.next(true)
-    //   })
-    //   this.unSubscription.push(publishItemUsingPUTSub)
-  }
 }

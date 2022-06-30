@@ -1,11 +1,11 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import * as e from 'express';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { finalize, forkJoin } from 'rxjs';
-import {    AccountCancelControllerService, ProfileUserProfileDto, SupplierControllerService, SupplierEmployeeDto, UpdateSupplierProfileDto, UserControllerService, UserProfileDto, UserResponseDto } from 'src/app/@api';
+import { ProfileUserProfileDto, SupplierControllerService, SupplierEmployeeDto, UpdateSupplierProfileDto, UserControllerService, UserProfileDto, UserResponseDto } from 'src/app/@api';
 import { ProfileDto } from 'src/app/@api/model/profileDto';
+import { DeleteAccountAlertComponent } from 'src/app/shared/components/alert-conf/delete-account-alert/delete-account-alert.component';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 import { generalValidations, roles } from 'src/environments/environment';
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -29,7 +29,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
     private _userControllerService: UserControllerService,
     private _supplierControllerService: SupplierControllerService,
     private modalService: BsModalService,
-    private accountCancelControllerService:AccountCancelControllerService
+
   ) {
     super(injector)
     this.isLoading = true
@@ -346,7 +346,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
           }
         },
       ]
-      const getCountryCityUsingGETSub = this.LookupControllerService.getOriginCitiesUsingGET(this.ProfileDto?.user?.companyLocation?.originId).subscribe((res:any) => {
+      const getCountryCityUsingGETSub = this.LookupControllerService.getOriginCitiesUsingGET(this.ProfileDto?.user?.companyLocation?.originId).subscribe((res: any) => {
         this.fields.find(v => v?.key === 'city').templateOptions.options = res.map(v => ({ label: v?.cityName, value: v?.cityLookupId }))
         this.form.get('city')?.setValue(+this.ProfileDto?.userProfile?.address?.city)
       })
@@ -402,9 +402,9 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
     this.unSubscription.push(sendEmptyAttachSub)
 
     const sendEmptyAttachSub2 = this.UploadFileService.sendEmptyAttach.subscribe(res => {
-      if (res){
+      if (res) {
         this.profilePicture = undefined
-        if(!this.profilePicture)    this.updateProfile()
+        if (!this.profilePicture) this.updateProfile()
 
       }
     })
@@ -471,13 +471,13 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
     } else {
       let UpdateSupplierProfileDto: UpdateSupplierProfileDto = {
         supplier: {
-          businessLicense:this.businessLicensePicture? {
+          businessLicense: this.businessLicensePicture ? {
             "attachmentSource": {
               "attachmentSourceId": 1,
               "attachmentSourceName": this.businessLicensePicture
             },
             "reference": this.businessLicensePicture
-          }:undefined,
+          } : undefined,
           companyType: this.model?.companyType,
           establishmentDate: this.model?.establishmentDate ? new Date(this.model?.establishmentDate) : undefined,
           exportPercentage: this.model?.exportPercentage,
@@ -524,7 +524,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
     }
   }
 
-  onDeleteImage(){
+  onDeleteImage() {
     this.UploadFileService.deleteFile(this.profilePicture)
 
 
@@ -556,7 +556,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
 
   }
 
-  onChangePassword(){
+  onChangePassword() {
     const initialState: ModalOptions = {
       class: 'modal-md',
     };
@@ -564,11 +564,12 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
 
   }
 
-  // onDeleteAccount(){
-  //   this.accountCancelControllerService.requestCancelAccountUsingPOST().subscribe(res =>{
-
-  //   })
-  // }
+  onDeleteAccount() {
+    const initialState: any = {
+      class: 'modal-md',
+    };
+    const bsModalRef = this.modalService.show(DeleteAccountAlertComponent, initialState);
+  }
 
   ngOnDestroy(): void {
     window.localStorage.removeItem('addProfileStorage')

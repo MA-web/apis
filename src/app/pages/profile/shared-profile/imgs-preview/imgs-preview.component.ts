@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Lightbox } from 'ngx-lightbox';
 
 @Component({
@@ -6,15 +6,23 @@ import { Lightbox } from 'ngx-lightbox';
   templateUrl: './imgs-preview.component.html',
   styleUrls: ['./imgs-preview.component.scss']
 })
-export class ImgsPreviewComponent  {
-  images:any = [
-    {'src':'https://via.placeholder.com/400','name':'Imag1'},
-    {'src':'https://via.placeholder.com/400','name':'Imag2'}
-  ]
+export class ImgsPreviewComponent implements OnInit {
+  @Input()images = []
+
+
 
   constructor(
     private lightbox: Lightbox,
   ) {
+  }
+  ngOnInit(): void {
+    if(this.images?.length > 0){
+
+      this.images=  this.images.map(v => (
+        {'src': v?.attachment?.reference,'name': v?.itemCertificateName}
+      ))
+    console.log(this.images);
+    }
   }
 
   onView(item: any, index: number) {

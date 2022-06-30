@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-12">
-    <div class="card white-card mb-4" style="border-radius: 0px 0px 40px 0px;">
+    <!-- <div class="card white-card mb-4" style="border-radius: 0px 0px 40px 0px;">
       <div class="card-body">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="row">
@@ -17,32 +17,56 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 <div class="row">
   <div class="col-12">
     <div class="card white-card" style="border-radius: 0px">
-      <div >
+      <ng-container *ngIf="isLoading; else elseTemplate">
         <div class="row">
-          <div class="col-12">
-          <app-profile-deal-card status="danger"></app-profile-deal-card>
-          </div>
-          <div class="col-12">
-            <app-profile-deal-card status="primary"></app-profile-deal-card>
-          </div>
-          <div class="col-12">
-            <app-profile-deal-card status="warning"></app-profile-deal-card>
+          <div class="col-sm-6" *ngFor="let item of [].constructor(6)">
+            <app-skeleton-card-box></app-skeleton-card-box>
           </div>
         </div>
-        <div class="mt-4">
-          <div class="d-flex justify-content-center">
-            <pagination [boundaryLinks]="true" [totalItems]="77" previousText="&lsaquo;" nextText="&rsaquo;"
-              firstText="&laquo;" lastText="&raquo;">
-            </pagination>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <ng-container *ngIf="listArr?.length <= 0; else elseTemplateNoData">
+          <div class="row justify-content-center">
+            <div class="col-md-10 col-12">
+              <app-no-data></app-no-data>
+            </div>
           </div>
+        </ng-container>
+        <ng-template #elseTemplateNoData>
+          <div class="row">
+            <ng-container *ngFor="let deal of listArr">
+              <div class="col-12">
+                <app-profile-deal-card [deal]="deal"></app-profile-deal-card>
+              </div>
+            </ng-container>
+            <!-- <div class="col-12">
+              <app-profile-deal-card status="danger"></app-profile-deal-card>
+            </div>
+            <div class="col-12">
+              <app-profile-deal-card status="primary"></app-profile-deal-card>
+            </div>
+            <div class="col-12">
+              <app-profile-deal-card status="warning"></app-profile-deal-card>
+            </div> -->
+          </div>
+        </ng-template>
+      </ng-template>
+
+      <div class="mt-4">
+        <div class="d-flex justify-content-center">
+          <pagination [boundaryLinks]="true" [totalItems]="totalElements" previousText="&lsaquo;" nextText="&rsaquo;"
+            (pageChanged)="pageChanged($event)" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="pageSize"
+            [maxSize]="3">
+          </pagination>
         </div>
       </div>
+
     </div>
   </div>
 </div>

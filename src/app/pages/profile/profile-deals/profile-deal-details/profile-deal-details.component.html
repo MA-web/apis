@@ -1,12 +1,13 @@
 <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
-<app-profile-deal-card status="success"></app-profile-deal-card>
-
+<app-profile-deal-card [deal]="DealDetails"></app-profile-deal-card>
+  <!-- {{DealDetails?.status}} -->
 <div class="deal-details">
   <tabset [justified]="true">
 
-    <tab [active]="dealType ==='inquiries'?true:false">
+    <tab [active]="true">
       <ng-template tabHeading>
-        <div class="d-flex align-items-center justify-content-center" (click)="tabSelected('/profile/deals/inquiry/1')">
+        <div class="d-flex align-items-center justify-content-center"
+          (click)="tabSelected('/profile/deals/inquiries/'+ dealId+'/'+ productId)">
           <div inlineSVG="assets/icons/cir-check.svg"></div>
           <div class="ml-3">
             <div class="tab-step">Step 01</div>
@@ -17,10 +18,11 @@
     </tab>
 
 
-    <tab [disabled]="dealType ==='inquiries'?true:false" [active]="dealType ==='quotations'?true:false" >
+    <tab [disabled]="validQuotation()" [active]="validQuotation()">
 
       <ng-template tabHeading>
-        <div class="d-flex align-items-center justify-content-center" (click)="tabSelected('/profile/deals/quotations/1')">
+        <div class="d-flex align-items-center justify-content-center"
+          (click)="tabSelected('/profile/deals/quotations/' + dealId+'/'+ productId)">
           <div inlineSVG="assets/icons/cir-check.svg"></div>
           <div class="ml-3">
             <div class="tab-step">Step 02</div>
@@ -31,10 +33,10 @@
     </tab>
 
 
-    <tab [disabled]="dealType ==='inquiries' || dealType ==='quotations'?true:false"
-      [active]="dealType ==='order'?true:false">
+    <tab [disabled]="validOrder()" [active]="validOrder()">
       <ng-template tabHeading>
-        <div class="d-flex align-items-center justify-content-center" (click)="tabSelected('/profile/deals/orders/1')">
+        <div class="d-flex align-items-center justify-content-center"
+          (click)="tabSelected('/profile/deals/orders/' + dealId+'/'+ productId)">
           <div inlineSVG="assets/icons/cir-check.svg"></div>
           <div class="ml-3">
             <div class="tab-step">Step 03</div>
@@ -43,9 +45,10 @@
         </div>
       </ng-template>
     </tab>
-    <tab [disabled]="dealType !=='invoices'?true:false" [active]="dealType ==='invoice'?true:false">
+    <tab [disabled]="validInvoice()" [active]="validInvoice()">
       <ng-template tabHeading>
-        <div class="d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center"
+          (click)="tabSelected('/profile/deals/invoices/' + dealId+'/'+ productId)">
           <div inlineSVG="assets/icons/cir-check.svg"></div>
           <div class="ml-3">
             <div class="tab-step">Step 04</div>

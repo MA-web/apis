@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="userData?.role === 'CUSTOMER' && canFillOrder()">
   <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
 
 
@@ -13,14 +13,13 @@
           <span [inlineSVG]="'assets/icons/download.svg'" class="mx-1"></span>
           {{'download' |translate}}
         </button>
-        <button type="button" class="apis-button btn btn-danger  px-4">
+        <button type="button" class="apis-button btn btn-danger  px-4" routerLink="/profile/deals">
           <span [inlineSVG]="'assets/icons/delete.svg'" class="mx-1"></span>
           {{'Cancel' |translate}}
         </button>
 
 
-        <button type="submit" class="apis-button btn btn-success pull-md-right px-5" style="line-height: 12px;"
-        routerLink="/profile/deals/orders/1/filling">
+        <button type="submit" class="apis-button btn btn-success pull-md-right px-5" style="line-height: 12px;">
         <div>{{'Send' |translate}}</div>
         <div style="font-size: 12px;margin-top: 4px;">{{'PurchasingOrder' |translate}}</div>
       </button>

@@ -12,6 +12,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { SendInboxModule } from './components/send-inbox/send-inbox.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { AlertConfModule } from './components/alert-conf/alert-conf.module';
 
 
 
@@ -31,7 +32,8 @@ import { TranslateModule } from '@ngx-translate/core';
     LazyLoadImageModule,
     InlineSVGModule,
     SendInboxModule,
-    TranslateModule
+    TranslateModule,
+    AlertConfModule
   ],
   exports:[
     ProductCardComponent,

@@ -15,7 +15,6 @@ import { BankAccountDto } from './bankAccountDto';
 export interface QuotationVersionRequestDto { 
     bankAccount?: BankAccountDto;
     dealId: number;
-    dealStepTypeId: number;
     shipmentIncludedDocuments?: string;
     specialPrecaution?: string;
     termsConditions?: string;

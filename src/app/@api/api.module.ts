@@ -4,10 +4,12 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { AccountCancelControllerService } from './api/accountCancelController.service';
+import { DealControllerService } from './api/dealController.service';
 import { EventControllerService } from './api/eventController.service';
 import { FaqControllerService } from './api/faqController.service';
 import { InboxControllerService } from './api/inboxController.service';
 import { InquiryControllerService } from './api/inquiryController.service';
+import { InvoiceControllerService } from './api/invoiceController.service';
 import { ItemCategoryControllerService } from './api/itemCategoryController.service';
 import { ItemControllerService } from './api/itemController.service';
 import { JwtAuthenticationControllerService } from './api/jwtAuthenticationController.service';
@@ -29,10 +31,12 @@ import { UserControllerService } from './api/userController.service';
   exports:      [],
   providers: [
     AccountCancelControllerService,
+    DealControllerService,
     EventControllerService,
     FaqControllerService,
     InboxControllerService,
     InquiryControllerService,
+    InvoiceControllerService,
     ItemCategoryControllerService,
     ItemControllerService,
     JwtAuthenticationControllerService,

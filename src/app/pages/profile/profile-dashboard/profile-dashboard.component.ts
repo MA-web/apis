@@ -115,8 +115,8 @@ export class ProfileDashboardComponent extends AppBaseComponent implements OnIni
   }
 
   onSubmit() {
-    console.log(this.form)
-    console.log(this.model);
+
+
 
   }
 }

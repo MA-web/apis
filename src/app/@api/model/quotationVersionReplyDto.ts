@@ -19,6 +19,7 @@ export interface QuotationVersionReplyDto {
     finalQuantity?: number;
     shipmentIncludedDocuments?: string;
     specialPrecaution?: string;
+    status?: number;
     termsConditions?: string;
     uom?: UomIdDto;
 }

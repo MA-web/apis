@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { finalize, forkJoin, take } from 'rxjs';
-import { CertificateTypeDto, IncotermDto, InquiryControllerService, InquiryCreationRequestDto, ItemCategoryDto, ItemControllerService, ItemDto, ItemIncotermDto, ItemPaymentTermDto, ItemSampleTypeDto, OriginDto, OriginIdDto, PaymentTermDto, SupplierCategoryDto, TransportationDto, UomDto } from 'src/app/@api';
+import { CertificateTypeDto, IncotermDto, InquiryControllerService, InquiryCreationRequestDto, ItemCategoryDto, ItemControllerService, ItemDto, ItemIncotermDto, ItemPaymentTermDto, ItemSampleTypeDto, OriginDto, OriginIdDto, PaymentTermDto, SupplierCategoryDto, TransportationDto, UomDto, ViewInquiryMainDataDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
 @Component({
@@ -16,14 +16,14 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
   ItemCategory: Array<ItemCategoryDto> = []
   itemSubcategories = []
   supplierCategory: Array<SupplierCategoryDto> = []
-  PaymentTermsArr: Array<ItemPaymentTermDto>= []
+  PaymentTermsArr: Array<ItemPaymentTermDto> = []
 
-  incotermsArr: Array<ItemIncotermDto>= []
+  incotermsArr: Array<ItemIncotermDto> = []
   TransportationArr: Array<TransportationDto> = []
 
   ItemSampleTypeArr: Array<ItemSampleTypeDto> = []
   CertificateTypArr: Array<CertificateTypeDto> = []
-  origins :Array<OriginIdDto> = []
+  origins: Array<OriginIdDto> = []
   units: Array<UomDto> = []
 
   productCertificates: any[] = []
@@ -37,7 +37,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
   ) {
     super(injector);
     this.route.params.subscribe(param => {
-      this.productId = param['id']
+      this.productId = param['productId']
     })
     this.isLoadingForm = true
   }
@@ -220,7 +220,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
                   type: 'textarea',
                   defaultValue: this.productDetails?.details,
                   templateOptions: {
-                    label: this._translateService.instant('this.productDetails'),
+                    label: this._translateService.instant('productDetails'),
                     rows: 5,
                     readonly: true
                   },
@@ -341,7 +341,9 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
                   className: 'col-md-6 col-12',
                   key: 'validPeriod',
                   type: 'input',
+                  defaultValue: this.productDetails?.validPeriod ? new Date(this.productDetails?.validPeriod).toISOString().split('T')[0] : undefined,
                   templateOptions: {
+                    type: 'date',
                     label: this._translateService.instant('ValidPeriod'),
                   },
                 },
@@ -704,19 +706,6 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
               fieldGroup: [
                 {
                   className: 'col-12',
-                  key: 'AllowedSample',
-                  type: 'checkbox',
-                  defaultValue: this.productDetails?.itemSampleType && this.productDetails?.sampleSize && this.productDetails?.sampleUnit ? true : false,
-                  templateOptions: {
-                    label: this._translateService.instant('AllowedSample'),
-                  },
-                },
-                {
-                  className: 'col-12 mb-3',
-                  template: `<img src="./assets/icons/info.svg" class="m-1"> <span class="mb-0 hint">${this._translateService.instant('add_attribute')}:</span>`,
-                },
-                {
-                  className: 'col-12',
                   key: 'itemSampleType',
                   type: 'ng-select',
                   defaultValue: this.productDetails?.itemSampleType?.itemSampleTypesId,
@@ -724,10 +713,6 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
                     label: this._translateService.instant('sampleType'),
                     required: true,
                     options: res[5]?.map(v => ({ label: v?.itemSampleTypesName, value: v?.itemSampleTypesId })),
-                  },
-                  expressionProperties: {
-                    'templateOptions.disabled': () => !this.model.AllowedSample,
-                    'templateOptions.required': () => this.model.AllowedSample,
                   },
                 },
                 {
@@ -739,10 +724,6 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
                     label: this._translateService.instant('SampleSize'),
                     required: true,
                   },
-                  expressionProperties: {
-                    'templateOptions.disabled': () => !this.model.AllowedSample,
-                    'templateOptions.required': () => this.model.AllowedSample,
-                  },
                 },
                 {
                   className: 'col-md-6 col-12',
@@ -753,10 +734,6 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
                     label: this._translateService.instant('SampleUnit'),
                     required: true,
                     options: res[3]?.map(v => ({ label: v?.uomShortName, value: v?.uomId })),
-                  },
-                  expressionProperties: {
-                    'templateOptions.disabled': () => !this.model.AllowedSample,
-                    'templateOptions.required': () => this.model.AllowedSample,
                   },
                 },
               ],
@@ -893,7 +870,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
                   defaultValue: this.productDetails?.transportation?.transportationId,
                   templateOptions: {
                     label: this._translateService.instant('Transportation'),
-                    options: res[7]?.map(v => ({ label: v?.transportationName, value: v })),
+                    options: res[7]?.map(v => ({ label: v?.transportationName, value: v?.transportationId })),
                   },
                 },
               ],
@@ -1034,21 +1011,17 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
 
     // this.productCertificates = [{ CertificateName:'Certificate Name 01', file: ''}]
   }
-  onSubmit() {
-
-    // this.isSubmit = true;
-
-
-
+  onSubmit(type?: string) {
+    this.isSubmit = true;
     let InquiryCreationRequestDto: InquiryCreationRequestDto = {
       appearance: this.model?.appearence,
       application: this.model?.application,
       dissolutionRate: this.model?.dissolutionRate && this.model?.hour ? `${this.model?.hour}hr/${this.model?.dissolutionRate}%` : undefined,
       escherichiaColi: this.model?.escherichiaColi,
-      expiryDate: new Date(this.model?.expiryDate),
+      expiryDate: new Date(this.model?.validPeriod),
       form: this.model?.form,
       heavyMetal: this.model?.heavyMetal,
-      itemIncoterm:  {itemIncotermId: this.incotermsArr.find(v =>v?.incotermShipping?.incoterm?.incotermId === this.model?.incoterms)?.itemIncotermId},
+      itemIncoterm: { itemIncotermId: this.incotermsArr.find(v => v?.incotermShipping?.incoterm?.incotermId === this.model?.incoterms)?.itemIncotermId },
 
       indotoxinTest: this.model?.indotoxinTest,
       injection: this.model?.injection,
@@ -1058,8 +1031,8 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
         quantity: +v?.quantity?.value,
         uom: v?.quantity?.type,
         unitPrice: +v?.price?.value,
-        currency: {currencyId:v?.price?.type?.currencyId, currencyCode:v?.price?.type?.currencyCode,currencyName:v?.price?.type?.currencyName},
-        itemPaymentTerm:{itemPaymentTermId: v?.PaymentTerms?.itemPaymentTermId},
+        currency: { currencyId: v?.price?.type?.currencyId, currencyCode: v?.price?.type?.currencyCode, currencyName: v?.price?.type?.currencyName },
+        itemPaymentTerm: { itemPaymentTermId: v?.PaymentTerms?.itemPaymentTermId },
       })),
       itemSampleType: this.model?.itemSampleType ? this.ItemSampleTypeArr?.find(v => v?.itemSampleTypesId === this.model?.itemSampleType) : undefined,
       inquiryVersionSuppliments: this.model?.itemSuppliments ? this.model?.itemSuppliments?.map((v, i) => ({
@@ -1084,29 +1057,45 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
       residueIgnition: +this.model?.residueIgnition,
       salmonelaSpecies: this.model?.salmonelaSpecies,
       sampleSize: this.model?.sampleSize ? +this.model?.sampleSize : undefined,
-      sampleUnit: this.model?.sampleUnit ?   this.units.find(v => v?.uomId ===  this.model?.sampleUnit ): undefined,
+      sampleUnit: this.model?.sampleUnit ? this.units.find(v => v?.uomId === this.model?.sampleUnit) : undefined,
       storage: this.model?.storage,
       totalVac: this.model?.totalVac ? `${this.model?.totalVac}cfu/gm` : undefined,
       totalYamc: this.model?.totalYamc ? `${this.model?.totalYamc}cfu/gm` : undefined,
-      transportation: this.model?.transportation ?  this.model?.transportation : undefined,
+      transportation: this.model?.transportation ? this.TransportationArr.find(v =>{v?.transportationId ===  this.model?.transportation}) : undefined,
       itemId: this.productId ? +this.productId : undefined,
       extraComment: this.model?.extraComment,
       "inquiry": {
         "inquiryId": null
       },
+    }
+    if (type !== 'draft') {
+      const addInquiryUsingPOSTSub = this._inquiryControllerService.addInquiryUsingPOST(InquiryCreationRequestDto).pipe(finalize(() => {
+        this.isSubmit = false
+      })).subscribe((res: InquiryCreationRequestDto) => {
+        if (res) {
+          const viewInquiryMainDataSub = this._inquiryControllerService.viewInquiryMainDataUsingGET(res?.inquiry?.inquiryId).subscribe((res2: ViewInquiryMainDataDto) => {
+            this.router.navigate(['/profile/deals/inquiries', res2?.dealId, this.productDetails?.itemId])
+          })
+          this.unSubscription.push(viewInquiryMainDataSub)
+        }
 
+
+      })
+      this.unSubscription.push(addInquiryUsingPOSTSub)
+    } else {
+      const addInquiryUsingPOSTSub = this._inquiryControllerService.addInquiryAsDraftUsingPOST(InquiryCreationRequestDto).pipe(finalize(() => {
+        this.isSubmit = false
+      })).subscribe((res: InquiryCreationRequestDto) => {
+        if (res) {
+            this.router.navigate(['/profile/deals/inquiries'])
+        }
+
+
+      })
+      this.unSubscription.push(addInquiryUsingPOSTSub)
     }
 
-    const addInquiryUsingPOSTSub = this._inquiryControllerService.addInquiryUsingPOST(InquiryCreationRequestDto).pipe(finalize(() => {
-      this.isSubmit = false
-    })).subscribe((res: InquiryCreationRequestDto) => {
-      if (res) {
-        this.router.navigate(['/profile/deals/inquiries'])
-      }
 
-
-    })
-    this.unSubscription.push(addInquiryUsingPOSTSub)
 
 
 
@@ -1114,7 +1103,9 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
 
 
   }
+  onSAaveAsDraft() {
 
+  }
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.

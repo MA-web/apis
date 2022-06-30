@@ -27,38 +27,45 @@ import { ProfileDealInvoiceComponent } from './profile-deal-invoices/profile-dea
 import { ProfileDealsViewQuotationComponent } from './profile-deals-quotations/profile-deals-view-quotation/profile-deals-view-quotation.component';
 import { ProfileDealCompletedComponent } from './profile-deal-invoices/profile-deal-completed/profile-deal-completed.component';
 import { OrderFillingComponent } from './profile-deal-orders/order-filling/order-filling.component';
+import { InquiryReplyComponent } from './profile-deal-inquiries/inquiry-reply/inquiry-reply.component';
+import { NoDataModule } from 'src/app/shared/no-data/no-data.module';
+import { QuotationReplyComponent } from './profile-deals-quotations/quotation-reply/quotation-reply.component';
+import { InvoiceFillingComponent } from './profile-deal-invoices/invoice-filling/invoice-filling.component';
+import { DealPreviewComponent } from './profile-deal-invoices/deal-preview/deal-preview.component';
 
 const route: Route[] = [
   {
     path: '', component: ProfileDealsComponent, children: [
       { path: '', redirectTo: 'inquiry', pathMatch: 'full' },
       { path: ':type', component: ProfileDealsListComponent },
-
+      { path: 'inquiries/filling/:productId', component: InquiryFillingComponent },
+      { path: 'inquiries/reply/:productId/:replyId/:inquiryId/:dealId', component: InquiryReplyComponent },
       {
-        path: 'inquiries/:id', component: ProfileDealDetailsComponent, children: [
+        path: 'inquiries/:dealId/:productId', component: ProfileDealDetailsComponent, children: [
           { path: '', component: ProfileDealInquiriesComponent },
 
         ]
       },
 
-      { path: 'inquiries/filling/:id', component: InquiryFillingComponent },
+
       {
-        path: 'quotations/:id', component: ProfileDealDetailsComponent, children: [
+        path: 'quotations/:dealId/:productId', component: ProfileDealDetailsComponent, children: [
+          { path: 'send-quotation', component: SendQuotationComponent },
           {
             path: '', component: ProfileDealsQuotationsComponent, children: [
               { path: '', component: ProfileDealsViewQuotationComponent },
-              { path: 'send-quotation', component: SendQuotationComponent },
-
+           
+              { path: 'quotation-reply', component: QuotationReplyComponent },
             ]
           },
 
         ]
       },
       {
-        path: 'orders/:id', component: ProfileDealDetailsComponent, children: [
+        path: 'orders/:dealId/:productId', component: ProfileDealDetailsComponent, children: [
           {
             path: '', component: ProfileDealOrdersComponent, children: [
-              { path: 'filling', component: OrderFillingComponent },
+            //  { path: 'filling', component: OrderFillingComponent },
 
             ]
           },
@@ -66,16 +73,16 @@ const route: Route[] = [
         ]
       },
       {
-        path: 'invoices/:id', component: ProfileDealDetailsComponent, children: [
+        path: 'invoices/:dealId/:productId', component: ProfileDealDetailsComponent, children: [
           {
-            path: '', component: ProfileDealInvoicesComponent, children: [
-              // { path: 'send-quotation', component: SendQuotationComponent },
-
-            ]
+            path: '', component: ProfileDealInvoicesComponent
           },
 
         ]
       },
+      {
+        path: 'Completed/:dealId', component: ProfileDealCompletedComponent
+      }
     ]
   },
 ]
@@ -99,7 +106,11 @@ const route: Route[] = [
     ProfileDealInvoiceComponent,
     ProfileDealsViewQuotationComponent,
     ProfileDealCompletedComponent,
-    OrderFillingComponent
+    OrderFillingComponent,
+    InquiryReplyComponent,
+    QuotationReplyComponent,
+    InvoiceFillingComponent,
+    DealPreviewComponent
   ],
   imports: [
     CommonModule,
@@ -111,7 +122,8 @@ const route: Route[] = [
     PaginationModule,
     FormlyConfModule,
     TabsModule,
-    AccordionModule
+    AccordionModule,
+    NoDataModule,
   ]
 })
 export class ProfileDealsModule { }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
+import { finalize } from 'rxjs';
+import { QuotationControllerService, QuotationVersionDto, QuotationVersionRequestDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
 @Component({
@@ -8,6 +10,19 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
 })
 export class SendQuotationComponent extends AppBaseComponent implements OnInit {
 
+  productId: number;
+  dealId: number;
+  constructor(
+    Injector: Injector,
+    private _quotationControllerService: QuotationControllerService
+  ) {
+    super(Injector)
+    this.route.params.subscribe(param => {
+
+      this.dealId = +this.route.snapshot['_urlSegment'].segments[3]
+      this.productId = +this.route.snapshot['_urlSegment'].segments[4]
+    })
+  }
 
   async ngOnInit() {
     await this._translateService.get('dummyTranslation').toPromise().then();
@@ -27,7 +42,7 @@ export class SendQuotationComponent extends AppBaseComponent implements OnInit {
             fieldGroup: [
               {
                 className: 'col-12',
-                key: 'TermsAnfConditions',
+                key: 'termsConditions',
                 type: 'textarea',
                 templateOptions: {
                   placeholder: this._translateService.instant('TermsAnfConditions'),
@@ -47,7 +62,7 @@ export class SendQuotationComponent extends AppBaseComponent implements OnInit {
             fieldGroup: [
               {
                 className: 'col-12',
-                key: 'SpecialPrecaution',
+                key: 'specialPrecaution',
                 type: 'textarea',
                 templateOptions: {
                   placeholder: this._translateService.instant('SpecialPrecaution'),
@@ -67,7 +82,7 @@ export class SendQuotationComponent extends AppBaseComponent implements OnInit {
             fieldGroup: [
               {
                 className: 'col-12',
-                key: 'ShipmentIncludedDocuments',
+                key: 'shipmentIncludedDocuments',
                 type: 'textarea',
                 templateOptions: {
                   placeholder: this._translateService.instant('ShipmentIncludedDocuments'),
@@ -87,65 +102,65 @@ export class SendQuotationComponent extends AppBaseComponent implements OnInit {
             fieldGroup: [
               {
                 className: 'col-md-6 col-12',
-                key: 'BeneficiaryName',
+                key: 'beneficiaryName',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('BeneficiaryName'),
-                  required:true
+                  required: true
                 },
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'Phone',
+                key: 'beneficiaryPhone',
                 type: 'phone',
                 templateOptions: {
                   label: this._translateService.instant('Phone'),
-                  required:true
+                  required: true
                 },
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'BeneficiaryBankName',
+                key: 'beneficiaryBankName',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('BeneficiaryBankName'),
-                  required:true
+                  required: true
                 },
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'BeneficiaryAccountNumber',
+                key: 'beneficiaryAccountNumber',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('BeneficiaryAccountNumber'),
-                  required:true
+                  required: true
                 },
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'SWIFTCode',
+                key: 'swiftCode',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('SWIFTCode'),
-                  required:true
+                  required: true
                 },
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'IBAN',
+                key: 'iban',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('IBAN'),
-                  required:true
+                  required: true
                 },
               },
               {
                 className: 'col-12',
-                key: 'IntermediateBankAndData',
+                key: 'intermediateBank',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('IntermediateBankAndData'),
-                  required:true
+                  required: true
                 },
               },
             ],
@@ -157,7 +172,32 @@ export class SendQuotationComponent extends AppBaseComponent implements OnInit {
     ]
   }
   onSubmit() {
-
-    console.log(this.form);
+    this.isSubmit = true;
+    let body: QuotationVersionRequestDto = {
+      bankAccount: {
+        beneficiaryAccountNumber: this.model?.beneficiaryAccountNumber,
+        beneficiaryBankName: this.model?.beneficiaryBankName,
+        beneficiaryName: this.model?.beneficiaryName,
+        beneficiaryPhone: this.model?.beneficiaryPhone['e164Number'],
+        iban: this.model?.iban,
+        intermediateBank: this.model?.intermediateBank,
+        swiftCode: this.model?.swiftCode,
+      },
+      dealId: this.dealId,
+      shipmentIncludedDocuments: this.model?.shipmentIncludedDocuments,
+      specialPrecaution: this.model?.specialPrecaution,
+      termsConditions: this.model?.termsConditions,
+    }
+    this._quotationControllerService.addQuotationUsingPOST(body).pipe(finalize(() => {
+      this.isSubmit = false
+    })).subscribe((res: QuotationVersionDto) => {
+      if(res){
+        this._sharedService.sendOPenQuotation.next(true)
+        this.router.navigate(['/profile/deals/quotations', this.dealId, this.productId])
+       setTimeout(() => {
+        window.location.reload()
+       }, 1000);
+      }
+    })
   }
 }

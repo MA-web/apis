@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnInit } from '@angular/core';
+import { finalize } from 'rxjs';
+import { DealDto, OrderControllerService, OrderDto, OrderRequestDto } from 'src/app/@api';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
 
 @Component({
@@ -7,7 +9,17 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
   styleUrls: ['./order-filling.component.scss']
 })
 export class OrderFillingComponent extends AppBaseComponent implements OnInit {
-
+  @Input() dealDetails: DealDto
+  productId:number;
+  constructor(
+    injector: Injector,
+    private _orderControllerService: OrderControllerService
+  ) {
+    super(injector);
+    this.route.params.subscribe(param =>{
+      this.productId = +param['productId']
+    })
+  }
 
   async ngOnInit() {
     await this._translateService.get('dummyTranslation').toPromise().then();
@@ -27,65 +39,65 @@ export class OrderFillingComponent extends AppBaseComponent implements OnInit {
             fieldGroup: [
               {
                 className: 'col-md-6 col-12',
-                key: 'BeneficiaryName',
+                key: 'beneficiaryName',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('BeneficiaryName'),
-                  required:true
+                  required: true
                 },
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'Phone',
+                key: 'beneficiaryPhone',
                 type: 'phone',
                 templateOptions: {
                   label: this._translateService.instant('Phone'),
-                  required:true
+                  required: true
                 },
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'BeneficiaryBankName',
+                key: 'beneficiaryBankName',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('BeneficiaryBankName'),
-                  required:true
+                  required: true
                 },
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'BeneficiaryAccountNumber',
+                key: 'beneficiaryAccountNumber',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('BeneficiaryAccountNumber'),
-                  required:true
+                  required: true
                 },
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'SWIFTCode',
+                key: 'swiftCode',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('SWIFTCode'),
-                  required:true
+                  required: true
                 },
               },
               {
                 className: 'col-md-6 col-12',
-                key: 'IBAN',
+                key: 'iban',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('IBAN'),
-                  required:true
+                  required: true
                 },
               },
               {
                 className: 'col-12',
-                key: 'IntermediateBankAndData',
+                key: 'intermediateBank',
                 type: 'input',
                 templateOptions: {
                   label: this._translateService.instant('IntermediateBankAndData'),
-                  required:true
+                  required: true
                 },
               },
             ],
@@ -96,8 +108,34 @@ export class OrderFillingComponent extends AppBaseComponent implements OnInit {
       }
     ]
   }
-  onSubmit() {
 
-    console.log(this.form);
+
+  onSubmit() {
+    let body :OrderRequestDto = {
+      bankAccount: {
+        beneficiaryAccountNumber: this.model?.beneficiaryAccountNumber,
+        beneficiaryBankName: this.model?.beneficiaryBankName,
+        beneficiaryName: this.model?.beneficiaryName,
+        beneficiaryPhone: this.model?.beneficiaryPhone['e164Number'],
+        iban: this.model?.iban,
+        intermediateBank: this.model?.intermediateBank,
+        swiftCode: this.model?.swiftCode,
+      },
+      dealId:this.dealDetails?.dealId
+    }
+    this._orderControllerService.addOrderUsingPOST(body).pipe(finalize(() => {
+      this.isSubmit = false
+    })).subscribe((res: OrderDto) => {
+      
+      window.location.reload()
+    })
   }
+
+  canFillOrder(){
+    if(  this.dealDetails?.status === DealDto.StatusEnum.QUOTATIONDONE){
+      return true
+    }
+    return false
+  }
+  
 }

@@ -149,55 +149,55 @@ export class ProductsListComponent extends AppBaseComponent implements OnInit, O
             }
           }
         },
-        {
-          className: 'col-12 mb-0',
-          template: `<div class="form-group mb-0"><label>${this._translateService.instant('certificates')}</label></div>`,
-        },
-        {
-          className: 'col-md-6 col-12',
-          key: 'coa',
-          type: 'checkbox',
-          defaultValue: false,
-          templateOptions: {
-            label: this._translateService.instant('COA'),
-          }
-        },
-        {
-          className: 'col-md-6 col-12',
-          key: 'dmf',
-          type: 'checkbox',
-          defaultValue: false,
-          templateOptions: {
-            label: this._translateService.instant('DMF'),
-          }
-        },
-        {
-          className: 'col-md-6 col-12',
-          key: 'gmpCertificate',
-          type: 'checkbox',
-          defaultValue: false,
-          templateOptions: {
-            label: this._translateService.instant('GMP'),
-          }
-        },
-        {
-          className: 'col-md-6 col-12',
-          key: 'halal',
-          type: 'checkbox',
-          defaultValue: false,
-          templateOptions: {
-            label: this._translateService.instant('Halal'),
-          }
-        },
-        {
-          className: 'col-md-6 col-12',
-          key: 'iso',
-          type: 'checkbox',
-          defaultValue: false,
-          templateOptions: {
-            label: this._translateService.instant('ISO'),
-          }
-        },
+        // {
+        //   className: 'col-12 mb-0',
+        //   template: `<div class="form-group mb-0"><label>${this._translateService.instant('certificates')}</label></div>`,
+        // },
+        // {
+        //   className: 'col-md-6 col-12',
+        //   key: 'coa',
+        //   type: 'checkbox',
+        //   defaultValue: false,
+        //   templateOptions: {
+        //     label: this._translateService.instant('COA'),
+        //   }
+        // },
+        // {
+        //   className: 'col-md-6 col-12',
+        //   key: 'dmf',
+        //   type: 'checkbox',
+        //   defaultValue: false,
+        //   templateOptions: {
+        //     label: this._translateService.instant('DMF'),
+        //   }
+        // },
+        // {
+        //   className: 'col-md-6 col-12',
+        //   key: 'gmpCertificate',
+        //   type: 'checkbox',
+        //   defaultValue: false,
+        //   templateOptions: {
+        //     label: this._translateService.instant('GMP'),
+        //   }
+        // },
+        // {
+        //   className: 'col-md-6 col-12',
+        //   key: 'halal',
+        //   type: 'checkbox',
+        //   defaultValue: false,
+        //   templateOptions: {
+        //     label: this._translateService.instant('Halal'),
+        //   }
+        // },
+        // {
+        //   className: 'col-md-6 col-12',
+        //   key: 'iso',
+        //   type: 'checkbox',
+        //   defaultValue: false,
+        //   templateOptions: {
+        //     label: this._translateService.instant('ISO'),
+        //   }
+        // },
         {
           className: 'col-lg-12 col-sm-6 col-12',
           key: 'itemSampleTypesId',

@@ -80,9 +80,7 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
       </tbody>
    </table>
 </div>
-<!-- <pre>
-   {{ formControl.value | json}}
-   </pre> -->
+
   `,
   styles: [
     `

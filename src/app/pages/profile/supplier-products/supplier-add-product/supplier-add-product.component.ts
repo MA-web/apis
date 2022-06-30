@@ -338,7 +338,9 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'validPeriod',
                   type: 'input',
+                  defaultValue:this.productDetails?.validPeriod ? new Date(this.productDetails?.validPeriod).toISOString().split('T')[0] : undefined,
                   templateOptions: {
+                    type: 'date',
                     label: this._translateService.instant('ValidPeriod'),
                   },
                 },
@@ -1500,7 +1502,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
       uom: this.model?.uom ? { uomId: +this.model?.uom } : undefined,
 
       storageTradeInformation: this.model?.storageTradeInformation,
-      itemId: this.productId ? +this.productId : undefined
+      itemId: this.productId ? +this.productId : undefined,
+      validPeriod: JSON.stringify( new Date(this.model?.validPeriod)),
     }
 
     if (this.productId) {

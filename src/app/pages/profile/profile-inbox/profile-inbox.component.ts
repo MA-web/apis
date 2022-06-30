@@ -212,7 +212,7 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit, O
   }
 
   onOpen(img){
-    console.log('img: ', img);
+
     let imgs:any = []
    if(img){
      imgs.push( {'src':img,'caption':''})

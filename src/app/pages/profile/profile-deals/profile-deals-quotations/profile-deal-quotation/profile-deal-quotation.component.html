@@ -1,45 +1,68 @@
-<accordion-group [isOpen]="isOpen" class="mt-4" [ngClass]="{supplierDeal : userType === 'supplier'}">
-  <div class="btn" accordion-heading>
-    {{title}}
-  </div>
-  <div class="card white-card">
-    <div class="card-body">
-      <div class="row basic-info">
-        <!------------------------------Terms & Conditions------------------------------------>
-        <h4 class="col-12 mb-3" [ngClass]="{'orange-color' : userType === 'user'}">{{'TermsAnfConditions' | translate}} * :</h4>
-        <p class="col-md-12 font-size-16">Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem
-          Ipsum has been the industry’s standard dummy text ever since the 1500s,when an unknown printer took a
-          galley of
-          type and scrambled it to make a type specimen book
-        </p>
-        <!------------------------------SpecialPrecaution------------------------------------>
-        <h4 class="col-12 mb-3" [ngClass]="{'orange-color' : userType === 'user'}">{{'SpecialPrecaution' | translate}} * :</h4>
-        <p class="col-md-12 font-size-16">Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem
-          Ipsum has been the industry’s standard dummy text ever since the 1500s,when an unknown printer took a
-          galley of
-          type and scrambled it to make a type specimen book
-        </p>
-        <!------------------------------ShipmentIncludedDocuments------------------------------------>
-        <h4 class="col-12 mb-3" [ngClass]="{'orange-color' : userType === 'user'}">{{'ShipmentIncludedDocuments' | translate}} * :</h4>
-        <p class="col-md-12 font-size-16">Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem
-          Ipsum has been the industry’s standard dummy text ever since the 1500s,when an unknown printer took a
-          galley of
-          type and scrambled it to make a type specimen book
-        </p>
 
-        <!------------------------------BankAccount------------------------------------>
-        <h4 class="col-12 my-3">{{'BankAccount' | translate}}:</h4>
-        <p class="col-md-6"><span>{{'BeneficiaryName' | translate}} * : </span>casNo</p>
-        <p class="col-md-6"><span>{{'Phone' | translate}} : </span>MolecularFormula</p>
-        <p class="col-md-6"><span>{{'BankName' | translate}} * : </span>origin</p>
-        <p class="col-md-6"><span>{{'AccountNumber' | translate}} * : </span>SupplierType</p>
-        <p class="col-md-6"><span>{{'SWIFTCode' | translate}} * : </span>SupplierType</p>
-        <p class="col-md-6"><span>{{'IBAN' | translate}} * : </span>SupplierType</p>
-        <p class="col-12"><span>{{'IntermediateBankAndData' | translate}} * : </span>SupplierType</p>
+
+  <accordion-group [isOpen]="isOpen" class="mt-4" [ngClass]="{supplierDeal : !odd}" *ngIf="lastApprovedQuotation ">
+
+    <div class="btn" accordion-heading>
+  
+      
+      <ng-container *ngIf="lastApprovedQuotation; else elseTemplate_lastApproveInquiry">
+          Final Approved Quotation
+        </ng-container>
+        <ng-template #elseTemplate_lastApproveInquiry>
+          <ng-container *ngIf="!odd; else elseTemplate">
+            Suppler Reply {{index +1}}
+          </ng-container>
+          <ng-template #elseTemplate>
+            User Reply {{index }}
+          </ng-template>
+        </ng-template>
+    </div>
+    <div class="card white-card">
+      <div class="card-body">
+        <div class="row basic-info">
+          <ng-container *ngIf="index !==0">
+            <!------------------------------Price------------------------------------>
+            <h4 class="col-12 mb-3">{{ "ProductPrice" | translate }}:</h4>
+            <p class="col-md-6">
+              <span>{{ "Quantity" | translate }} * : </span>{{quotation?.finalQuantity}} {{quotation?.uom?.uomName}}
+            </p>
+            <p class="col-md-6">
+              <span>{{ "Price" | translate }} * : </span>{{quotation?.finalPrice}} {{quotation?.currency?.currencyCode}}
+            </p>
+            <p class="col-md-6">
+              <span>{{ "PaymentTerms" | translate }} * : </span>??
+            </p>
+          </ng-container>
+  
+  
+          <!------------------------------Terms & Conditions------------------------------------>
+          <h4 class="col-12 mb-3">{{'TermsAnfConditions' | translate}} * :</h4>
+          <p class="col-md-12 font-size-16">
+            {{quotation?.termsConditions}}
+          </p>
+          <!------------------------------SpecialPrecaution------------------------------------>
+          <h4 class="col-12 mb-3">{{'SpecialPrecaution' | translate}} * :</h4>
+          <p class="col-md-12 font-size-16">
+            {{quotation?.specialPrecaution}}
+          </p>
+          <!------------------------------ShipmentIncludedDocuments------------------------------------>
+          <h4 class="col-12 mb-3">{{'ShipmentIncludedDocuments' | translate}} * :</h4>
+          <p class="col-md-12 font-size-16">
+            {{quotation?.shipmentIncludedDocuments}}
+          </p>
+  
+          <!------------------------------BankAccount------------------------------------>
+          <h4 class="col-12 my-3">{{'BankAccount' | translate}}:</h4>
+          <p class="col-md-6"><span>{{'BeneficiaryName' | translate}} * : </span> {{bankAccount?.beneficiaryName}}</p>
+          <p class="col-md-6"><span>{{'Phone' | translate}} : </span>{{bankAccount?.beneficiaryPhone}}</p>
+          <p class="col-md-6"><span>{{'BankName' | translate}} * : </span>{{bankAccount?.beneficiaryBankName}}</p>
+          <p class="col-md-6"><span>{{'AccountNumber' | translate}} * : </span>{{bankAccount?.beneficiaryAccountNumber}}
+          </p>
+          <p class="col-md-6"><span>{{'SWIFTCode' | translate}} * : </span>{{bankAccount?.swiftCode}}</p>
+          <p class="col-md-6"><span>{{'IBAN' | translate}} * : </span>{{bankAccount?.iban}}</p>
+          <p class="col-12"><span>{{'IntermediateBankAndData' | translate}} * : </span>{{bankAccount?.intermediateBank}}
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-</accordion-group>
+  </accordion-group>

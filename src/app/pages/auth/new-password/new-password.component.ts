@@ -66,7 +66,7 @@ export class NewPasswordComponent extends AppBaseComponent implements OnInit , O
 
     setTimeout(() => {
     const sendVerifyCodeSub =  this._sharedService.sendVerifyCode.subscribe((res: string) => {
-        console.log('res: ', res);
+
         if (res) {
           this.VerifyCode = res;
         } else {

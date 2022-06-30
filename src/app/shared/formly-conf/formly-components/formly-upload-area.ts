@@ -7,7 +7,7 @@ import { SharedService } from '../../services/shared.service';
   selector: 'formly-upload-area',
   template: `
 
-     <ng-container *ngIf="to.single; else elseTemplate">
+     <!-- <ng-container *ngIf="to.single; else elseTemplate">
      <ul class="list-unstyled mt-3">
 
         <li class="media align-items-center border-bottom py-2">
@@ -35,7 +35,7 @@ import { SharedService } from '../../services/shared.service';
      </ul>
 
      </ng-container>
-     <ng-template #elseTemplate>
+     <ng-template #elseTemplate> -->
      <ul class="list-unstyled mt-3">
         <ng-container *ngFor="let item of to.items; let i = index">
         <li class="media align-items-center border-bottom py-2">
@@ -45,7 +45,7 @@ import { SharedService } from '../../services/shared.service';
             <h5 class="mt-0 mb-1">
             <span class="d-inline-block mr-3">{{item?.Certificate?.certificateTypeName || item?.Certificate?.Certificate}}  <span *ngIf="item?.otherCertificateName "> - {{item?.otherCertificateName }}</span> ,</span> <span class="d-inline-block">{{to.fileLoad? getImageName(item?.file):item?.file?.fileToUpload?.name || item?.file?.src?.replace('https://devspace-marksphinx.fra1.digitaloceanspaces.com/products/product-' + to?.productId +'/'+ to?.type +'/', '')}}</span> <span></span>
             </h5>
-{{to?.type}}
+              {{to?.type}}
             <div class="button-items">
               <button type="button" class="apis-button btn btn-outline-success border-radius-13 py-2" (click)="onView(item,i)">
               <span [inlineSVG]="'assets/icons/eye.svg'"></span>
@@ -64,7 +64,7 @@ import { SharedService } from '../../services/shared.service';
         </ng-container>
      </ul>
 
-     </ng-template>
+     <!-- </ng-template> -->
 
 
   `,

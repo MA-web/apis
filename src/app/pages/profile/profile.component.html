@@ -28,7 +28,7 @@
               <a routerLink="./deals/quotations" [routerLinkActive]="['active']"> {{'Quotation' | translate}}</a>
               <a routerLink="./deals/orders" [routerLinkActive]="['active']"> {{'Order' | translate}}</a>
               <a routerLink="./deals/invoices" [routerLinkActive]="['active']"> {{'Invoice' | translate}}</a>
-              <a routerLink="./deals/drafts" [routerLinkActive]="['active']"> {{'Drafts' | translate}}</a>
+              <!-- <a routerLink="./deals/drafts" [routerLinkActive]="['active']"> {{'Drafts' | translate}}</a> -->
             </accordion-group>
           </accordion>
           <a routerLink="./products" [routerLinkActive]="['active']" *ngIf="userData?.role === 'SUPPLIER'">

@@ -35,15 +35,15 @@
           <span [inlineSVG]="'assets/icons/edit.svg'"></span>
           {{'edit' |translate}}
         </button>
-        <button type="button" class="apis-button btn-danger" (click)="onDelete()">
+        <button type="button" class="apis-button btn-danger" (click)="onAction('delete')">
           <span [inlineSVG]="'assets/icons/delete.svg'"></span>
           {{'delete' |translate}}
         </button>
-        <button type="button" class="apis-button btn-outline-success" (click)="onRepublish()">
+        <button type="button" class="apis-button btn-outline-success" (click)="onAction('Republish')">
           <span [inlineSVG]="'assets/icons/Republish.svg'"></span>
           {{'Republish' |translate}}
         </button>
-        <button type="button" class="apis-button btn-danger" (click)="onUnPublish()">
+        <button type="button" class="apis-button btn-danger" (click)="onAction('UnPublish')">
           <span [inlineSVG]="'assets/icons/Un-Publish.svg'"></span>
           {{'UnPublish' |translate}}
         </button>

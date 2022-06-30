@@ -71,7 +71,8 @@
                       translate}}</a>
                     <a  href="javascribt:void(0)" class="apis-button apis-button2 px-3" (click)="onAddToFav()"><img src="assets/img/fav.svg" alt="">{{'Favorites' |
                       translate}}</a>
-                    <a  href="javascribt:void(0)" class="apis-button  btn btn-warning px-3" [routerLink]="['/profile/deals/inquiries/filling',productDetails?.itemId]">{{'SendInquiry' | translate}}</a>
+                    <a *ngIf="userData?.role === 'CUSTOMER'"  href="javascribt:void(0)" class="apis-button  btn btn-warning px-3" [routerLink]="'/profile/deals/inquiries/filling/'+productDetails?.itemId">{{'SendInquiry' | translate}}</a>
+
                   </div>
                 </div>
               </div>

@@ -1,16 +1,50 @@
 <accordion class="formly-accordion mb-3">
-  <app-profile-deal-inquiry title="Final Approved Inquiry"></app-profile-deal-inquiry>
+  <app-profile-deal-inquiry [details]="lastApproveInquiry" [lastApproveInquiry]="true"
+    [productDetails]="productDetails"></app-profile-deal-inquiry>
 
-  <app-profile-deal-quotation userType="supplier"  title="Final Approved Quotation"></app-profile-deal-quotation>
+<ng-container *ngIf="!isLoadingQuo">
+  <app-profile-deal-quotation [lastApproveQuotation]="lastApprovedQuotation" [lastApprovedQuotation]="true">
+  </app-profile-deal-quotation>
+</ng-container>
 
-  <app-profile-deal-order userType="user"  title="Final Approved Order"></app-profile-deal-order>
 
+  <app-profile-deal-order [orderDetails]="lastApprovedOrder" [lastApprovedQuotation]="true"></app-profile-deal-order>
+
+  <app-profile-deal-invoice *ngIf="canViewInvoice()"></app-profile-deal-invoice>
 </accordion>
 
-<!-- <app-deal-waiting-reply></app-deal-waiting-reply> -->
+<ng-container *ngIf="userData?.role === 'CUSTOMER';">
+  <app-deal-waiting-reply *ngIf=" waitingSupplierReply() ">
+  </app-deal-waiting-reply>
+</ng-container>
 
-<app-profile-deal-invoice></app-profile-deal-invoice>
+<ng-container *ngIf="userData?.role === 'SUPPLIER';">
+  <app-deal-waiting-reply *ngIf="waitingCustomerReply() "></app-deal-waiting-reply>
+</ng-container>
 
 
 
-<app-profile-deal-completed></app-profile-deal-completed>
+
+<app-invoice-filling [lastApprovedQuotation]="lastApprovedQuotation" [lastApprovedOrder]="lastApprovedOrder"
+  *ngIf="userData?.role === 'SUPPLIER' &&canSupplierReply()"></app-invoice-filling>
+
+<app-profile-deal-completed *ngIf="onDealCompleted()" [dealDetails]="dealDetails" [lastApproveInquiry]="lastApproveInquiry" [productDetails]="productDetails"
+  [lastApprovedQuotation]="lastApprovedQuotation" [lastApprovedOrder]="lastApprovedOrder" [invoiceDetails]="invoiceDetails">
+</app-profile-deal-completed>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="button-items py-4">
+      <button type="button" class="apis-button btn btn-danger  px-4"
+        *ngIf=" userData?.role === 'CUSTOMER' && canAcceptOrReject() " (click)="onReject()">
+        <span [inlineSVG]="'assets/icons/delete.svg'" class="mx-1"></span>
+        {{'reject' |translate}}
+      </button>
+
+      <button type="button" class="apis-button btn btn-success pull-md-right px-5"
+        *ngIf=" userData?.role === 'CUSTOMER' && canAcceptOrReject() " (click)="AcceptDeal()">
+        <div>{{'acceptDeal' |translate}}</div>
+      </button>
+    </div>
+  </div>
+</div>

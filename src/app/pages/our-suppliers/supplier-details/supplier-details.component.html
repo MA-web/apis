@@ -5,7 +5,6 @@
       <div class="row">
         <div class="col-lg-5">
           <div class="supplier-img">
-            <img src="assets/img/rowlands_logo_png.png">
             <img
             [defaultImage]="data?.attachment?.reference ? data?.attachment?.reference : 'assets/img/rowlands_logo_png.png'"
             [lazyLoad]="data?.attachment?.reference ? data?.attachment?.reference : 'assets/img/rowlands_logo_png.png'"
@@ -20,14 +19,14 @@
                 <h2>{{data?.supplierName}}</h2>
               </div>
               <div class="col-md-6">
-                <p><span>{{'Company' | translate}}: </span>??</p>
+                <p><span>{{'Company' | translate}}: </span>{{data?.companyName}}</p>
               </div>
               <div class="col-md-6">
                 <p><span>{{'Country' | translate}}: </span>{{data?.address?.country}}</p>
               </div>
-              <div class="col-md-12">
+              <!-- <div class="col-md-12">
                 <p><span>{{'category' | translate}}: </span>{{data?.supplierCategory?.categoryDescription}}</p>
-              </div>
+              </div> -->
 
             </div>
             <div class="row">

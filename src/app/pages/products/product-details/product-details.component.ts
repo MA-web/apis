@@ -105,7 +105,7 @@ export class ProductDetailsComponent extends AppBaseComponent implements OnInit,
         if (res) {
           this.isLoading = false;
           this.similarProducts = res.content
-          console.log(' this.similarProducts : ', this.similarProducts);
+
         }
       })
       this.unSubscription.push(getSimilarProductsUsingGETSub)
@@ -114,7 +114,7 @@ export class ProductDetailsComponent extends AppBaseComponent implements OnInit,
         if (res) {
           this.isLoading = false;
           this.similarProducts = res.content
-          console.log(' this.similarProducts : ', this.similarProducts);
+
         }
       })
       this.unSubscription.push(getSimilarProductsUsingSub)

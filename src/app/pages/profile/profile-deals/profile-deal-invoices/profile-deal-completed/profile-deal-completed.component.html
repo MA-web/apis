@@ -5,11 +5,10 @@
       <div class="card-body">
         <div class="d-flex flex-column justify-content-center align-items-center p-4">
           <div inlineSVG="assets/icons/completed.svg"></div>
-          <h1 class="mt-4">Thanks, Deal #12666532 Completed!</h1>
-          <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
+          <h1 class="mt-4">Thanks, Deal #{{dealId}} Completed!</h1>
            <div class="row w-100 d-flex justify-content-center">
              <div class="col-9">
-              <button class="apis-button btn btn-block btn-warning mt-4">View Deals</button>
+              <button class="apis-button btn btn-block btn-warning mt-4" type="button" (click)="generatePDF()">View Deal</button>
              </div>
            </div>
         </div>

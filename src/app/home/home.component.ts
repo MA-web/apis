@@ -86,6 +86,7 @@ export class HomeComponent extends AppBaseComponent implements OnInit, OnDestroy
 
   getAllPartner(){
     const getEventsUsingGET1Sub = this._publicDataControllerService.getPublishedPartnersUsingGET(0,6).subscribe((res: PagePartnerDto) => {
+      console.log('res: ', res);
       if (res) {
         this.PartnerList = res.content;
       }

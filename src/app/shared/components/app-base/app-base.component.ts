@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { AttachmentSource, LookupControllerService } from 'src/app/@api';
+import { AttachmentSource, ItemDto, LookupControllerService } from 'src/app/@api';
 import { breadcrumb } from '../../models/breadcrumb.model';
 import { UploadFileService } from '../../services/file-upload.service';
 import { SharedService } from '../../services/shared.service';
@@ -39,6 +39,12 @@ export class AppBaseComponent implements OnDestroy,AfterViewInit {
 
   attachmentSource:Array<AttachmentSource> =[]
   unSubscription: Subscription[] = []
+
+
+  //deal
+  dealId:number
+  productId:number
+  productDetails: ItemDto
 
   _translateService: TranslateService;
   _sharedService: SharedService;
@@ -89,12 +95,41 @@ export class AppBaseComponent implements OnDestroy,AfterViewInit {
 
 getAttachmentsSource(){
   const getAttachmentsSourceUsingGETSub =  this.LookupControllerService.getAttachmentsSourceUsingGET().subscribe((res:Array<AttachmentSource>) =>{
-    console.log('res: ', res);
+
     this.attachmentSource = res
   })
   this.unSubscription.push(getAttachmentsSourceUsingGETSub)
 }
 
+
+getBase64ImageFromURL(url) {
+  return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+
+      img.onload = () => {
+          var canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+
+          var ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+
+          var dataURL = canvas.toDataURL("image/png");
+
+          resolve(dataURL);
+      };
+
+      img.onerror = error => {
+          reject(error);
+      };
+
+      img.src = url;
+  });
+}
+checkData(value: any) {
+  return value ? value : ''
+}
   ngOnDestroy(): void {
     this.unSubscription.forEach(sub => {
       sub.unsubscribe()

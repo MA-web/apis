@@ -17,6 +17,7 @@ import { SupplierCategoryDto } from './supplierCategoryDto';
 export interface SupplierDto { 
     address?: AddressDto;
     attachment?: AttachmentDto;
+    companyName?: string;
     establishmentDate?: Date;
     exportPercentage?: string;
     mainCustomer?: string;

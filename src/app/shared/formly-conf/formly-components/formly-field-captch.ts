@@ -14,6 +14,6 @@ export class FormlyFieldCaptch extends FieldType {
 
 
   handleSuccess(data:any) {
-    console.log(data);
+
   }
 }

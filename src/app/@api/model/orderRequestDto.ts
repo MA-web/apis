@@ -15,5 +15,4 @@ import { BankAccountDto } from './bankAccountDto';
 export interface OrderRequestDto { 
     bankAccount?: BankAccountDto;
     dealId: number;
-    dealStepTypeId: number;
 }

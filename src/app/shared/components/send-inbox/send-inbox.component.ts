@@ -47,7 +47,6 @@ export class SendInboxComponent extends AppBaseComponent implements OnInit, OnDe
   }
 
   onSubmit() {
-    alert(true)
     this.isSubmit = true;
     let chat :ChatDto ={
       chatTitle:this.model?.chatTitle,
@@ -58,12 +57,12 @@ export class SendInboxComponent extends AppBaseComponent implements OnInit, OnDe
       ],
       user:{
         id:this.userData?.role === roles.customer?this.userData?.id :this.userData?.supplierId,
+      },
+      supplier:{
+        id:+this.supplierId? +this.supplierId : undefined
       }
     }
-    if(this.supplierId){
-      chat.supplier.id = this.supplierId
-    }
-
+ 
 
     if(this.admin){
       chat.adminChat = true
@@ -74,7 +73,7 @@ export class SendInboxComponent extends AppBaseComponent implements OnInit, OnDe
         this.isSubmit = false;
       })
     ).subscribe((res:ChatDto) =>{
-
+      this.toaster.success('Your message was sent successfully. The supplier will revert back to you shortly. Please check your Inbox')
       if(res) this.bsModalRef.hide()
     })
     this.unSubscription.push(createChatUsingPOSTSub)

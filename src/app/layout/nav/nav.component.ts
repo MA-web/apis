@@ -108,10 +108,10 @@ export class NavComponent extends AppBaseComponent implements OnInit, OnDestroy 
   }
 
   onReset(){
-
+    this.router.navigate(['/profile/inbox'])
   }
   onSubmit() {
-    console.log(this.model.category);
+
     if (this.model.searchKey) {
       let categoryOBJ: ItemCategoryDto = this.categories.find(v => v.categoryId === this.model?.category)
 

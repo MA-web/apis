@@ -1,5 +1,5 @@
-<accordion class="formly-accordion mb-3">
-  <app-profile-deal-inquiry title="Final Approved Inquiry"></app-profile-deal-inquiry>
+<accordion class="formly-accordion mb-3" *ngIf="productDetails">
+  <app-profile-deal-inquiry [details]="lastApproveInquiry" [lastApproveInquiry]="true" [productDetails]="productDetails"></app-profile-deal-inquiry>
 </accordion>
 
 <router-outlet></router-outlet>

@@ -1,19 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
-::-webkit-scrollbar
-{
+
+::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
-::-webkit-scrollbar-track
-{
+::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.1);
 }
 
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: rgb(193 193 193);
 }
+
 body {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -1161,45 +1160,65 @@ select.form-control option[value=""][disabled] {
 
 
 /***************general*****************/
-.floatValidation{
-  .invalid-feedback{
+.changed-label {
+
+  .custom-control-label,
+  .colored,
+  .form-group>label {
+    color: $orange !important;
+  }
+
+}
+
+
+.floatValidation {
+  .invalid-feedback {
     position: absolute;
   }
 }
-.cursor-pointer{
+
+.cursor-pointer {
   cursor: pointer;
 }
+
 .modal-content {
   background-color: #E0F4F8;
   border: 0;
   border-radius: 47px 47px 0px 47px;
 }
+
 .modal-header,
 .modal-body,
 .modal-footer {
   padding: 1rem 2rem;
 }
-.modal-title{
+
+.modal-title {
   color: $mainColor;
   font-weight: bold;
   font-size: 30px;
 }
-.radius-0{
-  border-radius: 0!important;
+
+.radius-0 {
+  border-radius: 0 !important;
 }
-.noFormGroup .form-group{
+
+.noFormGroup .form-group {
   margin-bottom: 0;
 }
-.green-color{
-  color: $greenColor!important;
+
+.green-color {
+  color: $greenColor !important;
 }
-.orange-color{
-  color: $orange!important;
+
+.orange-color {
+  color: $orange !important;
 }
+
 .index {
   background: #EEEEEE;
   box-shadow: 0px 4px 8px #2c27380a;
-  color: #24B6F7!important;
+  color: #24B6F7 !important;
   font-size: 14px;
   font-weight: 900;
   display: inline-block;
@@ -1210,8 +1229,8 @@ select.form-control option[value=""][disabled] {
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 35px;
-  padding:2px;
-  text-align:center
+  padding: 2px;
+  text-align: center
 }
 
 .hint {
@@ -1252,9 +1271,11 @@ select.form-control option[value=""][disabled] {
 .border-radius-13 {
   border-radius: 13px !important;
 }
+
 .border-radius-18 {
   border-radius: 18px !important;
 }
+
 .form-group label span.ng-star-inserted {
   color: $red;
 }
@@ -1270,11 +1291,11 @@ select.form-control option[value=""][disabled] {
 }
 
 .main-color {
-  color: $mainColor!important;
+  color: $mainColor !important;
 }
 
 .main2-color {
-  color: $active-link2!important;
+  color: $active-link2 !important;
 }
 
 .white-card {
@@ -1373,11 +1394,11 @@ select.form-control option[value=""][disabled] {
 
 
 .text-success {
-  color: $greenColor!important;
+  color: $greenColor !important;
 }
 
 .font-weight-600 {
-  font-weight: 600!important;
+  font-weight: 600 !important;
 }
 
 .main-bg {
@@ -1440,6 +1461,7 @@ select.form-control option[value=""][disabled] {
 }
 
 .btn {
+
   &:hover,
   &:focus {
     svg path:last-child {
@@ -1466,6 +1488,7 @@ select.form-control option[value=""][disabled] {
   background-color: #4545451A;
   border: 1px solid #454545;
   color: #454545;
+
   svg path {
     fill: #454545 !important;
   }
@@ -1584,11 +1607,13 @@ select.form-control option[value=""][disabled] {
     font-weight: 800
   }
 }
+
 .font-size-14 {
-  font-size: 14px!important;
+  font-size: 14px !important;
 }
+
 .font-size-16 {
-  font-size: 16px!important;
+  font-size: 16px !important;
 }
 
 .grey-bg {
@@ -1650,17 +1675,21 @@ textarea.form-control {
   border-bottom: none !important;
   border: 1px solid $mainColor  !important;
 }
+
 .ng2-tag-input.ng2-tag-input--disabled {
   background: #d6dde3;
 }
+
 .input-apis.with-icon {
   .form-control {
     padding-left: 55px
   }
 }
-.with-icon .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value{
+
+.with-icon .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value {
   padding-left: 45px;
 }
+
 .ng-select .ng-select-container {
   height: 46px !important;
   line-height: 30px !important;
@@ -1748,14 +1777,16 @@ textarea.form-control {
 /******************pagination*********************/
 .pagination-prev {
   margin-right: 20px;
-  .page-link{
+
+  .page-link {
     margin: 0;
   }
 }
 
-.pagination-next  {
+.pagination-next {
   margin-left: 20px;
-  .page-link{
+
+  .page-link {
     margin: 0;
   }
 }
@@ -1791,30 +1822,33 @@ textarea.form-control {
 
 
 /**************sweetAlert*****************/
-.swal2-icon.swal2-error.swal2-icon-show{
+.swal2-icon.swal2-error.swal2-icon-show {
   zoom: .7;
 }
 
 
-  .fc-scroller-harness > .fc-scroller{
-    overflow: auto!important;
-  }
-  .fc-toolbar-title {
-    color: $active-link2;
-    font-weight: bold;
-    font-size: 17px;
+.fc-scroller-harness>.fc-scroller {
+  overflow: auto !important;
+}
+
+.fc-toolbar-title {
+  color: $active-link2;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.fc {
+  .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1rem;
   }
 
-  .fc {
-    .fc-toolbar.fc-header-toolbar {
-      margin-bottom: 1rem;
-    }
-   .fc-toolbar-title{
-     font-size: 18px;
-     font-weight: 800;
-     position: relative;
-     padding-left: 45px;
-     &::after {
+  .fc-toolbar-title {
+    font-size: 18px;
+    font-weight: 800;
+    position: relative;
+    padding-left: 45px;
+
+    &::after {
       content: '';
       zoom: 1.2;
       background-image: url(/assets/icons/calendar.svg);
@@ -1828,7 +1862,8 @@ textarea.form-control {
       bottom: 0;
       border-radius: 0px 3px 3px 0px;
     }
-     &:before {
+
+    &:before {
       content: '';
       display: inline-block;
       width: 3px;
@@ -1839,38 +1874,40 @@ textarea.form-control {
       bottom: 0;
       border-radius: 0px 3px 3px 0px;
     }
-   }
+  }
+}
+
+.fc-daygrid {
+
+  .fc-col-header-cell-cushion {
+    color: $active-link2;
   }
 
-  .fc-daygrid {
+  .table-bordered th,
+  .table-bordered td {
 
-    .fc-col-header-cell-cushion {
-      color: $active-link2;
-    }
-
-    .table-bordered th,
-    .table-bordered td {
-
-      text-align: center !important;
-    }
-
-    .fc-daygrid-day.fc-day-today {
-      background-color: transparent;
-    }
-
-    .fc-daygrid-event-dot {
-      border-color: $active-link;
-    }
-
-    .bg-primary {
-      background-color: $active-link2 !important;
-    }
-
+    text-align: center !important;
   }
 
-  .text-gray{
-    color: $grayColor!important;
-    }
-    .table th, .table td {
-      white-space: nowrap;
+  .fc-daygrid-day.fc-day-today {
+    background-color: transparent;
   }
+
+  .fc-daygrid-event-dot {
+    border-color: $active-link;
+  }
+
+  .bg-primary {
+    background-color: $active-link2  !important;
+  }
+
+}
+
+.text-gray {
+  color: $grayColor !important;
+}
+
+.table th,
+.table td {
+  white-space: nowrap;
+}

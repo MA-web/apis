@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <formly-form  [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+  
+  
+    <div class="row">
+      <div class="col-md-12">
+        <div class="button-items py-4">
+          <!-- <button type="button" class="apis-button btn btn-outline-success  px-4">
+            <span [inlineSVG]="'assets/icons/download.svg'" class="mx-1"></span>
+            {{'download' |translate}}
+          </button> -->
+  
+  
+          <button type="submit" class="apis-button btn btn-success pull-md-right px-5" *ngIf=" userData?.role === 'SUPPLIER'" [disabled]="(form.invalid || isSubmit)">
+            <div>{{'SendInvoice' |translate}}</div>
+          </button>
+  
+         
+        </div>
+      </div>
+    </div>
+  </form>
+  

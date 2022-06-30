@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs';
 import jwt_decode from 'jwt-decode';
-import { ItemCategoryDto } from 'src/app/@api';
+import { DealDto, InquiryVersionResponseDto, InvoiceDto, ItemCategoryDto, ItemDto, OrderDto, QuotationResponseDto, QuotationVersionDto, ViewInquiryMainDataDto } from 'src/app/@api';
 import { Router } from '@angular/router';
 
 
@@ -44,12 +44,35 @@ export class SharedService {
   removeIndexFromUploadArea: Subject<any> = new Subject<any>();
 
   //reset Search
-  resetSearch : Subject<boolean> = new Subject<boolean>();
+  resetSearch: Subject<boolean> = new Subject<boolean>();
+
+  //sendDeal
+  sendDeal: Subject<DealDto> = new Subject<DealDto>();
+  //sendInquiryReplies
+  sendInquiryReplies: Subject<ViewInquiryMainDataDto> = new Subject<ViewInquiryMainDataDto>();
+  //sendQuotationsReplies
+  sendQuotationsReplies: Subject<QuotationResponseDto> = new Subject<QuotationResponseDto>();
+  //sendOrderReplies
+  sendOrderReplies: Subject<OrderDto> = new Subject<OrderDto>();
+  //sendOrderReplies
+  sendInvoiceReplies: Subject<InvoiceDto> = new Subject<InvoiceDto>();
+
+  //sendProductDetails
+  sendProductDetails: Subject<ItemDto> = new Subject<ItemDto>();
+
+  sendLastApprovedInquiry: Subject<InquiryVersionResponseDto> = new Subject<InquiryVersionResponseDto>();
+  sendLastApprovedQuotation: Subject<QuotationVersionDto> = new Subject<QuotationVersionDto>();
+
+  sendLastApprovedOrder: Subject<OrderDto> = new Subject<OrderDto>();
+  
+  //sendOPenQuotation
+  sendOPenQuotation: Subject<any> = new Subject<any>();
+  
 
   constructor(
     private http: HttpClient,
-    private router:Router
-    ) { }
+    private router: Router
+  ) { }
 
 
   getBlob(src: any) {

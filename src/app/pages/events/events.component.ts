@@ -70,7 +70,7 @@ export class EventsComponent extends AppBaseComponent implements OnInit , OnDest
           className: 'bg-primary text-white'
         }))
 
-        console.log(this.calendarOptions.initialEvents );
+
         this.isLoading = false
       }
     })
