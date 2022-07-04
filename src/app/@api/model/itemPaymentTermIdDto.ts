@@ -9,8 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { PaymentTermDto } from './paymentTermDto';
 
 
 export interface ItemPaymentTermIdDto { 
     itemPaymentTermId: number;
+    paymentTerm?: PaymentTermDto;
 }

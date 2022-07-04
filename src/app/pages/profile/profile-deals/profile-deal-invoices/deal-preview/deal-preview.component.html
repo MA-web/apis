@@ -243,8 +243,7 @@
                               <span class="font-size-16">
                                  {{ "PaymentTerms" | translate }} * : &nbsp;</span>
                               <span>
-                                 <!-- {{ item?.itemPaymentTerm }} -->
-                                 ??
+                                 {{ item?.itemPaymentTerm?.paymentTerm?.paymentTermName }}
                               </span>
                            </td>
 
@@ -299,8 +298,7 @@
             <p class="col-md-6">
                <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('itemIncoterm')}">{{
                   "Incoterms" | translate }} : </span>
-               <!-- {{lastApproveInquiry?.itemIncoterm}} -->
-               ??
+               {{lastApproveInquiry?.itemIncoterm?.incotermShipping?.incoterm?.incotermShortName}} 
             </p>
             <p class="col-md-6">
                <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('transportation')}">{{

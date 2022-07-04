@@ -76,9 +76,25 @@ export class LoginComponent extends AppBaseComponent implements OnInit , OnDestr
 
         })
         this.unSubscription.push(resendTokenUsingPUTSub)
+      }else if(err?.error?.message === 'Your email is not active'){
+        let UserEmailDto: UserEmailDto = {
+          email:this.model?.email
+        }
+    
+        const resendTokenUsingPUTSub = this.RegisterControllerService.resendTokenUsingPUT(UserEmailDto).subscribe((res: ResponseDto) => {
+          if(res){
+            window.localStorage.setItem('emailToAPIs', this.model?.email)
+            this._sharedService.sendEmail.next(this.model?.email);
+            this.router?.navigate(['/auth/confirm-signup'])
+          }
+          this.toaster.success('success')
+        })
+        this.unSubscription.push(resendTokenUsingPUTSub)
+     
       }
     })
     this.unSubscription.push(sendErrorSub)
+    
   }
 
 

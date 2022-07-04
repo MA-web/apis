@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { CurrencyIdDto } from './currencyIdDto';
+import { PaymentTermDto } from './paymentTermDto';
 import { UomIdDto } from './uomIdDto';
 
 
@@ -17,6 +18,7 @@ export interface QuotationVersionReplyDto {
     currency?: CurrencyIdDto;
     finalPrice?: number;
     finalQuantity?: number;
+    paymentTerm?: PaymentTermDto;
     shipmentIncludedDocuments?: string;
     specialPrecaution?: string;
     status?: number;

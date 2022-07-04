@@ -5,7 +5,7 @@
          Final Approved Inquiry
      </ng-container>
      <ng-template #elseTemplate_lastApproveInquiry>
-      {{ reply?.createdBy?.username }} : Inquiry {{ reply?.inquiryVersionNumber }}
+      {{ reply?.createdBy?.firstName }}  {{ reply?.createdBy?.lastName }}: Inquiry {{ reply?.inquiryVersionNumber }}
      </ng-template>
      
   </div>
@@ -185,8 +185,7 @@
                           <span class="font-size-16">
                           {{ "PaymentTerms" | translate }} * : &nbsp;</span>
                           <span >
-                          <!-- {{ item?.itemPaymentTerm }} -->
-                          ??
+                           {{ item?.itemPaymentTerm?.paymentTerm?.paymentTermName }}
                           </span>
                        </td>
 
@@ -232,8 +231,8 @@
 
            <p class="col-md-6">
               <span [ngClass]="{'orange-color': details?.changedAttributes?.includes('itemIncoterm')}">{{ "Incoterms" | translate }} : </span>
-              <!-- {{details?.itemIncoterm}} -->
-              ??
+               {{details?.itemIncoterm?.incotermShipping?.incoterm?.incotermShortName}} 
+              
            </p>
            <p class="col-md-6">
               <span [ngClass]="{'orange-color': details?.changedAttributes?.includes('transportation')}">{{ "Transportation" | translate }} : </span>{{details?.transportation}}

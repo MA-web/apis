@@ -12,6 +12,8 @@
 
 
 export interface UserIdDto { 
+    firstName?: string;
+    lastName?: string;
     userId: number;
     username?: string;
 }

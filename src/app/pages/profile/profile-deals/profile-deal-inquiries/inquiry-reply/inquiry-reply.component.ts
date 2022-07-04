@@ -178,7 +178,7 @@ export class InquiryReplyComponent extends AppBaseComponent implements OnInit, O
                 {
                   className: 'col-md-6 col-12',
                   key: 'caseNumber',
-                  type: 'input',
+                  type: 'number',
                   defaultValue: this.productDetails?.caseNumber,
                   templateOptions: {
                     label: this._translateService.instant('casNo'),
@@ -402,7 +402,7 @@ export class InquiryReplyComponent extends AppBaseComponent implements OnInit, O
                 {
                   className: `col-md-6 col-12 ${this.replyDetails?.changedAttributes?.includes('form')?'changed-label':''}`,
                   key: 'form',
-                  type: 'number',
+                  type: 'input',
                   defaultValue: this.replyDetails?.form,
                   templateOptions: {
                     label: this._translateService.instant('From'),
@@ -523,7 +523,7 @@ export class InquiryReplyComponent extends AppBaseComponent implements OnInit, O
                 {
                   className: `col-md-6 col-12 ${this.replyDetails?.changedAttributes?.includes('indotoxinTest')?'changed-label':''}`,
                   key: 'indotoxinTest',
-                  type: 'input',
+                  type: 'number',
                   defaultValue: this.replyDetails?.indotoxinTest,
                   templateOptions: {
                     label: this._translateService.instant('endotoxinTest'),

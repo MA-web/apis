@@ -156,7 +156,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 {
                   className: 'col-md-6 col-12',
                   key: 'caseNumber',
-                  type: 'input',
+                  type: 'number',
                   defaultValue: this.productDetails?.caseNumber,
                   templateOptions: {
                     label: this._translateService.instant('casNo'),
@@ -383,7 +383,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 {
                   className: 'col-md-6 col-12',
                   key: 'form',
-                  type: 'number',
+                  type: 'input',
                   defaultValue: this.productDetails?.form,
                   templateOptions: {
                     label: this._translateService.instant('From'),
@@ -504,7 +504,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                 {
                   className: 'col-md-6 col-12',
                   key: 'indotoxinTest',
-                  type: 'input',
+                  type: 'number',
                   defaultValue: this.productDetails?.indotoxinTest,
                   templateOptions: {
                     label: this._translateService.instant('endotoxinTest'),

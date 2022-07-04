@@ -41,7 +41,7 @@
     </div>
   </div>
 </div>
-<div class="row">
+<!-- <div class="row">
   <div class="col-12">
     <div class="card white-card my-4 border-radius-18">
       <div class="card-body">
@@ -140,9 +140,17 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div class="row">
-  <div class="col-lg-6 mb-3">
+ 
+  <div class="col-12">
+    <div class="card white-card border-radius-18">
+      <div class="card-body">
+        <full-calendar [options]="calendarOptions"></full-calendar>
+      </div>
+    </div>
+  </div>
+   <!-- <div class="col-lg-6 mb-3">
     <div class="card white-card mb-3 border-radius-18">
       <div class="card-body">
         <div class="card-title">
@@ -160,7 +168,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="col-lg-6 mb-3" *ngIf="chatList?.length>0">
     <div class="card white-card border-radius-18">
       <div class="card-body pb-0">
@@ -173,13 +181,6 @@
             <app-message-card [ChatDto]="chat"></app-message-card>
           </div>
         </ng-container>
-      </div>
-    </div>
-  </div>
-  <div class="col-12">
-    <div class="card white-card border-radius-18">
-      <div class="card-body">
-        <full-calendar [options]="calendarOptions"></full-calendar>
       </div>
     </div>
   </div>

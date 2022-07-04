@@ -3,6 +3,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
 import Swal from 'sweetalert2';
 import { SharedService } from "./shared.service";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
@@ -11,7 +12,8 @@ export class HandleErrorService {
 
   constructor(
     private toaster: ToastrService,
-    private _sharedService: SharedService
+    private _sharedService: SharedService,
+    private router:Router
   ) { }
 
   // Handling HTTP Errors using Toaster
@@ -52,8 +54,8 @@ export class HandleErrorService {
         this._sharedService.signOut()
       }
     }
-
-
+    
+   
 
 
   }

@@ -11,6 +11,7 @@
  */
 import { ActionDto } from './actionDto';
 import { CurrencyIdDto } from './currencyIdDto';
+import { PaymentTermDto } from './paymentTermDto';
 import { QuotationDto } from './quotationDto';
 import { UomIdDto } from './uomIdDto';
 
@@ -20,6 +21,7 @@ export interface QuotationVersionDto {
     currency?: CurrencyIdDto;
     finalPrice?: number;
     finalQuantity?: number;
+    paymentTerm?: PaymentTermDto;
     quotation?: QuotationDto;
     quotationVersionId?: number;
     shipmentIncludedDocuments?: string;
