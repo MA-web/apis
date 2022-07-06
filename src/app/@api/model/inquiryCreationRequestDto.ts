@@ -12,7 +12,7 @@
 import { InquiryIdDto } from './inquiryIdDto';
 import { InquiryVersionPricesDto } from './inquiryVersionPricesDto';
 import { InquiryVersionSupplimentDto } from './inquiryVersionSupplimentDto';
-import { ItemIncotermDto } from './itemIncotermDto';
+import { ItemIncotermIdDto } from './itemIncotermIdDto';
 import { ItemSampleTypeDto } from './itemSampleTypeDto';
 import { OriginIdDto } from './originIdDto';
 import { TransportationDto } from './transportationDto';
@@ -34,7 +34,7 @@ export interface InquiryCreationRequestDto {
     inquiryVersionPrices?: Array<InquiryVersionPricesDto>;
     inquiryVersionSuppliments?: Array<InquiryVersionSupplimentDto>;
     itemId: number;
-    itemIncoterm?: ItemIncotermDto;
+    itemIncoterm?: ItemIncotermIdDto;
     itemSampleType?: ItemSampleTypeDto;
     lossOnDrying?: number;
     meltingRange?: number;

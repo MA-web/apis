@@ -2,8 +2,8 @@
   <div class=" d-flex flex-md-row flex-column">
     <div class="product-img">
       <img
-      [defaultImage]="product?.attachment?.attachmentSource?.attachmentSourceName ? product?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
-      [lazyLoad]="product?.attachment?.attachmentSource?.attachmentSourceName ? product?.attachment?.attachmentSource?.attachmentSourceName : 'assets/img/image2.jpg'"
+      [defaultImage]="product?.attachment?.reference ? product?.attachment?.reference : 'assets/img/image2.jpg'"
+      [lazyLoad]="product?.attachment?.reference ? product?.attachment?.reference : 'assets/img/image2.jpg'"
       onerror="this.src='assets/img/image2.jpg';" class="img-fluid lazy-loading"
       alt="{{ product?.itemName ? product.itemName : '' }}" />
     </div>
@@ -19,7 +19,7 @@
             <p><span>{{'origin' | translate}}: </span>{{product?.origin?.originName}}</p>
           </div>
           <div class="col-12">
-            <p><span>{{'status' | translate}}: </span>{{product?.status}}</p>
+            <p><span>{{'status' | translate}}: </span>{{status[product?.status]}}</p>
           </div>
 
         </div>

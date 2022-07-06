@@ -30,7 +30,7 @@
               <span>{{ "Price" | translate }} * : </span>{{quotation?.finalPrice}} {{quotation?.currency?.currencyCode}}
             </p>
             <p class="col-md-6">
-              <span>{{ "PaymentTerms" | translate }} * : </span>??
+              <span>{{ "PaymentTerms" | translate }} * : </span>{{quotation?.paymentTerm?.paymentTermName}}
             </p>
           </ng-container>
   

@@ -23,24 +23,37 @@
                 <span [inlineSVG]="'assets/icons/back.svg'" class="mx-1"></span>
                 {{'back' |translate}}
               </a>
-              <button type="submit" class="apis-button btn btn-warning pull-md-right px-4" [disabled]="form.invalid || isSubmit || !model?.productPrices?.length">
-                <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
-                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                  Loading...
-                </ng-container>
-                <ng-template #elseTemplate_isSubmit>
-
-                  <ng-container *ngIf="productId; else elseTemplate_productId">
-                    {{'UpdateProduct' | translate}}
+            
+              <ng-container *ngIf="productId; else elseTemplate_productId">
+                <button type="submit" class="apis-button btn btn-warning pull-md-right px-4" [disabled]="
+                              form.invalid || 
+                              isSubmit || 
+                              !model?.productPrices?.length || 
+                              ((productDetails?.itemCertificateDtos?.length <1 && productDetails?.shippingCertificateDtos?.length <1)?( !model?.uploadAreaCertificate?.length  &&  !model?.uploadAreaShipping?.length):false) || 
+                              ((productDetails?.itemCertificateDtos?.length >0 && productDetails?.shippingCertificateDtos?.length >0)? (!productDetails?.itemCertificateDtos?.length  &&  !productDetails?.shippingCertificateDtos?.length) : false)">
+                  <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
                   </ng-container>
-                  <ng-template #elseTemplate_productId>
+                  <ng-template #elseTemplate_isSubmit>
+                    {{'UpdateProduct' | translate}}
+                  </ng-template>
+  
+                </button>
+              </ng-container>
+              <ng-template #elseTemplate_productId>
+                <button type="submit" class="apis-button btn btn-warning pull-md-right px-4" [disabled]="form.invalid || isSubmit || !model?.productPrices?.length || (!model?.uploadAreaCertificate?.length  &&  !model?.uploadAreaShipping?.length)">
+                  <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                  </ng-container>
+                  <ng-template #elseTemplate_isSubmit>
                     {{'PublishProduct' | translate}}
                   </ng-template>
-                </ng-template>
-
-              </button>
-
-
+  
+                </button>
+              </ng-template>
+              
 
               <!-- <button type="button" class="apis-button btn btn-outline-info pull-md-right px-4" (click)="onSaveDraft()">
                 <span [inlineSVG]="'assets/icons/edit.svg'"></span>
@@ -54,4 +67,5 @@
 
   </div>
 </div>
+
 

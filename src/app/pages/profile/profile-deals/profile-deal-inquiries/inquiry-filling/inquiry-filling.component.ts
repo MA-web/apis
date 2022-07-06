@@ -82,7 +82,8 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
       this.PaymentTermsArr = res[8] ? res[8] : []
       this.ItemSampleTypeArr = res[5] ? res[5] : []
       this.incotermsArr = res[6] ? res[6] : [];
-
+      this.TransportationArr =  res[7] ? res[7] : [];
+      console.log('  this.TransportationArr: ',   this.TransportationArr);
 
       if (this.productId) {
         this.itemSubcategories = this.ItemCategory?.find(v => this.productDetails?.itemCategory?.categoryId === v?.categoryId)?.itemSubcategories?.map(v => ({ label: v?.subcategoryName, value: v }))
@@ -341,7 +342,7 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
                   className: 'col-md-6 col-12',
                   key: 'validPeriod',
                   type: 'input',
-                  defaultValue: this.productDetails?.validPeriod ? new Date(this.productDetails?.validPeriod).toISOString().split('T')[0] : undefined,
+                  defaultValue: this.productDetails?.validPeriod ? new Date(JSON.parse(this.productDetails?.validPeriod)).toISOString().split('T')[0] : undefined,
                   templateOptions: {
                     type: 'date',
                     label: this._translateService.instant('ValidPeriod'),
@@ -1046,7 +1047,10 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
       micronization: this.model?.micronization,
       molFormula: this.model?.molFormula,
       opticalRotation: +this.model?.opticalRotation,
-      origin: this.model?.origin ? this.origins?.find(v => v?.originId === this.model?.origin) : undefined,
+      origin: this.model?.origin ? {
+        originId:this.origins?.find(v => v?.originId === this.model?.origin)?.originId,
+        originName:this.origins?.find(v => v?.originId === this.model?.origin)?.originName
+      } : undefined,
       packaging: this.model?.packaging,
       particleSize: this.model?.particleSize,
       ph: +this.model?.ph,
@@ -1061,13 +1065,15 @@ export class InquiryFillingComponent extends AppBaseComponent implements OnInit,
       storage: this.model?.storage,
       totalVac: this.model?.totalVac ? `${this.model?.totalVac}cfu/gm` : undefined,
       totalYamc: this.model?.totalYamc ? `${this.model?.totalYamc}cfu/gm` : undefined,
-      transportation: this.model?.transportation ? this.TransportationArr.find(v =>{v?.transportationId ===  this.model?.transportation}) : undefined,
+      transportation: this.model?.transportation ? this.TransportationArr.find(v => v?.transportationId ===  +this.model?.transportation) : undefined,
       itemId: this.productId ? +this.productId : undefined,
       extraComment: this.model?.extraComment,
       "inquiry": {
         "inquiryId": null
       },
     }
+
+
     if (type !== 'draft') {
       const addInquiryUsingPOSTSub = this._inquiryControllerService.addInquiryUsingPOST(InquiryCreationRequestDto).pipe(finalize(() => {
         this.isSubmit = false

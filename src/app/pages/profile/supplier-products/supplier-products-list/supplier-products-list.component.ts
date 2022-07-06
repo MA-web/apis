@@ -12,6 +12,8 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
 export class SupplierProductsListComponent extends AppBaseComponent implements OnInit , OnDestroy{
   ItemCategory: Array<ItemCategoryDto> = []
   products: Array<ItemDto> = [];
+
+  status = []
   constructor(
     injector: Injector,
     private _itemControllerService: ItemControllerService,
@@ -35,7 +37,7 @@ export class SupplierProductsListComponent extends AppBaseComponent implements O
 
     ]
     const forkSub = forkJoin(observables).subscribe((res: any) => {
-
+      this.status = res[1]
       this.ItemCategory = res[0];
       this.isLoadingForm = false;
       let status = []

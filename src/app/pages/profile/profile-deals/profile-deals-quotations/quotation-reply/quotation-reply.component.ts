@@ -309,6 +309,7 @@ export class QuotationReplyComponent extends AppBaseComponent implements OnInit 
         uomId:this.model?.quantity?.type?.uomId,
         uomName:this.model?.quantity?.type?.uomName
       },
+      paymentTerm:this.model?.PaymentTerms?.paymentTerm
     }
     if(this.userData?.role === roles?.customer){
       this._quotationControllerService.addUserReplyUsingPUT(this.quotationDetails?.quotationId,body).pipe(finalize(() => {

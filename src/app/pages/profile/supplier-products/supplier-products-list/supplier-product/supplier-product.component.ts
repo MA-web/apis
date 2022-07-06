@@ -11,7 +11,7 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
 })
 export class SupplierProductComponent extends AppBaseComponent implements OnInit, OnDestroy {
   @Input() product: ItemDto;
-
+  @Input() status:[]
   constructor(
     injector: Injector,
     private _itemControllerService: ItemControllerService,
@@ -27,12 +27,12 @@ export class SupplierProductComponent extends AppBaseComponent implements OnInit
     const initialState: any = {
       class: 'modal-md',
       initialState: {
-        Action:action,
+        action:action,
         productId:this.product?.itemId,
 
       }
     };
-    const bsModalRef = this.modalService.show(ProductActionAlertComponent, initialState);
+    this.modalService.show(ProductActionAlertComponent, initialState);
 
   }
 

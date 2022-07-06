@@ -42,6 +42,7 @@ export * from './itemDraftDto';
 export * from './itemDto';
 export * from './itemIdDto';
 export * from './itemIncotermDto';
+export * from './itemIncotermIdDto';
 export * from './itemKeywordDto';
 export * from './itemPaymentTermDto';
 export * from './itemPaymentTermIdDto';

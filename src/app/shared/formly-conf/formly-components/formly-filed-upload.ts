@@ -48,6 +48,9 @@ export class FormlyFieldUpload extends FieldType implements OnInit {
   onSelect(event: any) {
     this.files.push(...event.addedFiles);
     this.formControl.setValue(this.files)
+    if (this.to.onSelect) {
+      this.to.onSelect(event);
+    }
   }
 
   onRemove(event: any, i: any) {

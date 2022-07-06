@@ -26,6 +26,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
   ItemSampleTypeArr: Array<ItemSampleTypeDto> = []
   CertificateTypArr: Array<CertificateTypeDto> = []
   productId: number;
+  productIdAfterAdd: number;
   productDetails: ItemDto
 
   uploadNewFile = false
@@ -48,6 +49,11 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
       { label: this._translateService.instant('ProductsAddition'), active: true },
     ]
     this.getAttachmentsSource();
+
+
+    let productPicture: {};
+    let finalProductCertificates: any = []
+    let finalProductShippingCertificates = []
 
     let observables: any = [
       this.LookupControllerService.getItemsCategoryUsingGET(),
@@ -89,7 +95,56 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
           }
         ))
 
-        this.model.itemSuppliments = this.productDetails?.itemSuppliments
+        this.model.itemSuppliments = this.productDetails?.itemSuppliments;
+
+        if (this.productDetails?.itemCertificateDtos?.length) {
+          let oldProductCertificates = []
+          this.productDetails?.itemCertificateDtos?.forEach(v => {
+            oldProductCertificates.push({
+              attachment: {
+                attachmentSource: {
+                  "attachmentSourceId": v?.attachment?.attachmentSource?.attachmentSourceId,
+                  attachmentSourceName: v?.attachment?.attachmentSource?.attachmentSourceName,
+                },
+                reference: v?.attachment?.reference,
+              },
+              certificateType: {
+                certificateLevel: v?.certificateType?.certificateLevel,
+                certificateTypeId: v?.certificateType?.certificateTypeId,
+                certificateTypeName: v?.certificateType?.certificateTypeName,
+              },
+              itemCertificateName: v?.itemCertificateName
+            })
+          })
+          finalProductCertificates = [...oldProductCertificates, ...finalProductCertificates]
+
+        }
+        if(this.productDetails?.attachment?.reference){
+          productPicture = this.productDetails?.attachment
+        }
+
+        if (this.productDetails?.shippingCertificateDtos?.length) {
+          let oldShippingCertificate = []
+          this.productDetails?.shippingCertificateDtos?.forEach(v => {
+            oldShippingCertificate.push({
+              attachment: {
+                attachmentSource: {
+                  "attachmentSourceId": v?.attachment?.attachmentSource?.attachmentSourceId,
+                  attachmentSourceName: v?.attachment?.attachmentSource?.attachmentSourceName,
+                },
+                reference: v?.attachment?.reference,
+              },
+              certificateType: {
+                certificateLevel: v?.certificateType?.certificateLevel,
+                certificateTypeId: v?.certificateType?.certificateTypeId,
+                certificateTypeName: v?.certificateType?.certificateTypeName,
+              },
+              itemCertificateName: v?.itemCertificateName
+            })
+          })
+          finalProductShippingCertificates = [...oldShippingCertificate, ...finalProductShippingCertificates]
+
+        }
       }
 
       this.isLoadingForm = false
@@ -210,6 +265,10 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   templateOptions: {
                     label: this._translateService.instant('ProductPicture'),
                     file: this.productDetails?.attachment?.reference,
+                    onSelect:()=>{
+                      alert(true)
+                      this.uploadNewFile = true
+                    }
                   }
                 },
                 {
@@ -322,7 +381,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   defaultValue: this.productDetails?.residueIgnition,
                   templateOptions: {
                     label: this._translateService.instant('Residue_on_ignition'),
-                    required:true
+                    required: true
                   },
                 },
                 {
@@ -338,7 +397,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   className: 'col-md-6 col-12',
                   key: 'validPeriod',
                   type: 'input',
-                  defaultValue:this.productDetails?.validPeriod ? new Date(this.productDetails?.validPeriod).toISOString().split('T')[0] : undefined,
+                  defaultValue: this.productDetails?.validPeriod ? new Date(JSON.parse(this.productDetails?.validPeriod)).toISOString().split('T')[0] : undefined,
                   templateOptions: {
                     type: 'date',
                     label: this._translateService.instant('ValidPeriod'),
@@ -536,7 +595,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   },
                   expressionProperties: {
                     'templateOptions.required': () => this.model.CertificateName,
-                    className: `model.Certificate?.certificateTypeId ===6? 'col-md-3' : 'col-md-6'`
+                    className: `model.Certificate?.certificateTypeName ==='Other item certificate'? 'col-md-3' : 'col-md-6'`
                   },
 
                 },
@@ -547,7 +606,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   templateOptions: {
                     label: this._translateService.instant('CertificateName'),
                   },
-                  hideExpression: "model.Certificate?.certificateTypeId !== 6"
+                  hideExpression: "model.Certificate?.certificateTypeName !=='Other item certificate'"
 
                 },
                 {
@@ -605,7 +664,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                     items: this.productCertificates,
                     productId: this.productId,
                     type: 'certificate',
-                    delete:true
+                    delete: true
                   },
                 },
               ],
@@ -1005,7 +1064,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   },
                   expressionProperties: {
                     'templateOptions.required': () => this.model.ShippingCertificateName,
-                    className: `model.ShippingCertificate?.certificateTypeId ===8? 'col-md-3' : 'col-md-6'`
+                    className: `model.ShippingCertificate?.certificateTypeName ==='Other shipping certificate'? 'col-md-3' : 'col-md-6'`
                   },
 
                 },
@@ -1016,7 +1075,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                   templateOptions: {
                     label: this._translateService.instant('CertificateName'),
                   },
-                  hideExpression: "model.ShippingCertificate?.certificateTypeId !== 8"
+                  hideExpression: "model.ShippingCertificate?.certificateTypeName !=='Other shipping certificate'"
 
                 },
                 {
@@ -1075,7 +1134,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
                     items: this.ShippingCertificate,
                     productId: this.productId,
                     type: 'shippingCertificate',
-                    delete:true
+                    delete: true
                   },
                 },
               ],
@@ -1187,9 +1246,10 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
 
       window.localStorage.setItem('addItemStorage', JSON.stringify(Values))
 
+     
       if (JSON.parse(window.localStorage.getItem('addItemStorage'))?.length === this.beforeImagesLoaded?.length) {
         let finalUploaded = JSON.parse(window.localStorage.getItem('addItemStorage'))
-        let productPicture: {};
+     
         let productCertificates = []
         let productShippingCertificates = []
         // let SupplementsFiles = []
@@ -1197,8 +1257,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
           if (element.includes('/picture/')) {
             productPicture = {
               attachmentSource: {
-                attachmentSourceId: this.attachmentSource[1]?.attachmentSourceId,
-                attachmentSourceName: this.attachmentSource[1]?.attachmentSourceName
+                attachmentSourceId: this.attachmentSource[0]?.attachmentSourceId,
+                attachmentSourceName: this.attachmentSource[0]?.attachmentSourceName
               },
 
               reference: element
@@ -1212,14 +1272,10 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
           }
           else {
 
-            // SupplementsFiles.push(element)
-
           }
 
         });
 
-        let finalProductCertificates: any = []
-        let finalProductShippingCertificates = []
         // let finalSupplementsFiles = []
         if (productCertificates?.length) {
           productCertificates.forEach((element, index) => {
@@ -1240,34 +1296,9 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
             })
 
           })
-
-
-
         }
-        if (this.productDetails?.itemCertificateDtos?.length) {
-          let oldProductCertificates = []
 
-
-          this.productDetails?.itemCertificateDtos?.forEach(v => {
-            oldProductCertificates.push({
-              attachment: {
-                attachmentSource: {
-                  "attachmentSourceId": v?.attachment?.attachmentSource?.attachmentSourceId,
-                  attachmentSourceName: v?.attachment?.attachmentSource?.attachmentSourceName,
-                },
-                reference: v?.attachment?.reference,
-              },
-              certificateType: {
-                certificateLevel: v?.certificateType?.certificateLevel,
-                certificateTypeId: v?.certificateType?.certificateTypeId,
-                certificateTypeName: v?.certificateType?.certificateTypeName,
-              },
-              itemCertificateName: v?.itemCertificateName
-            })
-          })
-          finalProductCertificates = [...oldProductCertificates, ...finalProductCertificates]
-
-        }
+     
         if (productShippingCertificates?.length) {
           productShippingCertificates.forEach((element, index) => {
             finalProductShippingCertificates.push({
@@ -1292,56 +1323,9 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
 
 
         }
-        if (this.productDetails?.shippingCertificateDtos?.length) {
-          let oldShippingCertificate = []
-          this.productDetails?.shippingCertificateDtos?.forEach(v => {
-            oldShippingCertificate.push({
-              attachment: {
-                attachmentSource: {
-                  "attachmentSourceId": v?.attachment?.attachmentSource?.attachmentSourceId,
-                  attachmentSourceName: v?.attachment?.attachmentSource?.attachmentSourceName,
-                },
-                reference: v?.attachment?.reference,
-              },
-              certificateType: {
-                certificateLevel: v?.certificateType?.certificateLevel,
-                certificateTypeId: v?.certificateType?.certificateTypeId,
-                certificateTypeName: v?.certificateType?.certificateTypeName,
-              },
-              itemCertificateName: v?.itemCertificateName
-            })
-          })
-          finalProductShippingCertificates = [...oldShippingCertificate, ...finalProductShippingCertificates]
 
-        }
+    
 
-        // if (SupplementsFiles?.length) {
-        //   SupplementsFiles.forEach((element, index) => {
-        //     finalSupplementsFiles.push({
-        //       attributeName: this.model?.itemSuppliments[index]?.attributeName,
-        //       attributeValue: element
-        //     })
-
-
-        //   })
-
-        //
-
-        //   if (this.productDetails?.itemSuppliments?.length > 0) {
-        //     alert(true)
-        //     let oldItemSuppliments =[]
-        //     this.productDetails?.itemSuppliments?.forEach(v =>{
-        //
-        //       oldItemSuppliments.push({
-        //           attributeName:v?.attributeName,
-        //         attributeValue: v?.attributeValue
-        //       })
-        //     })
-        //     finalSupplementsFiles = [...oldItemSuppliments, ...finalSupplementsFiles]
-
-        //   }
-
-        // }
 
         this.updateAttachment(productPicture, finalProductCertificates, finalProductShippingCertificates)
 
@@ -1354,64 +1338,57 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
     this.unSubscription.push(resDataSub)
 
 
-   const removeIndexFromUploadAreaSub = this._sharedService.removeIndexFromUploadArea.subscribe(res => {
+    const removeIndexFromUploadAreaSub = this._sharedService.removeIndexFromUploadArea.subscribe(res => {
+     
       if (res) {
 
-        if (res?.item?.file?.src.includes('/certificate/')) {
-          this.productDetails.itemCertificateDtos.splice(res?.index, 1)
+        if (this.productDetails?.itemCertificateDtos?.length > 0 || this.productDetails?.shippingCertificateDtos?.length >0) {
+          if (res?.item?.file?.src.includes('/certificate/')) {
+            finalProductCertificates.splice(res?.index, 1)
 
-        } else if (res?.item?.file?.src.includes('/shippingCertificate/')) {
-          this.productDetails.shippingCertificateDtos.splice(res?.index, 1)
+          } else if (res?.item?.file?.src.includes('/shippingCertificate/')) {
+            finalProductShippingCertificates.splice(res?.index, 1).splice(res?.index, 1)
+          }
+
+          this.UploadFileService.deleteFile(res?.item?.file?.src)
+          this.updateAttachment( productPicture ,  finalProductCertificates,  finalProductShippingCertificates, 'removedSuccessfully')
         }
-
-        this.UploadFileService.deleteFile(res?.item?.file?.src)
-        this.updateAttachment(this.productDetails.attachment, this.productDetails.itemCertificateDtos, this.productDetails.shippingCertificateDtos,'removedSuccessfully')
       }
     })
     this.unSubscription.push(removeIndexFromUploadAreaSub)
 
     const sendEmptyAttachSub = this._sharedService.sendEmptyAttach.subscribe(res => {
       if (res) {
-        this.UploadFileService.deleteFile(this.productDetails.attachment?.reference)
-        this.productDetails.attachment.reference = undefined
-        this.updateAttachment(this.productDetails.attachment, this.productDetails.itemCertificateDtos, this.productDetails.shippingCertificateDtos,'removedSuccessfully')
+        if (this.productDetails.attachment?.reference) {
+          this.UploadFileService.deleteFile(this.productDetails.attachment?.reference)
+          this.productDetails.attachment.reference = undefined
+          console.log(finalProductCertificates);
+          console.log(finalProductShippingCertificates);
+          console.log(this.productDetails.itemCertificateDtos );
+          console.log(this.productDetails.shippingCertificateDtos);
+         this.updateAttachment( productPicture , finalProductCertificates, finalProductShippingCertificates, 'removedSuccessfully')
+        }
 
       }
     })
     this.unSubscription.push(sendEmptyAttachSub)
   }
 
-  //   getDirtyValues(form: any) {
-  //     let dirtyValues:any = {};
 
-  //     Object.keys(form.controls)
-  //         .forEach(key => {
-  //             let currentControl = form.controls[key];
 
-  //             if (currentControl.dirty) {
-  //                 if (currentControl.controls)
-  //                     dirtyValues[key] = this.getDirtyValues(currentControl);
-  //                 else
-  //                     dirtyValues[key] = currentControl.value;
-  //             }
-  //         });
-
-  //     return dirtyValues;
-  // }
-
-  updateAttachment(itemPicture, itemCertificateDtos, shippingCertificateDtos,message?) {
+  updateAttachment(itemPicture, itemCertificateDtos, shippingCertificateDtos, message?) {
     let body: ItemAttachmentsDto = {
       attachment: itemPicture ? itemPicture : undefined,
       itemCertificateDtos: itemCertificateDtos?.length ? itemCertificateDtos : [],
       shippingCertificateDtos: shippingCertificateDtos?.length ? shippingCertificateDtos : [],
       itemSuppliments: this.model?.itemSuppliments ? this.model?.itemSuppliments : []
     }
-    this._itemControllerService.updateItemAttachmentsUsingPUT(body, this.productId).subscribe((res: ItemDto) => {
-
+    this._itemControllerService.updateItemAttachmentsUsingPUT(body, this.productId || this.productIdAfterAdd).subscribe((res: ItemDto) => {
       this.toaster.success(this._translateService.instant( message ?message :'SuccessfullyDone' ))
-      if(this.productId){
+      if(!this.productId){
         this.options.resetModel()
         this._sharedService.dropzoneEmptySubj.next(true)
+        window.location.reload()
       }
     })
   }
@@ -1503,7 +1480,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
 
       storageTradeInformation: this.model?.storageTradeInformation,
       itemId: this.productId ? +this.productId : undefined,
-      validPeriod: JSON.stringify( new Date(this.model?.validPeriod)),
+      validPeriod: JSON.stringify(new Date(this.model?.validPeriod)),
     }
 
     if (this.productId) {
@@ -1543,27 +1520,8 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
             });
             this.UploadFileService.uploadMultiple(uploadShippingCertificate, `products/product-${res?.itemId}/shippingCertificate`)
           }
-
-          // if (this.model?.itemSuppliments.length) {
-          //   if (SupplementsExistFile(this.model?.itemSuppliments)) {
-          //     let uploadItemSuppliments = []
-          //     this.model?.itemSuppliments?.forEach(element => {
-          //       if (element?.UploadFile) {
-          //         let file = element?.UploadFile
-          //         let fileToUpload: any;
-          //         fileToUpload = file.item(0);
-          //         this.beforeImagesLoaded.push(fileToUpload)
-          //         uploadItemSuppliments.push(fileToUpload)
-
-          //       }
-          //     });
-          //     this.UploadFileService.uploadMultiple(uploadItemSuppliments, `products/product-${res?.itemId}/Supplements`)
-          //   }
-
-          // }
-
-          if(!this.model?.attachment?.length && !this.model?.uploadAreaCertificate?.length && !this.model?.uploadAreaShipping?.length){
-            this.toaster.success(this._translateService.instant( 'SuccessfullyDone' ))
+          if (!this.model?.attachment?.length && !this.model?.uploadAreaCertificate?.length && !this.model?.uploadAreaShipping?.length) {
+            this.toaster.success(this._translateService.instant('SuccessfullyDone'))
           }
         }
 
@@ -1574,10 +1532,9 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
         this.isSubmit = false
       })).subscribe((res: ItemDto) => {
         if (res) {
-          this.productId = res?.itemId
           window.localStorage.removeItem('addItemStorage')
           this.beforeImagesLoaded = []
-
+          this.productIdAfterAdd = res?.itemId
           if (this.model?.attachment?.length) {
             this.beforeImagesLoaded?.push(this.model?.attachment[0])
             this.UploadFileService.uploadMultiple([this.model?.attachment[0]], `products/product-${res?.itemId}/picture`)
@@ -1606,23 +1563,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
             this.UploadFileService.uploadMultiple(uploadShippingCertificate, `products/product-${res?.itemId}/shippingCertificate`)
           }
 
-          // if (this.model?.itemSuppliments.length) {
-          //   if (SupplementsExistFile(this.model?.itemSuppliments)) {
-          //     let uploadItemSuppliments = []
-          //     this.model?.itemSuppliments?.forEach(element => {
-          //       if (element?.UploadFile) {
-          //         let file = element?.UploadFile
-          //         let fileToUpload: any;
-          //         fileToUpload = file.item(0);
-          //         this.beforeImagesLoaded.push(fileToUpload)
-          //         uploadItemSuppliments.push(fileToUpload)
 
-          //       }
-          //     });
-          //     this.UploadFileService.uploadMultiple(uploadItemSuppliments, `products/product-${res?.itemId}/Supplements`)
-          //   }
-
-          // }
         }
 
       })
@@ -1637,7 +1578,7 @@ export class SupplierAddProductComponent extends AppBaseComponent implements OnI
 
   }
 
-  onSaveDraft(){
+  onSaveDraft() {
     // this._itemControllerService.addDraftedItemUsingPOST()
   }
 

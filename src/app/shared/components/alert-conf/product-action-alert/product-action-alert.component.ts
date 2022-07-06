@@ -23,7 +23,20 @@ export class ProductActionAlertComponent extends AppBaseComponent implements OnI
   async ngOnInit() {
 
     await this._translateService.get('dummyTranslation').toPromise().then();
-
+    switch (this.action) {
+      case 'delete':
+        this.message = 'Are you sure to Delete?'
+        break;
+      case 'Republish':
+        this.message = 'Are you sure to Republish?'
+        break;
+      case 'UnPublish':
+        this.message = 'Are you sure to UnPublish?'
+     
+        break;
+      default:
+        break;
+    }
   }
 
   onSubmit() {
@@ -31,10 +44,10 @@ export class ProductActionAlertComponent extends AppBaseComponent implements OnI
 
     switch (this.action) {
       case 'delete':
-        this.message = this._translateService.instant('')
         const deleteItemUsingDELETESub = this._itemControllerService.deleteItemUsingDELETE(this.productId).subscribe((res) => {
           this.toaster.success(this._translateService.instant('removedSuccessfully'))
           this._sharedService.sendRefresh.next(true)
+          this.bsModalRef.hide()
         })
         this.unSubscription.push(deleteItemUsingDELETESub)
         break;
@@ -42,31 +55,23 @@ export class ProductActionAlertComponent extends AppBaseComponent implements OnI
         const publishItemUsingPUTSub = this._itemControllerService.publishItemUsingPUT(this.productId).subscribe((res) => {
           this.toaster.success(this._translateService.instant('publishedSuccessfully'))
           this._sharedService.sendRefresh.next(true)
+          this.bsModalRef.hide()
         })
         this.unSubscription.push(publishItemUsingPUTSub)
         break;
       case 'UnPublish':
+        this.message = 'Are you sure to Un Un Publish?'
         const unPublishItemUsingPUTSub = this._itemControllerService.unPublishItemUsingPUT(this.productId).subscribe((res) => {
           this.toaster.success(this._translateService.instant('unPublishSuccessfully'))
           this._sharedService.sendRefresh.next(true)
+          this.bsModalRef.hide()
         })
         this.unSubscription.push(unPublishItemUsingPUTSub)
         break;
       default:
         break;
     }
-    // const body: CancelAccountRequestDto = {
-    //   cancelReason: this.model?.cancelReason
-    // }
-    // const requestCancelAccountSub = this.accountCancelControllerService.requestCancelAccountUsingPOST(body).pipe(
-    //   finalize(() =>{
-    //     this.isSubmit = false;
-    //   })
-    // ).subscribe(res => {
-    //    this.bsModalRef.hide()
-    // })
-    // this.unSubscription.push(requestCancelAccountSub)
-
+ 
   }
 
 }

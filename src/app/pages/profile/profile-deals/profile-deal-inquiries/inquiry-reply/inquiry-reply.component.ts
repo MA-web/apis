@@ -96,6 +96,7 @@ export class InquiryReplyComponent extends AppBaseComponent implements OnInit, O
       this.PaymentTermsArr = res[8] ? res[8] : []
       this.ItemSampleTypeArr = res[5] ? res[5] : []
       this.incotermsArr = res[6] ? res[6] : [];
+      this.TransportationArr =  res[7] ? res[7] : [];
 
 
       if (this.productId) {
