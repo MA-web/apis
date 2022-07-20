@@ -95,6 +95,12 @@ export class LeftMenuComponent extends AppBaseComponent implements OnInit {
     item.active = !item.active;
   }
 
+  delayClose() {
+    setTimeout(() => {
+      this.navServices.leftMenuToggle = !this.navServices.leftMenuToggle;
+    }, 500);
+  }
+
   onHover(menuItem: any) {
     if (window.innerWidth > 1200 && menuItem) {
       this.document.getElementById('unset')?.classList.add('sidebar-unset')

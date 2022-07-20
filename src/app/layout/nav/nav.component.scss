@@ -23,7 +23,7 @@
   input.form-control {
     height: 54px;
     border: 0;
-    width: 400px;
+    width: 350px;
     background-image: url(/assets/img/Line.svg);
     background-repeat: no-repeat;
     background-position: left center;
@@ -38,12 +38,13 @@
   }
 
   select.form-control {
+    padding: 5px;
     border: 0;
     height: 54px;
     /*min-width: 170px*/
     width: auto;
     color: $mainColor;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 700;
     -webkit-appearance: none;
     -moz-appearance: none;

@@ -19,7 +19,7 @@
               <span class="sub-arrow" *ngIf="menuItem.children"></span>
             </a>
             <!-- Link -->
-            <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'link'" [routerLinkActive]="['active']">
+            <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'link'" [routerLinkActive]="['active']" (click)="delayClose()">
               <i [class]="menuItem.icon"></i>
               <span> {{menuItem.title}}</span>
               <span class="sub-arrow" *ngIf="menuItem.children"></span>
@@ -164,11 +164,11 @@
             <ng-template #elseTemplate_userData>
               <li class="nav-item d-flex align-items-center">
                 <i class="fa fa-sign-in pr-2" aria-hidden="true"></i>
-                <a class="nav-link text-white font-weight-600" routerLink="/auth/login" title="profile">
+                <a class="nav-link text-white font-weight-600" routerLink="/auth/login" title="profile"  (click)="delayClose()">
                   {{'Login' | translate}}
                 </a>
                 <span class="text-white">/</span>
-                <a class="nav-link text-white font-weight-600" routerLink="/auth/signup" title="profile">
+                <a class="nav-link text-white font-weight-600" routerLink="/auth/signup" title="profile"  (click)="delayClose()">
                   {{'Signup' | translate}}
                 </a>
               </li>
