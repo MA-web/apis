@@ -1,0 +1,57 @@
+<a [routerLink]="['./',deal?.dealId,deal?.item?.itemId]">
+  <div
+    class="deal"
+    [ngClass]="{
+      primary: deal?.status.includes('INPROGRESS'),
+      danger: deal?.status === 'CANCELED',
+      drafted: deal?.status === 'DRAFT',
+      success:deal?.status.includes('DONE') ||  deal?.status === 'ACCEPTED'
+    }"
+  >
+    <div class="dealId mb-3">
+      <ng-container *ngIf="deal?.dealNumber">#{{dealType}} - {{deal?.dealNumber}}</ng-container>
+
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-sm-8 col-12">
+        <h4 class="product-title text-truncate mb-3">{{deal?.item?.itemName}}</h4>
+      </div>
+      <div class="col-lg-3 col-sm-4 col-12">
+        <div
+          class="status mb-3 pull-right"
+          [ngClass]="{
+            success: deal?.status.includes('DONE')||  deal?.status === 'ACCEPTED',
+            danger: deal?.status === 'CANCELED',
+            primary:deal?.status.includes('INPROGRESS'),
+            secondary: deal?.status === 'DRAFT'
+          }"
+        >
+
+          <ng-container *ngIf="deal?.status.includes('INPROGRESS')">
+            {{'In Progress' | titlecase}}
+          </ng-container>
+          <ng-container *ngIf="deal?.status === 'ACCEPTED' ||  deal?.status === 'CANCELED' || deal?.status === 'DRAFT'">
+            {{deal?.status | titlecase}}
+          </ng-container>
+          <ng-container *ngIf="deal?.status.includes('DONE')">
+            {{'DONE' | titlecase}}
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-lg-3 col-12">
+        <h4 class="date font-size-16 text-truncate mb-3">
+          {{deal?.creationDate | date}}
+        </h4>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-sm-6">
+        <div class="info mb-3">{{deal?.item?.itemCategory?.categoryName}} > {{deal?.item?.itemSubcategory?.subcategoryName}} </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="user mb-3">{{'supplierName' | translate}}: {{deal?.supplier?.supplierName}}</div>
+      </div>
+    </div>
+  </div>
+</a>

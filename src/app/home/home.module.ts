@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { Route, RouterModule } from '@angular/router';
-import { LayoutModule } from '../layout/layout.module';
 import { SharedModule } from '../shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { LayoutModule } from '../layout/layout.module';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 const route: Route[] = [
   { path: '', component: HomeComponent },
@@ -17,7 +19,9 @@ const route: Route[] = [
     CommonModule,
     RouterModule.forChild(route),
     LayoutModule,
-    SharedModule
+    SharedModule,
+    TranslateModule,
+    LazyLoadImageModule,
   ]
 })
 export class HomeModule { }

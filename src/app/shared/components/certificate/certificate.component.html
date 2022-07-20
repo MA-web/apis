@@ -1,0 +1,18 @@
+<div class="certificate">
+  <div class="card">
+    <div class="overlay">
+      <p>Certificate Name</p>
+      <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="btn  btn-warning" (click)="open(0)">
+         <img src="assets/icons/eye.svg" alt="">
+        </button>
+        <button type="button" class="btn  btn-info" (click)="onDownload()">
+          <img src="assets/icons/download.svg" alt="">
+         </button>
+      </div>
+   </div>
+    <div class="card-body">
+      <img [src]="certificate?.attachment?.reference" class="img-fluid w-100">
+    </div>
+  </div>
+ </div>

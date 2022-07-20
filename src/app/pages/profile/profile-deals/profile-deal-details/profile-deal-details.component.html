@@ -1,0 +1,66 @@
+<app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+<app-profile-deal-card [deal]="DealDetails"></app-profile-deal-card>
+  <!-- {{DealDetails?.status}} -->
+<div class="deal-details">
+  <tabset [justified]="true">
+
+    <tab [active]="true">
+      <ng-template tabHeading>
+        <div class="d-flex align-items-center justify-content-center"
+          (click)="tabSelected('/profile/deals/inquiries/'+ dealId+'/'+ productId)">
+          <div inlineSVG="assets/icons/cir-check.svg"></div>
+          <div class="ml-3">
+            <div class="tab-step">Step 01</div>
+            <div class="tab-type">{{'inquiry' | translate}}</div>
+          </div>
+        </div>
+      </ng-template>
+    </tab>
+
+
+    <tab [disabled]="validQuotation()" [active]="validQuotation()">
+
+      <ng-template tabHeading>
+        <div class="d-flex align-items-center justify-content-center"
+          (click)="tabSelected('/profile/deals/quotations/' + dealId+'/'+ productId)">
+          <div inlineSVG="assets/icons/cir-check.svg"></div>
+          <div class="ml-3">
+            <div class="tab-step">Step 02</div>
+            <div class="tab-type">{{'quotation' | translate}}</div>
+          </div>
+        </div>
+      </ng-template>
+    </tab>
+
+
+    <tab [disabled]="validOrder()" [active]="validOrder()">
+      <ng-template tabHeading>
+        <div class="d-flex align-items-center justify-content-center"
+          (click)="tabSelected('/profile/deals/orders/' + dealId+'/'+ productId)">
+          <div inlineSVG="assets/icons/cir-check.svg"></div>
+          <div class="ml-3">
+            <div class="tab-step">Step 03</div>
+            <div class="tab-type">{{'order' | translate}}</div>
+          </div>
+        </div>
+      </ng-template>
+    </tab>
+    <tab [disabled]="validInvoice()" [active]="validInvoice()">
+      <ng-template tabHeading>
+        <div class="d-flex align-items-center justify-content-center"
+          (click)="tabSelected('/profile/deals/invoices/' + dealId+'/'+ productId)">
+          <div inlineSVG="assets/icons/cir-check.svg"></div>
+          <div class="ml-3">
+            <div class="tab-step">Step 04</div>
+            <div class="tab-type">{{'invoice' | translate}}</div>
+          </div>
+        </div>
+      </ng-template>
+    </tab>
+  </tabset>
+  <div class="tab-content">
+    <div class="tab-pane active">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

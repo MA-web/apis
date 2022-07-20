@@ -1,0 +1,58 @@
+@import 'src/assets/scss/variables';
+
+.product {
+  border: 2px solid #0373A4;
+  border-radius: 35px 35px 0 35px;
+  margin-bottom: 25px;
+}
+
+.product-details-2{
+  h2 {
+    color: #FCB813;
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 30px;
+  }
+  p {
+    font-size: 20px;
+    color: #888888;
+    font-weight: 600;
+    span {
+      color: $active-link2;
+      font-weight: 800;
+      img {
+        margin-right: 5px
+      }
+    }
+  }
+}
+
+
+.product-btns {
+  margin-top: 25px;
+  img {
+    margin-right: 5px
+  }
+  .apis-button {
+    font-weight: 700;
+    margin-right: 15px;
+    padding: 8px 65px;
+    display: inline-block;
+  }
+  .apis-button2 {
+    padding: 8px 25px
+  }
+
+
+}
+
+
+
+.product-btns .apis-button:last-of-type {
+  margin-right: 0
+}
+
+
+:host ::ng-deep{
+  @import 'src/assets/scss/_swiper';
+}

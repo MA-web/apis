@@ -1,0 +1,106 @@
+<div class="section-apis pb-0">
+  <div class="container">
+    <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+    <div class="section-apis pt-0">
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="supplier-img">
+            <img
+            [defaultImage]="data?.attachment?.reference ? data?.attachment?.reference : 'assets/img/rowlands_logo_png.png'"
+            [lazyLoad]="data?.attachment?.reference ? data?.attachment?.reference : 'assets/img/rowlands_logo_png.png'"
+            onerror="this.src='assets/img/rowlands_logo_png.png';"
+            alt="{{ data?.supplierName ? data.supplierName : '' }}" />
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="product-details-2">
+            <div class="row">
+              <div class="col-md-12">
+                <h2>{{data?.supplierName}}</h2>
+              </div>
+              <div class="col-md-6">
+                <p><span>{{'Company' | translate}}: </span>{{data?.companyName}}</p>
+              </div>
+              <div class="col-md-6">
+                <p><span>{{'Country' | translate}}: </span>{{data?.address?.country}}</p>
+              </div>
+              <!-- <div class="col-md-12">
+                <p><span>{{'category' | translate}}: </span>{{data?.supplierCategory?.categoryDescription}}</p>
+              </div> -->
+
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="product-btns mt-0">
+                  <a href="javascribt:void(0)" class="apis-button btn btn-warning pull-right"
+                    (click)="onSend()">{{'ContactSupplier' | translate}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+<div class="grey-bg2 similar-products section-apis">
+  <div class="container">
+    <ng-container *ngIf="isLoadingProducts; else elseTemplate">
+      <div class="row">
+        <div class="col-sm-6" *ngFor="let item of [].constructor(6)">
+          <app-skeleton-card-box></app-skeleton-card-box>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <ng-container *ngIf="products?.length <= 0; else elseTemplateNoData">
+        <div class="row justify-content-center">
+          <div class="col-md-10 col-12">
+            <app-no-data></app-no-data>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplateNoData>
+
+        <div class="row">
+          <div class="col-md-8">
+            <div class="the-title">
+              <h2>{{'SupplierProducts' | translate}}</h2>
+              <p>Everything you need to know when you're looking</p>
+            </div>
+          </div>
+          <div class="col-md-4 view">
+            <div class="filter-grid">
+              <button type="button" class="grid-12" (click)="onTogglingView('list')"><img
+                  src="assets/img/view_list_black_24dp.svg"></button>
+              <span><img src="assets/img/Line%2011.svg"></span>
+              <button type="button" class="grid-6" (click)="onTogglingView('grid')"><img
+                  src="assets/img/grid_view_black_24dp.svg"></button>
+            </div>
+          </div>
+        </div>
+        <div class="row filter-grid-row">
+          <ng-container *ngFor="let product of products">
+            <div class="col-md-4">
+              <app-product-card [product]="product" [bgWhite]="true"></app-product-card>
+            </div>
+          </ng-container>
+
+        </div>
+      </ng-template>
+
+
+    </ng-template>
+    <div class="mt-4" *ngIf="totalElements > 0">
+      <div class="d-flex justify-content-center">
+        <pagination [boundaryLinks]="true" [totalItems]="totalElements" previousText="&lsaquo;" nextText="&rsaquo;"
+          (pageChanged)="pageChanged($event)" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="pageSize"
+          [maxSize]="3">
+        </pagination>
+      </div>
+    </div>
+  </div>
+</div>

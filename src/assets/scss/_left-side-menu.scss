@@ -44,14 +44,15 @@
     transition: all 0.5s ease;
 
     .sidebar-overlay {
-      opacity: 0.8;
+      display: block;
       visibility: visible;
+      opacity: 0.8;
     }
   }
 
   .sidebar-overlay {
     visibility: hidden;
-    opacity: 0;
+    display: none;
     background-color: #212331;
     position: fixed;
     z-index: 6;

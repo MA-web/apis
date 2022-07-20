@@ -1,0 +1,109 @@
+@import 'src/assets/scss/variables';
+
+:host ::ng-deep .deal-details {
+  .tab-step {
+    font-size: 14px;
+  }
+
+  .tab-type {
+    font-size: 20px;
+  }
+
+  .panel-collapse>.card-body {
+    padding: 0;
+  }
+
+  .panel-default,
+  .panel-default>.panel-heading {
+    border-radius: 0px 44px 0px 0px;
+  }
+
+  .white-card {
+    border-radius: 0;
+  }
+
+  .nav-tabs {
+    box-shadow: 0px 2px 6px #0000000F;
+
+    .nav-link{
+      background: #EEF5F5 0% 0% no-repeat padding-box;
+      border: 0;
+      font-weight: 700;
+      text-align: left;
+      border-bottom: 5px solid $greenColor2;
+      svg circle {
+        fill: $greenColor2;
+      }
+
+      .tab-step,
+      .tab-type {
+        color: $greenColor2
+      }
+    }
+
+     .nav-link.disabled {
+      background: #F4F4F4 0% 0% no-repeat padding-box;
+      border-bottom: 5px solid #ddd;
+      svg circle {
+        fill: #ddd;
+      }
+
+      .tab-step,
+      .tab-type {
+        color: #ddd;
+      }
+    }
+
+  }
+
+  .formly-accordion {
+    accordion-group {
+      .card-header {
+        position: unset;
+      }
+    }
+
+    .accordion-toggle {
+      &:before {
+        background: #7FD2C4;
+      }
+    }
+
+    .supplierDeal {
+      .accordion-toggle {
+        &:before {
+          background: $red;
+          right: 0;
+          left: unset;
+        }
+      }
+
+      .panel-default,
+      .panel-default>.panel-heading {
+        border-radius: 44px 0px 0px 0px;
+      }
+    }
+
+
+
+  }
+  .basic-info {
+    margin-top: 0;
+    h4 {
+      color: $mainColor;
+    }
+
+    span {
+      color: #454545;
+    }
+
+    .table th,
+    .table td {
+      color: #756F86;
+      font-weight: bold;
+    }
+
+  }
+
+}
+

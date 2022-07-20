@@ -1,0 +1,53 @@
+<accordion class="formly-accordion mb-3">
+  <app-profile-deal-inquiry [details]="lastApproveInquiry" [lastApproveInquiry]="true" [productDetails]="productDetails"></app-profile-deal-inquiry>
+
+  <ng-container *ngIf="lastApprovedQuotation">
+    <app-profile-deal-quotation [lastApproveQuotation]="lastApprovedQuotation" [lastApprovedQuotation]="true"></app-profile-deal-quotation>
+
+  </ng-container>
+ 
+  
+  <ng-container *ngIf="orderDetails && dealDetails">
+    <app-profile-deal-order [orderDetails]="orderDetails"  *ngIf="canViewSupplierReply()"></app-profile-deal-order>
+  </ng-container>
+  
+
+
+</accordion>
+
+
+  <ng-container *ngIf="userData?.role === 'CUSTOMER';">
+    <app-deal-waiting-reply *ngIf="canWaitReplyCustomer()"> </app-deal-waiting-reply>
+  </ng-container>
+
+  <ng-container *ngIf="userData?.role === 'SUPPLIER';">
+    <app-deal-waiting-reply *ngIf="canWaitReplySupplier()"></app-deal-waiting-reply>
+  </ng-container>
+
+<app-order-filling [dealDetails]="dealDetails"></app-order-filling>
+
+
+<div class="row" >
+  <div class="col-md-12">
+    <div class="button-items py-4">
+      <!-- <button type="button" class="apis-button btn btn-outline-success  px-4">
+        <span [inlineSVG]="'assets/icons/download.svg'" class="mx-1"></span>
+        {{'download' |translate}}
+      </button> -->
+
+      <ng-container *ngIf="userData?.role === 'SUPPLIER' && dealDetails?.status === 'ORDER_INPROGRESS'">
+        <button type="button" class="apis-button btn btn-danger  px-4 ">
+          <span [inlineSVG]="'assets/icons/delete.svg'" class="mx-1"></span>
+          {{'reject' |translate}}
+        </button>
+        <button type="button" class="apis-button btn btn-success pull-md-right px-5" style="line-height: 12px;" (click)="onAccept()">
+          <div>{{'ACCEPT' |translate}}</div>
+          <div style="font-size: 12px;margin-top: 4px;">{{'needFinalInvoice' |translate}}</div>
+        </button>
+  
+      </ng-container>
+      
+   
+    </div>
+  </div>
+</div>

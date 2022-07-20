@@ -1,26 +1,138 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormlyFieldConfig, FormlyForm, FormlyFormOptions } from '@ngx-formly/core';
 import { TranslateService } from '@ngx-translate/core';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { AttachmentSource, ItemDto, LookupControllerService } from 'src/app/@api';
+import { breadcrumb } from '../../models/breadcrumb.model';
+import { UploadFileService } from '../../services/file-upload.service';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-app-base',
   templateUrl: './app-base.component.html',
   styleUrls: ['./app-base.component.scss']
 })
-export class AppBaseComponent  {
+export class AppBaseComponent implements OnDestroy,AfterViewInit {
+
+  pageNumber: number = 0;
+  pageSize: number = 6
+  totalElements: number = 0
+  isLoading: boolean = false;
+  isSubmit: boolean = false;
+  isLoadingForm: boolean = false;
+  breadcrumbItems: breadcrumb[] = []
 
   form = new FormGroup({});
   model: any = {};
   fields: FormlyFieldConfig[] = []
+  options: FormlyFormOptions = {};
 
+  searchResult: { category?: any, searchKey?: string } = { category: {} }
+
+  userData: any = {}
+
+  beforeImagesLoaded = []
+
+  attachmentSource:Array<AttachmentSource> =[]
+  unSubscription: Subscription[] = []
+
+
+  //deal
+  dealId:number
+  productId:number
+  productDetails: ItemDto
 
   _translateService: TranslateService;
-
+  _sharedService: SharedService;
+  router: Router;
+  LookupControllerService: LookupControllerService
+  toaster: ToastrService;
+  route: ActivatedRoute;
+  UploadFileService:UploadFileService
+  cdr: ChangeDetectorRef
   constructor(injector: Injector) {
     this._translateService = injector.get(TranslateService);
+    this._sharedService = injector.get(SharedService);
+    this.router = injector.get(Router);
+    this.LookupControllerService = injector.get(LookupControllerService);
+    this.toaster = injector.get(ToastrService);
+    this.route = injector.get(ActivatedRoute);
+    this.UploadFileService = injector.get(UploadFileService);
+    this.cdr = injector.get(ChangeDetectorRef);
+    this.userData = this._sharedService?.getUser()
   }
 
+  ngAfterViewInit() {
+    this.cdr.detectChanges();
+  }
+
+  tabSelected(url: string) {
+    this.router.navigateByUrl(url)
+  }
+
+  isFile(input) {
+    if ('File' in window && input instanceof File)
+       return true;
+    else return false;
+ }
+ arrayHasKey(arr) {
+  return arr.some(function (el) {
+    if (el.file.fileToUpload) {
+      return true;
+    }
+
+  });
+}
+
+ getEnumAsOptions(statusEnum) {
+  let arr = Object.values(statusEnum);
+  return arr.map((str:string, index) => ({ label: str[0]?.toUpperCase() + str?.slice(1)?.toLowerCase(), value: str }));
+}
+
+getAttachmentsSource(){
+  const getAttachmentsSourceUsingGETSub =  this.LookupControllerService.getAttachmentsSourceUsingGET().subscribe((res:Array<AttachmentSource>) =>{
+
+    this.attachmentSource = res
+  })
+  this.unSubscription.push(getAttachmentsSourceUsingGETSub)
+}
 
 
+getBase64ImageFromURL(url) {
+  return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+
+      img.onload = () => {
+          var canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+
+          var ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+
+          var dataURL = canvas.toDataURL("image/png");
+
+          resolve(dataURL);
+      };
+
+      img.onerror = error => {
+          reject(error);
+      };
+
+      img.src = url;
+  });
+}
+checkData(value: any) {
+  return value ? value : ''
+}
+  ngOnDestroy(): void {
+    this.unSubscription.forEach(sub => {
+      sub.unsubscribe()
+    })
+  }
 }

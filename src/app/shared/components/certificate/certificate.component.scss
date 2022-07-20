@@ -1,0 +1,47 @@
+@import 'src/assets/scss/variables';
+
+.certificate {
+  .card {
+    background-color: $ghostWhiteColor;
+    border: 0;
+    border-radius: 18px;
+  }
+
+  .overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgb(61 192 199 / 30%);
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    transition:  all 0.3s ease-in-out;
+    z-index: 111;
+    p {
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 0px;
+      color: $mainColor;
+    }
+
+    .btn{
+      border-radius: 10px 4px 10px 8px;
+      img{
+        width: 16px;
+      }
+    }
+  }
+}
+.certificate:hover {
+  .overlay{
+    display: flex;
+  }
+  .card-body {
+   opacity: .5;
+  }
+}

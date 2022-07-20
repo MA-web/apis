@@ -1,0 +1,417 @@
+<div class="modal-header">
+   <!-- <h4 class="modal-title pull-left">{{(supplierId? 'ContactSupplier':'ContactAdmin') | translate}}</h4> -->
+   <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+   </button>
+</div>
+<div class="modal-body p-0">
+   <div class="deal-preview" >
+      <div class="header-preview">
+         <img src="./assets/img/logo.png" width="150">
+         <div class="ml-5">
+            <h5> #Deal - {{this.dealDetails?.dealId}}</h5>
+            <h3> {{this.productDetails?.itemName}}</h3>
+         </div>
+      </div>
+      <div class="bdeal-body py-3 px-5">
+         <div class="row basic-info">
+            <p class="col-md-6">
+               <span>{{ "Date" | translate }} * : </span>{{dealDetails?.creationDate}}
+            </p>
+            <p class="col-md-6">
+               <span>{{ "ID" | translate }} * : </span>{{dealDetails?.dealId}}
+            </p>
+            <!-- <p class="col-md-6">
+          <span>{{ "To" | translate }} * : </span>??
+        </p>
+        <p class="col-md-6">
+          <span>{{ "From" | translate }} * : </span>??
+        </p>
+        <p class="col-md-6">
+          <span>{{ "Email" | translate }} * : </span>??
+        </p>
+        <p class="col-md-6">
+          <span>{{ "Phone" | translate }} * : </span>??
+        </p> -->
+            <hr>
+            <!------------------------------category------------------------------------>
+            <h4 class="col-12 mb-3">{{ "category" | translate }}:</h4>
+            <p class="col-md-6">
+               <span>{{ "category" | translate }} * : </span>{{productDetails?.itemCategory?.categoryName}}
+            </p>
+            <p class="col-md-6">
+               <span>{{ "SubCategory" | translate }} * : </span>{{productDetails?.itemSubcategory?.subcategoryName}}
+            </p>
+            <!------------------------------BasicInfo------------------------------------>
+            <h4 class="col-12 my-3">{{ "BasicInfo" | translate }}:</h4>
+            <p class="col-12">
+               <span>{{ "ProductName" | translate }} * : </span>{{productDetails?.itemName}}
+            </p>
+            <p class="col-md-6">
+               <span>{{ "casNo" | translate }} * : </span>{{productDetails?.caseNumber}}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('molFormula')}">{{
+                  "MolecularFormula" | translate }} : </span>{{ lastApproveInquiry?.molFormula }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('origin')}">{{ "origin"
+                  | translate }} * : </span>{{ lastApproveInquiry?.origin?.originName }}
+            </p>
+            <p class="col-md-6">
+               <span>{{ "SupplierType" | translate }} * :
+               </span>{{productDetails?.supplierCategory?.categoryDescription}}
+            </p>
+            <p class="col-12 mb-1">
+               <span>{{ "ProductDetails" | translate }}: </span>
+            </p>
+            <p class="col-md-12 font-size-16">{{productDetails?.details}}</p>
+            <!------------------------------ProductAttribute------------------------------------>
+            <h4 class="col-12 my-3">{{ "ProductAttribute" | translate }}:</h4>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('purity')}">{{ "Purity"
+                  | translate }} * : </span>{{ lastApproveInquiry?.purity }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('appearance')}">{{
+                  "Appearance" | translate }} : </span>{{ lastApproveInquiry?.appearance }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('storage')}">{{
+                  "Storage" | translate }} : </span>{{ lastApproveInquiry?.storage }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('application')}">{{
+                  "Application" | translate }} * : </span>{{ lastApproveInquiry?.application }}
+            </p>
+            <!------------------------------ProductAdvantage------------------------------------>
+            <h4 class="col-12 my-3">{{ "ProductAdvantage" | translate }}:</h4>
+            <p class="col-md-12 font-size-16">{{productDetails?.advantage}}</p>
+            <!------------------------------KeySpecification------------------------------------>
+            <h4 class="col-12 my-3">{{ "KeySpecification" | translate }}:</h4>
+            <p class="col-12">
+               <span
+                  [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('relatedSubstance')}">{{
+                  "RelatedSubstances" | translate }} : </span>{{ lastApproveInquiry?.relatedSubstance }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('residueIgnition')}">{{
+                  "Residue_on_ignition" | translate }} : </span>{{ lastApproveInquiry?.residueIgnition }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('heavyMetal')}">{{
+                  "HeavyMetal" | translate }} : </span>{{ lastApproveInquiry?.heavyMetal }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('expiryDate')}">{{
+                  "ValidPeriod" | translate }} : </span>{{lastApproveInquiry?.expiryDate}}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('meltingRange')}">{{
+                  "MeltingRange" | translate }} : </span>{{ lastApproveInquiry?.meltingRange }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('lossOnDrying')}">{{
+                  "Loss_on_drying" | translate }} : </span>{{ lastApproveInquiry?.lossOnDrying }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('ph')}">{{ "PH" |
+                  translate }} : </span>{{ lastApproveInquiry?.ph }}
+            </p>
+            <p class="col-md-6">
+               <span
+                  [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('residualSolvents')}">{{
+                  "ResidualSolvents" | translate }} : </span>{{ lastApproveInquiry?.residualSolvents }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('form')}">{{ "From" |
+                  translate }} : </span>{{ lastApproveInquiry?.form }}
+            </p>
+            <p class="col-md-6 d-flex align-items-center">
+               <ng-container *ngIf="lastApproveInquiry?.micronization; else elseTemplate_micronization">
+                  <img src="assets/icons/checkbox.svg" alt="Micronization" width="24" />
+               </ng-container>
+               <ng-template #elseTemplate_micronization>
+                  <img src="assets/icons/uncheckbox.svg" alt="Micronization" width="24" />
+               </ng-template>
+               <span class="d-inline-block mx-3 main2-color font-size-16"
+                  [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('micronization')}">{{"Micronization"
+                  | translate}}</span>
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('particleSize')}">{{
+                  "ParticleSizeD90" | translate }} * : </span>{{ lastApproveInquiry?.particleSize }}
+            </p>
+            <p class="col-12">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('opticalRotation')}">{{
+                  "OpticalRotation" | translate }} : </span>{{ lastApproveInquiry?.opticalRotation }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('dissolutionRate')}">{{
+                  "DissolutionRate" | translate }} * : </span>{{ lastApproveInquiry?.dissolutionRate }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('dissolutionRate')}">{{
+                  "hour" | translate }} * : </span>{{ splitHour(lastApproveInquiry?.dissolutionRate) }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('totalVac')}">{{
+                  "Total_viable_aerobic_Count" | translate }} :
+               </span>{{lastApproveInquiry?.totalVac?.split("cfu/gm")[0] }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('totalYamc')}">{{
+                  "Total_yeast_and_mould_count" | translate }} : </span>{{
+               lastApproveInquiry?.totalYamc?.split("cfu/gm")[0] }}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('escherichiaColi')}">{{
+                  "EscherichiaColi" | translate }} : </span>{{ lastApproveInquiry?.escherichiaColi }}
+            </p>
+            <p class="col-md-6">
+               <span
+                  [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('salmonelaSpecies')}">{{
+                  "SalmonellaSpecies" | translate }} : </span>{{ lastApproveInquiry?.salmonelaSpecies }}
+            </p>
+            <p class="col-md-6 d-flex align-items-center">
+               <ng-container *ngIf="lastApproveInquiry?.injection; else elseTemplate_injection">
+                  <img src="assets/icons/checkbox.svg" alt="Injection" width="24" />
+               </ng-container>
+               <ng-template #elseTemplate_injection>
+                  <img src="assets/icons/uncheckbox.svg" alt="Micronization" width="24" />
+               </ng-template>
+
+               <span class="d-inline-block mx-3 main2-color font-size-16"
+                  [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('injection')}">{{"Injection"
+                  | translate}}</span>
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('indotoxinTest')}">{{
+                  "endotoxinTest" | translate }} * : </span>{{lastApproveInquiry?.indotoxinTest}}
+            </p>
+            <!------------------------------ProductCertificates------------------------------------>
+            <h4 class="col-12 my-3">{{ "ProductCertificates" | translate }}:</h4>
+            <div class="col-12">
+               <app-imgs-preview [images]="productDetails?.itemCertificateDtos"></app-imgs-preview>
+            </div>
+            <!------------------------------TradeInformation------------------------------------>
+            <h4 class="col-12 my-3">{{ "TradeInformation" | translate }}:</h4>
+            <p class="col-md-6">
+               <span>{{ "MinimumOrderQuantity" | translate }} : </span>{{productDetails?.minOrderQuantity}}
+            </p>
+            <p class="col-md-6">
+               <span>{{ "Unit" | translate }} : </span>{{productDetails?.uom?.uomName}}
+            </p>
+            <p class="col-md-6">
+               <span>{{ "Storage" | translate }} : </span>{{productDetails?.storageTradeInformation}}
+            </p>
+            <p class="col-md-6">
+               <span>{{ "ValidPeriod" | translate }} : </span>{{productDetails?.expiryDate}}
+            </p>
+            <!------------------------------ProductPrice------------------------------------>
+            <h4 class="col-12 my-3"
+               [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('inquiryVersionPrices')}">{{
+               "ProductPrice" | translate }}:</h4>
+            <div class="col-12">
+               <div class="table table-responsive">
+                  <table class="table">
+                     <tbody>
+                        <tr *ngFor="let item of lastApproveInquiry?.inquiryVersionPrices; let i = index">
+                           <td class="px-2 py-0 align-middle">
+                              <span class="index">{{ i + 1 }}</span>
+                           </td>
+                           <td class="px-2 py-0 align-middle">
+                              {{ "Quantity #0" + i + 1 }}
+                           </td>
+                           <td class="px-2 py-0 align-middle">
+                              <span class="font-size-16">
+                                 {{ "Quantity" | translate }} * : &nbsp;</span>
+                              <span>
+                                 {{ item?.quantity }}
+                                 {{ item?.uom?.uomName }}
+                              </span>
+                           </td>
+                           <td class="px-2 py-0 align-middle">
+                              <span class="font-size-16">
+                                 {{ "Price" | translate }} * : &nbsp;</span>
+                              <span>
+                                 {{ item?.unitPrice }}
+                                 {{ item?.currency?.currencyCode }}
+                              </span>
+                           </td>
+                           <td class="px-2 py-0 align-middle">
+                              <span class="font-size-16">
+                                 {{ "PaymentTerms" | translate }} * : &nbsp;</span>
+                              <span>
+                                 {{ item?.itemPaymentTerm?.paymentTerm?.paymentTermName }}
+                              </span>
+                           </td>
+
+
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <!------------------------------AllowedSample------------------------------------>
+            <h4 class="col-12 my-3">{{ "AllowedSample" | translate }}:</h4>
+            <p class="col-12">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('itemSampleType')}">{{
+                  "sampleType" | translate }} * : </span>{{lastApproveInquiry?.itemSampleType?.itemSampleTypesName}}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('sampleSize')}">{{
+                  "SampleSize" | translate }} * : </span>{{lastApproveInquiry?.sampleSize}}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('sampleUnit')}">{{
+                  "SampleUnit" | translate }} * : </span>{{lastApproveInquiry?.sampleUnit?.uomName}}
+            </p>
+            <!------------------------------ProductShipping------------------------------------>
+            <h4 class="col-12 my-3">{{ "ProductShipping" | translate }}:</h4>
+            <p class="col-12">
+               <span
+                  [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('portOfDestination')}">{{
+                  "Port_of_Discharge" | translate }} : </span>{{lastApproveInquiry?.portOfDestination}}
+            </p>
+            <!------------------------------ProductionCapacity------------------------------------>
+            <h4 class="col-12 my-3">{{ "ProductionCapacity" | translate }}:</h4>
+            <p class="col-12">
+               <span>{{ "Value" | translate }} : </span>{{productDetails?.productionCapacity}}
+            </p>
+            <p class="col-md-6">
+               <span>{{ "Unit" | translate }} :
+               </span>{{returnProductionCapacityUnit(productDetails?.productionCapacity)}}
+            </p>
+            <p class="col-md-6">
+               <span>{{ "Period" | translate }} : </span>{{productDetails?.productionCapacity?.split("/")[1]}}
+            </p>
+            <p class="col-md-6">
+               <span>{{ "EstimatedLeadTime" | translate }} :
+               </span>{{returnEstimatedDeliveryLeadTime(productDetails?.estimatedDeliveryLeadTime)}}
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('packaging')}">{{
+                  "Package" | translate }} : </span>{{lastApproveInquiry?.packaging}}
+            </p>
+
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('itemIncoterm')}">{{
+                  "Incoterms" | translate }} : </span>
+               {{lastApproveInquiry?.itemIncoterm?.incotermShipping?.incoterm?.incotermShortName}} 
+            </p>
+            <p class="col-md-6">
+               <span [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('transportation')}">{{
+                  "Transportation" | translate }} : </span>{{lastApproveInquiry?.transportation}}
+            </p>
+            <!------------------------------ShippingCertificate------------------------------------>
+            <h4 class="col-12 my-3">{{ "ShippingCertificate" | translate }}:</h4>
+            <div class="col-12">
+               <app-imgs-preview [images]="productDetails?.shippingCertificateDtos"></app-imgs-preview>
+            </div>
+            <!------------------------------Supplement------------------------------------>
+            <h4 class="col-12 my-3"
+               [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('inquiryVersionSuppliments')}">
+               {{ "Supplement" | translate }}:</h4>
+            <ng-container *ngFor="let item of lastApproveInquiry?.inquiryVersionSuppliments">
+               <p class="col-md-6">
+                  <span class="green-color">{{ "Attribute" | translate }} : </span>{{item?.attribute}}
+               </p>
+               <p class="col-md-6">
+                  <span class="green-color">{{ "Value" | translate }} : </span>{{item?.value}}
+                  1
+               </p>
+            </ng-container>
+
+
+            
+            <p class="col-12 mb-1">
+               <span class="green-color"
+                  [ngClass]="{'orange-color': lastApproveInquiry?.changedAttributes?.includes('extraComment')}">{{
+                  "Extra_point_discussion" | translate }}:
+               </span>
+            </p>
+            <p class="col-md-12 font-size-16">
+               {{lastApproveInquiry?.extraComment}}
+            </p>
+            
+            <div class="col-12">
+               <hr>
+               <hr>
+            </div>
+            <div>
+                <!------------------------------Price------------------------------------>
+            <h4 class="col-12 mb-3">{{ "ProductPrice" | translate }}:</h4>
+            <p class="col-md-6">
+               <span>{{ "Quantity" | translate }} * : </span>{{lastApprovedQuotation?.finalQuantity}}
+               {{lastApprovedQuotation?.uom?.uomName}}
+            </p>
+            <p class="col-md-6">
+               <span>{{ "Price" | translate }} * : </span>{{lastApprovedQuotation?.finalPrice}}
+               {{lastApprovedQuotation?.currency?.currencyCode}}
+            </p>
+            <p class="col-md-6">
+               <span>{{ "PaymentTerms" | translate }} * : </span>{{lastApprovedQuotation?.paymentTerm?.paymentTermName}}
+            </p>
+            <!------------------------------Terms & Conditions------------------------------------>
+            <h4 class="col-12 mb-3">{{'TermsAnfConditions' | translate}} * :</h4>
+            <p class="col-md-12 font-size-16">
+               {{lastApprovedQuotation?.termsConditions}}
+            </p>
+            <!------------------------------SpecialPrecaution------------------------------------>
+            <h4 class="col-12 mb-3">{{'SpecialPrecaution' | translate}} * :</h4>
+            <p class="col-md-12 font-size-16">
+               {{lastApprovedQuotation?.specialPrecaution}}
+            </p>
+            <!------------------------------ShipmentIncludedDocuments------------------------------------>
+            <h4 class="col-12 mb-3">{{'ShipmentIncludedDocuments' | translate}} * :</h4>
+            <p class="col-md-12 font-size-16">
+               {{lastApprovedQuotation?.shipmentIncludedDocuments}}
+            </p>
+
+            <!------------------------------BankAccount------------------------------------>
+            <h4 class="col-12 my-3">{{'BankAccount' | translate}}:</h4>
+            <p class="col-md-6"><span>{{'BeneficiaryName' | translate}} * : </span> {{bankAccount?.beneficiaryName}}</p>
+            <p class="col-md-6"><span>{{'Phone' | translate}} : </span>{{bankAccount?.beneficiaryPhone}}</p>
+            <p class="col-md-6"><span>{{'BankName' | translate}} * : </span>{{bankAccount?.beneficiaryBankName}}</p>
+            <p class="col-md-6"><span>{{'AccountNumber' | translate}} * :
+               </span>{{bankAccount?.beneficiaryAccountNumber}}
+            </p>
+            <p class="col-md-6"><span>{{'SWIFTCode' | translate}} * : </span>{{bankAccount?.swiftCode}}</p>
+            <p class="col-md-6"><span>{{'IBAN' | translate}} * : </span>{{bankAccount?.iban}}</p>
+            <p class="col-12"><span>{{'IntermediateBankAndData' | translate}} * :
+               </span>{{bankAccount?.intermediateBank}}
+            </p>
+            </div>
+            <div class="col-12">
+               <hr>
+               <hr>
+            </div>
+             <!------------------------------BankAccount------------------------------------>
+             <h4 class="col-12 my-3">{{'BankAccount' | translate}}:</h4>
+             <p class="col-md-6"><span>{{'BeneficiaryName' | translate}} * : </span> {{lastApprovedOrder?.bankAccount?.beneficiaryName}}</p>
+             <p class="col-md-6"><span>{{'Phone' | translate}} : </span>{{lastApprovedOrder?.bankAccount?.beneficiaryPhone}}</p>
+             <p class="col-md-6"><span>{{'BankName' | translate}} * : </span>{{lastApprovedOrder?.bankAccount?.beneficiaryBankName}}</p>
+             <p class="col-md-6"><span>{{'AccountNumber' | translate}} * :
+                </span>{{lastApprovedOrder?.bankAccount?.beneficiaryAccountNumber}}
+             </p>
+             <p class="col-md-6"><span>{{'SWIFTCode' | translate}} * : </span>{{lastApprovedOrder?.bankAccount?.swiftCode}}</p>
+             <p class="col-md-6"><span>{{'IBAN' | translate}} * : </span>{{lastApprovedOrder?.bankAccount?.iban}}</p>
+             <p class="col-12"><span>{{'IntermediateBankAndData' | translate}} * :
+                </span>{{lastApprovedOrder?.bankAccount?.intermediateBank}}
+             </p>
+             <div class="col-12">
+               <hr>
+               <hr>
+            </div>
+            <h4 class="col-12 my-3">{{'Comment' | translate}}:</h4>
+            <p class="col-12"> {{invoiceDetails?.comment}}</p>
+         </div>
+
+      </div>
+   </div>
+</div>
+<div class="modal-footer">
+   <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">close</button>
+
+</div>

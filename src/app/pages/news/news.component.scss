@@ -1,0 +1,104 @@
+@import 'src/assets/scss/variables';
+
+.event {
+  margin-bottom: 25px;
+}
+
+
+.event-sm .date {
+  font-size: 11px;
+  margin-top: 7px
+}
+
+.event-sm .date img {
+  width: 20px;
+}
+
+.event-sm .profile {
+  font-size: 11px
+}
+
+.event-lg .event-details {
+  margin-top: 0;
+  border-radius: 0 45px 0 45px
+}
+
+.event-lg.event .row>div {
+  padding: 0
+}
+
+.event-lg.event .event-details .row {
+  margin-left: 0;
+  margin-right: 0
+}
+
+.event-lg.event .event-img img {
+  border-radius: 45px 45px 0 45px
+}
+
+.event-lg.event>.row {
+  margin-left: 0;
+  margin-right: 0
+}
+
+.event-lg.event {
+  background: #fff;
+  border-radius: 45px 45px 0 45px
+}
+
+.event-lg.event .event-details h4 {
+  margin-bottom: 5px
+}
+
+.event-lg.event .event-details p {
+  margin-top: 15px;
+  font-size: 18px;
+  color: $taupeGrayColor;
+}
+
+
+.event-details {
+  border-radius: 0 0 0 30px;
+  background: #fff;
+  padding: 20px 20px 18px;
+  z-index: 2;
+  position: relative;
+}
+
+.event-details h4 a {
+  color: $mainColor;
+  font-size: 20px;
+  font-weight: 800;
+  transition: all .2s ease-in-out
+}
+
+.event-details h4 a:hover {
+  text-decoration: none;
+  color: $orange
+}
+
+.event-details p {
+  font-size: 14px;
+  color: #DDDDDD;
+  font-weight: 400
+}
+
+
+
+.event {
+  margin-bottom: 25px
+}
+
+.event-img{
+  background-color: white;
+  img {
+    height: 320px;
+    display: block;
+    margin: auto;
+  }
+}
+.view  {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+}

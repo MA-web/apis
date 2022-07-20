@@ -1,0 +1,27 @@
+@import 'src/assets/scss/variables';
+
+:host ::ng-deep {
+  .panel-default,
+  .panel-default>.panel-heading {
+    border-radius: 0!important;
+  }
+//   .card-body {
+//     padding: 1.25rem!important;
+// }
+
+  .formly-accordion {
+    accordion-group {
+      .card-header {
+        position: relative!important;
+      }
+    }
+
+    .accordion-toggle {
+      &:before {
+        background: $mainColor!important;
+      }
+    }
+
+  }
+}
+

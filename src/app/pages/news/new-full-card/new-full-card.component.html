@@ -1,0 +1,31 @@
+<div class="event event-lg">
+  <div class="row " [ngClass]="{'flex-row-reverse': reverse}">
+    <div class="col-lg-6">
+      <div class="event-img">
+        <img
+          [defaultImage]="news?.image?.reference ? news?.image?.reference : './assets/img/latest.png'"
+          [lazyLoad]="news?.image?.reference ? news?.image?.reference : './assets/img/latest.png'"
+          onerror="this.src='./assets/img/latest.png';" class="img-fluid lazy-loading"
+          alt="{{ news?.title ? news.title : '' }}" />
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="event-details h-100">
+        <div>
+          <h4 class="text-truncate"><a href="javascript:void(0)" (click)="onView()">{{news?.title}}</a></h4>
+          <div class="row">
+            <div class="col-12">
+              <div class="date text-right"><img src="./assets/img/schedule_black_24dp.png">{{news?.lastUpdatedDate |
+                date :'short'}}</div>
+            </div>
+          </div>
+          <p style="word-break:break-all">{{news?.content.length > 300? news?.content.substring(0,300)+ '...' :news?.content}}</p>
+        </div>
+        <div class="view d-flex align-items-end justify-content-end">
+          <a href="javascript:void(0)" (click)="onView()" class="link">{{'ViewMore' | translate}}<img
+              src="./assets/img/arrow.png"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

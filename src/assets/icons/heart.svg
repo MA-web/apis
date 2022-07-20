@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Base" width="20" height="20" transform="translate(30.363 163.363)" fill="#777"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_45" data-name="Mask Group 45" transform="translate(-30.363 -163.363)" clip-path="url(#clip-path)">
+    <g id="favorite_border_black_24dp_2_" data-name="favorite_border_black_24dp (2)" transform="translate(30 163)">
+      <path id="Path_490" data-name="Path 490" d="M0,0H20.727V20.727H0Z" fill="none"/>
+      <path id="Path_491" data-name="Path 491" d="M15.022,3.75a5.172,5.172,0,0,0-3.886,1.8A5.172,5.172,0,0,0,7.25,3.75,4.7,4.7,0,0,0,2.5,8.5c0,3.264,2.936,5.924,7.384,9.966L11.136,19.6l1.252-1.14c4.448-4.033,7.384-6.693,7.384-9.957A4.7,4.7,0,0,0,15.022,3.75Zm-3.8,13.429-.086.086-.086-.086C6.939,13.457,4.227,11,4.227,8.5A2.952,2.952,0,0,1,7.25,5.477a3.376,3.376,0,0,1,3.083,2.038h1.615a3.355,3.355,0,0,1,3.074-2.038A2.952,2.952,0,0,1,18.045,8.5C18.045,11,15.333,13.457,11.222,17.179Z" transform="translate(-0.773 -1.159)" fill="#777"/>
+    </g>
+  </g>
+</svg>

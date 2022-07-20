@@ -1,0 +1,27 @@
+<accordion-group [isOpen]="true" class="mt-4" *ngIf="orderDetails">
+  <div class="btn" accordion-heading>
+
+  <ng-container *ngIf="lastApprovedQuotation; else elseTemplate">
+    Last Approved Order
+  </ng-container>
+  <ng-template #elseTemplate>
+    {{'BankAccount' | translate}}
+  </ng-template>
+  
+  </div>
+  <div class="card white-card">
+    <div class="card-body">
+      <div class="row basic-info">
+        <!------------------------------BankAccount------------------------------------>
+        <h4 class="col-12 my-3">{{'BankAccount' | translate}}:</h4>
+        <p class="col-md-6"><span>{{'BeneficiaryName' | translate}} * : </span>{{orderDetails?.bankAccount?.beneficiaryBankName}}</p>
+        <p class="col-md-6"><span>{{'Phone' | translate}} : </span>{{orderDetails?.bankAccount?.beneficiaryPhone}}</p>
+        <p class="col-md-6"><span>{{'BankName' | translate}} * : </span>{{orderDetails?.bankAccount?.beneficiaryName}}</p>
+        <p class="col-md-6"><span>{{'AccountNumber' | translate}} * : </span>{{orderDetails?.bankAccount?.beneficiaryAccountNumber}}</p>
+        <p class="col-md-6"><span>{{'SWIFTCode' | translate}} * : </span>{{orderDetails?.bankAccount?.swiftCode}}</p>
+        <p class="col-md-6"><span>{{'IBAN' | translate}} * : </span>{{orderDetails?.bankAccount?.iban}}</p>
+        <p class="col-12"><span>{{'IntermediateBankAndData' | translate}} * : </span>{{orderDetails?.bankAccount?.intermediateBank}}</p>
+      </div>
+    </div>
+  </div>
+</accordion-group>

@@ -1,0 +1,14 @@
+<accordion-group [isOpen]="true" class="mt-4" *ngIf="invoiceDetails?.comment">
+  <div class="btn" accordion-heading>
+    {{'Comments' | translate}}
+  </div>
+  <div class="card white-card">
+    <div class="card-body">
+      <div class="row basic-info">
+        <p class="col-md-6">
+          {{invoiceDetails?.comment}}
+        </p>
+      </div>
+    </div>
+  </div>
+</accordion-group>

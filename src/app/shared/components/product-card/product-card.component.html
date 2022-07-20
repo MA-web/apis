@@ -1,11 +1,32 @@
-<div class="product">
-  <div class="product-img"><img src="assets/img/image.png" class="img-fluid"></div>
-  <div class="product-details">
-      <h4><a href="#">Grape Skin Extract</a></h4>
-      <p>Lorem Ipsum is simply dummy text </p>
-      <div class="row">
-          <div class="col-6 gram"><img src="assets/img/balance_black_24dp.png" >30 Gram</div>
-          <div class="col-6 price"><img src="assets/img/payments_black_24dp%20(1).png">250$</div>
+<a href="javascript:void(0)" (click)="onView()">
+  <div class="product" [ngClass]="{'bg-white': bgWhite}">
+    <div class="fav" [ngClass]="{'d-block': fav}" *ngIf="_sharedService?.checkToken()">
+      <a href="javascript:void(0)" title="add to favorite" (click)="onAddToFav($event)" >
+        <img src="assets/icons/fav.svg" alt="fav">
+      </a>
+
+    </div>
+    <div class="product-img">
+      <img
+        [defaultImage]="product?.attachment?.reference ? product?.attachment?.reference : 'assets/img/image2.jpg'"
+        [lazyLoad]="product?.attachment?.reference ? product?.attachment?.reference : 'assets/img/image2.jpg'"
+        onerror="this.src='assets/img/image2.jpg';" class="img-fluid lazy-loading"
+        alt="{{ product?.itemName ? product.itemName : '' }}" />
+
+
+    </div>
+    <div class="product-details">
+      <h4>{{product?.itemName}}</h4>
+      <p class="text-truncate">{{product?.details?product?.details:'&nbsp;'}}</p>
+      <div class="row" *ngIf="product?.itemPricings?.length > 0">
+        <div class="col-6 gram"><img src="assets/img/balance_black_24dp.png">
+            {{product?.itemPricings[0]?.toQuantity}} {{product?.itemPricings[0]?.toUom?.uomName}}
+
+        </div>
+        <div class="col-6 price"><img src="assets/img/payments_black_24dp%20(1).png">
+            {{product?.itemPricings[0]?.price}}  {{product?.itemPricings[0]?.currency?.currencyCode}}
+        </div>
       </div>
+    </div>
   </div>
-</div>
+</a>

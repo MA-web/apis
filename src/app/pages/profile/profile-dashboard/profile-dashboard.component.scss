@@ -1,0 +1,71 @@
+@import 'src/assets/scss/variables';
+
+.the-title {
+  h2 span {
+    color: $orange;
+  }
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: $active-link2;
+  position: relative;
+  svg{
+    zoom: 1.2;
+  }
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    background-color: $active-link2;
+    position: absolute;
+    left: -20px;
+    top: 0;
+    bottom: 0;
+    border-radius: 0px 3px 3px 0px;
+  }
+}
+
+.table .thead-primary th {
+  color: #fff;
+  background-color: $mainColor;
+  white-space: nowrap;
+}
+
+.table-bordered td {
+  color: #888888;
+  font-weight: bold;
+  font-size: 14px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+
+.total {
+  background: #EFEFEF 0% 0% no-repeat padding-box;
+  font-weight: bold;
+  height: 51px;
+  line-height: 51px;
+
+  .price-label {
+    font-size: 16px;
+    padding: 0 15px;
+    color: $mainColor;
+  }
+
+  .priceV {
+    padding: 0 30px;
+    font-size: 24px;
+    background-color: $mainColor;
+    color: white;
+  }
+}
+
+
+:host ::ng-deep {
+  .btn-primary {
+    background-color: $active-link2;
+    border-color: $active-link2;
+  }
+}

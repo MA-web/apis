@@ -1,0 +1,9 @@
+<div class="waiting  mb-3">
+  <div class="card white-card mt-3 border-radius-18" >
+    <div class="card-body p-4 d-flex justify-content-center flex-column align-items-center">
+      <div inlineSVG="assets/img/waiting.svg"></div>
+      <h4 class="mt-3 mb-0" *ngIf="userData.role === 'CUSTOMER'">Waiting Supplier Reply !! <a href="#">Send Reminder mail</a></h4>
+      <h4 class="mt-3 mb-0" *ngIf="userData.role === 'SUPPLIER'">Waiting Customer Reply !! <a href="#">Send Reminder mail</a></h4>
+    </div>
+  </div>
+</div>

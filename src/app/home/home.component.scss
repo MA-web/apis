@@ -1,0 +1,19 @@
+.event {
+  margin-bottom: 25px;
+
+  .event-details {
+    border-radius: 0 0 0 45px;
+    background: #fff;
+    padding: 20px 20px 18px;
+    z-index: 2;
+    position: relative;
+
+    h4 a {
+      color: #0373A4;
+      font-size: 20px;
+      font-weight: 800;
+      transition: all .2s ease-in-out;
+    }
+  }
+
+}

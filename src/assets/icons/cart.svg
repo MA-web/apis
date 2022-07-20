@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Base" width="16" height="16" fill="#777"/>
+    </clipPath>
+  </defs>
+  <g id="ic_account_circle" transform="translate(-4088 -3746)">
+    <rect id="Base-2" data-name="Base" width="24" height="24" transform="translate(4088 3746)" fill="none"/>
+    <g id="Mask_Group_24" data-name="Mask Group 24" transform="translate(4092 3750)" clip-path="url(#clip-path)">
+      <g id="shopping_cart_checkout_black_24dp">
+        <g id="Group_224" data-name="Group 224">
+          <rect id="Rectangle_113" data-name="Rectangle 113" width="16" height="16" fill="none"/>
+        </g>
+        <g id="Group_225" data-name="Group 225" transform="translate(0.667 1.333)">
+          <path id="Path_256" data-name="Path 256" d="M4.833,12.333a1.333,1.333,0,1,0,1.333,1.333A1.332,1.332,0,0,0,4.833,12.333Zm6.667,0a1.333,1.333,0,1,0,1.333,1.333A1.332,1.332,0,0,0,11.5,12.333ZM5.567,9h4.967A1.327,1.327,0,0,0,11.7,8.313L14.167,3.64,13,3,10.533,7.667H5.853l-2.84-6H.833V3H2.167l2.4,5.06-.9,1.627a1.336,1.336,0,0,0,1.167,1.98h8V10.333h-8Zm2.6-7.333,2.667,2.667L8.167,7l-.94-.94L8.28,5H5.5V3.667H8.28L7.22,2.607Z" transform="translate(-0.833 -1.667)" fill="#777"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

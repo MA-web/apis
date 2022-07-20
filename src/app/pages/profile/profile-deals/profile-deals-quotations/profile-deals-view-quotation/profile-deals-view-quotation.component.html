@@ -1,0 +1,62 @@
+
+<accordion class="formly-accordion mb-3">
+
+  <ng-container *ngFor="let quotationVersion of quotationDetails?.quotationVersions ;let odd = odd; let i =index">
+    <app-profile-deal-quotation [quotation]="quotationVersion" [bankAccount]="quotationDetails?.bankAccount" [odd]="odd" [index]="i"></app-profile-deal-quotation>
+  </ng-container>
+
+
+
+</accordion>
+
+
+<ng-container *ngIf="userData?.role === 'CUSTOMER';">
+  <app-deal-waiting-reply *ngIf=" quotationDetails?.status === 1 || canMakeQuotation()"></app-deal-waiting-reply>
+
+</ng-container>
+
+<ng-container *ngIf="userData?.role === 'SUPPLIER';">
+  <app-deal-waiting-reply *ngIf="quotationDetails?.status === 0 || quotationDetails?.status === 2"></app-deal-waiting-reply>
+</ng-container>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="button-items py-4">
+      <ng-container *ngIf="userData?.role === 'CUSTOMER';">
+        <a *ngIf="canReplyCustomer()" class="apis-button btn btn-outline-info px-4" [routerLink]="'/profile/deals/quotations/'+dealId +'/' + productId +'/quotation-reply' ">
+          <span [inlineSVG]="'assets/icons/edit.svg'" class="mx-1"></span>
+          {{'REPLY' |translate}}
+        </a>
+      </ng-container>
+      <ng-container *ngIf="userData?.role === 'SUPPLIER';">
+        <a *ngIf="canReplySupplier()" class="apis-button btn btn-outline-info px-4" [routerLink]="'/profile/deals/quotations/'+dealId +'/' + productId +'/quotation-reply' ">
+          <span [inlineSVG]="'assets/icons/edit.svg'" class="mx-1"></span>
+          {{'REPLY' |translate}}
+        </a>
+      </ng-container>
+        <!-- <button type="button" class="apis-button btn btn-outline-success  px-4">
+          <span [inlineSVG]="'assets/icons/download.svg'" class="mx-1"></span>
+          {{'download' |translate}}
+        </button> -->
+    
+     
+
+      <button type="button" class="apis-button btn btn-success pull-md-right px-5" style="line-height: 12px;" *ngIf="userData.role === 'SUPPLIER' && canAcceptSupplier()" (click)="onAccept()">
+      <div>{{'ACCEPT' |translate}}</div>
+      <div style="font-size: 12px;margin-top: 4px;">{{'needOrder' |translate}}</div>
+    </button>
+
+    <button type="button" class="apis-button btn btn-danger  px-4 pull-md-right" (click)="onReject()" *ngIf="userData.role === 'SUPPLIER' && canRejectSupplier()">
+      <span [inlineSVG]="'assets/icons/delete.svg'" class="mx-1"></span>
+      {{'reject' |translate}}
+    </button>
+    <ng-container *ngIf="userData?.role === 'SUPPLIER' && canMakeQuotation();">
+      <button type="button" class="apis-button btn btn-success pull-md-right px-5"  (click)="onMakeQuotation()">
+        {{'MakeQuotation' |translate}}
+      </button>
+    </ng-container>
+
+    </div>
+  </div>
+</div>

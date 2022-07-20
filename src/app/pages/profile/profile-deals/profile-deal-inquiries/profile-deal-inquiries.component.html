@@ -1,0 +1,93 @@
+<ng-container *ngIf="isLoading; else elseTemplate">
+
+</ng-container>
+<ng-template #elseTemplate>
+  <accordion class="formly-accordion">
+
+    <ng-container *ngFor="let reply of InquiryDetails?.replies ; let odd = odd;">
+      <app-profile-deal-inquiry [reply]="reply" [odd]="odd" [productDetails]="productDetails">
+      </app-profile-deal-inquiry>
+    </ng-container>
+
+
+
+    <!-- <app-profile-deal-inquiry userType="supplier"></app-profile-deal-inquiry> -->
+
+  </accordion>
+
+  <ng-container *ngIf="userData?.role === 'CUSTOMER';">
+    <app-deal-waiting-reply *ngIf=" InquiryDetails?.status === 'CREATED'  || InquiryDetails?.status === 'USER_MODIFIED' ">
+    </app-deal-waiting-reply>
+  </ng-container>
+
+  <ng-container *ngIf="userData?.role === 'SUPPLIER';">
+    <app-deal-waiting-reply *ngIf="InquiryDetails?.status === 'SUPPLIER_MODIFIED' "></app-deal-waiting-reply>
+  </ng-container>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="button-items py-4">
+
+        <ng-container *ngIf="userData?.role === 'CUSTOMER';">
+          <a *ngIf="canReplyCustomer()" class="apis-button btn btn-outline-info px-4"
+            [routerLink]="['/profile/deals/inquiries/reply/' + InquiryDetails?.itemId +'/' +(InquiryDetails?.replies[InquiryDetails?.replies?.length -1])?.inquiryVersionId +'/' + InquiryDetails?.inquiryId +'/' +InquiryDetails?.dealId]">
+            <span [inlineSVG]="'assets/icons/edit.svg'" class="mx-1"></span>
+            {{'REPLY' |translate}}
+          </a>
+        </ng-container>
+        <ng-container *ngIf="userData?.role === 'SUPPLIER';">
+          <a *ngIf="canReplySupplier() "
+            class="apis-button btn btn-outline-info px-4"
+            [routerLink]="['/profile/deals/inquiries/reply/' + InquiryDetails?.itemId +'/' +(InquiryDetails?.replies[InquiryDetails?.replies?.length -1])?.inquiryVersionId +'/' + InquiryDetails?.inquiryId +'/' +InquiryDetails?.dealId]">
+            <span [inlineSVG]="'assets/icons/edit.svg'" class="mx-1"></span>
+            {{'REPLY' |translate}}
+          </a>
+        </ng-container>
+
+
+        <button type="button" class="apis-button btn btn-outline-success  px-4">
+          <span [inlineSVG]="'assets/icons/download.svg'" class="mx-1"></span>
+          {{'download' |translate}}
+        </button>
+
+
+
+
+
+        <ng-container *ngIf="userData?.role === 'CUSTOMER';">
+          <button type="button" class="apis-button btn btn-danger  px-4" (click)="onRejectInquiry()"
+            *ngIf="canRejectCustomer()">
+            <span [inlineSVG]="'assets/icons/delete.svg'" class="mx-1"></span>
+            {{'reject' |translate}}
+          </button>
+          <button type="button" class="apis-button btn btn-success pull-md-right px-5" style="line-height: 12px;"
+            (click)="onAcceptInquiry()" *ngIf="canAcceptCustomer()">
+            <div>{{'ACCEPT' |translate}}</div>
+            <div style="font-size: 12px;margin-top: 4px;">{{'MakeQuotation' |translate}}</div>
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="userData?.role === 'SUPPLIER';">
+          <button type="button" class="apis-button btn btn-danger  px-4" (click)="onRejectInquiry()"
+            *ngIf="canRejectSupplier()">
+            <span [inlineSVG]="'assets/icons/delete.svg'" class="mx-1"></span>
+            {{'reject' |translate}}
+          </button>
+          <button type="button" class="apis-button btn btn-success pull-md-right px-5" style="line-height: 12px;"
+            (click)="onAcceptInquiry()"
+            *ngIf="canAcceptSupplier()">
+            <div>{{'ACCEPT' |translate}}</div>
+            <div style="font-size: 12px;margin-top: 4px;">{{'MakeQuotation' |translate}}</div>
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="userData?.role === 'SUPPLIER' && canMakeQuotation();">
+          <button type="button" class="apis-button btn btn-success pull-md-right px-5"  (click)="onMakeQuotation()">
+            {{'MakeQuotation' |translate}}
+          </button>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+</ng-template>

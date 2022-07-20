@@ -1,0 +1,26 @@
+
+
+@import 'src/assets/scss/variables';
+
+
+
+.breadcrumb-apis {
+  background: rgb(255 255 255 / 0%);
+  padding-top: .75rem;
+  .breadcrumb-item {
+    img {
+      margin-right: 7px
+    }
+    a {
+      font-size: 16px;
+      font-weight: 700;
+      color: #888888
+    }
+    &.active {
+      font-size: 16px;
+      font-weight: 700;
+      color: $active-link2
+    }
+  }
+
+}

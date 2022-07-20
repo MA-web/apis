@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <g id="Group_362" data-name="Group 362" transform="translate(-0.927 22)">
+    <ellipse id="Ellipse_20" data-name="Ellipse 20" cx="45.5" cy="46" rx="45.5" ry="46" transform="translate(0.927 -22)" fill="rgba(252,184,19,0.09)"/>
+    <g id="hourglass_top_black_24dp_1_" data-name="hourglass_top_black_24dp (1)" transform="translate(1.271 -21.656)">
+      <g id="Group_441" data-name="Group 441">
+        <rect id="Rectangle_245" data-name="Rectangle 245" width="150" height="150" transform="translate(-0.344 -0.344)" fill="none"/>
+      </g>
+      <g id="Group_443" data-name="Group 443" transform="translate(37.328 12.443)">
+        <g id="Group_442" data-name="Group 442">
+          <path id="Path_536" data-name="Path 536" d="M8,25.775,32.885,50.66,57.771,25.775V4H8Z" transform="translate(4.443 8.443)" opacity="0.3"/>
+          <path id="Path_537" data-name="Path 537" d="M8,25.775,32.885,50.66,57.771,25.775V4H8Z" transform="translate(4.443 8.443)" fill="#f7dd9d"/>
+          <path id="Path_538" data-name="Path 538" d="M80.656,2H6V39.328L30.885,64.214,6.062,89.161,6,126.427H80.656l-.062-37.266L55.771,64.214,80.656,39.39ZM68.214,92.21v21.775H18.443V92.21L43.328,67.324Zm0-55.992L43.328,61.1,18.443,36.217V14.443H68.214Z" transform="translate(-6 -2)" fill="#fcb813"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

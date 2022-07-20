@@ -9,6 +9,7 @@ import { AuthComponent } from './auth.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { ActivationEmailComponent } from './activation-email/activation-email.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 const route: Route[] = [
   {
@@ -18,8 +19,8 @@ const route: Route[] = [
       { path: 'signup', component: SignupComponent },
       { path: 'forget-password', component: ForgetPasswordComponent },
       { path: 'new-password', component: NewPasswordComponent },
-      { path: 'email-confirm', component: ActivationEmailComponent }
-
+      { path: 'confirm-signup', component: ActivationEmailComponent },
+      { path: 'confirm-rest-password', component: ActivationEmailComponent }
     ]
   },
 
@@ -32,13 +33,14 @@ const route: Route[] = [
     SignupComponent,
     ForgetPasswordComponent,
     NewPasswordComponent,
-    ActivationEmailComponent
+    ActivationEmailComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(route),
     TranslateModule,
-    FormlyConfModule
+    FormlyConfModule,
+    NgxSkeletonLoaderModule
   ]
 })
 export class AuthModule { }

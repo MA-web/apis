@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PagesComponent } from './pages/pages.component';
 
 const routes: Routes = [
   {
@@ -14,7 +13,6 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: PagesComponent,
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
   },
 
@@ -26,7 +24,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    initialNavigation: 'enabledBlocking',useHash: true
+    initialNavigation: 'enabledBlocking',useHash: true , scrollPositionRestoration: 'enabled'
 })],
   exports: [RouterModule]
 })
