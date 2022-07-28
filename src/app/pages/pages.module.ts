@@ -30,6 +30,10 @@ const route: Route[] = [
     loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
   },
   {
+    path: 'contact-us',
+    loadChildren: () => import('./contact-us/contact-us.module').then(m => m.ContactUsModule)
+  },
+  {
     path: 'suppliers',
     loadChildren: () => import('./our-suppliers/our-suppliers.module').then(m => m.OurSuppliersModule)
   },

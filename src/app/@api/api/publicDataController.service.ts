@@ -30,6 +30,7 @@ import { PublicItemDto } from '../model/publicItemDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import { ContactUsDto } from '../model/contactUsDto';
 
 
 @Injectable()
@@ -702,5 +703,44 @@ export class PublicDataControllerService {
             }
         );
     }
+
+    /**
+     * (no need for authentication).
+     */
+         public postContactUs(contactUs: ContactUsDto, observe?: 'body', reportProgress?: boolean): Observable<ContactUsDto>;
+         public postContactUs(contactUs: ContactUsDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ContactUsDto>>;
+         public postContactUs(contactUs: ContactUsDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ContactUsDto>>;
+         public postContactUs(contactUs: ContactUsDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+     
+             let headers = this.defaultHeaders;
+     
+             // authentication (JWT) required
+             if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+                 headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+             }
+     
+             // to determine the Accept header
+             let httpHeaderAccepts: string[] = [
+                 'application/json'
+             ];
+             const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+             if (httpHeaderAcceptSelected != undefined) {
+                 headers = headers.set('Accept', httpHeaderAcceptSelected);
+             }
+     
+             // to determine the Content-Type header
+             const consumes: string[] = [
+             ];
+     
+             return this.httpClient.post<ContactUsDto>(`${this.basePath}/public/data/contactUs`,
+contactUs,
+                 {
+                     withCredentials: this.configuration.withCredentials,
+                     headers: headers,
+                     observe: observe,
+                     reportProgress: reportProgress
+                 }
+             );
+         }
 
 }

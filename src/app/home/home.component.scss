@@ -17,3 +17,99 @@
   }
 
 }
+
+.events {
+  background: url('../../assets/img/BG.svg');
+  background: #0373a4;
+  background-repeat: no-repeat;
+  .link:hover {
+    color: white;
+  }
+}
+
+.events-footer {
+  img {
+    width: 36px;
+    height: 36px;
+    border-radius: 20px;
+    border: solid 1px #a4a4a4;
+  }
+
+  div p {
+    font-family: Cairo;
+    font-size: 20px;
+    font-weight: bold;
+    color: #777;
+  }
+
+  &__clock {
+    font-family: Cairo;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fcb813;
+  }
+}
+
+.event-card {
+  background: #fff;
+ & > img {
+width: 100%
+ }
+}
+
+// .news
+.news-card {
+  position: relative;
+  .link:hover {
+    color: white;
+  }
+  img {
+    width: 255px;
+    // height: 166px;
+  } 
+  &__footer {
+    img {
+      width: 36px;
+      height: 36px;
+      border-radius: 20px;
+      border: solid 1px #a4a4a4;
+    }
+    p {
+      font-family: Cairo;
+      font-size: 20px;
+      font-weight: bold;
+      color: #eee;
+    }
+  }
+  &__middle {
+    position: absolute;
+    border-top: 6px solid #fcb813;
+    background-color: #fff;
+    left: 20px;
+    top: 50px;
+    p {
+      font-family: Cairo;
+      font-size: 16px;
+      font-weight: 800;
+      text-align: center;
+      color: #fcb813;
+      &:first-child {
+        font-size: 32px;
+      }
+    }
+  }
+  &__right {
+    position: relative;
+  border-radius: 37px;
+  background-color: rgba(#fff, 0.21);
+  margin-left: -70px;
+  padding-left: 90px;
+  > p {
+    font-family: Cairo;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+  }
+  }
+}
+

@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { LayoutModule } from '../layout/layout.module';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 const route: Route[] = [
   { path: '', component: HomeComponent },
@@ -22,6 +23,7 @@ const route: Route[] = [
     SharedModule,
     TranslateModule,
     LazyLoadImageModule,
+    FlexLayoutModule
   ]
 })
 export class HomeModule { }

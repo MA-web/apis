@@ -30,16 +30,17 @@ export class NavComponent extends AppBaseComponent implements OnInit, OnDestroy 
     const qSub = this.route.queryParams.subscribe(query => {
 
       const getItemsCategoryUsingGETSub = this.LookupControllerService.getItemsCategoryUsingGET().subscribe((res: Array<ItemCategoryDto>) => {
-        this.categories = res;
         this.categories.push({ categoryName:this._translateService.instant('selectCategory') })
+        this.categories = res;
         this.fields = [
 
           {
             className: 'noFormGroup col-3 p-0',
             key: 'category',
             type: 'select',
-            defaultValue: this.categories[0]?.categoryId,
+            // defaultValue: this.categories[0]?.categoryId,
             templateOptions: {
+              placeholder: 'Select Category',
               options: this.categories?.map(v => ({ label: v?.categoryName, value: v?.categoryId })),
             }
           },
