@@ -43,6 +43,12 @@ const route: Route[] = [
     canActivate: [AppRouteGuard]
 
   },
+  {
+    path: 'profile-admin',
+    loadChildren: () => import('./profile-admin/profile-admin.module').then(m => m.ProfileAdminModule),
+    canActivate: [AppRouteGuard]
+
+  },
  ]}
 ]
 

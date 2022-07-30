@@ -2,7 +2,7 @@ import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { finalize, forkJoin } from 'rxjs';
+import { finalize, forkJoin, of } from 'rxjs';
 import { EventControllerService, EventDto, PublicDataControllerService, SupplierControllerService, SupplierEmployeeDto, UserControllerService, UserResponseDto } from 'src/app/@api';
 import { DeleteAccountAlertComponent } from 'src/app/shared/components/alert-conf/delete-account-alert/delete-account-alert.component';
 import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.component';
@@ -40,16 +40,23 @@ export class AddEvent2Component extends AppBaseComponent implements OnInit, OnDe
 
   async ngOnInit() {
     await this._translateService.get('dummyTranslation').toPromise().then();
-    let observableGetProfile;
-      observableGetProfile = this._publicDataControllerService.getEventByIdUsingGET(this.eventId)
+    let observableGetProfile ;
+    if(this.eventId) {
+        observableGetProfile = this._publicDataControllerService.getEventByIdUsingGET(this.eventId)
+    } else {
+      observableGetProfile = of({
+        title: '',
+        content: ''
+      })
+    }
    
     let observables = [
-      observableGetProfile,
       this.LookupControllerService.getOriginsUsingGET(),
+      observableGetProfile,
     ]
 
     const sub = forkJoin(observables).subscribe((res: any) => {
-      this.eventDto = res[0];
+      this.eventDto = res[1] ? res[1] : [];
 
       this.businessLicensePicture = this.eventDto?.image?.reference
 
@@ -105,12 +112,11 @@ export class AddEvent2Component extends AppBaseComponent implements OnInit, OnDe
           defaultValue: this.eventDto?.city?.origin?.originId,
           templateOptions: {
             label: this._translateService.instant('companyLocation'),
-            options: res[1].map(v => ({ label: v.originName, value: v.originId })),
-            disabled: true,
+            options: res[0]?.map(v => ({ label: v.originName, value: v.originId })),
             change: (f, e) => {
               if (e) {
-                const getCountryCityUsingGETSub = this.LookupControllerService.getOriginCitiesUsingGET(this.model2?.origin).subscribe((res: any) => {
-                  this.fields2.find(v => v?.key === 'city').templateOptions.options = res.map(v => ({ label: v?.cityName, value: v?.cityLookupId }))
+                const getCountryCityUsingGETSub = this.LookupControllerService.getOriginCitiesUsingGET(this.model?.origin).subscribe((res: any) => {
+                  this.fields.find(v => v?.key === 'city').templateOptions.options = res.map(v => ({ label: v?.cityName, value: v?.cityLookupId }))
                 })
                 this.unSubscription.push(getCountryCityUsingGETSub)
               }
@@ -137,7 +143,7 @@ export class AddEvent2Component extends AppBaseComponent implements OnInit, OnDe
         //   templateOptions: {
         //     label: this._translateService.instant('city'),
         //     required: true,
-        //     options: res[0]?.map(v => ({ label: v?.originName, value: v?.originId })),
+        //     options: res[1]?.map(v => ({ label: v?.originName, value: v?.originId })),
         //   },
         // },
         {
@@ -154,12 +160,14 @@ export class AddEvent2Component extends AppBaseComponent implements OnInit, OnDe
         
 
       ]
-      const getCountryCityUsingGETSub = this.LookupControllerService.getOriginCitiesUsingGET(this.eventDto?.city?.origin?.originId).subscribe((res: any) => {
-        this.fields.find(v => v?.key === 'city').templateOptions.options = res.map(v => ({ label: v?.cityName, value: v?.cityLookupId }))
-        this.form.get('city')?.setValue(+this.eventDto?.city?.cityLookupId)
-        // .userProfile?.address?.city
-      })
-      this.unSubscription.push(getCountryCityUsingGETSub)
+      if(this.eventDto?.city?.origin?.originId) {
+        const getCountryCityUsingGETSub = this.LookupControllerService.getOriginCitiesUsingGET(this.eventDto?.city?.origin?.originId).subscribe((res: any) => {
+          this.fields.find(v => v?.key === 'city').templateOptions.options = res.map(v => ({ label: v?.cityName, value: v?.cityLookupId }))
+          this.form.get('city')?.setValue(+this.eventDto?.city?.cityLookupId)
+          // .userProfile?.address?.city
+        })
+        this.unSubscription.push(getCountryCityUsingGETSub)
+      }
       this.isLoading = false
 
     })
@@ -297,14 +305,6 @@ export class AddEvent2Component extends AppBaseComponent implements OnInit, OnDe
 
 
 
-  }
-
-
-  onDeleteAccount() {
-    const initialState: any = {
-      class: 'modal-md',
-    };
-    const bsModalRef = this.modalService.show(DeleteAccountAlertComponent, initialState);
   }
 
   ngOnDestroy(): void {

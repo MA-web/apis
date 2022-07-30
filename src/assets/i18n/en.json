@@ -260,6 +260,9 @@
   "PublishProductMessage": "Are you sure to Publish?",
   "deleteProductMessage": "Are you sure to Publish?",
   "supplierName":"Supplier Name",
+  
+  "Faq": "Faq",
+  "Internal_Pages": "Internal Pages",
 
   "validations": {
     "required": "This field is required!",
@@ -267,6 +270,9 @@
     "phone": "Please enter valid phone",
     "email": "Please enter valid email!",
     "password": "Password should contain at least one lower character, one upper character, one digit character and length from 8-16 characters",
-    "url": "Please enter valid website!"
+    "url": "Please enter valid website!",
+    "addEvent": "Add Event",
+    "Publish": "Publish",
+    "Update": "Update"
   }
 }

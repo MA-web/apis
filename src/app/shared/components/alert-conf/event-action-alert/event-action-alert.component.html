@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <img src="./assets/icons/exclamation.svg" alt="alert" class="d-block mx-auto my-4">
+    <h3 class="font-weight-bolder text-center text-danger my-4">{{message}}</h3>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{'no' | translate}}</button>
+    <button type="submit" class="apis-button btn btn-warning px-5" [disabled]="form.invalid || isSubmit">
+      <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Loading...
+      </ng-container>
+      <ng-template #elseTemplate_isSubmit>
+        {{'yes' | translate}}
+      </ng-template>
+    </button>
+  </div>
+</form>

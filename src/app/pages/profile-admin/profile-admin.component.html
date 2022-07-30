@@ -1,0 +1,35 @@
+<div class="section-apis grey-bg3 =">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-12 mb-4">
+        <div class="profile-list">
+          <a routerLink="./inbox" [routerLinkActive]="['active']">
+            <i inlineSVG="assets/icons/inbox.svg"></i>
+            {{'Inbox' | translate}}
+          </a>
+
+          <accordion [closeOthers]="true">
+            <accordion-group [isOpen]="router.isActive('/profile-admin/pages', false)">
+              <a href="javascript:void(0)" accordion-heading [class.active]="router.isActive('/profile-admin/pages', false)">
+                <i inlineSVG="assets/icons/cart.svg"></i>
+                {{'Internal_Pages' | translate}}
+                <span class="arrow-d">
+                  <i inlineSVG="assets/icons/arrow-down.svg"></i>
+                </span>
+              </a>
+              <!-- <a routerLink="./pages/news" [routerLinkActive]="['active']"> {{'News' | translate}}</a> -->
+              <a routerLink="./pages/events" [routerLinkActive]="['active']"> {{'Events' | translate}}</a>
+            </accordion-group>
+          </accordion>
+          <a routerLink="./faq" [routerLinkActive]="['active']">
+            <i inlineSVG="assets/icons/profile.svg"></i>
+            {{'Faq' | translate}}
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-9 col-12">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

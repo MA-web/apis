@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col-lg-4">
+    <div class="card white-card" style="border-radius: 0;">
+      <div class="mb-1">
+        <form [formGroup]="form">
+          <formly-form [form]="form" [model]="model" [fields]="fields"> </formly-form>
+        </form>
+      </div>
+      <div class="card-body">
+        <ng-container *ngFor="let item of chatList">
+          <div class="mb-2">
+            <app-message-card [ChatDto]="item"></app-message-card>
+          </div>
+        </ng-container>
+
+
+      </div>
+      <div class="d-flex justify-content-center w-100 mt-3">
+        <pagination [boundaryLinks]="true" [totalItems]="totalElements" previousText="&lsaquo;" nextText="&rsaquo;"
+          (pageChanged)="pageChanged($event)" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="pageSize"
+          [maxSize]="1">
+        </pagination>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-lg-8">
+    <div class="deal-card">
+      <div class="deal-title mb-2">{{ChatDto?.chatTitle}}</div>
+      <div class="d-flex justify-content-between">
+        <div class="user">{{ChatDto?.messages[ChatDto?.messages?.length-1]?.sender?.name}}</div>
+        <div class="date">{{ChatDto?.messages[ChatDto?.messages?.length-1]?.messageDateTime | date}}</div>
+      </div>
+    </div>
+    <div class="card white-card" style="border-radius: 0;">
+      <div class="card-body">
+        <div style="min-height:200px; max-height: 600px; overflow-y: auto;" #scrollMe>
+          <accordion class="formly-accordion">
+            <ng-container *ngFor="let message of ChatDto?.messages">
+              <accordion-group [isOpen]="true" [ngClass]="{'sender': userData?.id ===message?.sender?.id}">
+                <div class="btn w-100 d-flex justify-content-between" accordion-heading
+                  [ngClass]="{'flex-row-reverse': userData?.id ===message?.sender?.id}">
+                  <div>{{message?.sender?.name}}</div>
+                  <div class="date">{{message?.messageDateTime | date :'short'}}</div>
+                </div>
+                <div class="row basic-info mt-0" [ngClass]="{'text-right': userData?.id ===message?.sender?.id}">
+
+                  <p class="col-md-12 font-size-14">
+                    {{message?.messageContent }}
+                  </p>
+
+                  <div class="row w-100 m-0" [ngClass]="{'flex-row-reverse': userData?.id ===message?.sender?.id}">
+                    <ng-container *ngFor="let item of message?.attachments;let i =index">
+                      <div class="image-area col-2 p-0">
+                        <img
+                          [defaultImage]="item?.attachment?.reference ? item?.attachment?.reference : 'assets/img/image2.jpg'"
+                          [lazyLoad]="item?.attachment?.reference ? item?.attachment?.reference : 'assets/img/image2.jpg'"
+                          onerror="this.src='assets/img/image2.jpg';" class="img-thumbnail lazy-loading"
+                          alt="{{ message?.messageContent ? message?.messageContent : '' }}"
+                          (click)="onOpen(item?.attachment?.reference)" />
+
+                        <!-- <a class="remove-image" href="javascript:void(0)"  (click)="onDelete(item, message?.attachments,index,message?.messageContent)">&#215;</a> -->
+                      </div>
+                    </ng-container>
+                  </div>
+
+                </div>
+
+
+              </accordion-group>
+            </ng-container>
+
+
+
+          </accordion>
+        </div>
+
+        <div class="mt-4">
+
+
+          <form [formGroup]="form2" (ngSubmit)="onSubmit()">
+            <formly-form class="row" [form]="form2" [model]="model2" [fields]="fields2" [options]="options">
+            </formly-form>
+            <div class="button-items mt-4 mb-0">
+              <!-- <button type="button" class="apis-button btn-sm btn btn-outline-info  px-4 py-2">
+                <span [inlineSVG]="'assets/icons/edit.svg'"></span>
+                {{'Save_as_Draft' |translate}}
+              </button> -->
+
+              <button type="submit" class="apis-button btn btn-sm btn-warning pull-md-right px-4 py-2"
+                [disabled]="form.invalid || isSubmit">
+                <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Loading...
+                </ng-container>
+                <ng-template #elseTemplate_isSubmit>
+                  {{'Send' | translate}}
+                </ng-template>
+              </button>
+            </div>
+          </form>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
