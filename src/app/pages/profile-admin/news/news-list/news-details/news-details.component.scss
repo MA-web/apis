@@ -1,0 +1,18 @@
+@import 'src/assets/scss/variables';
+
+.basic-info {
+  h4{
+    color: $mainColor;
+  }
+  span {
+    color: #454545;
+  }
+
+  .table th, .table td{
+    color:#756F86;
+    font-weight:bold;
+  }
+
+}
+
+

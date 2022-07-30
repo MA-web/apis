@@ -22,6 +22,9 @@ const route: Route[] = [
         path: 'pages/events', loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
       },
       {
+        path: 'pages/news', loadChildren: () => import('./news/news.module').then(m => m.NewsModule)
+      },
+      {
         path: 'faq', loadChildren: () => import('./profile-faq/profile-faq.module').then(m => m.ProfileFaqModule)
       },
 

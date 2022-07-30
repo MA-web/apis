@@ -1,0 +1,57 @@
+
+<div class="row">
+  <div class="col-12">
+    <div class="card white-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div class="the-title">
+            <h2>{{'News' | translate}}<span class="number-items">{{news?.length}} {{'New' | translate}}</span></h2>
+          </div>
+          <div>
+            <a routerLink="../add" class="apis-button btn-success px-4">
+              <span [inlineSVG]="'assets/icons/add.svg'"></span>
+              {{'addNew' | translate}}</a>
+          </div>
+        </div>
+        <ng-container *ngIf="isLoading; else elseTemplate">
+          <div class="row">
+            <div class="col-sm-6" *ngFor="let item of [].constructor(6)">
+              <app-skeleton-card-box></app-skeleton-card-box>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <ng-container *ngIf="news?.length <= 0; else elseTemplateNoData">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-12">
+                <app-no-data></app-no-data>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #elseTemplateNoData>
+
+            <div class="row">
+              <ng-container *ngFor="let newData of news">
+                <div class="col-12">
+                  <app-new [newData]="newData"></app-new>
+                </div>
+              </ng-container>
+
+            </div>
+          </ng-template>
+        </ng-template>
+
+
+
+        <div class="mt-4" *ngIf="totalElements > 0">
+          <div class="d-flex justify-content-center">
+            <pagination [boundaryLinks]="true" [totalItems]="totalElements" previousText="&lsaquo;" nextText="&rsaquo;"
+            (pageChanged)="pageChanged($event)" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="pageSize"
+            [maxSize]="3">
+          </pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

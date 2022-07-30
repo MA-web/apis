@@ -5,6 +5,7 @@ import { FormlyConfModule } from '../../formly-conf/formly-conf.module';
 import { DeleteAccountAlertComponent } from './delete-account-alert/delete-account-alert.component';
 import { ProductActionAlertComponent } from './product-action-alert/product-action-alert.component';
 import { EventActionAlertComponent } from './event-action-alert/event-action-alert.component';
+import { NewActionAlertComponent } from './new-action-alert/new-action-alert.component';
 
 
 
@@ -12,7 +13,8 @@ import { EventActionAlertComponent } from './event-action-alert/event-action-ale
   declarations: [
     DeleteAccountAlertComponent,
     ProductActionAlertComponent,
-    EventActionAlertComponent
+    EventActionAlertComponent,
+    NewActionAlertComponent
   ],
   imports: [
     CommonModule,

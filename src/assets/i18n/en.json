@@ -263,6 +263,12 @@
   
   "Faq": "Faq",
   "Internal_Pages": "Internal Pages",
+  
+    
+  "newsTitle": "News Title",
+  "newsImage": "News Image",
+  "CreationDate": "Creation Date",
+  "NewsDescription": "News Description",
 
   "validations": {
     "required": "This field is required!",
