@@ -109,6 +109,10 @@ export class NavComponent extends AppBaseComponent implements OnInit, OnDestroy 
   }
 
   onReset(){
+    if(this.userData?.role === 'ADMIN') {
+      this.router.navigate(['/profile-admin/inbox'])
+      return;
+    }
     this.router.navigate(['/profile/inbox'])
   }
   onSubmit() {

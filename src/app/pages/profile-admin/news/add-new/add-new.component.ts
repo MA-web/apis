@@ -75,7 +75,7 @@ export class AddNewComponent extends AppBaseComponent implements OnInit, OnDestr
         },
         {
           className: 'col-12',
-          key: 'businessLicense',
+          key: 'image',
           type: 'upload',
 
           templateOptions: {
@@ -231,18 +231,18 @@ export class AddNewComponent extends AppBaseComponent implements OnInit, OnDestr
 
       this.beforeImagesLoaded?.push(this.model2?.UploadProfilePicture[0])
 
-      this.UploadFileService.uploadMultiple([this.model2?.UploadProfilePicture[0]], `profiles/profile-${this.newDto?.newsId}/profilePicture`)
+      this.UploadFileService.uploadMultiple([this.model2?.UploadProfilePicture[0]], `news/new-${this.newDto?.newsId}/profilePicture`)
     }
-    if (this.model?.businessLicense?.length) {
-      if (this.isFile(this.model?.businessLicense[0])) {
-        this.beforeImagesLoaded?.push(this.model?.businessLicense[0])
+    if (this.model?.image?.length) {
+      if (this.isFile(this.model?.image[0])) {
+        this.beforeImagesLoaded?.push(this.model?.image[0])
       }
 
-      this.UploadFileService.uploadMultiple([this.model?.businessLicense[0]], `profiles/profile-${this.newDto?.newsId}/businessLicense`)
+      this.UploadFileService.uploadMultiple([this.model?.image[0]], `news/new-${this.newDto?.newsId}/businessLicense`)
 
     }
 
-    if (!this.model?.businessLicense && !this.model2?.UploadProfilePicture?.length) {
+    if (!this.model?.image) {
       this.updateProfile()
     }
 

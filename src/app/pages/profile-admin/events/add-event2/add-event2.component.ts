@@ -74,7 +74,7 @@ export class AddEvent2Component extends AppBaseComponent implements OnInit, OnDe
         },
         {
           className: 'col-12',
-          key: 'businessLicense',
+          key: 'image',
           type: 'upload',
 
           templateOptions: {
@@ -288,18 +288,18 @@ export class AddEvent2Component extends AppBaseComponent implements OnInit, OnDe
 
       this.beforeImagesLoaded?.push(this.model2?.UploadProfilePicture[0])
 
-      this.UploadFileService.uploadMultiple([this.model2?.UploadProfilePicture[0]], `profiles/profile-${this.eventDto?.eventId}/profilePicture`)
+      this.UploadFileService.uploadMultiple([this.model2?.UploadProfilePicture[0]], `events/event-${this.eventDto?.eventId}/profilePicture`)
     }
-    if (this.model?.businessLicense?.length) {
-      if (this.isFile(this.model?.businessLicense[0])) {
-        this.beforeImagesLoaded?.push(this.model?.businessLicense[0])
+    if (this.model?.image?.length) {
+      if (this.isFile(this.model?.image[0])) {
+        this.beforeImagesLoaded?.push(this.model?.image[0])
       }
 
-      this.UploadFileService.uploadMultiple([this.model?.businessLicense[0]], `profiles/profile-${this.eventDto?.eventId}/businessLicense`)
+      this.UploadFileService.uploadMultiple([this.model?.image[0]], `events/event-${this.eventDto?.eventId}/businessLicense`)
 
     }
 
-    if (!this.model?.businessLicense && !this.model2?.UploadProfilePicture?.length) {
+    if (!this.model?.image) {
       this.updateProfile()
     }
 
