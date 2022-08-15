@@ -9,11 +9,11 @@ import { AppBaseComponent } from 'src/app/shared/components/app-base/app-base.co
 import { generalValidations, roles } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-add-event2',
-  templateUrl: './add-event2.component.html',
-  styleUrls: ['./add-event2.component.scss']
+  selector: 'app-add-event',
+  templateUrl: './add-event.component.html',
+  styleUrls: ['./add-event.component.scss']
 })
-export class AddEvent2Component extends AppBaseComponent implements OnInit, OnDestroy {
+export class AddEventComponent extends AppBaseComponent implements OnInit, OnDestroy {
   eventDto: EventDto
 
   form2 = new FormGroup({});
