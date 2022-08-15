@@ -46,13 +46,13 @@ export class ProfileFaqComponent extends AppBaseComponent implements OnInit, OnD
 
     let observables = [
       observableGetProfile,
-      this.LookupControllerService.getOriginsUsingGET(),
-      this.LookupControllerService.getEmployeesNumberUsingGET(),
-      this.LookupControllerService.getInterestsUsingGET(),
-      this.LookupControllerService.getAnnualSalesVolumeUsingGET(),
-      this.LookupControllerService.getExportPercentageUsingGET(),
-      this.LookupControllerService.getMainMarketsUsingGET(),
-      this.LookupControllerService.getMainCustomerUsingGET(),
+      // this.LookupControllerService.getOriginsUsingGET(),
+      // this.LookupControllerService.getEmployeesNumberUsingGET(),
+      // this.LookupControllerService.getInterestsUsingGET(),
+      // this.LookupControllerService.getAnnualSalesVolumeUsingGET(),
+      // this.LookupControllerService.getExportPercentageUsingGET(),
+      // this.LookupControllerService.getMainMarketsUsingGET(),
+      // this.LookupControllerService.getMainCustomerUsingGET(),
     ]
 
     const sub = forkJoin(observables).subscribe((res: any) => {

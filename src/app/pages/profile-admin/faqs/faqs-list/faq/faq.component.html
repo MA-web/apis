@@ -1,0 +1,52 @@
+<div class="supplier-product">
+  <div class=" d-flex flex-md-row flex-column">
+    <div class="product-details ml-3">
+      <h4>{{faq?.question}}</h4>
+
+      <div class="product-details-2 mt-4">
+        <div class="row">
+          <div class="col-12">
+            <!-- <span>{{'content' | translate}}: </span> -->
+            <p>{{faq?.answer}}</p>
+          </div>
+          <!-- <div class="col-12">
+            <p><span>{{'city' | translate}}: </span>{{faq?.city}}</p>
+          </div> -->
+          <!-- <div class="col-12">
+            <p><span>{{'status' | translate}}: </span>{{status[faq?.status]}}</p>
+          </div> -->
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="product-btns">
+        <button type="button" class="apis-button btn-outline-info" [routerLink]="['/profile-admin','faq','edit',faq?.faqId]">
+          <span [inlineSVG]="'assets/icons/edit.svg'"></span>
+          {{'edit' |translate}}
+        </button>
+        <button type="button" class="apis-button btn-danger" (click)="onAction('delete')">
+          <span [inlineSVG]="'assets/icons/delete.svg'"></span>
+          {{'delete' |translate}}
+        </button>
+        <button type="button" class="apis-button btn-outline-success" (click)="onAction('Republish')">
+          <span [inlineSVG]="'assets/icons/Republish.svg'"></span>
+          {{'Republish' |translate}}
+        </button>
+        <button type="button" class="apis-button btn-danger" (click)="onAction('UnPublish')">
+          <span [inlineSVG]="'assets/icons/Un-Publish.svg'"></span>
+          {{'UnPublish' |translate}}
+        </button>
+
+        <!-- later <button type="button" class="apis-button btn btn-warning pull-md-right" [routerLink]="['/faqs/details/',faq?.faqId]"  >
+          <span [inlineSVG]="'assets/icons/eye.svg'"></span>
+          {{'Preview' |translate}}
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>

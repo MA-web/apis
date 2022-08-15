@@ -1,0 +1,160 @@
+<app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+<div class="card white-card">
+  <div class="card-body">
+    <div class="row basic-info">
+      <!------------------------------category------------------------------------>
+      <h4 class="col-12 mb-3">{{'category' | translate}}:</h4>
+      <p class="col-md-6"><span>{{'category' | translate}} * : </span>category</p>
+      <p class="col-md-6"><span>{{'SubCategory' | translate}} * : </span>SubCategory</p>
+
+      <!------------------------------BasicInfo------------------------------------>
+      <h4 class="col-12 my-3">{{'BasicInfo' | translate}}:</h4>
+      <p class="col-12 "><span>{{'ProductName' | translate}} * : </span>ProductName</p>
+      <p class="col-md-6"><span>{{'casNo' | translate}} * : </span>casNo</p>
+      <p class="col-md-6"><span>{{'MolecularFormula' | translate}} : </span>MolecularFormula</p>
+      <p class="col-md-6"><span>{{'origin' | translate}} * : </span>origin</p>
+      <p class="col-md-6"><span>{{'SupplierType' | translate}} * : </span>SupplierType</p>
+      <p class="col-12 mb-1"><span>{{'keywords' | translate}} * : </span></p>
+      <p class="col-md-12 font-size-16">#Natural Extracts #Natural Extracts #Natural Extracts #Natural Extracts</p>
+
+      <!------------------------------ProductPicture------------------------------------>
+      <h4 class="col-12 my-3">{{'ProductPicture' | translate}}:</h4>
+      <div class="col-12">
+        <app-imgs-preview></app-imgs-preview>
+      </div>
+      <p class="col-12 mb-1"><span>{{'ProductDetails' | translate}}: </span></p>
+      <p class="col-md-12 font-size-16">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+        Ipsum has been the industry’s standard dummy text ever since the 1500s,when an unknown printer took a galley of
+        type and scrambled it to make a type specimen book
+      </p>
+      <!------------------------------ProductAttribute------------------------------------>
+      <h4 class="col-12 my-3">{{'ProductAttribute' | translate}}:</h4>
+      <p class="col-md-6"><span>{{'Purity' | translate}} * : </span>Purity</p>
+      <p class="col-md-6"><span>{{'Appearance' | translate}} : </span>Appearance</p>
+      <p class="col-md-6"><span>{{'Storage' | translate}} : </span>Storage</p>
+      <p class="col-md-6"><span>{{'Application' | translate}} * : </span>Application</p>
+
+
+      <!------------------------------ProductAdvantage------------------------------------>
+      <h4 class="col-12 my-3">{{'ProductAdvantage' | translate}}:</h4>
+      <p class="col-md-12 font-size-16">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+        Ipsum has been the industry’s standard dummy text ever since the 1500s,when an unknown printer took a galley of
+        type and scrambled it to make a type specimen book
+      </p>
+      <!------------------------------KeySpecification------------------------------------>
+      <h4 class="col-12 my-3">{{'KeySpecification' | translate}}:</h4>
+
+      <p class="col-12 "><span>{{'RelatedSubstances' | translate}} : </span>RelatedSubstances</p>
+      <p class="col-md-6"><span>{{'Residue_on_ignition' | translate}} : </span>Residue_on_ignition</p>
+      <p class="col-md-6"><span>{{'HeavyMetal' | translate}} : </span>HeavyMetal</p>
+      <p class="col-md-6"><span>{{'ValidPeriod' | translate}} : </span>ValidPeriod</p>
+      <p class="col-md-6"><span>{{'MeltingRange' | translate}} : </span>MeltingRange</p>
+      <p class="col-md-6"><span>{{'Loss_on_drying' | translate}} : </span>Loss_on_drying</p>
+      <p class="col-md-6"><span>{{'PH' | translate}} : </span>PH</p>
+      <p class="col-md-6"><span>{{'ResidualSolvents' | translate}} : </span>ResidualSolvents</p>
+      <p class="col-md-6"><span>{{'From' | translate}} : </span>From</p>
+      <p class="col-md-6 d-flex align-items-center">
+        <img src="assets/icons/checkbox.svg" alt="Micronization" width="24">
+        <span class="d-inline-block mx-3 main2-color font-size-16">{{'Micronization' | translate}}</span>
+      </p>
+      <p class="col-md-6"><span>{{'ParticleSizeD90' | translate}} * : </span>ParticleSizeD90</p>
+      <p class="col-12"><span>{{'OpticalRotation' | translate}} : </span>OpticalRotation</p>
+      <p class="col-md-6"><span>{{'DissolutionRate' | translate}} * : </span>DissolutionRate</p>
+      <p class="col-md-6"><span>{{'hour' | translate}} * : </span>hour</p>
+      <p class="col-md-6"><span>{{'Total_viable_aerobic_Count' | translate}} : </span>5</p>
+      <p class="col-md-6"><span>{{'Total_yeast_and_mould_count' | translate}} : </span>5</p>
+      <p class="col-md-6"><span>{{'EscherichiaColi' | translate}} : </span>EscherichiaColi</p>
+      <p class="col-md-6"><span>{{'SalmonellaSpecies' | translate}} : </span>SalmonellaSpecies</p>
+      <p class="col-md-6 d-flex align-items-center">
+        <img src="assets/icons/checkbox.svg" alt="Injection" width="24">
+        <span class="d-inline-block mx-3 main2-color font-size-16">{{'Injection' | translate}}</span>
+      </p>
+      <p class="col-md-6"><span>{{'endotoxinTest' | translate}} * : </span>endotoxinTest</p>
+      <!------------------------------ProductCertificates------------------------------------>
+      <h4 class="col-12 my-3">{{'ProductCertificates' | translate}}:</h4>
+      <div class="col-12">
+        <app-imgs-preview></app-imgs-preview>
+      </div>
+
+
+      <!------------------------------TradeInformation------------------------------------>
+      <h4 class="col-12 my-3">{{'TradeInformation' | translate}}:</h4>
+      <p class="col-md-6"><span>{{'MinimumOrderQuantity' | translate}} : </span>orderQuantity</p>
+      <p class="col-md-6"><span>{{'Unit' | translate}} : </span>Unit</p>
+      <p class="col-md-6"><span>{{'Storage' | translate}} : </span>Storage</p>
+      <p class="col-md-6"><span>{{'ValidPeriod' | translate}} : </span>ValidPeriod</p>
+
+      <!------------------------------ProductPrice------------------------------------>
+      <h4 class="col-12 my-3">{{'ProductPrice' | translate}}:</h4>
+
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table">
+            <tbody>
+              <tr *ngFor="let item of prices; let i =index">
+                <td class="px-2 py-0 align-middle"> <span class="index">{{i+1}}</span></td>
+                <td class="px-2 py-0 align-middle">{{'Quantity #0'+i+1}}</td>
+                <td class="px-2 py-0 align-middle">
+                  <span class="main2-color font-size-16">{{'From' | translate}} * : &nbsp;</span> {{item?.from?.value}}
+                  {{item?.from?.type}}
+                </td>
+                <td class="px-2 py-0 align-middle">
+                  <span class="main2-color font-size-16">{{'To' | translate}} * : &nbsp;</span> {{item?.to?.value}}
+                  {{item?.to?.type}}
+                </td>
+                <td class="px-2 py-0 align-middle">
+                  <span class="main2-color font-size-16">{{'Price' | translate}} * : &nbsp;</span>
+                  {{item?.price?.value}}
+                  {{item?.price?.type}}
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <p class="col-12"><span>{{'PaymentTerms' | translate}} : </span>PaymentTerms</p>
+
+
+      <!------------------------------AllowedSample------------------------------------>
+      <h4 class="col-12 my-3">{{'AllowedSample' | translate}}:</h4>
+
+      <p class="col-md-6 d-flex align-items-center">
+        <img src="assets/icons/checkbox.svg" alt="AllowedSample" width="24">
+        <span class="d-inline-block mx-3 main2-color font-size-16">{{'AllowedSample' | translate}}</span>
+      </p>
+      <p class="col-md-6"><span>{{'sampleType' | translate}} * : </span>sampleType</p>
+      <p class="col-md-6"><span>{{'SampleSize' | translate}} * : </span>SampleSize</p>
+      <p class="col-md-6"><span>{{'SampleUnit' | translate}} * : </span>SampleUnit</p>
+
+
+
+      <!------------------------------ProductShipping------------------------------------>
+      <h4 class="col-12 my-3">{{'ProductShipping' | translate}}:</h4>
+
+      <p class="col-12"><span>{{'Port_of_Discharge' | translate}} : </span>Port_of_Discharge</p>
+
+      <!------------------------------ProductionCapacity------------------------------------>
+      <h4 class="col-12 my-3">{{'ProductionCapacity' | translate}}:</h4>
+
+      <p class="col-12"><span>{{'Value' | translate}} : </span>Value</p>
+      <p class="col-md-6"><span>{{'Unit' | translate}} : </span>Unit</p>
+      <p class="col-md-6"><span>{{'Period' | translate}} : </span>Period</p>
+      <p class="col-md-6"><span>{{'EstimatedLeadTime' | translate}} : </span>EstimatedLeadTime</p>
+      <p class="col-md-6"><span>{{'Package' | translate}} : </span>Package</p>
+      <p class="col-12"><span>{{'Shipping' | translate}} : </span>Shipping</p>
+      <p class="col-md-6"><span>{{'Incoterms' | translate}} : </span>Incoterms</p>
+      <p class="col-md-6"><span>{{'Transportation' | translate}} : </span>Transportation</p>
+      <!------------------------------ShippingCertificate------------------------------------>
+      <h4 class="col-12 my-3">{{'ShippingCertificate' | translate}}:</h4>
+      <div class="col-12">
+        <app-imgs-preview></app-imgs-preview>
+      </div>
+      <!------------------------------Supplement------------------------------------>
+      <h4 class="col-12 my-3">{{'Supplement' | translate}}:</h4>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<ng-container *ngIf="isLoading; else elseTemplate">
+
+</ng-container>
+<ng-template #elseTemplate>
+  <!-- <div class="the-title mt-lg-0">
+    <h2>{{'Complete_your_profile' | translate}}</h2>
+  </div> -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card white-card">
+        <div class="card-body">
+         
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <formly-form class="row" [form]="form" [model]="model" [fields]="fields" [options]="options"> </formly-form>
+
+            <div class="d-lg-flex justify-content-between mt-3">
+              <div class="d-inline-block">
+                <button type="submit" class="apis-button btn btn-success px-4" [disabled]="form.invalid || isSubmit">
+                  <ng-container *ngIf="isSubmit; else elseTemplate_isSubmit">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                  </ng-container>
+                  <ng-template #elseTemplate_isSubmit>
+                    {{'saveChanges' | translate}}
+                  </ng-template>
+                  </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-template>

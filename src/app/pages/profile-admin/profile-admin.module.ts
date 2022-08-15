@@ -25,7 +25,7 @@ const route: Route[] = [
         path: 'pages/news', loadChildren: () => import('./news/news.module').then(m => m.NewsModule)
       },
       {
-        path: 'faq', loadChildren: () => import('./profile-faq/profile-faq.module').then(m => m.ProfileFaqModule)
+        path: 'faq', loadChildren: () => import('./faqs/faqs.module').then(m => m.FaqsModule)
       },
 
     

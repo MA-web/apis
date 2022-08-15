@@ -6,6 +6,7 @@ import { DeleteAccountAlertComponent } from './delete-account-alert/delete-accou
 import { ProductActionAlertComponent } from './product-action-alert/product-action-alert.component';
 import { EventActionAlertComponent } from './event-action-alert/event-action-alert.component';
 import { NewActionAlertComponent } from './new-action-alert/new-action-alert.component';
+import { FaqActionAlertComponent } from './faq-action-alert/faq-action-alert.component';
 
 
 
@@ -14,7 +15,8 @@ import { NewActionAlertComponent } from './new-action-alert/new-action-alert.com
     DeleteAccountAlertComponent,
     ProductActionAlertComponent,
     EventActionAlertComponent,
-    NewActionAlertComponent
+    NewActionAlertComponent,
+    FaqActionAlertComponent
   ],
   imports: [
     CommonModule,
