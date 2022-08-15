@@ -181,7 +181,7 @@
           <h3>{{'latestNews' | translate}}</h3>
           <div class="event">
             <div class="event-img  bg-white">
-              <img class="d-block m-auto"
+              <img class="d-block m-auto" style="width: 100%"
                 [defaultImage]="latestNews[0]?.image?.reference ? latestNews[0]?.image?.reference : './assets/img/latest.png'"
                 [lazyLoad]="latestNews[0]?.image?.reference ? latestNews[0]?.image?.reference : './assets/img/latest.png'"
                 onerror="this.src='./assets/img/latest.png';"
@@ -334,4 +334,4 @@
 </div>
 <!-- end partners -->
 <app-footer></app-footer>
-<app-inbox-icon></app-inbox-icon>
+<app-inbox-icon *ngIf="userData"></app-inbox-icon>

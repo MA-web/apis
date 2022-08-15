@@ -111,7 +111,7 @@ export class AddEvent2Component extends AppBaseComponent implements OnInit, OnDe
           type: 'ng-select',
           defaultValue: this.eventDto?.city?.origin?.originId,
           templateOptions: {
-            label: this._translateService.instant('companyLocation'),
+            label: this._translateService.instant('location'),
             options: res[0]?.map(v => ({ label: v.originName, value: v.originId })),
             change: (f, e) => {
               if (e) {

@@ -59,7 +59,7 @@ export class SendInboxComponent extends AppBaseComponent implements OnInit, OnDe
         id:this.userData?.role === roles.customer?this.userData?.id :this.userData?.supplierId,
       },
       supplier:{
-        id:+this.supplierId? +this.supplierId : undefined
+        id:+this.supplierId? +this.supplierId : +this.userData?.supplierId ? +this.userData?.supplierId : undefined
       }
     }
  

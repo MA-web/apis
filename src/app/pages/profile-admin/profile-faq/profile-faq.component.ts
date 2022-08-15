@@ -293,6 +293,7 @@ export class ProfileFaqComponent extends AppBaseComponent implements OnInit, OnD
           defaultValue: this.ProfileDto?.userProfile?.workingIn,
           templateOptions: {
             label: this._translateService.instant('WorkingIn'),
+            placeholder: this._translateService.instant('keyword')
           }
         },
         {

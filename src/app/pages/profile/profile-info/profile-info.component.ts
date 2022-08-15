@@ -280,10 +280,11 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
         {
           className: 'col-12',
           key: 'aboutMe',
-          type: 'input',
+          type: 'textarea',
           defaultValue: this.ProfileDto?.userProfile?.aboutMe,
           templateOptions: {
             label: this._translateService.instant('AboutMe'),
+            rows: 5
           }
         },
         {
@@ -293,6 +294,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
           defaultValue: this.ProfileDto?.userProfile?.workingIn,
           templateOptions: {
             label: this._translateService.instant('WorkingIn'),
+            placeholder: this._translateService.instant('keyword')
           }
         },
         {
