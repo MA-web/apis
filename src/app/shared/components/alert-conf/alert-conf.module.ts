@@ -7,6 +7,7 @@ import { ProductActionAlertComponent } from './product-action-alert/product-acti
 import { EventActionAlertComponent } from './event-action-alert/event-action-alert.component';
 import { NewActionAlertComponent } from './new-action-alert/new-action-alert.component';
 import { FaqActionAlertComponent } from './faq-action-alert/faq-action-alert.component';
+import { PartnerActionAlertComponent } from './partner-action-alert/partner-action-alert.component';
 
 
 
@@ -16,7 +17,8 @@ import { FaqActionAlertComponent } from './faq-action-alert/faq-action-alert.com
     ProductActionAlertComponent,
     EventActionAlertComponent,
     NewActionAlertComponent,
-    FaqActionAlertComponent
+    FaqActionAlertComponent,
+    PartnerActionAlertComponent
   ],
   imports: [
     CommonModule,

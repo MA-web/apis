@@ -1,0 +1,59 @@
+<div class="supplier-product">
+  <div class=" d-flex flex-md-row flex-column">
+    <div class="product-img">
+      <img
+      [defaultImage]="partner?.partnerLogo?.reference ? partner?.partnerLogo?.reference : 'assets/img/image2.jpg'"
+      [lazyLoad]="partner?.partnerLogo ? partner?.partnerLogo : 'assets/img/image2.jpg'"
+      onerror="this.src='assets/img/image2.jpg';" class="img-fluid lazy-loading"
+      alt="{{ partner?.partnerName ? partner.partnerName : '' }}" />
+    </div>
+    <div class="product-details ml-3">
+      <h4>{{partner?.partnerName}}</h4>
+
+      <div class="product-details-2 mt-4">
+        <div class="row">
+          <!-- <span>{{'content' | translate}}: </span> -->
+          <!-- <div class="col-12">
+            <p>{{partner?.content}}</p>
+          </div> -->
+          <!-- <div class="col-12">
+            <p><span>{{'city' | translate}}: </span>{{event?.city}}</p>
+          </div> -->
+          <!-- <div class="col-12">
+            <p><span>{{'status' | translate}}: </span>{{status[event?.status]}}</p>
+          </div> -->
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="product-btns">
+        <button type="button" class="apis-button btn-outline-info" [routerLink]="['/profile-admin','partners','edit',partner?.partnerId]">
+          <span [inlineSVG]="'assets/icons/edit.svg'"></span>
+          {{'edit' |translate}}
+        </button>
+        <button type="button" class="apis-button btn-danger" (click)="onAction('delete')">
+          <span [inlineSVG]="'assets/icons/delete.svg'"></span>
+          {{'delete' |translate}}
+        </button>
+        <button type="button" class="apis-button btn-outline-success" (click)="onAction('Republish')">
+          <span [inlineSVG]="'assets/icons/Republish.svg'"></span>
+          {{'Republish' |translate}}
+        </button>
+        <button type="button" class="apis-button btn-danger" (click)="onAction('UnPublish')">
+          <span [inlineSVG]="'assets/icons/Un-Publish.svg'"></span>
+          {{'UnPublish' |translate}}
+        </button>
+
+        <!-- <button type="button" class="apis-button btn btn-warning pull-md-right" [routerLink]="['/partners/details/',partner?.partnerId]"  >
+          <span [inlineSVG]="'assets/icons/eye.svg'"></span>
+          {{'Preview' |translate}}
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -150,6 +150,52 @@ export class PartnersControllerService {
         );
     }
 
+        /**
+     * getPartnerById
+     * 
+     * @param partnerId partnerId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getPartnerByIdUsingGET(partnerId: number, observe?: 'body', reportProgress?: boolean): Observable<PartnerDto>;
+    public getPartnerByIdUsingGET(partnerId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PartnerDto>>;
+    public getPartnerByIdUsingGET(partnerId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PartnerDto>>;
+    public getPartnerByIdUsingGET(partnerId: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+
+        if (partnerId === null || partnerId === undefined) {
+            throw new Error('Required parameter partnerId was null or undefined when calling getPartnerByIdUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PartnerDto>(`${this.basePath}/api/partner/${encodeURIComponent(String(partnerId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
     /**
      * deletePartner
      * 
