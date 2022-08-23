@@ -42,7 +42,7 @@ export class AddNewComponent extends AppBaseComponent implements OnInit, OnDestr
     await this._translateService.get('dummyTranslation').toPromise().then();
     let observableGetProfile ;
     if(this.newId) {
-        observableGetProfile = this._publicDataControllerService.getNewsByIdUsingGET(this.newId)
+        observableGetProfile = this._newsControllerService.getNewsByIdUsingGET(this.newId)
     } else {
       observableGetProfile = of({
         title: '',

@@ -11,18 +11,20 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec }                        from '../encoder';
+import { Inject, Injectable, Optional } from '@angular/core';
+import {
+    HttpClient, HttpHeaders, HttpParams,
+    HttpResponse, HttpEvent
+} from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
-import { Observable }                                        from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { NewsDto } from '../model/newsDto';
 import { PageNewsDto } from '../model/pageNewsDto';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 
 @Injectable()
@@ -32,7 +34,7 @@ export class NewsControllerService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -66,7 +68,7 @@ export class NewsControllerService {
     public countUsingGET2(observe?: 'body', reportProgress?: boolean): Observable<{ [key: string]: number; }>;
     public countUsingGET2(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<{ [key: string]: number; }>>;
     public countUsingGET2(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<{ [key: string]: number; }>>;
-    public countUsingGET2(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public countUsingGET2(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -99,6 +101,52 @@ export class NewsControllerService {
     }
 
     /**
+     * getNewsById
+     * 
+     * @param newsId newsId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getNewsByIdUsingGET(newsId: number, observe?: 'body', reportProgress?: boolean): Observable<NewsDto>;
+    public getNewsByIdUsingGET(newsId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<NewsDto>>;
+    public getNewsByIdUsingGET(newsId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<NewsDto>>;
+    public getNewsByIdUsingGET(newsId: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+
+        if (newsId === null || newsId === undefined) {
+            throw new Error('Required parameter newsId was null or undefined when calling getNewsByIdUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<NewsDto>(`${this.basePath}/api/news/${encodeURIComponent(String(newsId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * createNews
      * 
      * @param newsDto newsDto
@@ -108,7 +156,7 @@ export class NewsControllerService {
     public createNewsUsingPOST(newsDto: NewsDto, observe?: 'body', reportProgress?: boolean): Observable<NewsDto>;
     public createNewsUsingPOST(newsDto: NewsDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<NewsDto>>;
     public createNewsUsingPOST(newsDto: NewsDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<NewsDto>>;
-    public createNewsUsingPOST(newsDto: NewsDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createNewsUsingPOST(newsDto: NewsDto, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (newsDto === null || newsDto === undefined) {
             throw new Error('Required parameter newsDto was null or undefined when calling createNewsUsingPOST.');
@@ -160,7 +208,7 @@ export class NewsControllerService {
     public deleteNewsUsingDELETE(newsId: number, observe?: 'body', reportProgress?: boolean): Observable<NewsDto>;
     public deleteNewsUsingDELETE(newsId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<NewsDto>>;
     public deleteNewsUsingDELETE(newsId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<NewsDto>>;
-    public deleteNewsUsingDELETE(newsId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public deleteNewsUsingDELETE(newsId: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (newsId === null || newsId === undefined) {
             throw new Error('Required parameter newsId was null or undefined when calling deleteNewsUsingDELETE.');
@@ -207,11 +255,11 @@ export class NewsControllerService {
     public getAdminNewsUsingGET(page?: number, size?: number, observe?: 'body', reportProgress?: boolean): Observable<PageNewsDto>;
     public getAdminNewsUsingGET(page?: number, size?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageNewsDto>>;
     public getAdminNewsUsingGET(page?: number, size?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageNewsDto>>;
-    public getAdminNewsUsingGET(page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAdminNewsUsingGET(page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
 
 
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        let queryParameters = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
         if (page !== undefined && page !== null) {
             queryParameters = queryParameters.set('page', <any>page);
         }
@@ -260,7 +308,7 @@ export class NewsControllerService {
     public publishNewsUsingPUT(newsId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public publishNewsUsingPUT(newsId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public publishNewsUsingPUT(newsId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public publishNewsUsingPUT(newsId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public publishNewsUsingPUT(newsId: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (newsId === null || newsId === undefined) {
             throw new Error('Required parameter newsId was null or undefined when calling publishNewsUsingPUT.');
@@ -308,7 +356,7 @@ export class NewsControllerService {
     public unPublishNewsUsingPUT(newsId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public unPublishNewsUsingPUT(newsId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public unPublishNewsUsingPUT(newsId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public unPublishNewsUsingPUT(newsId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public unPublishNewsUsingPUT(newsId: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (newsId === null || newsId === undefined) {
             throw new Error('Required parameter newsId was null or undefined when calling unPublishNewsUsingPUT.');
@@ -356,7 +404,7 @@ export class NewsControllerService {
     public updateNewsUsingPUT(newsDto: NewsDto, observe?: 'body', reportProgress?: boolean): Observable<NewsDto>;
     public updateNewsUsingPUT(newsDto: NewsDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<NewsDto>>;
     public updateNewsUsingPUT(newsDto: NewsDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<NewsDto>>;
-    public updateNewsUsingPUT(newsDto: NewsDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateNewsUsingPUT(newsDto: NewsDto, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         if (newsDto === null || newsDto === undefined) {
             throw new Error('Required parameter newsDto was null or undefined when calling updateNewsUsingPUT.');

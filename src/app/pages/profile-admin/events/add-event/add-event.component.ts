@@ -42,7 +42,7 @@ export class AddEventComponent extends AppBaseComponent implements OnInit, OnDes
     await this._translateService.get('dummyTranslation').toPromise().then();
     let observableGetProfile ;
     if(this.eventId) {
-        observableGetProfile = this._publicDataControllerService.getEventByIdUsingGET(this.eventId)
+        observableGetProfile = this._eventControllerService.getEventByEventIdUsingGET(this.eventId)
     } else {
       observableGetProfile = of({
         title: '',

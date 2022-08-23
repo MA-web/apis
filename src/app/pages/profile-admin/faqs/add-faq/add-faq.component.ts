@@ -42,8 +42,7 @@ export class AddFaqComponent extends AppBaseComponent implements OnInit, OnDestr
     await this._translateService.get('dummyTranslation').toPromise().then();
     let observableGetProfile ;
     if(this.faqId) {
-      // later get getFaqByIdUsingGET
-        observableGetProfile = this._publicDataControllerService.getEventByIdUsingGET(this.faqId)
+        observableGetProfile = this._faqControllerService.getFaqByIdUsingGET(this.faqId)
     } else {
       observableGetProfile = of({
         question: '',
