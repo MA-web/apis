@@ -130,7 +130,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
         {
           className: 'col-sm-6 col-12',
           key: 'fax',
-          type: 'input',
+          type: 'phone',
           defaultValue: this.ProfileDto?.userProfile?.fax,
           templateOptions: {
             label: this._translateService.instant('Fax')
@@ -259,10 +259,11 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
         {
           className: 'col-sm-6 col-12',
           key: 'companyType',
-          type: 'input',
+          type: 'ng-select',
           defaultValue: this.ProfileDto?.company?.companyType,
           templateOptions: {
             label: this._translateService.instant('Type'),
+            options: this.getEnumAsOptions(ProfileUserProfileDto.TypeEnum)
           }
         },
         {
@@ -274,6 +275,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
             text: this._translateService.instant('UploadFiles'),
             label: this._translateService.instant('BusinessLicensee'),
             file: this.ProfileDto?.company?.businessLicense?.reference,
+            accept: '.png,.jpg,.jpeg,.pdf'
           }
         },
 
@@ -450,7 +452,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
           totalAnnualSalesVolume: this.model?.totalAnnualSales,
           website: this.model?.website,
         },
-        fax: this.model?.fax,
+        fax: this.model?.fax?.number,
         gender: this.model?.gender,
         interestedIn: this.model?.interestedIn,
         jobTitle: this.model?.jobTitle,
@@ -496,7 +498,7 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
             postalCode: this.model?.postalCode,
             street: this.model?.street,
           },
-          fax: this.model?.fax,
+          fax: this.model?.fax?.number,
           gender: this.model?.gender,
           interestedIn: this.model?.interestedIn,
           landline: this.model?.landLine?.number,

@@ -334,4 +334,4 @@
 </div>
 <!-- end partners -->
 <app-footer></app-footer>
-<app-inbox-icon *ngIf="userData"></app-inbox-icon>
+<app-inbox-icon *ngIf="userData && userData.role !== 'ADMIN'"></app-inbox-icon>

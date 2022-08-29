@@ -180,6 +180,7 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit, O
     const replyToChatUsingPOSTSub = this.InboxControllerService.replyToChatUsingPOST(this.ChatDto?.chatId, MessageDto).pipe(
       finalize(() => {
         this.isSubmit = false;
+        this.toaster.success('Message was sent successfully')
       })
     ).subscribe((res: MessageDto) => {
       if (res) {

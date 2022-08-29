@@ -26,11 +26,20 @@ export interface ProfileUserProfileDto {
     title?: string;
     userProfileId?: number;
     workingIn?: string;
+    type?: ProfileUserProfileDto.TypeEnum;
 }
 export namespace ProfileUserProfileDto {
     export type GenderEnum = 'FEMALE' | 'MALE';
     export const GenderEnum = {
         FEMALE: 'FEMALE' as GenderEnum,
         MALE: 'MALE' as GenderEnum
+    };
+
+    export type TypeEnum = 'Manufacturer' | 'Trader' | 'Manufacturer_and_Trader' | 'Broker';
+    export const TypeEnum = {
+        Manufacturer: 'Manufacturer' as TypeEnum,
+        Trader: 'Trader' as TypeEnum,
+        Manufacturer_and_Trader: 'Manufacturer and Trader' as TypeEnum,
+        Broker: 'Broker' as TypeEnum,
     };
 }
