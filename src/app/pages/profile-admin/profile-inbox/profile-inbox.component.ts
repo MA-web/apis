@@ -71,7 +71,7 @@ export class ProfileInboxComponent extends AppBaseComponent implements OnInit, O
       {
         className: 'col-12 mt-4',
         key: 'inboxImages',
-        type: 'file-upload',
+        type: 'upload',
         templateOptions: {
           text: this._translateService.instant('UploadFiles'),
           multiple: true

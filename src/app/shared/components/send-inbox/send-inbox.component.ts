@@ -65,7 +65,9 @@ export class SendInboxComponent extends AppBaseComponent implements OnInit, OnDe
  
 
     if(this.admin){
-      chat.adminChat = true
+      chat.adminChat = true;
+      delete chat.user;
+      delete chat.supplier;
     }
 
    const createChatUsingPOSTSub = this.InboxControllerService.createChatUsingPOST(chat).pipe(

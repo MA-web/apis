@@ -18,4 +18,5 @@ export interface ProfileUserDto {
     firstName?: string;
     lastName?: string;
     userId?: number;
+    email?: string;
 }

@@ -283,5 +283,6 @@
     "addEvent": "Add Event",
     "Publish": "Publish",
     "Update": "Update"
-  }
+  },
+  "subscribedSuccessfully": "Subscribed Successfully"
 }

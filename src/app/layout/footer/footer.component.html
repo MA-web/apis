@@ -34,9 +34,9 @@
                 <p>Join our movement with newsletters, updates, and offers.</p>
                 <form>
                     <div class="input-group mb-3 subscribe">
-                        <input type="text" class="form-control" placeholder="Your Email">
+                        <input type="text" class="form-control" [formControl]="emailControl" placeholder="Your Email">
                         <div class="input-group-append">
-                          <button class="btn" type="submit">Subscribe</button>
+                          <button class="btn" type="button" (click)="onSubmit()">Subscribe</button>
                         </div>
                     </div>
                 </form>

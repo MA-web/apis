@@ -101,6 +101,16 @@ export class ProfileInfoComponent extends AppBaseComponent implements OnInit, On
         },
         {
           className: 'col-12',
+          key: 'email',
+          type: 'input',
+          defaultValue: this.ProfileDto?.user?.email,
+          templateOptions: {
+            label: this._translateService.instant('email'),
+            readonly: true
+          }
+        },
+        {
+          className: 'col-12',
           key: 'gender',
           type: 'ng-select',
           defaultValue: this.ProfileDto?.userProfile?.gender,
